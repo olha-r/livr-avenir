@@ -1,0 +1,78 @@
+body {
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+}
+
+html {
+    height: 100%;
+}
+
+h1 {
+    color: var(--primary-dark-color);
+}
+
+.home-page-img {
+    background-image: url('../images/book-wall-1151405_1920.jpg');
+    margin-top: 60px;
+    height: 500px;
+}
+
+
+/********* Navbar **********/
+.navbar {
+    background-color: var(--secondary-dark-color) !important;
+}
+
+.navbar a {
+    color: var(--primary-dark-color);
+}
+
+.btn {
+    background-color: var(--primary-light-color);
+    border-color: var(--primary-light-color);
+    border-radius: 0.6rem;
+}
+
+.btn:hover {
+    background-color: var(--secondary-light-color);
+    border-color: var(--primary-light-color);
+}
+
+.btn:active {
+    background-color: var(--secondary-light-color);
+    border-color: var(--primary-light-color);
+}
+
+.form-control {
+    background-color: var(--secondary-dark-color);
+}
+
+.form-control:focus {
+    border: 3px solid var(--secondary-dark-color);
+    border-color: var(--secondary-dark-color);
+    box-shadow: 0px 0px 4px 4px var(--secondary-dark-color);
+}
+
+
+/******* Book details page *******/
+.book-details-container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+}
+
+.book-owner {
+    background-color: var(--secondary-light-color);
+}
+
+.avatar {
+    height: auto;
+    width: 80px;
+    border-radius: 50%;
+}
+
+
+footer {
+    background-color: var(--secondary-dark-color);
+}
