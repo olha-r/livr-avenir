@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffre aux trésors</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./src/css/variables.css">
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"
+        defer></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Coffre aux trésors</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./home.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./sign-up.html">S'inscrire</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./sign-in.html">Se connecter</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container-xl my-5">
+        <div class="justify-content-center align-items-center book-details-container">
+            <div class="text-center">
+                <h1>Ajouter un livre</h1>
+            </div>
+
+            <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="title" class="form-label">Titre de livre</label>
+                        <input name="title" id="title" type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="author" class="form-label">Auteur de livre</label>
+                        <input name="author" id="author" type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input name="isbn" id="isbn" type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="edition" class="form-label">Edition</label>
+                        <input name="edition" id="edition" type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="publicationYear" class="form-label">L'année de publication</label>
+                        <input name="publicationYear" id="publicationYear" type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="numberPages" class="form-label">Nombres de pages</label>
+                        <input name="numberPages" id="numberPages" type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="format" class="form-label">Format</label>
+                        <select name="format" id="format" class="form-select">
+                            <option value="">Choisir...</option>
+                            <option>Broché</option>
+                            <option>Relié</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="language" class="form-label">Langue</label>
+                        <select name="language" id="language" class="form-select">
+                            <option value="">Choisir...</option>
+                            <option>Français</option>
+                            <option>Anglais</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>Categories:</p>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="category">
+                                    <label class="form-check-label" for="category">Littérature</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="category">
+                                    <label class="form-check-label" for="category">Jeunesse</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="category">
+                                    <label class="form-check-label" for="category">Bandes dessinées</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="category">
+                                    <label class="form-check-label" for="category">Loisir - Nature - Voyage</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="category">
+                                    <label class="form-check-label" for="category">Art - Musique - Cinéma</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="category">
+                                    <label class="form-check-label" for="category">Autre</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="imageUpload">Upload</label>
+                            <input name="imageUpload" id="imageUpload" type="file" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="state" class="form-label">Etat du livre</label>
+                        <select id="state" class="form-select">
+                            <option value="">Choisir...</option>
+                            <option>Excellent</option>
+                            <option>Très bon</option>
+                            <option>Bon</option>
+                            <option>Satisfaisant</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="estimation" class="form-label">Estimation en points</label>
+                        <select class="form-select" id="estimation" required>
+                            <option value="">Choisir...</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg col-md-6">Ajouter</button>
+                </div>
+
+        </div>
+        </form>
+        </div>
+    </main>
+    <footer class="text-center text-lg-start text-muted">
+        <div class="text-center p-4">
+            &copy; Copyright 2022 Coffre aux trésors
+        </div>
+    </footer>
+</body>
+
+</html>
