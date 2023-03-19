@@ -1,0 +1,48 @@
+.form-control {
+    background-color: var(--secondary-dark-color);
+}
+
+.form-control:focus {
+    border: 3px solid var(--secondary-dark-color);
+    border-color: var(--secondary-dark-color);
+    box-shadow: 0px 0px 4px 4px var(--secondary-dark-color);
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-light-color) !important;
+    border: 0;
+}
+
+.form-check-input:focus,
+.label::after,
+label.form-check-label:focus,
+.form-check-input::after,
+.form-check-input:not(:disabled):not(.disabled):active:focus {
+    color: black;
+    outline: 0;
+    border: 0;
+    box-shadow: 0 0 0 0.1rem var(--primary-light-color) !important;
+}
+
+.form-select {
+    background-color: var(--secondary-dark-color);
+}
+
+.form-select:focus {
+    border: 3px solid var(--secondary-dark-color);
+    border-color: var(--secondary-dark-color);
+    box-shadow: 0px 0px 4px 4px var(--secondary-dark-color);
+}
+
+.input-group-text {
+    background-color: var(--secondary-light-color);
+}
+
+.required:after {
+    content: "*";
+    color: rgb(209, 1, 1);
+}

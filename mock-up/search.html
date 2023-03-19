@@ -56,22 +56,57 @@
         </nav>
     </header>
     <main class="container-xl my-5">
-        <div class="row justify-content-center align-items-center">
-            <div class="d-flex justify-content-center mt-4">
-                <h1>Se connecter</h1>
+
+        <div class="justify-content-center align-items-center book-details-container">
+            <div class="input-group mb-3">
+                <input class="form-control" type="text" placeholder="Tapez pour rechercher..."
+                    aria-describedby="bookSearch">
+                <button class="btn btn-outline-secondary" type="button" id="bookSearch"><i
+                        class="bi bi-search"></i></button>
             </div>
-            <form class="col-md-5">
-                <div class="mb-3">
-                    <label for="email" class="form-label required">Email</label>
-                    <input name="email" id="email" type="email" class="form-control" aria-describedby="emailHelp">
+
+
+            <h2 class="text-center my-4">Livres correspondants à votre recherche:</h2>
+            <div class="row row-cols-2 row-cols-md-4 g-5">
+
+                <div class="col">
+                    <div class="card">
+                        <img src="./src/images/book-image-example.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Titre de livre</h5>
+                            <p class="card-subtitle mb-2 text-muted text-center">Auteur de livre</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label required">Mot de passe</label>
-                    <input name="password" id="password" type="password" class="form-control">
+                <div class="col">
+                    <div class="card">
+                        <img src="./src/images/book-image-example.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Titre de livre</h5>
+                            <p class="card-subtitle mb-2 text-muted text-center">Auteur de livre</p>
+                        </div>
+                    </div>
                 </div>
-                <button nametype="submit" class="btn btn-primary col-12 mb-3">Se connecter</button>
-            </form>
-        </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="./src/images/book-image-example.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Titre de livre</h5>
+                            <p class="card-subtitle mb-2 text-muted text-center">Auteur de livre</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="./src/images/book-image-example.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Titre de livre</h5>
+                            <p class="card-subtitle mb-2 text-muted text-center">Auteur de livre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     </main>
     <footer class="text-center text-lg-start text-muted">
         <div class="text-center p-4">
