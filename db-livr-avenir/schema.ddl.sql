@@ -1,0 +1,45 @@
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS conditions;
+DROP TABLE IF EXISTS formats;
+DROP TABLE IF EXISTS languages;
+
+CREATE TABLE categories (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE NOT NULL
+);
+
+CREATE TABLE conditions (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE NOT NULL,
+	logical_order SMALLINT NOT NULL
+);
+
+CREATE TABLE formats (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE NOT NULL
+);
+
+CREATE TABLE languages (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE NOT NULL,
+	logical_order SMALLINT NOT NULL
+);
+
+CREATE TABLE books (  
+	id SERIAL PRIMARY KEY,
+    isbn VARCHAR(100) UNIQUE NOT NULL,   
+	name VARCHAR(150) UNIQUE NOT NULL,
+	author VARCHAR(150) NOT NULL,
+	year DATE NOT NULL,
+	edition VARCHAR(300) NOT NULL,
+    image VARCHAR(300) UNIQUE NOT NULL,
+	description VARCHAR(1000) NOT NULL,
+    point INTEGER NOT NULL,
+    format_id INTEGER REFERENCES formats(id),
+    language_id INTEGER REFERENCES languages(id) NOT NULL,
+    category_id INTEGER REFERENCES categories(id) NOT NULL,
+    condition_id INTEGER REFERENCES conditions(id) NOT NULL,
+    created_at DATE NOT NULL,
+    updated_at DATE
+);

@@ -1,0 +1,12 @@
+.metadata
+target/
+bin/
+application*.properties
+
+### Eclipse ###
+.classpath
+.project
+.settings
+
+### Others ###
+.DS_Store
