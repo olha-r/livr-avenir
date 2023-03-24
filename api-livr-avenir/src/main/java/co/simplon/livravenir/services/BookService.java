@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
 import co.simplon.livravenir.dtos.BookItem;
+import co.simplon.livravenir.dtos.BookUpdate;
 
 public interface BookService {
 
@@ -15,5 +16,7 @@ public interface BookService {
     BookDetail detail(Long id);
 
     Collection<BookItem> getAll();
+
+    void update(Long id, BookUpdate inputs);
 
 }

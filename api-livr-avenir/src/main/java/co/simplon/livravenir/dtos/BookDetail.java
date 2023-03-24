@@ -18,13 +18,13 @@ public interface BookDetail {
 
     String getDescription();
 
-    // String getFormatName();
+    String getFormatName();
 
-    // String getLanguageName();
+    String getLanguageName();
 
-    // String getCategoryName();
+    String getCategoryName();
 
-    // String getConditionName();
+    String getConditionName();
 
     int getPoint();
 
