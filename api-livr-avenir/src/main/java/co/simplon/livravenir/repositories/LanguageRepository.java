@@ -10,6 +10,6 @@ import co.simplon.livravenir.entities.Language;
 public interface LanguageRepository
 	extends JpaRepository<Language, Long> {
 
-    Collection<LabelValue> findAllProjectedBy();
+    Collection<LabelValue> findAllProjectedByOrderByLogicalOrder();
 
 }

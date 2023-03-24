@@ -10,5 +10,5 @@ import co.simplon.livravenir.entities.Condition;
 public interface ConditionRepository
 	extends JpaRepository<Condition, Long> {
 
-    Collection<LabelValue> findAllProjectedBy();
+    Collection<LabelValue> findAllProjectedByOrderByLogicalOrder();
 }
