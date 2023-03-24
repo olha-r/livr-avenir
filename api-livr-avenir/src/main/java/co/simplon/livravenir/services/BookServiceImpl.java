@@ -115,4 +115,10 @@ public class BookServiceImpl implements BookService {
 	entity.setUpdatedAt(updatedAt);
     }
 
+    @Transactional
+    @Override
+    public void delete(Long id) {
+	books.deleteById(id);
+    }
+
 }

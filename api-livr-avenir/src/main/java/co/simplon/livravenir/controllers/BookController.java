@@ -3,6 +3,7 @@ package co.simplon.livravenir.controllers;
 import java.util.Collection;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,10 +45,16 @@ public class BookController {
 	return service.getAll();
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable("id") Long id,
 	    @RequestBody BookUpdate inputs) {
 	service.update(id, inputs);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") Long id) {
+	service.delete(id);
     }
 }
