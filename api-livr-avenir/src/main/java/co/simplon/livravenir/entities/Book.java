@@ -180,15 +180,12 @@ public class Book extends AbstractEntity {
 
     @Override
     public String toString() {
-	return "{isbn=" + isbn + ", name=" + name
-		+ ", author=" + author + ", year=" + year
-		+ ", edition=" + edition + ", image="
-		+ image + ", description=" + description
-		+ ", format=" + format + ", language="
-		+ language + ", category=" + category
-		+ ", condition=" + condition + ", point="
-		+ point + ", createdAt=" + createdAt
-		+ ", updatedAt=" + updatedAt + "}";
+	return String.format(
+		"{isbn=%s, name=%s, author=%s, year=%s, edition=%s, image=%s, description=%s, format=%s, language=%s, category=%s, condition=%s, point=%s, createdAt=%s, updatedAt=%s}",
+		getId(), isbn, name, author, year, edition,
+		image, description, "LAZY_LOADED",
+		"LAZY_LOADED", "LAZY_LOADED", "LAZY_LOADED",
+		point, createdAt, updatedAt);
     }
 
 }

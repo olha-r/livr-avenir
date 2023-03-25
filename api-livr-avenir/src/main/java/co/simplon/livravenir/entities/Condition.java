@@ -40,8 +40,9 @@ public class Condition extends AbstractEntity {
 
     @Override
     public String toString() {
-	return "{name=" + name + ", logicalOrder="
-		+ logicalOrder + "}";
+	return String.format(
+		"{name=%s, logicalOrder=%s, getId()=%s}",
+		name, logicalOrder, getId());
     }
 
 }

@@ -27,7 +27,8 @@ public class Category extends AbstractEntity {
 
     @Override
     public String toString() {
-	return "{name=" + name + "}";
+	return String.format("{name=%s, getId()=%s}", name,
+		getId());
     }
 
 }
