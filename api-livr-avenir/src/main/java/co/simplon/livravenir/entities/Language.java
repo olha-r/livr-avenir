@@ -10,6 +10,7 @@ public class Language extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "logical_order")
     private int logicalOrder;
 
     public Language() {
