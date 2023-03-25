@@ -18,15 +18,15 @@ public class BookCreate {
 
     private String description;
 
-    private Long formatId;
-
-    private Long languageId;
+    private int point;
 
     private Long categoryId;
 
     private Long conditionId;
 
-    private int point;
+    private Long formatId;
+
+    private Long languageId;
 
     public BookCreate() {
 	// Required no-arg constructor
@@ -88,20 +88,12 @@ public class BookCreate {
 	this.description = description;
     }
 
-    public Long getFormatId() {
-	return formatId;
+    public int getPoint() {
+	return point;
     }
 
-    public void setFormatId(Long formatId) {
-	this.formatId = formatId;
-    }
-
-    public Long getLanguageId() {
-	return languageId;
-    }
-
-    public void setLanguageId(Long languageId) {
-	this.languageId = languageId;
+    public void setPoint(int point) {
+	this.point = point;
     }
 
     public Long getCategoryId() {
@@ -120,12 +112,20 @@ public class BookCreate {
 	this.conditionId = conditionId;
     }
 
-    public int getPoint() {
-	return point;
+    public Long getFormatId() {
+	return formatId;
     }
 
-    public void setPoint(int point) {
-	this.point = point;
+    public void setFormatId(Long formatId) {
+	this.formatId = formatId;
+    }
+
+    public Long getLanguageId() {
+	return languageId;
+    }
+
+    public void setLanguageId(Long languageId) {
+	this.languageId = languageId;
     }
 
     @Override
@@ -134,10 +134,10 @@ public class BookCreate {
 		+ ", author=" + author + ", year=" + year
 		+ ", edition=" + edition + ", image="
 		+ image + ", description=" + description
-		+ ", formatId=" + formatId + ", languageId="
-		+ languageId + ", categoryId=" + categoryId
-		+ ", conditionId=" + conditionId
-		+ ", point=" + point + "}";
+		+ ", point=" + point + ", categoryId="
+		+ categoryId + ", conditionId="
+		+ conditionId + ", formatId=" + formatId
+		+ ", languageId=" + languageId + "}";
     }
 
 }

@@ -1,5 +1,6 @@
 package co.simplon.livravenir.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -7,6 +8,7 @@ import javax.persistence.Table;
 @Table(name = "categories")
 public class Category extends AbstractEntity {
 
+    @Column(name = "name")
     private String name;
 
     public Category() {

@@ -54,25 +54,30 @@ public class BookServiceImpl implements BookService {
 	entity.setIsbn(inputs.getIsbn());
 	entity.setName(inputs.getName());
 	entity.setAuthor(inputs.getAuthor());
-	Category category = categories
-		.getReferenceById(inputs.getCategoryId());
-	entity.setCategory(category);
-	Condition condition = conditions
-		.getReferenceById(inputs.getConditionId());
-	entity.setCondition(condition);
+
 	LocalDate createdAt = LocalDate.now();
 	entity.setCreatedAt(createdAt);
 	entity.setDescription(inputs.getDescription());
 	entity.setEdition(inputs.getEdition());
-	Format format = formats
-		.getReferenceById(inputs.getFormatId());
-	entity.setFormat(format);
 	entity.setImage(inputs.getImage());
-	Language language = languages
-		.getReferenceById(inputs.getLanguageId());
-	entity.setLanguage(language);
 	entity.setPoint(inputs.getPoint());
 	entity.setYear(inputs.getYear());
+
+	Category category = categories
+		.getReferenceById(inputs.getCategoryId());
+
+	entity.setCategory(category);
+	Format format = formats
+		.getReferenceById(inputs.getFormatId());
+
+	entity.setFormat(format);
+	Language language = languages
+		.getReferenceById(inputs.getFormatId());
+	entity.setLanguage(language);
+
+	Condition condition = conditions
+		.getReferenceById(inputs.getConditionId());
+	entity.setCondition(condition);
 	books.save(entity);
 
     }
