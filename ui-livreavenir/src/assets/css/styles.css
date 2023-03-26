@@ -1,0 +1,132 @@
+body {
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+}
+
+html {
+    height: 100%;
+}
+
+h1 {
+    color: var(--dark-green-color);
+    font-size: 50px;
+}
+
+footer {
+    background-color: var(--light-green-color);
+}
+
+a {
+    color: var(--dark-green-color);
+    text-decoration: none;
+}
+
+/********* Navbar **********/
+.navbar {
+    background-color: var(--light-green-color) !important;
+}
+
+.navbar a {
+    color: var(--dark-green-color);
+}
+
+
+.btn {
+    background-color: var(--dark-orange-color);
+    border-color: var(--dark-orange-color);
+    border-radius: 0.6rem;
+}
+
+.btn:hover {
+    background-color: var(--light-orange-color);
+    border-color: var(--dark-orange-color);
+
+}
+
+.btn:active {
+    background-color: var(--light-orange-color);
+    border-color: var(--dark-orange-color);
+}
+
+.btn:focus {
+    background-color: var(--light-orange-color);
+    border-color: var(--dark-orange-color);
+}
+
+/********** Home page **********/
+.home-page-img {
+    background-image: url('../images/books-home-page.jpg');
+    height: 490px;
+}
+
+.home-page h3 {
+    color: var(--dark-green-color);
+}
+
+.card {
+    color: var(--dark-green-color);
+    background-color: var(--main-bg-color);
+}
+
+/******* Book details page *******/
+.book-details-container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+}
+
+h3 {
+    color: var(--dark-green-color);
+    font-size: 40px;
+}
+
+.author {
+    color: var(--dark-green-color);
+    font-size: 25px;
+}
+
+.book-info {
+    background-color: var(--light-green-color);
+    border-radius: 10px;
+    /* position: relative; */
+}
+
+.book-owner {
+    background-color: var(--light-orange-color);
+    border-radius: 10px;
+}
+
+.avatar {
+    height: auto;
+    width: 80px;
+    border-radius: 50%;
+}
+
+.book-image img {
+    border-radius: 10px;
+}
+
+.book-info .btn {
+    background-color: var(--light-orange-color);
+}
+
+.book-info .btn:hover {
+    background-color: var(--dark-orange-color);
+}
+
+.img-like {
+    font-size: 1.5rem;
+    color: var(black);
+}
+
+.book-owner .btn {
+    background-color: var(--light-orange-color);
+    border: var(--light-orange-color);
+}
+
+.bi-envelope,
+.bi-handbag {
+    font-size: 2.5rem;
+    color: var(black);
+}
