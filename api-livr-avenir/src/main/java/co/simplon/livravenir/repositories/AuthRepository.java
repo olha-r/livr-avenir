@@ -7,6 +7,6 @@ import co.simplon.livravenir.entities.Account;
 public interface AuthRepository
 	extends JpaRepository<Account, Long> {
 
-    Account getByIdentifier(String identifier);
+    Account getByEmail(String identifier);
 
 }

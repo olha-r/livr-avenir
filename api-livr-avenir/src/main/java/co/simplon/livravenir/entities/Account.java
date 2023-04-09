@@ -8,8 +8,14 @@ import javax.persistence.Table;
 @Table(name = "accounts")
 public class Account extends AbstractEntity {
 
-    @Column(name = "identifier")
-    private String identifier;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -21,12 +27,28 @@ public class Account extends AbstractEntity {
 
     }
 
-    public String getIdentifier() {
-	return identifier;
+    public String getFirstName() {
+	return firstName;
     }
 
-    public void setIdentifier(String identifier) {
-	this.identifier = identifier;
+    public void setFirstName(String firstName) {
+	this.firstName = firstName;
+    }
+
+    public String getLastName() {
+	return lastName;
+    }
+
+    public void setLastName(String lastName) {
+	this.lastName = lastName;
+    }
+
+    public String getEmail() {
+	return email;
+    }
+
+    public void setEmail(String email) {
+	this.email = email;
     }
 
     public String getPassword() {
@@ -40,8 +62,8 @@ public class Account extends AbstractEntity {
     @Override
     public String toString() {
 	return String.format(
-		"{identifier=%s, password=%s, roles=%s}",
-		identifier, "{protected}");
+		"{firstName=%s, lastName=%s, email=%s, password=%s}",
+		firstName, lastName, email, "{protected}");
     }
 
 }

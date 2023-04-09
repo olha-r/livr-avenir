@@ -25,7 +25,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void signUp(Credentials inputs) {
 	Account account = new Account();
-	account.setIdentifier(inputs.getIdentifier());
+	account.setFirstName(inputs.getFirstName());
+	account.setLastName(inputs.getLastName());
+	account.setEmail(inputs.getEmail());
 
 	String hashPassword = authHelper
 		.encode(inputs.getPassword());
@@ -41,18 +43,17 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenInfo signIn(Credentials inputs) {
-	String identifier = inputs.getIdentifier();
+	String identifier = inputs.getEmail();
 	String candidate = inputs.getPassword();
-	Account account = authRepo
-		.getByIdentifier(identifier);
+	Account account = authRepo.getByEmail(identifier);
 	if (account != null) {
 	    boolean match = authHelper.matches(candidate,
 		    account.getPassword());
 	    if (match) {
-		String name = account.getIdentifier();
+		String email = account.getEmail();
 		// List<String> roles = account.getRoles();
 		String token = authHelper.createJWT(null,
-			name);
+			email);
 
 		TokenInfo tokenInfo = new TokenInfo();
 		tokenInfo.setToken(token);
