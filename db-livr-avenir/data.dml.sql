@@ -1,3 +1,4 @@
+DELETE FROM accounts;
 DELETE FROM books;
 DELETE FROM categories;
 DELETE FROM conditions;

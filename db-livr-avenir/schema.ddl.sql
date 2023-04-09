@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS conditions;
@@ -43,3 +44,10 @@ CREATE TABLE books (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP
 );
+
+
+CREATE TABLE accounts (
+	id SERIAL PRIMARY KEY,
+	identifier VARCHAR(300) UNIQUE NOT NULL,
+	password VARCHAR(1000) NOT NULL
+)
