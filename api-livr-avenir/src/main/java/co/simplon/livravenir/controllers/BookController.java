@@ -38,14 +38,14 @@ public class BookController {
 	service.create(inputs);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/detail")
     public BookDetail detail(@PathVariable("id") Long id) {
 	return service.detail(id);
     }
 
     @GetMapping
-    public Collection<BookItem> getAll() {
-	return service.getAll();
+    public Collection<BookItem> getTop4LastAdded() {
+	return service.getTop4LastAdded();
     }
 
     @PutMapping("/{id}")

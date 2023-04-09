@@ -1,6 +1,7 @@
 package co.simplon.livravenir.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,7 +54,7 @@ public class Book extends AbstractEntity {
 
     private int point;
 
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     private LocalDate updatedAt;
 
@@ -157,17 +158,17 @@ public class Book extends AbstractEntity {
 	this.point = point;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
 	return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
 	this.createdAt = createdAt;
     }
 
     @PrePersist
     private void createdAt() {
-	setCreatedAt(LocalDate.now());
+	setCreatedAt(LocalDateTime.now());
     }
 
     public LocalDate getUpdatedAt() {

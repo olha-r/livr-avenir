@@ -40,6 +40,6 @@ CREATE TABLE books (
     language_id INTEGER REFERENCES languages(id) NOT NULL,
     category_id INTEGER REFERENCES categories(id) NOT NULL,
     condition_id INTEGER REFERENCES conditions(id) NOT NULL,
-    created_at DATE NOT NULL,
-    updated_at DATE
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP
 );

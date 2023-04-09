@@ -15,10 +15,10 @@ public interface BookService {
 
     BookDetail detail(Long id);
 
-    Collection<BookItem> getAll();
-
     void update(Long id, BookUpdate inputs);
 
     void delete(Long id);
+
+    Collection<BookItem> getTop4LastAdded();
 
 }

@@ -1,5 +1,7 @@
 package co.simplon.livravenir.dtos;
 
+import java.time.LocalDateTime;
+
 public interface BookItem {
 
     Long getId();
@@ -9,5 +11,7 @@ public interface BookItem {
     String getAuthor();
 
     String getImage();
+
+    LocalDateTime getCreatedAt();
 
 }

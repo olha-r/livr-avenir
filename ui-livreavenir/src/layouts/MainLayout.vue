@@ -1,3 +1,10 @@
+<script setup>
+import HeaderComponent from '../components/commons/HeaderComponent.vue';
+const components = {
+  HeaderComponent,
+};
+</script>
+
 <template>
     <div>
         <HeaderComponent />
@@ -10,9 +17,4 @@
       </div>
 </template>
 
-<script setup>
-import HeaderComponent from '../components/HeaderComponent.vue';
-const components = {
-  HeaderComponent,
-};
-</script>
+

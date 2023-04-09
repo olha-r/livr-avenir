@@ -20,7 +20,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/book',
+      path: '/books/:id/detail',
       component: () => import('../layouts/MainLayout.vue'),
       children: [
         { path: '', component: () => import('../pages/BookDetails.vue'), name: "book-details" },
@@ -31,8 +31,8 @@ const router = createRouter({
       component: () => import('../layouts/MainLayout.vue'),
       children: [
         { path: 'register', component: () => import('../pages/RegisterPage.vue'), name: "register" },
-        { path: '/login',component: () => import('../pages/LoginPage.vue'), name: "login" },
-        { path: '/profile',component: () => import('../pages/UserProfile.vue'), name: "profile" },
+        { path: 'login',component: () => import('../pages/LoginPage.vue'), name: "login" },
+        { path: 'profile',component: () => import('../pages/UserProfile.vue'), name: "profile" },
       ]
     },
     {

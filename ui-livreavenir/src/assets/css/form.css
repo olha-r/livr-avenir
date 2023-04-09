@@ -38,7 +38,7 @@ label.form-check-label:focus,
     box-shadow: 0px 0px 4px 4px var(--light-green-color);
 }
 
-.input-group-text {
+.input {
     background-color: var(--light-orange-color);
 }
 

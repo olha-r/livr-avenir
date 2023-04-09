@@ -13,6 +13,6 @@ public interface BookRepository
 
     BookDetail findProjectedById(Long id);
 
-    Collection<BookItem> findAllProjectedBy();
+    Collection<BookItem> findTop4ByOrderByCreatedAtDesc();
 
 }

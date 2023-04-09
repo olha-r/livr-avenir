@@ -1,3 +1,9 @@
+<script>
+export default {
+    name: 'HeaderComponent',
+}
+</script>
+
 <template>
   <header>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -19,9 +25,7 @@
                     <li class="nav-item">
                       <RouterLink class="nav-link" :to="{ name: 'add-book-final' }">Ajouter un livre 2</RouterLink>
                     </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :to="{ name: 'book-details' }">Livre info</RouterLink>
-                    </li>
+                    
                     <li class="nav-item">
                         <RouterLink class="nav-link" :to="{ name: 'register' }">S'inscrire</RouterLink>
                     </li>
@@ -34,8 +38,3 @@
     </nav>
 </header>
 </template>
-<script>
-export default {
-    name: 'HeaderComponent',
-}
-</script>

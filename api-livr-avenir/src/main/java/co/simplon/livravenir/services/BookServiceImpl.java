@@ -1,6 +1,7 @@
 package co.simplon.livravenir.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class BookServiceImpl implements BookService {
 	entity.setName(inputs.getName());
 	entity.setAuthor(inputs.getAuthor());
 
-	LocalDate createdAt = LocalDate.now();
+	LocalDateTime createdAt = LocalDateTime.now();
 	entity.setCreatedAt(createdAt);
 	entity.setDescription(inputs.getDescription());
 	entity.setEdition(inputs.getEdition());
@@ -88,8 +89,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Collection<BookItem> getAll() {
-	return books.findAllProjectedBy();
+    public Collection<BookItem> getTop4LastAdded() {
+	return books.findTop4ByOrderByCreatedAtDesc();
     }
 
     @Override
