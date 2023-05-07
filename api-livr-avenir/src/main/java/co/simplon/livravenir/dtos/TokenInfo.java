@@ -1,12 +1,10 @@
 package co.simplon.livravenir.dtos;
 
-import java.util.List;
-
 public class TokenInfo {
 
     private String token;
 
-    private List<String> roles;
+    private String role;
 
     public TokenInfo() {
     }
@@ -19,18 +17,18 @@ public class TokenInfo {
 	this.token = token;
     }
 
-    public List<String> getRoles() {
-	return roles;
+    public String getRole() {
+	return role;
     }
 
-    public void setRoles(List<String> roles) {
-	this.roles = roles;
+    public void setRole(String role) {
+	this.role = role;
     }
 
     @Override
     public String toString() {
-	return String.format("{token=%s, roles=%s}", token,
-		roles);
+	return String.format("{token=%s, role=%s}", token,
+		role);
     }
 
 }

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 
 import co.simplon.livravenir.dtos.Credentials;
 import co.simplon.livravenir.dtos.TokenInfo;
-import co.simplon.livravenir.entities.Account;
+import co.simplon.livravenir.entities.Role;
+import co.simplon.livravenir.entities.User;
 import co.simplon.livravenir.repositories.AuthRepository;
+import co.simplon.livravenir.repositories.RoleRepository;
 import co.simplon.livravenir.utils.AuthHelper;
 
 @Service
@@ -15,29 +17,31 @@ public class AuthServiceImpl implements AuthService {
     private final AuthHelper authHelper;
 
     private final AuthRepository authRepo;
+    private final RoleRepository roleRepo;
 
     public AuthServiceImpl(AuthHelper authHelper,
-	    AuthRepository authRepo) {
+	    AuthRepository authRepo,
+	    RoleRepository roleRepo) {
 	this.authHelper = authHelper;
 	this.authRepo = authRepo;
+	this.roleRepo = roleRepo;
     }
 
     @Override
     public void signUp(Credentials inputs) {
-	Account account = new Account();
-	account.setFirstName(inputs.getFirstName());
-	account.setLastName(inputs.getLastName());
-	account.setEmail(inputs.getEmail());
+	User user = new User();
+	user.setFirstName(inputs.getFirstName());
+	user.setLastName(inputs.getLastName());
+	user.setEmail(inputs.getEmail());
 
 	String hashPassword = authHelper
 		.encode(inputs.getPassword());
-	account.setPassword(hashPassword);
+	user.setPassword(hashPassword);
 
-	// List<String> roles = new ArrayList<String>();
-	// roles.add("ROLE_ADMIN");
-	// account.setRoles(roles);
-
-	authRepo.save(account);
+	Role role = roleRepo
+		.getReferenceByName("ROLE_USER");
+	user.setRole(role);
+	authRepo.save(user);
 
     }
 
@@ -45,19 +49,19 @@ public class AuthServiceImpl implements AuthService {
     public TokenInfo signIn(Credentials inputs) {
 	String identifier = inputs.getEmail();
 	String candidate = inputs.getPassword();
-	Account account = authRepo.getByEmail(identifier);
-	if (account != null) {
+	User user = authRepo.getByEmail(identifier);
+	if (user != null) {
 	    boolean match = authHelper.matches(candidate,
-		    account.getPassword());
+		    user.getPassword());
 	    if (match) {
-		String email = account.getEmail();
-		// List<String> roles = account.getRoles();
-		String token = authHelper.createJWT(null,
+		String email = user.getEmail();
+		String role = user.getRole().getName();
+		String token = authHelper.createJWT(role,
 			email);
 
 		TokenInfo tokenInfo = new TokenInfo();
 		tokenInfo.setToken(token);
-		// tokenInfo.setRoles(roles);
+		tokenInfo.setRole(role);
 		return tokenInfo;
 	    } else {
 		throw new BadCredentialsException(

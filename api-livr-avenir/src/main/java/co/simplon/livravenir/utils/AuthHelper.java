@@ -1,7 +1,6 @@
 package co.simplon.livravenir.utils;
 
 import java.time.Instant;
-import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -34,18 +33,14 @@ public class AuthHelper {
 	return encoder.matches(candidate, hash);
     }
 
-    public String createJWT(List<String> roles,
-	    String name) {
+    public String createJWT(String role, String name) {
 	Instant now = Instant.now();
 	Instant expirationTime = now
 		.plusSeconds(expiration);
-	// String[] rolesAsArray = roles
-	// .toArray(new String[roles.size()]);
 	return JWT.create().withIssuer(issuer)
 		.withSubject(name).withIssuedAt(now)
 		.withExpiresAt(expirationTime)
-		// .withArrayClaim("roles", rolesAsArray)
-		.sign(algorithm);
+		.withClaim("role", role).sign(algorithm);
     }
 
     public static class Builder {

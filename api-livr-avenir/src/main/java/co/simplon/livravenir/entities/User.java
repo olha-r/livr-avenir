@@ -2,11 +2,14 @@ package co.simplon.livravenir.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "accounts")
-public class Account extends AbstractEntity {
+@Table(name = "users")
+public class User extends AbstractEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -20,10 +23,11 @@ public class Account extends AbstractEntity {
     @Column(name = "password")
     private String password;
 
-    // @Column(name = "roles")
-    // private List<String> roles;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    public Account() {
+    public User() {
 
     }
 
@@ -59,11 +63,19 @@ public class Account extends AbstractEntity {
 	this.password = password;
     }
 
+    public Role getRole() {
+	return role;
+    }
+
+    public void setRole(Role role) {
+	this.role = role;
+    }
+
     @Override
     public String toString() {
 	return String.format(
-		"{firstName=%s, lastName=%s, email=%s, password=%s}",
-		firstName, lastName, email, "{protected}");
+		"{firstName=%s, lastName=%s, email=%s, password=%s, role=%s}",
+		firstName, lastName, email, password, role);
     }
 
 }
