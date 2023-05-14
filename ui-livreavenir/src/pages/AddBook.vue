@@ -1,5 +1,4 @@
 <script>
-import LabelValuesVue from "../components/commons/LabelValues.vue";
 import LabelValues from '../components/commons/LabelValues.vue';
 export default {
     name: 'AddBook',
@@ -71,7 +70,7 @@ export default {
 </script>
 <template>
 <h1>Create a new sticker</h1>
-<form @submit.prevent="submit">
+<form novalidate @submit.prevent="submit">
     <div class="row mb-3">
         <div class="col-12">
             <label for="name" class="form-label required">Name</label>
