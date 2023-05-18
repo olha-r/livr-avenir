@@ -94,49 +94,17 @@ export default {
             };
         });
         const v$ = useValidate(rules, state);
-        const onSubmit = async () => {
-            this.v$.$validate();
-            console.log(this.v$.$error);
-            if (!this.v$.$error) {
-                const my_user = user.value;
-                console.log(my_user);
-                delete my_user.confirmPassword;
-                const resp = await fetch("http://localhost:8080/auth/sign-up", {
-                    method: "POST",
-                    headers: {
-                        method: "Post",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(my_user),
-                });
-                console.log("Form submit for user register", resp);
-                if (resp.status === 204) {
-                    alert(
-                        `Utilisateur ${my_user.email} a été créer avec success.`
-                    );
-                } else {
-                    console.error(resp);
-                    alert(
-                        `Nous n'avons pas pu créer utilisateur ${my_user.email}.`
-                    );
-                }
-            }
-        };
         return {
             state,
             v$,
             validPassword,
-            onSubmit,
         };
     },
-
     methods: {
         async onSubmit() {
             this.v$.$validate();
-            console.log(this.v$.$error);
             if (!this.v$.$error) {
-                const my_user = user.value;
-                console.log(my_user);
+                const my_user = this.state.user;
                 delete my_user.confirmPassword;
                 const resp = await fetch("http://localhost:8080/auth/sign-up", {
                     method: "POST",
@@ -146,13 +114,11 @@ export default {
                     },
                     body: JSON.stringify(my_user),
                 });
-                console.log("Form submit for user register", resp);
                 if (resp.status === 204) {
                     alert(
                         `Utilisateur ${my_user.email} a été créer avec success.`
                     );
                 } else {
-                    console.error(resp);
                     alert(
                         `Nous n'avons pas pu créer utilisateur ${my_user.email}.`
                     );
