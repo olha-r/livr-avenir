@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 
 const router = createRouter({
@@ -9,7 +9,11 @@ const router = createRouter({
       component: () => import('../layouts/MainLayout.vue'),
       children: [
         { path: '', component: () => import('../pages/HomePage.vue'), name: "home" },
-      ]
+      ],
+    //   meta:{
+    //     requiresAuth: false
+    //   }
+
     },
     {
       path: '/add-new-book',
@@ -41,5 +45,12 @@ const router = createRouter({
     },
   ]
 })
+
+// router.beforeEach(async (to, from) => {
+//     if(to.meta.requiresAuth && !authService.isLoggedIn()){
+//         const loggedIn = await authService.login();
+//         if(!loggedIn) return '/login'
+//     }
+// })
 
 export default router

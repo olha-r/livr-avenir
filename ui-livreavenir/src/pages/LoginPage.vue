@@ -45,14 +45,8 @@
 <script>
 import { reactive, computed } from "vue";
 import useValidate from "@vuelidate/core";
-import {
-    email,
-    helpers,
-    minLength,
-    maxLength,
-    required,
-    sameAs,
-} from "@vuelidate/validators";
+import { AuthStore } from "../stores/auth-store";
+import { email, helpers, required } from "@vuelidate/validators";
 import ValidationMessage from "../components/commons/ValidationMessage.vue";
 export default {
     name: "LoginPage",
@@ -96,17 +90,21 @@ export default {
     },
     methods: {
         async onSubmit() {
+            const auth_store = AuthStore();
             this.v$.$validate();
             if (!this.v$.$error) {
                 const my_user = this.state.user;
-                const resp = await fetch("http://localhost:8080/auth/sign-in", {
-                    method: "POST",
-                    headers: {
-                        method: "Post",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(my_user),
-                });
+                console.log(my_user);
+                const resp = await auth_store.login(my_user);
+                console.log(resp);
+                // const resp = await fetch("http://localhost:8080/auth/sign-in", {
+                //     method: "POST",
+                //     headers: {
+                //         method: "Post",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify(my_user),
+                // });
                 if (resp.status === 200) {
                     alert(`Utilisateur ${my_user.email} est connecté`);
                 } else {

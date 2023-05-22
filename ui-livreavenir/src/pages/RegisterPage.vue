@@ -110,6 +110,7 @@ import {
     sameAs,
 } from "@vuelidate/validators";
 import ValidationMessage from "../components/commons/ValidationMessage.vue";
+import { AuthStore } from "../stores/auth-store";
 
 export default {
     name: "RegisterPage",
@@ -202,18 +203,23 @@ export default {
     },
     methods: {
         async onSubmit() {
+            const auth_store = AuthStore();
             this.v$.$validate();
             if (!this.v$.$error) {
                 const my_user = this.state.user;
                 delete my_user.confirmPassword;
-                const resp = await fetch("http://localhost:8080/auth/sign-up", {
-                    method: "POST",
-                    headers: {
-                        method: "Post",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(my_user),
-                });
+                console.log(my_user);
+                // const resp = await this.$http.post("/auth/sign-up", my_user);
+                const resp = await auth_store.register(my_user);
+                console.log(resp);
+                // const resp = await fetch("http://localhost:8080/auth/sign-up", {
+                //     method: "POST",
+                //     headers: {
+                //         method: "Post",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify(my_user),
+                // });
                 if (resp.status === 204) {
                     alert(
                         `Utilisateur ${my_user.email} a été créer avec success.`
