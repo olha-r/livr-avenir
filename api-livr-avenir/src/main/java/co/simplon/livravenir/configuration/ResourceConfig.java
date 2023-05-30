@@ -28,7 +28,9 @@ public class ResourceConfig {
 	http.csrf().disable().authorizeRequests()
 		.antMatchers("/auth/sign-in").permitAll()
 		.antMatchers("/auth/sign-up").permitAll()
-		.antMatchers(HttpMethod.GET, "/books/**")
+		.antMatchers(HttpMethod.GET, "/books/**",
+			"/categories", "/conditions",
+			"/formats", "/languages")
 		.permitAll().antMatchers("/admin")
 		.hasRole("ADMIN").antMatchers("/admin")
 		.hasAuthority("ROLE_ADMIN").anyRequest()

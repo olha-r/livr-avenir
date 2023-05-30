@@ -1,13 +1,26 @@
 package co.simplon.livravenir.dtos;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class Credentials {
 
+    @NotBlank
+    @Size(min = 2, max = 30)
     private String firstName;
 
+    @NotBlank
+    @Size(min = 2, max = 100)
     private String lastName;
 
+    @NotBlank
+    @Email
     private String email;
 
+    @NotBlank
+    @Pattern(regexp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%&*?]).{8,42}$/")
     private String password;
 
     public Credentials() {
