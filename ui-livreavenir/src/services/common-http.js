@@ -6,7 +6,6 @@ const HEADERS = [{
             // 'Authorization': 'Bearer {token}'
           }];
 const ACCEPTED_STATUS = [200, 201, 202, 204, 400];
-
 export const http = axios.create({
         baseURL: BASE_URL,
         validateStatus: (status) => {
