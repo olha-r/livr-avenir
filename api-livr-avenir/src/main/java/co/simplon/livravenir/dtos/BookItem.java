@@ -6,7 +6,7 @@ public interface BookItem {
 
     Long getId();
 
-    String getName();
+    String getTitle();
 
     String getAuthor();
 

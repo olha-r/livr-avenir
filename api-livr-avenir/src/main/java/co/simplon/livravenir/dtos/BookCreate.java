@@ -1,12 +1,15 @@
 package co.simplon.livravenir.dtos;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import co.simplon.livravenir.customValidation.ImageSize;
+import co.simplon.livravenir.customValidation.ImageType;
 
 public class BookCreate {
 
@@ -16,22 +19,19 @@ public class BookCreate {
 
     @NotBlank
     @Size(max = 150)
-    private String name;
+    private String title;
 
     @NotBlank
     @Size(max = 150)
     private String author;
 
-    @NotNull
-    private LocalDate year;
-
     @NotBlank
     @Size(max = 300)
     private String edition;
 
-    @NotBlank
-    @Size(max = 150)
-    private String image;
+    @ImageType
+    @ImageSize(maxValue = 2097152L)
+    private MultipartFile image;
 
     @NotBlank
     @Size(max = 1000)
@@ -70,12 +70,12 @@ public class BookCreate {
 	this.isbn = isbn;
     }
 
-    public String getName() {
-	return name;
+    public String getTitle() {
+	return title;
     }
 
-    public void setName(String name) {
-	this.name = name;
+    public void setTitle(String title) {
+	this.title = title;
     }
 
     public String getAuthor() {
@@ -86,14 +86,6 @@ public class BookCreate {
 	this.author = author;
     }
 
-    public LocalDate getYear() {
-	return year;
-    }
-
-    public void setYear(LocalDate year) {
-	this.year = year;
-    }
-
     public String getEdition() {
 	return edition;
     }
@@ -102,11 +94,11 @@ public class BookCreate {
 	this.edition = edition;
     }
 
-    public String getImage() {
+    public MultipartFile getImage() {
 	return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(MultipartFile image) {
 	this.image = image;
     }
 
@@ -160,14 +152,11 @@ public class BookCreate {
 
     @Override
     public String toString() {
-	return "{isbn=" + isbn + ", name=" + name
-		+ ", author=" + author + ", year=" + year
-		+ ", edition=" + edition + ", image="
-		+ image + ", description=" + description
-		+ ", point=" + point + ", categoryId="
-		+ categoryId + ", conditionId="
-		+ conditionId + ", formatId=" + formatId
-		+ ", languageId=" + languageId + "}";
+	return String.format(
+		"{isbn=%s, title=%s, author=%s,  edition=%s, image=%s, description=%s, point=%s, categoryId=%s, conditionId=%s, formatId=%s, languageId=%s}",
+		isbn, title, author, edition, image,
+		description, point, categoryId, conditionId,
+		formatId, languageId);
     }
 
 }

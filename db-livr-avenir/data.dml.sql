@@ -27,9 +27,9 @@ INSERT INTO formats
 	('Broché'), ('Relié');
 
 INSERT INTO books
-	(name, isbn, author, year, edition, image, description, point, created_at, updated_at, format_id, language_id, category_id, condition_id)
+	(title, isbn, author, edition, image, description, point, created_at, updated_at, format_id, language_id, category_id, condition_id)
 	VALUES
-    ('Déjeunons sur lherbe', '978-2-38292-066-4','Guillaume Durand', '2022-04-04', 'Essai', 'dejeunons-sur-l-herbe.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia inventore animi quidem, tempore molestiae facilis voluptas veniam nostrum, temporibus iste pariatur fugit laborum in quis et repellat hic esse harum.', '3',
+    ('Déjeunons sur lherbe', '978-2-38292-066-4','Guillaume Durand',  'Essai', 'dejeunons-sur-l-herbe.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia inventore animi quidem, tempore molestiae facilis voluptas veniam nostrum, temporibus iste pariatur fugit laborum in quis et repellat hic esse harum.', '3',
 	now(), null, (SELECT f.id FROM formats f WHERE f.name = 'Broché'), (SELECT l.id FROM languages l WHERE l.name = 'Français'), (SELECT c.id FROM categories c WHERE c.name = 'Littérature'), (SELECT c.id FROM conditions c WHERE c.name = 'Très bon')) ;
 
 INSERT INTO roles
@@ -45,4 +45,5 @@ INSERT INTO users
 	('Nathalie', 'Le Boyer', 'natalie.le.boyer@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', (SELECT r.id FROM roles r WHERE r.name = 'ROLE_USER')),
 	('Édouard', 'Francois', 'edouard.francois@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', (SELECT r.id FROM roles r WHERE r.name = 'ROLE_USER')),
 	('Joseph', 'Bazin', 'joseph.bazin@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', (SELECT r.id FROM roles r WHERE r.name = 'ROLE_USER')),
-	('Michelle', 'Gautier', 'michelle.gautier@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', (SELECT r.id FROM roles r WHERE r.name = 'ROLE_USER'));
+	('Michelle', 'Gautier', 'michelle.gautier@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', (SELECT r.id FROM roles r WHERE r.name = 'ROLE_USER')),
+	('Tom', 'Cat', 'tom.cat@gmail.com', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', (SELECT r.id FROM roles r WHERE r.name = 'ROLE_USER'));

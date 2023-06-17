@@ -18,14 +18,11 @@ public class Book extends AbstractEntity {
     @Column(name = "isbn")
     private String isbn;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "author")
     private String author;
-
-    @Column(name = "year")
-    private LocalDate year;
 
     @Column(name = "edition")
     private String edition;
@@ -70,12 +67,12 @@ public class Book extends AbstractEntity {
 	this.isbn = isbn;
     }
 
-    public String getName() {
-	return name;
+    public String getTitle() {
+	return title;
     }
 
-    public void setName(String name) {
-	this.name = name;
+    public void setTitle(String title) {
+	this.title = title;
     }
 
     public String getAuthor() {
@@ -84,14 +81,6 @@ public class Book extends AbstractEntity {
 
     public void setAuthor(String author) {
 	this.author = author;
-    }
-
-    public LocalDate getYear() {
-	return year;
-    }
-
-    public void setYear(LocalDate year) {
-	this.year = year;
     }
 
     public String getEdition() {
@@ -182,11 +171,10 @@ public class Book extends AbstractEntity {
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, name=%s, author=%s, year=%s, edition=%s, image=%s, description=%s, format=%s, language=%s, category=%s, condition=%s, point=%s, createdAt=%s, updatedAt=%s}",
-		getId(), isbn, name, author, year, edition,
-		image, description, "LAZY_LOADED",
-		"LAZY_LOADED", "LAZY_LOADED", "LAZY_LOADED",
-		point, createdAt, updatedAt);
+		"{isbn=%s, title=%s, author=%s, edition=%s, image=%s, description=%s, format=%s, language=%s, category=%s, condition=%s, point=%s, createdAt=%s, updatedAt=%s}",
+		isbn, title, author, edition, image,
+		description, format, language, category,
+		condition, point, createdAt, updatedAt);
     }
 
 }

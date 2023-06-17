@@ -1,16 +1,12 @@
 package co.simplon.livravenir.dtos;
 
-import java.time.LocalDate;
-
 public interface BookDetail {
 
     String getIsbn();
 
-    String getName();
+    String getTitle();
 
     String getAuthor();
-
-    LocalDate getYear();
 
     String getEdition();
 

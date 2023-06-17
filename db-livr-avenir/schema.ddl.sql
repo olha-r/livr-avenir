@@ -30,12 +30,11 @@ CREATE TABLE languages (
 
 CREATE TABLE books (  
 	id SERIAL PRIMARY KEY,
-    isbn VARCHAR(13) UNIQUE NOT NULL,   
+    isbn VARCHAR(20) UNIQUE NOT NULL,   
 	title VARCHAR(150) NOT NULL,
 	author VARCHAR(150) NOT NULL,
-	publication_year DATE NOT NULL,
 	edition VARCHAR(300) NOT NULL,
-    image VARCHAR(300) UNIQUE NOT NULL,
+    image VARCHAR(300) UNIQUE,
 	description VARCHAR(1000) NOT NULL,
     point INTEGER NOT NULL,
     format_id INTEGER REFERENCES formats(id),
@@ -45,7 +44,6 @@ CREATE TABLE books (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP
 );
-
 
 CREATE TABLE roles (
 	id SERIAL PRIMARY KEY,

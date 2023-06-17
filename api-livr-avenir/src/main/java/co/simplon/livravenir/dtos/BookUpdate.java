@@ -1,7 +1,5 @@
 package co.simplon.livravenir.dtos;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,14 +14,11 @@ public class BookUpdate {
 
     @NotBlank
     @Size(max = 150)
-    private String name;
+    private String title;
 
     @NotBlank
     @Size(max = 150)
     private String author;
-
-    @NotNull
-    private LocalDate year;
 
     @NotBlank
     @Size(max = 300)
@@ -70,12 +65,12 @@ public class BookUpdate {
 	this.isbn = isbn;
     }
 
-    public String getName() {
-	return name;
+    public String getTitle() {
+	return title;
     }
 
-    public void setName(String name) {
-	this.name = name;
+    public void setTitle(String title) {
+	this.title = title;
     }
 
     public String getAuthor() {
@@ -84,14 +79,6 @@ public class BookUpdate {
 
     public void setAuthor(String author) {
 	this.author = author;
-    }
-
-    public LocalDate getYear() {
-	return year;
-    }
-
-    public void setYear(LocalDate year) {
-	this.year = year;
     }
 
     public String getEdition() {
@@ -160,14 +147,11 @@ public class BookUpdate {
 
     @Override
     public String toString() {
-	return "{isbn=" + isbn + ", name=" + name
-		+ ", author=" + author + ", year=" + year
-		+ ", edition=" + edition + ", image="
-		+ image + ", description=" + description
-		+ ", point=" + point + ", categoryId="
-		+ categoryId + ", conditionId="
-		+ conditionId + ", formatId=" + formatId
-		+ ", languageId=" + languageId + "}";
+	return String.format(
+		"{isbn=%s, title=%s, author=%s,  edition=%s, image=%s, description=%s, point=%s, categoryId=%s, conditionId=%s, formatId=%s, languageId=%s}",
+		isbn, title, author, edition, image,
+		description, point, categoryId, conditionId,
+		formatId, languageId);
     }
 
 }
