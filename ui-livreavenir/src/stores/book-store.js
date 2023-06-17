@@ -7,6 +7,11 @@ export const BookStore = defineStore('book-store', {
         book_details: {}
     }),
     actions: {
+        async add_new_book(payload, token){
+            const bookHttp = new BookHttp();
+            const promise = await bookHttp.add_new_book(payload, token);
+            return promise; 
+        },
         async get_last_added_books(){
             const bookHttp = new BookHttp();
             const promise = await bookHttp.get_last_added_books();

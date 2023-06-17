@@ -10,7 +10,7 @@ export const http = axios.create({
         baseURL: BASE_URL,
         validateStatus: (status) => {
             return ACCEPTED_STATUS.includes(status);
-        }
+        },
     });
     http.interceptors.response.use((response) => {
         const status = response.status;
