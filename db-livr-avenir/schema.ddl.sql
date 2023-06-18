@@ -33,6 +33,7 @@ CREATE TABLE books (
     isbn VARCHAR(20) UNIQUE NOT NULL,   
 	title VARCHAR(150) NOT NULL,
 	author VARCHAR(150) NOT NULL,
+    publication_year VARCHAR(4) NOT NULL,
 	edition VARCHAR(300) NOT NULL,
     image VARCHAR(300) UNIQUE,
 	description VARCHAR(1000) NOT NULL,

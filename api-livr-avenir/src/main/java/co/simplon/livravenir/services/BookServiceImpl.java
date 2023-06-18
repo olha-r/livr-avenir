@@ -68,7 +68,8 @@ public class BookServiceImpl implements BookService {
 	entity.setIsbn(inputs.getIsbn());
 	entity.setTitle(inputs.getTitle());
 	entity.setAuthor(inputs.getAuthor());
-
+	entity.setPublicationYear(
+		inputs.getPublicationYear());
 	LocalDateTime createdAt = LocalDateTime.now();
 	entity.setCreatedAt(createdAt);
 	entity.setDescription(inputs.getDescription());

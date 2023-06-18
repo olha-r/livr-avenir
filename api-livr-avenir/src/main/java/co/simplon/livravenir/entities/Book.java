@@ -24,6 +24,9 @@ public class Book extends AbstractEntity {
     @Column(name = "author")
     private String author;
 
+    @Column(name = "publication_year")
+    private String publicationYear;
+
     @Column(name = "edition")
     private String edition;
 
@@ -81,6 +84,14 @@ public class Book extends AbstractEntity {
 
     public void setAuthor(String author) {
 	this.author = author;
+    }
+
+    public String getPublicationYear() {
+	return publicationYear;
+    }
+
+    public void setPublicationYear(String publicationYear) {
+	this.publicationYear = publicationYear;
     }
 
     public String getEdition() {
@@ -171,10 +182,11 @@ public class Book extends AbstractEntity {
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, title=%s, author=%s, edition=%s, image=%s, description=%s, format=%s, language=%s, category=%s, condition=%s, point=%s, createdAt=%s, updatedAt=%s}",
-		isbn, title, author, edition, image,
-		description, format, language, category,
-		condition, point, createdAt, updatedAt);
+		"{isbn=%s, title=%s, author=%s, publicationYear=%s, edition=%s, image=%s, description=%s, format=%s, language=%s, category=%s, condition=%s, point=%s, createdAt=%s, updatedAt=%s}",
+		isbn, title, author, publicationYear,
+		edition, image, description, format,
+		language, category, condition, point,
+		createdAt, updatedAt);
     }
 
 }

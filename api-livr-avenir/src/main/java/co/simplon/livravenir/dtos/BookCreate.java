@@ -25,6 +25,9 @@ public class BookCreate {
     @Size(max = 150)
     private String author;
 
+    @NotNull
+    private String publicationYear;
+
     @NotBlank
     @Size(max = 300)
     private String edition;
@@ -84,6 +87,14 @@ public class BookCreate {
 
     public void setAuthor(String author) {
 	this.author = author;
+    }
+
+    public String getPublicationYear() {
+	return publicationYear;
+    }
+
+    public void setPublicationYear(String publicationYear) {
+	this.publicationYear = publicationYear;
     }
 
     public String getEdition() {
@@ -153,10 +164,11 @@ public class BookCreate {
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, title=%s, author=%s,  edition=%s, image=%s, description=%s, point=%s, categoryId=%s, conditionId=%s, formatId=%s, languageId=%s}",
-		isbn, title, author, edition, image,
-		description, point, categoryId, conditionId,
-		formatId, languageId);
+		"{isbn=%s, title=%s, author=%s, publicationYear=%s, edition=%s, image=%s, description=%s, point=%s, categoryId=%s, conditionId=%s, formatId=%s, languageId=%s}",
+		isbn, title, author, publicationYear,
+		edition, image, description, point,
+		categoryId, conditionId, formatId,
+		languageId);
     }
 
 }
