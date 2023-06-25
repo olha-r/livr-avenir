@@ -6,7 +6,7 @@
             <div class="text-center">
                 <h1>Ajouter un livre (1/2)</h1>
             </div>
-            <form @submit.prevent="add_new_book">
+            <form novalidate @submit.prevent="add_new_book">
                 <div class="row">
                     <div class="col-md-8 mb-3">
                         <label for="name" class="form-label"
@@ -171,16 +171,16 @@
                         <div class="col-md-6 mt-3">
                             <div class="mb-3">
                                 <div class="mb-3">
-                                    <label for="image" class="form-label"
+                                    <label for="imageUpload" class="form-label"
                                         >Ajouter l'image de votre livre</label
                                     >
-                                    <!-- <input name="image" id="image" type="file" class="form-control"> -->
                                     <input
-                                        v-model.trim="inputs.image"
-                                        name="image"
-                                        id="image"
-                                        type="text"
+                                        name="imageUpload"
+                                        id="imageUpload"
+                                        type="file"
+                                        accept="image/png,image/jpeg"
                                         class="form-control"
+                                        @change="handleImageUpload"
                                     />
                                 </div>
                             </div>
@@ -232,7 +232,6 @@ export default {
             isbn: null,
             author: null,
             year: null,
-            year: null,
             formatId: 0,
             languageId: 0,
             description: null,
@@ -243,6 +242,7 @@ export default {
         };
         const authStoreObj = AuthStore();
         const { token } = authStoreObj;
+        const bookStore = BookStore();
         return {
             list_formats,
             list_languages,
@@ -250,15 +250,51 @@ export default {
             list_categories,
             inputs,
             token,
+            bookStore,
         };
     },
     methods: {
         async add_new_book() {
-            const book_store = BookStore();
             const new_book = this.inputs;
-            console.log("new_book", new_book);
-            console.log("token", this.token);
-            const resp = await book_store.add_new_book(new_book, this.token);
+            // const formData = new FormData();
+            // console.log("TOKEN", this.token);
+            // for (const value of formData.values()) {
+            //     console.log("FORM DATA before append", value);
+            // }
+            // formData.append("form_data", this.inputs);
+            // formData.append("name", this.inputs.name);
+            // formData.append("isbn", this.inputs.isbn);
+            // formData.append("author", this.inputs.author);
+            // formData.append("year", this.inputs.year);
+            // formData.append("formatId", this.inputs.formatId);
+            // formData.append("languageId", this.inputs.languageId);
+            // formData.append("description", this.inputs.description);
+            // formData.append("conditionId", this.inputs.conditionId);
+            // formData.append("point", this.inputs.point);
+            // formData.append("categoryId", this.inputs.categoryId);
+            // formData.append("image", this.inputs.image);
+            // console.log("FORM DATA", formData);
+            // for (const value of formData.values()) {
+            //     console.log("FORM DATA after append", value);
+            // }
+            const resp = await fetch("http://localhost:8080/books", {
+                method: "POST",
+                // headers: {
+                //     "Content-Type": "multipart/form-data",
+                //     "Access-Control-Allow-Credentials": true,
+                //     "Access-Control-Allow-Headers": true,
+                // },
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token,
+                },
+                body: JSON.stringify(new_book),
+            });
+            // const resp = await this.bookStore.add_new_book(
+            //     formData,
+            //     this.token
+            // );
             console.log("resp", resp);
 
             if (resp.status === 204) {
@@ -270,6 +306,9 @@ export default {
                     `Nous n'avons pas pu créer l'nnonce pour le livre ${new_book.name}.`
                 );
             }
+        },
+        handleImageUpload(event) {
+            this.inputs.image = event.target.files[0];
         },
     },
 };
