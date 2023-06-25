@@ -4,13 +4,13 @@ export class BookHttp {
     
     async add_new_book(payload, token) {
         const url = `/books`;
-        console.log(token);
-        const headers = [{
+        const headers = {
             'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }];
-          console.log(headers);
-        const response = await http.post(url, payload, headers);
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': `multipart/form-data`
+          };
+        console.log("HEADERS",headers);
+        const response = await http.post(url, payload, {headers});
         return response;
     };
     async get_last_added_books() {

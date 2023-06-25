@@ -4,7 +4,7 @@ import {AuthHttp} from "../services/AuthHttp";
 export const AuthStore = defineStore('auth-store', {
     state: () => ({
         users: [],
-        user: {},
+        user: null,
         userRole: null,
         loggedIn: false,
         token: null
@@ -18,6 +18,7 @@ export const AuthStore = defineStore('auth-store', {
 
       async login(payload) {
         const authHttp = new AuthHttp();
+
         const promise = await authHttp.login(payload);
         if(promise.status === 200) {
             this.token = promise.body.token;

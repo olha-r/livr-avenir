@@ -98,6 +98,7 @@
         </div>
     </main>
 </template>
+
 <script>
 import { reactive, computed } from "vue";
 import useValidate from "@vuelidate/core";
