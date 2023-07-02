@@ -9,13 +9,13 @@
             <form novalidate @submit.prevent="add_new_book">
                 <div class="row">
                     <div class="col-md-8 mb-3">
-                        <label for="name" class="form-label"
+                        <label for="title" class="form-label"
                             >Titre de livre</label
                         >
                         <input
-                            v-model.trim="inputs.name"
-                            name="name"
-                            id="name"
+                            v-model.trim="inputs.title"
+                            name="title"
+                            id="title"
                             type="text"
                             class="form-control"
                         />
@@ -46,19 +46,19 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="year" class="form-label"
+                        <label for="publicationYear" class="form-label"
                             >L'année de publication</label
                         >
                         <input
-                            v-model.trim="inputs.year"
-                            name="year"
-                            id="year"
+                            v-model.trim="inputs.publicationYear"
+                            name="publicationYear"
+                            id="publicationYear"
                             type="text"
                             class="form-control"
                         />
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="year" class="form-label">Edition</label>
+                        <label for="edition" class="form-label">Edition</label>
                         <input
                             v-model.trim="inputs.edition"
                             name="edition"
@@ -161,22 +161,18 @@
                                     </option>
                                     <LabelValues :items="list_categories" />
                                 </select>
-                                <!-- <div v-for="(category, index) in listCategories" :key="index">
-                                <input class="form-check-input" type="checkbox" :id="category.id" :value="category.id" v-model="inputs.categoryId">
-                                <label class="form-check-label ps-2" :for="category.id">{{ category.name }}</label>
-                            </div> -->
                             </div>
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <div class="mb-3">
                                 <div class="mb-3">
-                                    <label for="imageUpload" class="form-label"
+                                    <label for="image" class="form-label"
                                         >Ajouter l'image de votre livre</label
                                     >
                                     <input
-                                        name="imageUpload"
-                                        id="imageUpload"
+                                        name="image"
+                                        id="image"
                                         type="file"
                                         accept="image/png,image/jpeg"
                                         class="form-control"
@@ -228,10 +224,11 @@ export default {
             addBookStoreObj.get_list_categories();
         });
         const inputs = {
-            name: null,
+            title: null,
             isbn: null,
             author: null,
-            year: null,
+            publicationYear: null,
+            edition: null,
             formatId: 0,
             languageId: 0,
             description: null,
@@ -255,56 +252,29 @@ export default {
     },
     methods: {
         async add_new_book() {
-            const new_book = this.inputs;
-            // const formData = new FormData();
-            // console.log("TOKEN", this.token);
-            // for (const value of formData.values()) {
-            //     console.log("FORM DATA before append", value);
-            // }
-            // formData.append("form_data", this.inputs);
-            // formData.append("name", this.inputs.name);
-            // formData.append("isbn", this.inputs.isbn);
-            // formData.append("author", this.inputs.author);
-            // formData.append("year", this.inputs.year);
-            // formData.append("formatId", this.inputs.formatId);
-            // formData.append("languageId", this.inputs.languageId);
-            // formData.append("description", this.inputs.description);
-            // formData.append("conditionId", this.inputs.conditionId);
-            // formData.append("point", this.inputs.point);
-            // formData.append("categoryId", this.inputs.categoryId);
-            // formData.append("image", this.inputs.image);
-            // console.log("FORM DATA", formData);
-            // for (const value of formData.values()) {
-            //     console.log("FORM DATA after append", value);
-            // }
-            const resp = await fetch("http://localhost:8080/books", {
-                method: "POST",
-                // headers: {
-                //     "Content-Type": "multipart/form-data",
-                //     "Access-Control-Allow-Credentials": true,
-                //     "Access-Control-Allow-Headers": true,
-                // },
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + this.token,
-                },
-                body: JSON.stringify(new_book),
-            });
-            // const resp = await this.bookStore.add_new_book(
-            //     formData,
-            //     this.token
-            // );
+            const formData = new FormData();
+            formData.append("isbn", this.inputs.isbn);
+            formData.append("title", this.inputs.title);
+            formData.append("author", this.inputs.author);
+            formData.append("publicationYear", this.inputs.publicationYear);
+            formData.append("edition", this.inputs.edition);
+            formData.append("image", this.inputs.image);
+            formData.append("description", this.inputs.description);
+            formData.append("point", this.inputs.point);
+            formData.append("categoryId", this.inputs.categoryId);
+            formData.append("conditionId", this.inputs.conditionId);
+            formData.append("formatId", this.inputs.formatId);
+            formData.append("languageId", this.inputs.languageId);
+            const resp = await this.bookStore.add_new_book(
+                formData,
+                this.token
+            );
             console.log("resp", resp);
 
             if (resp.status === 204) {
-                alert(
-                    `L'annonce pour le livre ${new_book.name} a été créer avec success.`
-                );
+                alert(`L'annonce pour le livre a été créer avec success.`);
             } else {
-                alert(
-                    `Nous n'avons pas pu créer l'nnonce pour le livre ${new_book.name}.`
-                );
+                alert(`Nous n'avons pas pu créer l'nnonce pour le livre.`);
             }
         },
         handleImageUpload(event) {

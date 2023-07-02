@@ -92,28 +92,18 @@ export default {
     },
     methods: {
         async onSubmit() {
-            // const auth_store = AuthStore();
             this.v$.$validate();
             if (!this.v$.$error) {
                 const my_user = this.state.user;
                 console.log(my_user);
                 const resp = await this.authStore.login(my_user);
-                console.log("Response after login", resp.body);
-                // const resp = await fetch("http://localhost:8080/auth/sign-in", {
-                //     method: "POST",
-                //     headers: {
-                //         method: "Post",
-                //         "Content-Type": "application/json",
-                //     },
-                //     body: JSON.stringify(my_user),
-                // });
-                // if (resp.status === 200) {
-                //     alert(`Utilisateur ${my_user.email} est connecté`);
-                // } else {
-                //     alert(
-                //         `Nous n'avons pas pu trouvé utilisateur ${my_user.email}.`
-                //     );
-                // }
+                if (resp.status === 200) {
+                    alert(`Utilisateur ${my_user.email} est connecté`);
+                } else {
+                    alert(
+                        `Nous n'avons pas pu trouvé utilisateur ${my_user.email}.`
+                    );
+                }
             }
         },
     },
