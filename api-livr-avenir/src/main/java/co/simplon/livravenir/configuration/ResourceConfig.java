@@ -25,7 +25,8 @@ public class ResourceConfig {
     @Bean
     SecurityFilterChain fitChain(HttpSecurity http)
 	    throws Exception {
-	http.csrf().disable().authorizeRequests()
+	http.cors().and().csrf().disable()
+		.authorizeRequests()
 		.antMatchers("/auth/sign-in").permitAll()
 		.antMatchers("/auth/sign-up").permitAll()
 		.antMatchers(HttpMethod.GET, "/books/**",
