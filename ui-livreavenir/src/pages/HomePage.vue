@@ -34,14 +34,14 @@
                 <a :href="`/books/${book.id}/detail`"
                     ><div class="card">
                         <img
-                            src="../assets/images/book-image-example.jpg"
+                            :src="`/src/assets/images/${book.image}`"
                             class="card-img-top"
                             alt="..."
                         />
 
                         <div class="card-body">
                             <h5 class="card-title text-center">
-                                {{ book.name }}
+                                {{ book.title }}
                             </h5>
                             <p
                                 class="card-subtitle mb-2 text-muted text-center"

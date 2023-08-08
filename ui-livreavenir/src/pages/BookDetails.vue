@@ -1,6 +1,5 @@
 <template>
     <main class="container-xl my-5">
-        [{{ book_details }}]
         <div
             class="justify-content-center align-items-center book-details-container"
         >
@@ -15,7 +14,7 @@
                 </button>
             </div>
             <div class="row mt-3">
-                <h3>{{ book_details.name }}</h3>
+                <h3>{{ book_details.title }}</h3>
                 <div class="row d-flex justify-content-center">
                     <div class="col">
                         <p class="author">
@@ -35,7 +34,7 @@
                 </div>
                 <div class="col-12 col-md-5 book-image ps-0">
                     <img
-                        src="../assets/images/book-image-example.jpg"
+                        :src="`/src/assets/images/${book_details.image}`"
                         class="img-fluid"
                         alt="book image"
                     />
@@ -74,7 +73,7 @@
                             <p>
                                 <span class="fw-light"
                                     >L'année de parution: </span
-                                >{{ book_details.year }}
+                                >{{ book_details.publicationYear }}
                             </p>
                         </div>
                     </div>
@@ -149,7 +148,7 @@
 </template>
 
 <script>
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../stores/book-store";
@@ -160,11 +159,14 @@ export default {
         const { book_details } = storeToRefs(bookStoreObj);
         const route = useRoute();
         const book_id = route.params.id;
+        const imageUrl = ref("");
         onBeforeMount(() => {
             bookStoreObj.get_book_details(book_id);
+            imageUrl.value = `../assets/images/${book_details.image}`;
         });
         return {
             book_details,
+            imageUrl,
         };
     },
 };

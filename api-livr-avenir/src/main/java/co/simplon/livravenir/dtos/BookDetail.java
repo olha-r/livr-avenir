@@ -10,6 +10,8 @@ public interface BookDetail {
 
     String getEdition();
 
+    String getPublicationYear();
+
     String getImage();
 
     String getDescription();
