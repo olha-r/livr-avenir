@@ -20,6 +20,7 @@ public class AuthController {
     private AuthService service;
 
     @PostMapping("/sign-up")
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void signUp(@RequestBody Credentials inputs) {
 	service.signUp(inputs);
@@ -27,6 +28,7 @@ public class AuthController {
 
     @PostMapping("/sign-in")
     public TokenInfo signIn(
+
 	    @RequestBody Credentials inputs) {
 	return service.signIn(inputs);
     }

@@ -1,61 +1,198 @@
+DROP TABLE IF EXISTS book_items;
+DROP TABLE IF EXISTS book_authors;
+DROP TABLE IF EXISTS book_languages;
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS conditions;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS publishers;
+DROP TABLE IF EXISTS languages;
+DROP TABLE IF EXISTS authors;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS order_status;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS books;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS conditions;
-DROP TABLE IF EXISTS formats;
-DROP TABLE IF EXISTS languages;
+DROP TABLE IF EXISTS addresses;
+DROP TABLE IF EXISTS cities;
 
-CREATE TABLE categories (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(30) UNIQUE NOT NULL
+CREATE TABLE cities (
+    id SERIAL,
+    zip_code VARCHAR(6) not null,
+    city_name VARCHAR(100) not null,
+    constraint pk_city_id primary key(id)
 );
 
-CREATE TABLE conditions (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(30) UNIQUE NOT NULL,
-	logical_order SMALLINT NOT NULL
-);
-
-CREATE TABLE formats (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(30) UNIQUE NOT NULL
-);
-
-CREATE TABLE languages (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(30) UNIQUE NOT NULL,
-	logical_order SMALLINT NOT NULL
-);
-
-CREATE TABLE books (  
-	id SERIAL PRIMARY KEY,
-    isbn VARCHAR(20) UNIQUE NOT NULL,   
-	title VARCHAR(150) NOT NULL,
-	author VARCHAR(150) NOT NULL,
-    publication_year VARCHAR(4) NOT NULL,
-	edition VARCHAR(300) NOT NULL,
-    image VARCHAR(300) UNIQUE,
-	description VARCHAR(1000) NOT NULL,
-    point INTEGER NOT NULL,
-    format_id INTEGER REFERENCES formats(id),
-    language_id INTEGER REFERENCES languages(id) NOT NULL,
-    category_id INTEGER REFERENCES categories(id) NOT NULL,
-    condition_id INTEGER REFERENCES conditions(id) NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP
+CREATE TABLE addresses (
+    id SERIAL,
+    address_code VARCHAR(300) NOT NULL,
+    number VARCHAR(6) not null,
+    repetition_index VARCHAR(100) not null,
+    street VARCHAR(100) not null,
+	city_id INTEGER NOT null,
+	constraint pk_address_id primary key(id),
+	constraint fk_city_id 
+			foreign key (city_id)
+			references cities(id)
 );
 
 CREATE TABLE roles (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(300) UNIQUE NOT NULL
+	id SERIAL,
+	code_role VARCHAR(300) UNIQUE NOT NULL,
+	role_name VARCHAR(300) UNIQUE NOT null,
+	constraint pk_role_id primary key(id)
 );
 
 CREATE TABLE users (
-	id SERIAL PRIMARY KEY,
+	id SERIAL,
+	user_name VARCHAR(300) NOT NULL,
 	first_name VARCHAR(300) NOT NULL,
 	last_name VARCHAR(300) NOT NULL,
 	email VARCHAR(300) UNIQUE NOT NULL,
 	password VARCHAR(1000) NOT NULL,
-	role_id INTEGER REFERENCES roles(id) NOT NULL
+    registration_date TIMESTAMP NOT NULL,
+    points_number INTEGER,
+	role_id INTEGER NOT NULL,
+	constraint pk_user_id primary key(id),
+	constraint fk_role_id 
+			foreign key (role_id)
+			references roles(id)
 );
+
+CREATE TABLE order_status (
+	id SERIAL,
+	status_code VARCHAR(30) UNIQUE NOT NULL,
+    status_label VARCHAR(30) UNIQUE NOT null,
+    constraint pk_order_status_id primary key(id)
+);
+
+CREATE TABLE orders (
+	id SERIAL,
+	order_number VARCHAR(30) UNIQUE NOT NULL,
+    ordered_at TIMESTAMP NOT NULL,
+	address_id INTEGER NOT NULL,
+	status_id INTEGER NOT NULL,
+	user_id INTEGER NOT NULL,
+	constraint pk_order_id primary key(id),
+	constraint fk_address_id 
+			foreign key (address_id)
+			references addresses(id),
+	constraint fk_status_id
+			foreign key (status_id)
+			references order_status(id),
+	constraint fk_user_id
+			foreign key (user_id)
+			references users(id)
+			);
+
+CREATE TABLE authors (
+	id SERIAL,
+    author_code VARCHAR(300) NOT NULL,
+	first_name VARCHAR(300) NOT NULL,
+	last_name VARCHAR(300) NOT null,
+	constraint pk_author_id primary key(id)
+);
+
+CREATE TABLE languages (
+	id SERIAL,
+	language_name VARCHAR(30) UNIQUE NOT NULL,
+	code_iso VARCHAR(30) UNIQUE NOT NULL,
+	logical_order SMALLINT NOT NULL,
+	constraint pk_language_id primary key(id)
+);
+
+CREATE TABLE publishers (
+	id SERIAL,
+    publisher_code VARCHAR(30) NOT null,
+	publisher_name VARCHAR(30) UNIQUE NOT null,
+	constraint pk_publisher_id primary key(id)
+);
+
+CREATE TABLE categories (
+	id SERIAL,
+    category_code VARCHAR(30) NOT null,
+	category_name VARCHAR(30) UNIQUE NOT null,
+	constraint pk_category_id primary key(id)
+);
+
+CREATE TABLE books (
+    id SERIAL,
+    isbn VARCHAR(20) UNIQUE NOT NULL, 
+    title VARCHAR(150) NOT NULL,
+    publication_year VARCHAR(4) NOT NULL,
+    cover_image_url VARCHAR(300),
+    page_count VARCHAR(10) NOT NULL,
+    summary VARCHAR(1000) NOT NULL,
+    publisher_id INTEGER NOT NULL,
+    category_id INTEGER NOT null,
+    user_id INTEGER NOT NULL,
+    constraint pk_book_id primary key(id),
+	constraint fk_publisher_id
+			foreign key (publisher_id)
+			references publishers(id),
+	constraint fk_category_id
+			foreign key (category_id)
+			references categories(id),
+	constraint fk_user_id
+			foreign key (user_id)
+			references users(id)
+);
+
+CREATE TABLE conditions (
+	id SERIAL,
+    condition_code VARCHAR(30) NOT null,
+	condition_name VARCHAR(30) UNIQUE NOT NULL,
+	logical_order SMALLINT NOT null,
+	constraint pk_condition_id primary key(id)
+);
+
+CREATE TABLE book_items (
+    id SERIAL,
+    item_code VARCHAR(30) NOT null,
+    description VARCHAR(1000) NOT NULL,
+    points_price INTEGER NOT NULL,
+    added_at TIMESTAMP NOT NULL,
+    condition_id INTEGER NOT NULL,
+    order_id INTEGER,
+    book_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    constraint pk_book_item_id primary key(id),
+    constraint fk_condition_id
+			foreign key (condition_id)
+			references conditions(id),
+	constraint fk_order_id
+			foreign key (order_id)
+			references orders(id),
+	constraint fk_book_id
+			foreign key (book_id)
+			references books(id),
+	constraint fk_user_id
+			foreign key (user_id)
+			references users(id)
+);
+
+CREATE TABLE book_languages (
+id SERIAL,
+book_id INTEGER not null,
+language_id INTEGER not null,
+	constraint pk_book_languages_id primary key(id),
+constraint fk_book_id
+			foreign key (book_id)
+			references books(id),
+constraint fk_language_id
+			foreign key (language_id)
+			references languages(id)
+);
+
+CREATE TABLE book_authors (
+id SERIAL,
+book_id INTEGER not null,
+author_id INTEGER not null,
+constraint pk_book_authors_id primary key(id),
+constraint fk_book_id
+			foreign key (book_id)
+			references books(id),
+constraint fk_author_id
+			foreign key (author_id)
+			references authors(id)
+);
+
+

@@ -1,14 +1,16 @@
 package co.simplon.livravenir.entities;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -21,42 +23,43 @@ public class Book extends AbstractEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "author")
-    private String author;
-
     @Column(name = "publication_year")
     private String publicationYear;
 
-    @Column(name = "edition")
-    private String edition;
+    @Column(name = "page_count")
+    private String pageCount;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "summary")
+    private String summary;
 
-    @Column(name = "description")
-    private String description;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "format_id")
-    private Format format;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "language_id")
-    private Language language;
+    @Column(name = "cover_image_url")
+    private String coverImageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "condition_id")
-    private Condition condition;
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 
-    private int point;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private LocalDateTime createdAt;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+	    CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "book_authors", joinColumns = {
+	    @JoinColumn(name = "book_id") }, inverseJoinColumns = {
+		    @JoinColumn(name = "author_id") })
+    private Set<Author> authors = new HashSet<>();
 
-    private LocalDate updatedAt;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+	    CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "book_languages", joinColumns = {
+	    @JoinColumn(name = "book_id") }, inverseJoinColumns = {
+		    @JoinColumn(name = "language_id") })
+    private Set<Language> languages = new HashSet<>();
 
     public Book() {
 	// TODO Auto-generated constructor stub
@@ -78,14 +81,6 @@ public class Book extends AbstractEntity {
 	this.title = title;
     }
 
-    public String getAuthor() {
-	return author;
-    }
-
-    public void setAuthor(String author) {
-	this.author = author;
-    }
-
     public String getPublicationYear() {
 	return publicationYear;
     }
@@ -94,44 +89,28 @@ public class Book extends AbstractEntity {
 	this.publicationYear = publicationYear;
     }
 
-    public String getEdition() {
-	return edition;
+    public String getPageCount() {
+	return pageCount;
     }
 
-    public void setEdition(String edition) {
-	this.edition = edition;
+    public void setPageCount(String pageCount) {
+	this.pageCount = pageCount;
     }
 
-    public String getImage() {
-	return image;
+    public String getSummary() {
+	return summary;
     }
 
-    public void setImage(String image) {
-	this.image = image;
+    public void setSummary(String summary) {
+	this.summary = summary;
     }
 
-    public String getDescription() {
-	return description;
+    public String getCoverImageUrl() {
+	return coverImageUrl;
     }
 
-    public void setDescription(String description) {
-	this.description = description;
-    }
-
-    public Format getFormat() {
-	return format;
-    }
-
-    public void setFormat(Format format) {
-	this.format = format;
-    }
-
-    public Language getLanguage() {
-	return language;
-    }
-
-    public void setLanguage(Language language) {
-	this.language = language;
+    public void setCoverImageUrl(String coverImageUrl) {
+	this.coverImageUrl = coverImageUrl;
     }
 
     public Category getCategory() {
@@ -142,51 +121,36 @@ public class Book extends AbstractEntity {
 	this.category = category;
     }
 
-    public Condition getCondition() {
-	return condition;
+    public Publisher getPublisher() {
+	return publisher;
     }
 
-    public void setCondition(Condition condition) {
-	this.condition = condition;
+    public void setPublisher(Publisher publisher) {
+	this.publisher = publisher;
     }
 
-    public int getPoint() {
-	return point;
+    public User getUser() {
+	return user;
     }
 
-    public void setPoint(int point) {
-	this.point = point;
+    public void setUser(User user) {
+	this.user = user;
     }
 
-    public LocalDateTime getCreatedAt() {
-	return createdAt;
+    public Set<Author> getAuthors() {
+	return authors;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-	this.createdAt = createdAt;
+    public void setAuthors(Set<Author> authors) {
+	this.authors = authors;
     }
 
-    @PrePersist
-    private void createdAt() {
-	setCreatedAt(LocalDateTime.now());
+    public Set<Language> getLanguages() {
+	return languages;
     }
 
-    public LocalDate getUpdatedAt() {
-	return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDate updatedAt) {
-	this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-	return String.format(
-		"{isbn=%s, title=%s, author=%s, publicationYear=%s, edition=%s, image=%s, description=%s, format=%s, language=%s, category=%s, condition=%s, point=%s, createdAt=%s, updatedAt=%s}",
-		isbn, title, author, publicationYear,
-		edition, image, description, format,
-		language, category, condition, point,
-		createdAt, updatedAt);
+    public void setLanguages(Set<Language> languages) {
+	this.languages = languages;
     }
 
 }

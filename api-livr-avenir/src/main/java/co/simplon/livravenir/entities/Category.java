@@ -8,27 +8,21 @@ import javax.persistence.Table;
 @Table(name = "categories")
 public class Category extends AbstractEntity {
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "category_name")
+    private String categoryName;
 
     public Category() {
 	// TODO Auto-generated constructor stub
     }
 
-    public String getName() {
-	return name;
+    public String getCategoryName() {
+	return categoryName;
     }
 
     @SuppressWarnings("unused")
-    public void setName(String name) {
+    public void setCategoryName(String categoryName) {
 	// Not updatable
-	this.name = name;
-    }
-
-    @Override
-    public String toString() {
-	return String.format("{name=%s, getId()=%s}", name,
-		getId());
+	this.categoryName = categoryName;
     }
 
 }

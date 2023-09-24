@@ -11,14 +11,17 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User extends AbstractEntity {
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "user_name")
+    private String userName;
+
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "password")
     private String password;
@@ -29,6 +32,22 @@ public class User extends AbstractEntity {
 
     public User() {
 
+    }
+
+    public String getEmail() {
+	return email;
+    }
+
+    public void setEmail(String email) {
+	this.email = email;
+    }
+
+    public String getUserName() {
+	return userName;
+    }
+
+    public void setUserName(String userName) {
+	this.userName = userName;
     }
 
     public String getFirstName() {
@@ -45,14 +64,6 @@ public class User extends AbstractEntity {
 
     public void setLastName(String lastName) {
 	this.lastName = lastName;
-    }
-
-    public String getEmail() {
-	return email;
-    }
-
-    public void setEmail(String email) {
-	this.email = email;
     }
 
     public String getPassword() {
@@ -74,8 +85,9 @@ public class User extends AbstractEntity {
     @Override
     public String toString() {
 	return String.format(
-		"{firstName=%s, lastName=%s, email=%s, password=%s, role=%s}",
-		firstName, lastName, email, password, role);
+		"{email=%s, userName=%s, firstName=%s, lastName=%s, password=%s, role=%s}",
+		email, userName, firstName, lastName,
+		password, role);
     }
 
 }

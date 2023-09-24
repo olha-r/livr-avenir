@@ -6,9 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -17,135 +16,89 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.livravenir.dtos.BookCreate;
-import co.simplon.livravenir.dtos.BookDetail;
-import co.simplon.livravenir.dtos.BookItem;
-import co.simplon.livravenir.dtos.BookUpdate;
+import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.Category;
-import co.simplon.livravenir.entities.Condition;
-import co.simplon.livravenir.entities.Format;
 import co.simplon.livravenir.entities.Language;
+import co.simplon.livravenir.entities.Publisher;
+import co.simplon.livravenir.entities.User;
+import co.simplon.livravenir.repositories.AuthorRepository;
 import co.simplon.livravenir.repositories.BookRepository;
 import co.simplon.livravenir.repositories.CategoryRepository;
-import co.simplon.livravenir.repositories.ConditionRepository;
-import co.simplon.livravenir.repositories.FormatRepository;
 import co.simplon.livravenir.repositories.LanguageRepository;
+import co.simplon.livravenir.repositories.PublisherRepository;
+import co.simplon.livravenir.repositories.UserRepository;
 
 @Service
 @Transactional(readOnly = true)
 public class BookServiceImpl implements BookService {
 
-    private final CategoryRepository categories;
-
-    private final ConditionRepository conditions;
-
-    private final FormatRepository formats;
-
-    private final LanguageRepository languages;
-
     private final BookRepository books;
+    private final CategoryRepository categories;
+    private final PublisherRepository publishers;
+    private final AuthorRepository authors;
+    private final LanguageRepository languages;
+    private final UserRepository users;
 
     @Value("${livravenir.uploads.location}")
     private String uploadDir;
 
-    public BookServiceImpl(CategoryRepository categories,
-	    ConditionRepository conditions,
-	    FormatRepository formats,
-	    LanguageRepository languages,
-	    BookRepository books) {
-	this.categories = categories;
-	this.conditions = conditions;
-	this.formats = formats;
-	this.languages = languages;
+    public BookServiceImpl(BookRepository books,
+	    CategoryRepository categories,
+	    PublisherRepository publishers,
+	    UserRepository users, AuthorRepository authors,
+	    LanguageRepository languages) {
 	this.books = books;
-
+	this.categories = categories;
+	this.publishers = publishers;
+	this.users = users;
+	this.authors = authors;
+	this.languages = languages;
     }
 
     @Transactional
     @Override
-    public void create(BookCreate inputs) {
+    public void createBook(BookCreate inputs) {
 	Book entity = new Book();
+	System.out.println("service" + inputs);
 	entity.setIsbn(inputs.getIsbn());
 	entity.setTitle(inputs.getTitle());
-	entity.setAuthor(inputs.getAuthor());
 	entity.setPublicationYear(
 		inputs.getPublicationYear());
-	LocalDateTime createdAt = LocalDateTime.now();
-	entity.setCreatedAt(createdAt);
-	entity.setDescription(inputs.getDescription());
-	entity.setEdition(inputs.getEdition());
+	entity.setPageCount(inputs.getPageCount());
+	entity.setSummary(inputs.getSummary());
 
-	entity.setPoint(inputs.getPoint());
-
-	if ((inputs.getImage() != null)) {
-	    MultipartFile file = inputs.getImage();
+	if ((inputs.getCoverImageUrl() != null)) {
+	    MultipartFile file = inputs.getCoverImageUrl();
 	    String baseName = UUID.randomUUID().toString();
-	    String imageName = baseName + inputs.getImage()
-		    .getOriginalFilename();
-	    entity.setImage(imageName);
+	    String imageName = baseName
+		    + inputs.getCoverImageUrl()
+			    .getOriginalFilename();
+	    entity.setCoverImageUrl(imageName);
 	    store(file, imageName);
 	}
 
 	Category category = categories
 		.getReferenceById(inputs.getCategoryId());
-
 	entity.setCategory(category);
-	Format format = formats
-		.getReferenceById(inputs.getFormatId());
+	Publisher publisher = publishers
+		.getReferenceById(inputs.getPublisherId());
+	entity.setPublisher(publisher);
+	User user = users
+		.getReferenceById(inputs.getUserId());
+	entity.setUser(user);
 
-	entity.setFormat(format);
-	Language language = languages
-		.getReferenceById(inputs.getFormatId());
-	entity.setLanguage(language);
+	List<Author> authorList = authors
+		.findAllById(inputs.getAuthorIdList());
 
-	Condition condition = conditions
-		.getReferenceById(inputs.getConditionId());
-	entity.setCondition(condition);
+	entity.setAuthors(new HashSet<>(authorList));
+
+	List<Language> languageList = languages
+		.findAllById(inputs.getLanguageIdList());
+
+	entity.setLanguages(new HashSet<>(languageList));
 	books.save(entity);
 
-    }
-
-    @Override
-    public BookDetail detail(Long id) {
-	return books.findProjectedById(id);
-    }
-
-    @Override
-    public Collection<BookItem> getTop4LastAdded() {
-	return books.findTop4ByOrderByCreatedAtDesc();
-    }
-
-    @Override
-    @Transactional
-    public void update(Long id, BookUpdate inputs) {
-	Book entity = books.findById(id).get();
-	entity.setIsbn(inputs.getIsbn());
-	entity.setTitle(inputs.getTitle());
-	entity.setAuthor(inputs.getAuthor());
-	entity.setDescription(inputs.getDescription());
-	entity.setEdition(inputs.getEdition());
-	entity.setImage(inputs.getImage());
-	entity.setPoint(inputs.getPoint());
-	LocalDate updatedAt = LocalDate.now();
-	entity.setUpdatedAt(updatedAt);
-	Format format = formats
-		.getReferenceById(inputs.getFormatId());
-	entity.setFormat(format);
-	Category category = categories
-		.getReferenceById(inputs.getCategoryId());
-	entity.setCategory(category);
-	Language language = languages
-		.getReferenceById(inputs.getLanguageId());
-	entity.setLanguage(language);
-	Condition condition = conditions
-		.getReferenceById(inputs.getConditionId());
-	entity.setCondition(condition);
-    }
-
-    @Transactional
-    @Override
-    public void delete(Long id) {
-	books.deleteById(id);
     }
 
     private void store(MultipartFile file,

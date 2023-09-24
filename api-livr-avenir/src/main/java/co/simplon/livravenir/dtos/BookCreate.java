@@ -1,65 +1,32 @@
 package co.simplon.livravenir.dtos;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.livravenir.customValidation.ImageSize;
-import co.simplon.livravenir.customValidation.ImageType;
-
 public class BookCreate {
 
-    @NotBlank
-    @Size(min = 1, max = 20)
     private String isbn;
 
-    @NotBlank
-    @Size(max = 150)
     private String title;
 
-    @NotBlank
-    @Size(max = 150)
-    private String author;
-
-    @NotNull
     private String publicationYear;
 
-    @NotBlank
-    @Size(max = 300)
-    private String edition;
+    private String pageCount;
 
-    @ImageType
-    @ImageSize(maxValue = 2097152L)
-    private MultipartFile image;
+    private String summary;
 
-    @NotBlank
-    @Size(max = 1000)
-    private String description;
+    private MultipartFile coverImageUrl;
 
-    @NotNull
-    @Positive
-    @Max(value = 5)
-    private int point;
+    private Long publisherId;
 
-    @NotNull
-    @Positive
     private Long categoryId;
 
-    @NotNull
-    @Positive
-    private Long conditionId;
+    private Long userId;
 
-    @NotNull
-    @Positive
-    private Long formatId;
+    private Set<Long> languageIdList;
 
-    @NotNull
-    @Positive
-    private Long languageId;
+    private Set<Long> authorIdList;
 
     public BookCreate() {
 	// Required no-arg constructor
@@ -81,14 +48,6 @@ public class BookCreate {
 	this.title = title;
     }
 
-    public String getAuthor() {
-	return author;
-    }
-
-    public void setAuthor(String author) {
-	this.author = author;
-    }
-
     public String getPublicationYear() {
 	return publicationYear;
     }
@@ -97,36 +56,62 @@ public class BookCreate {
 	this.publicationYear = publicationYear;
     }
 
-    public String getEdition() {
-	return edition;
+    public String getPageCount() {
+	return pageCount;
     }
 
-    public void setEdition(String edition) {
-	this.edition = edition;
+    public void setPageCount(String pageCount) {
+	this.pageCount = pageCount;
     }
 
-    public MultipartFile getImage() {
-	return image;
+    public String getSummary() {
+	return summary;
     }
 
-    public void setImage(MultipartFile image) {
-	this.image = image;
+    public void setSummary(String summary) {
+	this.summary = summary;
     }
 
-    public String getDescription() {
-	return description;
+    public MultipartFile getCoverImageUrl() {
+	return coverImageUrl;
     }
 
-    public void setDescription(String description) {
-	this.description = description;
+    public void setCoverImageUrl(
+	    MultipartFile coverImageUrl) {
+	this.coverImageUrl = coverImageUrl;
     }
 
-    public int getPoint() {
-	return point;
+    public Long getPublisherId() {
+	return publisherId;
     }
 
-    public void setPoint(int point) {
-	this.point = point;
+    public void setPublisherId(Long publisherId) {
+	this.publisherId = publisherId;
+    }
+
+    public Long getUserId() {
+	return userId;
+    }
+
+    public void setUserId(Long userId) {
+	this.userId = userId;
+    }
+
+    public Set<Long> getLanguageIdList() {
+	return languageIdList;
+    }
+
+    public void setLanguageIdList(
+	    Set<Long> languageIdList) {
+	this.languageIdList = languageIdList;
+    }
+
+    public Set<Long> getAuthorIdList() {
+	return authorIdList;
+    }
+
+    public void setAuthorIdList(Set<Long> authorIdList) {
+	this.authorIdList = authorIdList;
     }
 
     public Long getCategoryId() {
@@ -137,38 +122,13 @@ public class BookCreate {
 	this.categoryId = categoryId;
     }
 
-    public Long getConditionId() {
-	return conditionId;
-    }
-
-    public void setConditionId(Long conditionId) {
-	this.conditionId = conditionId;
-    }
-
-    public Long getFormatId() {
-	return formatId;
-    }
-
-    public void setFormatId(Long formatId) {
-	this.formatId = formatId;
-    }
-
-    public Long getLanguageId() {
-	return languageId;
-    }
-
-    public void setLanguageId(Long languageId) {
-	this.languageId = languageId;
-    }
-
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, title=%s, author=%s, publicationYear=%s, edition=%s, image=%s, description=%s, point=%s, categoryId=%s, conditionId=%s, formatId=%s, languageId=%s}",
-		isbn, title, author, publicationYear,
-		edition, image, description, point,
-		categoryId, conditionId, formatId,
-		languageId);
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, pulisherId=%s, userId=%s, languageIdList=%s, authorIdList=%s}",
+		isbn, title, publicationYear, pageCount,
+		summary, publisherId, userId,
+		languageIdList, authorIdList);
     }
 
 }

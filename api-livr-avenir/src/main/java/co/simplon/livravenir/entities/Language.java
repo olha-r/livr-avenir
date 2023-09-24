@@ -7,39 +7,33 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "languages")
 public class Language extends AbstractEntity {
-    @Column(name = "name")
-    private String name;
 
-    @Column(name = "logical_order")
-    private int logicalOrder;
+    @Column(name = "code_iso")
+    private String codeIso;
+
+    @Column(name = "language_name")
+    private String languageName;
 
     public Language() {
 	// TODO Auto-generated constructor stub
     }
 
-    public String getName() {
-	return name;
-    }
-
-    public void setName(String name) {
-	this.name = name;
-    }
-
-    public int getLogicalOrder() {
-	return logicalOrder;
+    public String getLanguageName() {
+	return languageName;
     }
 
     @SuppressWarnings("unused")
-    public void setLogicalOrder(int logicalOrder) {
-	// not updatable
-	this.logicalOrder = logicalOrder;
+    public void setLanguageName(String languageName) {
+	// Not updatable
+	this.languageName = languageName;
     }
 
-    @Override
-    public String toString() {
-	return String.format(
-		"{name=%s, logicalOrder=%s, getId()=%s}",
-		name, logicalOrder, getId());
+    public String getCodeIso() {
+	return codeIso;
+    }
+
+    public void setCodeIso(String codeIso) {
+	this.codeIso = codeIso;
     }
 
 }
