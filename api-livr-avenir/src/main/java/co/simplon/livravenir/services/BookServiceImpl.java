@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.livravenir.dtos.BookCreate;
+import co.simplon.livravenir.dtos.BookDetail;
+import co.simplon.livravenir.dtos.BookItemList;
+import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.Category;
@@ -34,10 +38,15 @@ import co.simplon.livravenir.repositories.UserRepository;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository books;
+
     private final CategoryRepository categories;
+
     private final PublisherRepository publishers;
+
     private final AuthorRepository authors;
+
     private final LanguageRepository languages;
+
     private final UserRepository users;
 
     @Value("${livravenir.uploads.location}")
@@ -48,12 +57,14 @@ public class BookServiceImpl implements BookService {
 	    PublisherRepository publishers,
 	    UserRepository users, AuthorRepository authors,
 	    LanguageRepository languages) {
+
 	this.books = books;
 	this.categories = categories;
 	this.publishers = publishers;
 	this.users = users;
 	this.authors = authors;
 	this.languages = languages;
+
     }
 
     @Transactional
@@ -67,17 +78,6 @@ public class BookServiceImpl implements BookService {
 		inputs.getPublicationYear());
 	entity.setPageCount(inputs.getPageCount());
 	entity.setSummary(inputs.getSummary());
-
-	if ((inputs.getCoverImageUrl() != null)) {
-	    MultipartFile file = inputs.getCoverImageUrl();
-	    String baseName = UUID.randomUUID().toString();
-	    String imageName = baseName
-		    + inputs.getCoverImageUrl()
-			    .getOriginalFilename();
-	    entity.setCoverImageUrl(imageName);
-	    store(file, imageName);
-	}
-
 	Category category = categories
 		.getReferenceById(inputs.getCategoryId());
 	entity.setCategory(category);
@@ -87,16 +87,21 @@ public class BookServiceImpl implements BookService {
 	User user = users
 		.getReferenceById(inputs.getUserId());
 	entity.setUser(user);
-
 	List<Author> authorList = authors
 		.findAllById(inputs.getAuthorIdList());
-
 	entity.setAuthors(new HashSet<>(authorList));
-
 	List<Language> languageList = languages
 		.findAllById(inputs.getLanguageIdList());
 
 	entity.setLanguages(new HashSet<>(languageList));
+
+	MultipartFile file = inputs.getCoverImageUrl();
+
+	String baseName = UUID.randomUUID().toString();
+	String imageName = baseName + inputs
+		.getCoverImageUrl().getOriginalFilename();
+	entity.setCoverImageUrl(imageName);
+	store(file, imageName);
 	books.save(entity);
 
     }
@@ -113,6 +118,60 @@ public class BookServiceImpl implements BookService {
 	    throw new RuntimeException(ex);
 	}
 
+    }
+
+    @Override
+    public Collection<BookItemList> getAllBooks() {
+	// TODO Auto-generated method stub
+	return books.findAllBooksProjectedBy();
+    }
+
+    @Transactional
+    @Override
+    public void updateBook(Long id, BookUpdate inputs) {
+	Book entity = books.findById(id).get();
+	entity.setIsbn(inputs.getIsbn());
+	entity.setTitle(inputs.getTitle());
+	entity.setPublicationYear(
+		inputs.getPublicationYear());
+	entity.setPageCount(inputs.getPageCount());
+	entity.setSummary(inputs.getSummary());
+	Category category = categories
+		.getReferenceById(inputs.getCategoryId());
+	entity.setCategory(category);
+	Publisher publisher = publishers
+		.getReferenceById(inputs.getPublisherId());
+	entity.setPublisher(publisher);
+	User user = users
+		.getReferenceById(inputs.getUserId());
+	entity.setUser(user);
+	List<Author> authorList = authors
+		.findAllById(inputs.getAuthorIdList());
+	entity.setAuthors(new HashSet<>(authorList));
+	List<Language> languageList = languages
+		.findAllById(inputs.getLanguageIdList());
+	entity.setLanguages(new HashSet<>(languageList));
+
+	MultipartFile file = inputs.getCoverImageUrl();
+	if (file != null) {
+	    String baseName = UUID.randomUUID().toString();
+	    String imageName = baseName
+		    + file.getOriginalFilename();
+	    entity.setCoverImageUrl(imageName);
+	    store(file, imageName);
+	}
+
+    }
+
+    @Override
+    public BookDetail getdBookDetail(Long id) {
+	return books.findBookProjectedById(id);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBook(Long id) {
+	books.deleteById(id);
     }
 
 }
