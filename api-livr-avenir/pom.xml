@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>co.simplon</groupId>
 	<artifactId>api-livr-avenir</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>api-livr-avenir</name>
 	<description>Livr-avenir API</description>
 	<properties>
