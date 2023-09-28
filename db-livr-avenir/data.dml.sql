@@ -38,7 +38,40 @@ INSERT INTO order_status
 INSERT INTO languages 
 	(language_name, code_iso, logical_order)
 	VALUES
-	('Français', 'fr', 1), ('Anglais', 'en', 2), ('Autre', '..', 3);
+	('Autre', 'N/a', 1),
+    ('Français', 'fr', 2),
+    ('Anglais', 'en', 3),
+    ('Arabe', 'ar', 4),
+    ('Bulgar', 'bg', 5),
+    ('Tchèque', 'cs', 8), 
+    ('Danois', 'da', 9), 
+    ('Allemand', 'de', 10), 
+    ('Grec', 'el', 11), 
+    ('Espagnol', 'es', 12), 
+    ('Estonien', 'et', 13),
+    ('Basque', 'eu', 14),
+    ('Finlandais', 'fi', 15),
+    ('Hongrois', 'hu', 16),
+    ('Arménien', 'hy', 17),
+    ('Italien', 'it', 18),
+    ('Japonais', 'ja', 19),
+    ('Géorgien', 'ka', 20),
+    ('Coréen', 'ko', 21),
+    ('Latin', 'la', 22),
+    ('Lituanien', 'lt', 23),
+    ('Letton', 'lv', 24),
+    ('Norvégien', 'no', 25),
+    ('Polonais', 'pl', 26),
+    ('Portugais', 'pt', 27),
+    ('Slovaque', 'sk', 28),
+    ('Slovène', 'sl', 29),
+    ('Albanais', 'sq', 30),
+    ('Serbe', 'sr', 31),
+    ('Suédois', 'sv', 32),
+    ('Turc', 'tr', 33),
+    ('Ukrainien', 'uk', 34),
+    ('Vietnamien', 'vi', 35),
+    ('Chinois', 'zh', 36);
 
 INSERT INTO categories 
 	(category_code, category_name)
