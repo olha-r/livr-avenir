@@ -30,7 +30,7 @@ public class ResourceConfig {
 		.antMatchers("/auth/sign-in").permitAll()
 		.antMatchers("/auth/sign-up").permitAll()
 		.antMatchers(HttpMethod.GET, "/books/**",
-			"/categories", "/conditions",
+			"/categories", "/publishers",
 			"/formats", "/languages")
 		.permitAll().antMatchers("/admin")
 		.hasRole("ADMIN").antMatchers("/admin")

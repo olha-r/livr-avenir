@@ -9,20 +9,18 @@ import javax.persistence.Table;
 public class Publisher extends AbstractEntity {
 
     @Column(name = "publisher_name")
-    private String publisherName;
+    private String name;
 
     public Publisher() {
 	// TODO Auto-generated constructor stub
     }
 
-    public String getPublisherName() {
-	return publisherName;
+    public String getName() {
+	return name;
     }
 
-    @SuppressWarnings("unused")
-    public void setPublisherName(String publisherName) {
-	// Not updatable
-	this.publisherName = publisherName;
+    public void setName(String name) {
+	this.name = name;
     }
 
 }

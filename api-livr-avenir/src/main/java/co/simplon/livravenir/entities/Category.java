@@ -9,20 +9,19 @@ import javax.persistence.Table;
 public class Category extends AbstractEntity {
 
     @Column(name = "category_name")
-    private String categoryName;
+    private String name;
 
     public Category() {
 	// TODO Auto-generated constructor stub
     }
 
-    public String getCategoryName() {
-	return categoryName;
+    public String getName() {
+	return name;
     }
 
     @SuppressWarnings("unused")
-    public void setCategoryName(String categoryName) {
-	// Not updatable
-	this.categoryName = categoryName;
+    public void setName(String name) {
+	this.name = name;
     }
 
 }
