@@ -10,9 +10,9 @@ public final class SecurityHelper {
     }
 
     /**
-     * Returns the customer number of the authenticated customer.
+     * Returns the user name of the authenticated user.
      *
-     * @return the customerNumber of the authenticated customer
+     * @return the userName of the authenticated user
      */
     public static String authenticatedUser() {
 	Authentication auth = SecurityContextHolder
