@@ -8,6 +8,6 @@ public interface BookItemList {
 
     String getTitle();
 
-    String getCoverImageUrl();
+    /* String getCoverImageUrl(); */
 
 }

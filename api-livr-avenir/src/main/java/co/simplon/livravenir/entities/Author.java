@@ -20,6 +20,9 @@ public class Author extends AbstractEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "author_code")
+    private String authorCode;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
 	    CascadeType.PERSIST,
 	    CascadeType.MERGE }, mappedBy = "authors")
@@ -52,6 +55,14 @@ public class Author extends AbstractEntity {
 
     public void setBooks(Set<Book> books) {
 	this.books = books;
+    }
+
+    public String getAuthorCode() {
+	return authorCode;
+    }
+
+    public void setAuthorCode(String authorCode) {
+	this.authorCode = authorCode;
     }
 
 }

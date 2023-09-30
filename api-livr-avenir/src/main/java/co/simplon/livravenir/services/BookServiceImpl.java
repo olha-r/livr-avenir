@@ -9,6 +9,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.simplon.livravenir.dtos.AuthorCreate;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
 import co.simplon.livravenir.dtos.BookItemList;
 import co.simplon.livravenir.dtos.BookUpdate;
+import co.simplon.livravenir.dtos.PublisherCreate;
 import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.Category;
@@ -81,29 +85,78 @@ public class BookServiceImpl implements BookService {
 	Category category = categories
 		.getReferenceById(inputs.getCategoryId());
 	entity.setCategory(category);
-	Publisher publisher = publishers
-		.getReferenceById(inputs.getPublisherId());
-	entity.setPublisher(publisher);
+
+	PublisherCreate publisher = inputs.getPublisher();
+	if (publisher != null) {
+	    Optional<Publisher> optionalPublisher = publishers
+		    .findByName(publisher.getName());
+	    if (optionalPublisher.isEmpty()) {
+		createPublisher(publisher);
+	    }
+
+	}
+	Publisher publisherToAdd = publishers
+		.findPublisherByName(publisher.getName());
+	entity.setPublisher(publisherToAdd);
+
 	User user = users
 		.getReferenceById(inputs.getUserId());
 	entity.setUser(user);
-	List<Author> authorList = authors
-		.findAllById(inputs.getAuthorIdList());
-	entity.setAuthors(new HashSet<>(authorList));
+
+	Set<Author> authorList = new HashSet<>();
+	Set<AuthorCreate> inputsAuthorList = inputs
+		.getAuthorList();
+	if (inputsAuthorList != null) {
+	    for (AuthorCreate authorCreate : inputsAuthorList) {
+		Optional<Author> authorOptional = authors
+			.findByFirstNameAndLastName(
+				authorCreate.getFirstName(),
+				authorCreate.getLastName());
+		if (authorOptional.isEmpty()) {
+		    createAuthor(authorCreate);
+		}
+		Optional<Author> allAuthors = authors
+			.findByFirstNameAndLastName(
+				authorCreate.getFirstName(),
+				authorCreate.getLastName());
+		allAuthors.ifPresent(authorList::add);
+	    }
+	}
+	entity.setAuthors(authorList);
+
 	List<Language> languageList = languages
 		.findAllById(inputs.getLanguageIdList());
 
 	entity.setLanguages(new HashSet<>(languageList));
 
-	MultipartFile file = inputs.getCoverImageUrl();
-
-	String baseName = UUID.randomUUID().toString();
-	String imageName = baseName + inputs
-		.getCoverImageUrl().getOriginalFilename();
-	entity.setCoverImageUrl(imageName);
-	store(file, imageName);
+	/*
+	 * MultipartFile file = inputs.getCoverImageUrl();
+	 * 
+	 * String baseName = UUID.randomUUID().toString(); String imageName = baseName +
+	 * inputs .getCoverImageUrl().getOriginalFilename();
+	 * entity.setCoverImageUrl(imageName); System.out.println(entity);
+	 * System.out.println(imageName); store(file, imageName);
+	 */
 	books.save(entity);
 
+    }
+
+    private void createPublisher(PublisherCreate inputs) {
+	Publisher entity = new Publisher();
+	entity.setName(inputs.getName());
+	String uuid = String.valueOf(UUID.randomUUID());
+	entity.setCode(uuid);
+	publishers.save(entity);
+
+    }
+
+    private void createAuthor(AuthorCreate inputs) {
+	Author entity = new Author();
+	entity.setFirstName(inputs.getFirstName());
+	entity.setLastName(inputs.getLastName());
+	String uuid = String.valueOf(UUID.randomUUID());
+	entity.setAuthorCode(uuid);
+	authors.save(entity);
     }
 
     private void store(MultipartFile file,
@@ -152,14 +205,12 @@ public class BookServiceImpl implements BookService {
 		.findAllById(inputs.getLanguageIdList());
 	entity.setLanguages(new HashSet<>(languageList));
 
-	MultipartFile file = inputs.getCoverImageUrl();
-	if (file != null) {
-	    String baseName = UUID.randomUUID().toString();
-	    String imageName = baseName
-		    + file.getOriginalFilename();
-	    entity.setCoverImageUrl(imageName);
-	    store(file, imageName);
-	}
+	/*
+	 * MultipartFile file = inputs.getCoverImageUrl(); if (file != null) { String
+	 * baseName = UUID.randomUUID().toString(); String imageName = baseName +
+	 * file.getOriginalFilename(); entity.setCoverImageUrl(imageName); store(file,
+	 * imageName); }
+	 */
 
     }
 

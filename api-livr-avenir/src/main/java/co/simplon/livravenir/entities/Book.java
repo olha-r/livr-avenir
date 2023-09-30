@@ -32,8 +32,9 @@ public class Book extends AbstractEntity {
     @Column(name = "summary")
     private String summary;
 
-    @Column(name = "cover_image_url")
-    private String coverImageUrl;
+    /*
+     * @Column(name = "cover_image_url") private String coverImageUrl;
+     */
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -63,6 +64,38 @@ public class Book extends AbstractEntity {
 
     public Book() {
 	// TODO Auto-generated constructor stub
+    }
+
+    public void addAuthor(Author author) {
+	this.authors.add(author);
+	author.getBooks().add(this);
+    }
+
+    public void removeAuthor(Author author) {
+	this.getAuthors().remove(author);
+	author.getBooks().remove(this);
+    }
+
+    public void removeAuthors() {
+	for (Author author : new HashSet<>(authors)) {
+	    removeAuthor(author);
+	}
+    }
+
+    public void addLanguage(Language language) {
+	this.languages.add(language);
+	language.getBooks().add(this);
+    }
+
+    public void removeLanguage(Language language) {
+	this.getLanguages().remove(language);
+	language.getBooks().remove(this);
+    }
+
+    public void removeLanguages() {
+	for (Language language : new HashSet<>(languages)) {
+	    removeLanguage(language);
+	}
     }
 
     public String getIsbn() {
@@ -105,13 +138,12 @@ public class Book extends AbstractEntity {
 	this.summary = summary;
     }
 
-    public String getCoverImageUrl() {
-	return coverImageUrl;
-    }
-
-    public void setCoverImageUrl(String coverImageUrl) {
-	this.coverImageUrl = coverImageUrl;
-    }
+    /*
+     * public String getCoverImageUrl() { return coverImageUrl; }
+     * 
+     * public void setCoverImageUrl(String coverImageUrl) { this.coverImageUrl =
+     * coverImageUrl; }
+     */
 
     public Category getCategory() {
 	return category;

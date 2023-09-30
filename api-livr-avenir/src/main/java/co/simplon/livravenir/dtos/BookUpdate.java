@@ -2,8 +2,6 @@ package co.simplon.livravenir.dtos;
 
 import java.util.Set;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class BookUpdate {
 
     private String isbn;
@@ -16,7 +14,7 @@ public class BookUpdate {
 
     private String summary;
 
-    private MultipartFile coverImageUrl;
+    /* private MultipartFile coverImageUrl; */
 
     private Long publisherId;
 
@@ -72,14 +70,12 @@ public class BookUpdate {
 	this.summary = summary;
     }
 
-    public MultipartFile getCoverImageUrl() {
-	return coverImageUrl;
-    }
-
-    public void setCoverImageUrl(
-	    MultipartFile coverImageUrl) {
-	this.coverImageUrl = coverImageUrl;
-    }
+    /*
+     * public MultipartFile getCoverImageUrl() { return coverImageUrl; }
+     * 
+     * public void setCoverImageUrl( MultipartFile coverImageUrl) {
+     * this.coverImageUrl = coverImageUrl; }
+     */
 
     public Long getPublisherId() {
 	return publisherId;
@@ -120,15 +116,6 @@ public class BookUpdate {
 
     public void setCategoryId(Long categoryId) {
 	this.categoryId = categoryId;
-    }
-
-    @Override
-    public String toString() {
-	return String.format(
-		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, pulisherId=%s, userId=%s, languageIdList=%s, authorIdList=%s}",
-		isbn, title, publicationYear, pageCount,
-		summary, publisherId, userId,
-		languageIdList, authorIdList);
     }
 
 }

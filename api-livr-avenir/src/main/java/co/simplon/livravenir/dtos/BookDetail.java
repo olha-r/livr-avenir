@@ -13,7 +13,7 @@ public interface BookDetail {
 
     String getTitle();
 
-    String getCoverImageUrl();
+    /* String getCoverImageUrl(); */
 
     String getPublicationYear();
 

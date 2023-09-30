@@ -1,8 +1,7 @@
 package co.simplon.livravenir.dtos;
 
+import java.util.HashSet;
 import java.util.Set;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public class BookCreate {
 
@@ -16,17 +15,17 @@ public class BookCreate {
 
     private String summary;
 
-    private MultipartFile coverImageUrl;
+    /* private MultipartFile coverImageUrl; */
 
-    private Long publisherId;
+    private PublisherCreate publisher;
 
     private Long categoryId;
 
     private Long userId;
 
-    private Set<Long> languageIdList;
+    private Set<Long> languageIdList = new HashSet<>();
 
-    private Set<Long> authorIdList;
+    private Set<AuthorCreate> authorList = new HashSet<>();
 
     public BookCreate() {
 	// Required no-arg constructor
@@ -72,21 +71,19 @@ public class BookCreate {
 	this.summary = summary;
     }
 
-    public MultipartFile getCoverImageUrl() {
-	return coverImageUrl;
+    /*
+     * public MultipartFile getCoverImageUrl() { return coverImageUrl; }
+     * 
+     * public void setCoverImageUrl( MultipartFile coverImageUrl) {
+     * this.coverImageUrl = coverImageUrl; }
+     */
+
+    public PublisherCreate getPublisher() {
+	return publisher;
     }
 
-    public void setCoverImageUrl(
-	    MultipartFile coverImageUrl) {
-	this.coverImageUrl = coverImageUrl;
-    }
-
-    public Long getPublisherId() {
-	return publisherId;
-    }
-
-    public void setPublisherId(Long publisherId) {
-	this.publisherId = publisherId;
+    public void setPublisher(PublisherCreate publisher) {
+	this.publisher = publisher;
     }
 
     public Long getUserId() {
@@ -106,12 +103,13 @@ public class BookCreate {
 	this.languageIdList = languageIdList;
     }
 
-    public Set<Long> getAuthorIdList() {
-	return authorIdList;
+    public Set<AuthorCreate> getAuthorList() {
+	return authorList;
     }
 
-    public void setAuthorIdList(Set<Long> authorIdList) {
-	this.authorIdList = authorIdList;
+    public void setAuthorList(
+	    Set<AuthorCreate> authorList) {
+	this.authorList = authorList;
     }
 
     public Long getCategoryId() {
@@ -120,15 +118,6 @@ public class BookCreate {
 
     public void setCategoryId(Long categoryId) {
 	this.categoryId = categoryId;
-    }
-
-    @Override
-    public String toString() {
-	return String.format(
-		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, pulisherId=%s, userId=%s, languageIdList=%s, authorIdList=%s}",
-		isbn, title, publicationYear, pageCount,
-		summary, publisherId, userId,
-		languageIdList, authorIdList);
     }
 
 }

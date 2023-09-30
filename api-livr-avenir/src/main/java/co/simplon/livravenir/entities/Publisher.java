@@ -11,6 +11,9 @@ public class Publisher extends AbstractEntity {
     @Column(name = "publisher_name")
     private String name;
 
+    @Column(name = "publisher_code")
+    private String code;
+
     public Publisher() {
 	// TODO Auto-generated constructor stub
     }
@@ -21,6 +24,14 @@ public class Publisher extends AbstractEntity {
 
     public void setName(String name) {
 	this.name = name;
+    }
+
+    public String getCode() {
+	return code;
+    }
+
+    public void setCode(String code) {
+	this.code = code;
     }
 
 }
