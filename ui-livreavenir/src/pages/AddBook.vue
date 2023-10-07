@@ -198,25 +198,26 @@ const { token } = authStoreObj;
 const bookStore = BookStore();
 
 const add_new_book = async () => {
-    const formData = new FormData();
-    formData.append("isbn", inputs.isbn);
-    formData.append("title", inputs.title);
-    formData.append("publicationYear", inputs.publicationYear);
-    formData.append("pageCount", inputs.pageCount);
-    formData.append("summary", inputs.summary);
-    formData.append("publisher", inputs.publisher);
-    formData.append("categoryId", inputs.categoryId);
-    formData.append("userId", inputs.userId);
-    formData.append("languageIdList", inputs.languageIdList);
-    formData.append("authors", inputs.author);
-    const resp = await bookStore.add_new_book(formData, token);
-    console.log("resp", resp);
+    console.log(inputs);
+    // const formData = new FormData();
+    // formData.append("isbn", inputs.isbn);
+    // formData.append("title", inputs.title);
+    // formData.append("publicationYear", inputs.publicationYear);
+    // formData.append("pageCount", inputs.pageCount);
+    // formData.append("summary", inputs.summary);
+    // formData.append("publisher", inputs.publisher);
+    // formData.append("categoryId", inputs.categoryId);
+    // formData.append("userId", inputs.userId);
+    // formData.append("languageIdList", inputs.languageIdList);
+    // formData.append("authors", inputs.author);
+    // const resp = await bookStore.add_new_book(formData, token);
+    // console.log("resp", resp);
 
-    if (resp.status === 204) {
-        alert(`Livre a été créer avec success.`);
-    } else {
-        alert(`Nous n'avons pas pu créer le livre.`);
-    }
+    // if (resp.status === 204) {
+    //     alert(`Livre a été créer avec success.`);
+    // } else {
+    //     alert(`Nous n'avons pas pu créer le livre.`);
+    // }
 };
 // const handleImageUpload = (event) => {
 //     inputs.image = event.target.files[0];
