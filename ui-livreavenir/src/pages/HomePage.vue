@@ -1,5 +1,6 @@
 <template>
     <main class="container-xl my-2 home-page">
+        {{ lastAddedBooks }}
         <div class="mb-4 rounded-3 home-page-img position-relative">
             <div
                 class="position-absolute top-50 start-50 translate-middle-x text-center"
@@ -34,7 +35,7 @@
                 <a :href="`/books/${book.id}/detail`"
                     ><div class="card">
                         <img
-                            :src="`/src/assets/images/${book.image}`"
+                            src="../assets/images/book-image-example.jpg"
                             class="card-img-top"
                             alt="..."
                         />
@@ -46,111 +47,44 @@
                             <p
                                 class="card-subtitle mb-2 text-muted text-center"
                             >
-                                {{ book.author }}
+                                <span
+                                    v-for="(author, index) in book.authors"
+                                    :key="index"
+                                >
+                                    {{ author.firstName }} {{ author.lastName }}
+                                    <span v-if="index < book.authors.length - 1"
+                                        >,
+                                    </span>
+                                </span>
                             </p>
                         </div>
                     </div></a
                 >
             </div>
         </div>
-
-        <h3 class="text-center my-4">Derniers livres ajoutés en favoris</h3>
-
-        <div class="row row-cols-2 row-cols-md-4 g-5">
-            <div class="col">
-                <div class="card">
-                    <img
-                        src="../assets/images/book-image-example.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Titre de livre</h5>
-                        <p class="card-subtitle mb-2 text-muted text-center">
-                            Auteur de livre
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img
-                        src="../assets/images/book-image-example.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Titre de livre</h5>
-                        <p class="card-subtitle mb-2 text-muted text-center">
-                            Auteur de livre
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img
-                        src="../assets/images/book-image-example.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Titre de livre</h5>
-                        <p class="card-subtitle mb-2 text-muted text-center">
-                            Auteur de livre
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img
-                        src="../assets/images/book-image-example.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Titre de livre</h5>
-                        <p class="card-subtitle mb-2 text-muted text-center">
-                            Auteur de livre
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 </template>
 
-<script>
+<script setup>
 import { onBeforeMount } from "vue";
 import SearchComponent from "../components/SearchComponent.vue";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../stores/book-store";
 
-export default {
-    name: "HomePage",
-    components: {
-        SearchComponent,
-    },
-    setup() {
-        const bookStoreObj = BookStore();
-        const { lastAddedBooks } = storeToRefs(bookStoreObj);
-        onBeforeMount(() => {
-            bookStoreObj.get_last_added_books();
-        });
-        return {
-            lastAddedBooks,
-        };
-    },
-    // methods: {
-    //     async initLastAddedBooks() {
-    //         const resp = await this.$http.get("/books");
-    //         this.lastAddedBooks = resp.body;
-    //     },
-    // },
-    // beforeMount() {
-    //     this.initLastAddedBooks();
-    // },
-};
+const bookStoreObj = BookStore();
+const { lastAddedBooks } = storeToRefs(bookStoreObj);
+onBeforeMount(() => {
+    bookStoreObj.get_last_added_books();
+});
+
+// methods: {
+//     async initLastAddedBooks() {
+//         const resp = await this.$http.get("/books");
+//         this.lastAddedBooks = resp.body;
+//     },
+// },
+// beforeMount() {
+//     this.initLastAddedBooks();
+// },
 </script>
 

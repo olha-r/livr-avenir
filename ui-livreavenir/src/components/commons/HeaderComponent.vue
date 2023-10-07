@@ -39,7 +39,7 @@ export default {
                         <li class="nav-item">
                             <RouterLink
                                 class="nav-link"
-                                :to="{ name: 'add-book-final' }"
+                                :to="{ name: 'add-book' }"
                                 >Ajouter un livre 2</RouterLink
                             >
                         </li>

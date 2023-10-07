@@ -1,163 +1,224 @@
-<script>
-import LabelValues from '../components/commons/LabelValues.vue';
-export default {
-    name: 'AddBook',
-    components: {
-        LabelValues
-    },
-    data() {
-        return {
-            formats: [],
-            languages: [],
-            conditions: [],
-            categories: [],
-            inputs: {
-                name: null,
-                isbn: null,
-                author: null,
-                year: null,
-                edition: null,
-                image: null,
-                description: null,
-                point: null,
-                conditionId: 0,
-                languageId: 0,
-                formatId: 0,
-                categoryId: 0
-            }
-        }
-    },
-    methods: {
-        async submit() {
-            const postData = this.inputs
-            console.log(postData);
-            const resp = await fetch('http://localhost:8080/books', {
-                method: 'POST',
-                headers: {
-                    'method': 'Post',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(
-                    postData)
-                   
-            })
-            console.log(resp);
-        },
-        async initConditions() {
-            const resp = await this.$http.get('/conditions');
-            this.conditions = resp.body;
-        },
-        async initLanguages() {
-            const resp = await this.$http.get('/languages');
-            this.languages = resp.body;
-        },
-        async initFormats() {
-            const resp = await this.$http.get('/formats');
-            this.formats = resp.body;
-        },
-        async initCategories() {
-            const resp = await this.$http.get('/categories');
-            this.categories = resp.body;
-        },
-    },
-    beforeMount() {
-        this.initConditions();
-        this.initLanguages();
-        this.initFormats();
-        this.initCategories();
-    }
-}
-</script>
 <template>
-<h1>Create a new sticker</h1>
-<form novalidate @submit.prevent="submit">
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="name" class="form-label required">Name</label>
-            <input v-model.trim="inputs.name" id="name" name="name" type="text" class="form-control">
+    <main class="container-xl my-5">
+        <div
+            class="justify-content-center align-items-center book-details-container"
+        >
+            <div class="text-center">
+                <h1>Ajouter un livre</h1>
+            </div>
+            <form novalidate @submit.prevent="add_new_book">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input
+                            v-model.trim="inputs.isbn"
+                            name="isbn"
+                            id="isbn"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="title" class="form-label"
+                            >Titre de livre</label
+                        >
+                        <input
+                            v-model.trim="inputs.title"
+                            name="title"
+                            id="title"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="author" class="form-label"
+                            >Prénom de l'auteur</label
+                        >
+                        <input
+                            v-model.trim="inputs.authors.firstName"
+                            name="author"
+                            id="author"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="author" class="form-label"
+                            >Nom de l'auteur</label
+                        >
+                        <input
+                            v-model.trim="inputs.authors.lastName"
+                            name="author"
+                            id="author"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label for="edition" class="form-label">Edition</label>
+                        <input
+                            v-model.trim="inputs.publisher.name"
+                            name="edition"
+                            id="edition"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="publicationYear" class="form-label"
+                            >L'année de publication</label
+                        >
+                        <input
+                            v-model.trim="inputs.publicationYear"
+                            name="publicationYear"
+                            id="publicationYear"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="pageCount" class="form-label"
+                            >Nombre de pages</label
+                        >
+                        <input
+                            v-model.trim="inputs.pageCount"
+                            name="pageCount"
+                            id="pageCount"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="languageId" class="form-label"
+                            >Langue</label
+                        >
+                        <select
+                            v-model.number="inputs.languageIdList"
+                            name="languageId"
+                            id="languageId"
+                            class="form-select"
+                            multiple
+                        >
+                            <option selected disabled value="0">
+                                Choisir langue...
+                            </option>
+                            <LabelValues :items="list_languages" />
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="categoryId" class="form-label"
+                            >Category</label
+                        >
+                        <select
+                            v-model.number="inputs.categoryId"
+                            id="categoryId"
+                            class="form-select"
+                        >
+                            <option selected disabled value="0">
+                                Choisir category...
+                            </option>
+                            <LabelValues :items="list_categories" />
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label for="summary" class="form-label"
+                            >Description</label
+                        >
+                        <textarea
+                            v-model.trim="inputs.summary"
+                            name="summary"
+                            id="summary"
+                            class="form-control"
+                            rows="5"
+                        ></textarea>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label for="image" class="form-label"
+                            >Ajouter l'image de votre livre</label
+                        >
+                        <input
+                            name="image"
+                            id="image"
+                            type="file"
+                            accept="image/png,image/jpeg"
+                            class="form-control"
+                            @change="handleImageUpload"
+                        />
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button
+                        type="submit"
+                        class="btn btn-lg btn-primary col-md-4 my-3"
+                    >
+                        Ajouter
+                    </button>
+                </div>
+            </form>
         </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="isbn" class="form-label required">Isbn</label>
-            <input v-model.trim="inputs.isbn" id="isbn" name="isbn" type="text" class="form-control">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="author" class="form-label required">author</label>
-            <input v-model.trim="inputs.author" id="author" name="author" type="text" class="form-control">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="year" class="form-label required">year</label>
-            <input v-model.trim="inputs.year" id="year" name="year" type="text" class="form-control">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="edition" class="form-label required">edition</label>
-            <input v-model.trim="inputs.edition" id="edition" name="edition" type="text" class="form-control">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="image" class="form-label required">image</label>
-            <input v-model.trim="inputs.image" id="image" name="image" type="text" class="form-control">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="point" class="form-label required">point</label>
-            <input v-model.trim="inputs.point" id="point" name="point" type="text" class="form-control">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="description" class="form-label required">Description</label>
-            <textarea v-model.trim="inputs.description" id="description" name="description" maxlength="1000" rows="3" class="form-control"></textarea>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <label for="conditionId" class="form-label">Condition</label>
-            <select v-model.number="inputs.conditionId" id="sizeId" name="sizeId" class="form-select">
-                <option selected disabled value="0">Choose a condition</option>
-                <LabelValues :items="conditions" />
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <label for="languageId" class="form-label">Language</label>
-            <select v-model.number="inputs.languageId" id="languageId" name="languageId" class="form-select">
-                <option selected disabled value="0">Choose a condition</option>
-                <LabelValues :items="languages" />
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <label for="formatId" class="form-label">Format</label>
-            <select v-model.number="inputs.formatId" id="formatId" name="formatId" class="form-select">
-                <option selected disabled value="0">Choose a condition</option>
-                <LabelValues :items="formats" />
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <label for="categoryId" class="form-label">categoryId</label>
-            <select v-model.number="inputs.categoryId" id="categoryId" name="categoryId" class="form-select">
-                <option selected disabled value="0">Choose a condition</option>
-                <LabelValues :items="categories" />
-            </select>
-        </div>
-    </div>
-    <div class="d-grid d-md-flex justify-content-md-end mb-3">
-        <button type="submit" class="btn btn-dark">Sauvegarder</button>
-    </div>
-</form>
+    </main>
 </template>
+
+<script setup>
+import LabelValues from "../components/commons/LabelValues.vue";
+import { onBeforeMount } from "vue";
+import { storeToRefs } from "pinia";
+import { AddBookFormStore } from "../stores/add-book-form-store";
+import { BookStore } from "../stores/book-store";
+import { AuthStore } from "../stores/auth-store";
+
+const addBookStoreObj = AddBookFormStore();
+const { list_languages, list_categories } = storeToRefs(addBookStoreObj);
+onBeforeMount(() => {
+    addBookStoreObj.get_list_languages();
+    addBookStoreObj.get_list_categories();
+});
+const inputs = {
+    isbn: null,
+    title: null,
+    publicationYear: null,
+    pageCount: null,
+    summary: null,
+    publisher: {},
+    categoryId: 0,
+    userId: 1,
+    languageIdList: [],
+    authors: [],
+};
+const authStoreObj = AuthStore();
+const { token } = authStoreObj;
+const bookStore = BookStore();
+
+const add_new_book = async () => {
+    const formData = new FormData();
+    formData.append("isbn", inputs.isbn);
+    formData.append("title", inputs.title);
+    formData.append("publicationYear", inputs.publicationYear);
+    formData.append("pageCount", inputs.pageCount);
+    formData.append("summary", inputs.summary);
+    formData.append("publisher", inputs.publisher);
+    formData.append("categoryId", inputs.categoryId);
+    formData.append("userId", inputs.userId);
+    formData.append("languageIdList", inputs.languageIdList);
+    formData.append("authors", inputs.author);
+    const resp = await bookStore.add_new_book(formData, token);
+    console.log("resp", resp);
+
+    if (resp.status === 204) {
+        alert(`Livre a été créer avec success.`);
+    } else {
+        alert(`Nous n'avons pas pu créer le livre.`);
+    }
+};
+// const handleImageUpload = (event) => {
+//     inputs.image = event.target.files[0];
+// };
+</script>

@@ -1,6 +1,7 @@
 <template>
     <main class="container-xl my-5">
-        <div
+        {{ book_details }}
+        <!-- <div
             class="justify-content-center align-items-center book-details-container"
         >
             <div class="input-group mb-3">
@@ -40,16 +41,6 @@
                     />
                 </div>
                 <div class="col book-info p-3">
-                    <div class="d-flex justify-content-end">
-                        <button
-                            class="btn d-flex align-items-center"
-                            href="home.html"
-                        >
-                            Ajouter en favoris
-                            <i class="bi bi-heart img-like ps-2"></i>
-                        </button>
-                        <!-- <i class="bi bi-heart-fill"></i> -->
-                    </div>
                     <p class="fst-italic">Résumé:</p>
                     <p>{{ book_details.description }}</p>
                     <div class="row">
@@ -143,7 +134,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </main>
 </template>
 

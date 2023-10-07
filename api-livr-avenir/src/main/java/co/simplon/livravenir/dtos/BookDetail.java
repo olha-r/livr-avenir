@@ -1,7 +1,5 @@
 package co.simplon.livravenir.dtos;
 
-import java.util.Set;
-
 import co.simplon.livravenir.entities.Category;
 import co.simplon.livravenir.entities.Publisher;
 
@@ -13,7 +11,7 @@ public interface BookDetail {
 
     String getTitle();
 
-    /* String getCoverImageUrl(); */
+    String getCoverImageUrl();
 
     String getPublicationYear();
 
@@ -21,10 +19,8 @@ public interface BookDetail {
 
     String getSummary();
 
-    Publisher getPublisher();
-
     Category getCategory();
 
-    Set<String> getLanguages();
+    Publisher getPublisher();
 
 }

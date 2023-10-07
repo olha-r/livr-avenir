@@ -3,6 +3,8 @@ package co.simplon.livravenir.dtos;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BookCreate {
 
     private String isbn;
@@ -15,7 +17,7 @@ public class BookCreate {
 
     private String summary;
 
-    /* private MultipartFile coverImageUrl; */
+    private MultipartFile coverImageUrl;
 
     private PublisherCreate publisher;
 
@@ -71,12 +73,14 @@ public class BookCreate {
 	this.summary = summary;
     }
 
-    /*
-     * public MultipartFile getCoverImageUrl() { return coverImageUrl; }
-     * 
-     * public void setCoverImageUrl( MultipartFile coverImageUrl) {
-     * this.coverImageUrl = coverImageUrl; }
-     */
+    public MultipartFile getCoverImageUrl() {
+	return coverImageUrl;
+    }
+
+    public void setCoverImageUrl(
+	    MultipartFile coverImageUrl) {
+	this.coverImageUrl = coverImageUrl;
+    }
 
     public PublisherCreate getPublisher() {
 	return publisher;

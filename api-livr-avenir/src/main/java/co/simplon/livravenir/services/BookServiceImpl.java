@@ -129,14 +129,16 @@ public class BookServiceImpl implements BookService {
 
 	entity.setLanguages(new HashSet<>(languageList));
 
-	/*
-	 * MultipartFile file = inputs.getCoverImageUrl();
-	 * 
-	 * String baseName = UUID.randomUUID().toString(); String imageName = baseName +
-	 * inputs .getCoverImageUrl().getOriginalFilename();
-	 * entity.setCoverImageUrl(imageName); System.out.println(entity);
-	 * System.out.println(imageName); store(file, imageName);
-	 */
+	MultipartFile file = inputs.getCoverImageUrl();
+
+	String baseName = UUID.randomUUID().toString();
+	String imageName = baseName + inputs
+		.getCoverImageUrl().getOriginalFilename();
+	entity.setCoverImageUrl(imageName);
+	System.out.println(entity);
+	System.out.println(imageName);
+	store(file, imageName);
+
 	books.save(entity);
 
     }
@@ -216,7 +218,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDetail getdBookDetail(Long id) {
-	return books.findBookProjectedById(id);
+	return books.findProjectedById(id);
     }
 
     @Transactional

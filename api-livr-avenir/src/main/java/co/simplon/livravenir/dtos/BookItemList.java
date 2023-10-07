@@ -1,5 +1,7 @@
 package co.simplon.livravenir.dtos;
 
+import java.util.List;
+
 public interface BookItemList {
 
     Long getId();
@@ -8,6 +10,8 @@ public interface BookItemList {
 
     String getTitle();
 
-    /* String getCoverImageUrl(); */
+    List<AuthorDetail> getAuthors();
+
+    String getCoverImageUrl();
 
 }

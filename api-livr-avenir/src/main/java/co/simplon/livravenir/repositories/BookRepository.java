@@ -13,6 +13,6 @@ public interface BookRepository
 
     Collection<BookItemList> findAllBooksProjectedBy();
 
-    BookDetail findBookProjectedById(Long id);
+    BookDetail findProjectedById(Long id);
 
 }

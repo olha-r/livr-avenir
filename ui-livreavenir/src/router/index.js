@@ -19,8 +19,7 @@ const router = createRouter({
       path: '/add-new-book',
       component: () => import('../layouts/MainLayout.vue'),
       children: [
-        { path: '', component: () => import('../pages/AddBookFirstPage.vue'), name: "add-book" },
-        {  path: 'final', component: () => import('../pages/AddBookSecondPage.vue'), name: "add-book-final" },
+        { path: '', component: () => import('../pages/AddBook.vue'), name: "add-book" },
       ]
     },
     {

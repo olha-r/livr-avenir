@@ -32,9 +32,8 @@ public class Book extends AbstractEntity {
     @Column(name = "summary")
     private String summary;
 
-    /*
-     * @Column(name = "cover_image_url") private String coverImageUrl;
-     */
+    @Column(name = "cover_image_url")
+    private String coverImageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -138,12 +137,13 @@ public class Book extends AbstractEntity {
 	this.summary = summary;
     }
 
-    /*
-     * public String getCoverImageUrl() { return coverImageUrl; }
-     * 
-     * public void setCoverImageUrl(String coverImageUrl) { this.coverImageUrl =
-     * coverImageUrl; }
-     */
+    public String getCoverImageUrl() {
+	return coverImageUrl;
+    }
+
+    public void setCoverImageUrl(String coverImageUrl) {
+	this.coverImageUrl = coverImageUrl;
+    }
 
     public Category getCategory() {
 	return category;
