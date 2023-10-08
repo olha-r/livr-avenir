@@ -27,6 +27,11 @@ export const BookStore = defineStore('book-store', {
                 this.book_details = promise.body;
             }
             return promise; 
+        },
+        async delete_book(book_id, token){
+            const bookHttp = new BookHttp();
+            const promise = await bookHttp.delete_book(book_id, token);
+            return promise; 
         }
     },
   })

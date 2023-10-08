@@ -1,16 +1,17 @@
 import axios from 'axios';
 
-const BASE_URL = `http://localhost:8080`;
-const HEADERS = [{
-            'Accept': 'application/json',
-            // 'Authorization': 'Bearer {token}'
-          }];
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+// const HEADERS = [{
+//             'Accept': 'application/json',
+//             'Authorization': 'Bearer {token}'
+//           }];
 const ACCEPTED_STATUS = [200, 201, 202, 204, 400];
 export const http = axios.create({
         baseURL: BASE_URL,
         validateStatus: (status) => {
             return ACCEPTED_STATUS.includes(status);
         },
+        // HEADERS
     });
     http.interceptors.response.use((response) => {
         const status = response.status;
