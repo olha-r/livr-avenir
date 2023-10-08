@@ -42,20 +42,10 @@ a {
     border-radius: 0.6rem;
 }
 
-.btn:hover {
-    background-color: var(--light-orange-color);
-    border-color: var(--dark-orange-color);
-
-}
-
-.btn:active {
-    background-color: var(--light-orange-color);
-    border-color: var(--dark-orange-color);
-}
-
-.btn:focus {
-    background-color: var(--light-orange-color);
-    border-color: var(--dark-orange-color);
+.btn:hover, .btn:active, .btn:focus {
+    background-color: var(--light-orange-color) !important;
+    border-color: var(--light-orange-color) !important;
+    color: var(--dark-green-color) !important;
 }
 
 /********** Home page **********/

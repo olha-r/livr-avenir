@@ -2,18 +2,8 @@ import {http} from './http-common';
 
 export class AddBookFormHttp {
     
-    async get_list_formats() {
-        const url = `/formats`;
-        const response = await http.get(url);
-        return response;
-    };
     async get_list_languages() {
         const url = `/languages`;
-        const response = await http.get(url);
-        return response;
-    };
-    async get_list_conditions() {
-        const url = `/conditions`;
         const response = await http.get(url);
         return response;
     };

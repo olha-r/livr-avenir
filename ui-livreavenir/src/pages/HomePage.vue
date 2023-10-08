@@ -35,9 +35,9 @@
                 <a :href="`/books/${book.id}/detail`"
                     ><div class="card">
                         <img
-                            src="../assets/images/book-image-example.jpg"
+                            :src="baseUrl + book.coverImageUrl"
                             class="card-img-top"
-                            alt="..."
+                            alt="Cover Image"
                         />
 
                         <div class="card-body">
@@ -76,6 +76,7 @@ const { lastAddedBooks } = storeToRefs(bookStoreObj);
 onBeforeMount(() => {
     bookStoreObj.get_last_added_books();
 });
+const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 
 // methods: {
 //     async initLastAddedBooks() {

@@ -15,13 +15,13 @@ const router = createRouter({
     //   }
 
     },
-    {
-      path: '/add-new-book',
-      component: () => import('../layouts/MainLayout.vue'),
-      children: [
-        { path: '', component: () => import('../pages/AddBook.vue'), name: "add-book" },
-      ]
-    },
+    // {
+    //   path: '/add-new-book',
+    //   component: () => import('../layouts/MainLayout.vue'),
+    //   children: [
+    //     { path: '', component: () => import('../pages/AddBook.vue'), name: "add-book" },
+    //   ]
+    // },
     {
       path: '/books/:id/detail',
       component: () => import('../layouts/MainLayout.vue'),
@@ -36,6 +36,15 @@ const router = createRouter({
         { path: 'register', component: () => import('../pages/RegisterPage.vue'), name: "register" },
         { path: 'login',component: () => import('../pages/LoginPage.vue'), name: "login" },
         { path: 'profile',component: () => import('../pages/UserProfile.vue'), name: "profile" },
+      ]
+    },
+    {
+      path: '/admin',
+      component: () => import('../layouts/AdminLayout.vue'),
+      children: [
+        { path: '', component: () => import('../pages/admin/AdminDashboard.vue'), name: "admin-dashboard" },
+        { path: 'users', component: () => import('../pages/admin/ManageUsers.vue'), name: "manage-users" },
+        { path: 'add-book', component: () => import('../pages/admin/AddBook.vue'), name: "add-book" },
       ]
     },
     {

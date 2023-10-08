@@ -28,36 +28,21 @@ export default {
                             <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'admin-dashboard' }"
-                                >Admin</RouterLink
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <RouterLink class="nav-link" :to="{ name: 'home' }"
-                                >Accueil</RouterLink
+                                >Livres</RouterLink
                             >
                         </li>
                         <li class="nav-item">
                             <RouterLink
                                 class="nav-link"
-                                :to="{ name: 'add-book' }"
-                                >Ajouter un livre</RouterLink
+                                :to="{ name: 'manage-users' }"
+                                >Users</RouterLink
                             >
                         </li>
 
                         <li class="nav-item">
-                            <RouterLink
-                                class="nav-link"
-                                :to="{ name: 'register' }"
-                                >S'inscrire</RouterLink
-                            >
-                        </li>
-                        <li class="nav-item">
                             <RouterLink class="nav-link" :to="{ name: 'login' }"
-                                >Se connecter</RouterLink
-                            >
-                        </li>
-                        <li>
-                            <i class="bi bi-person-circle"></i>
+                                ><i class="bi bi-box-arrow-right"></i
+                            ></RouterLink>
                         </li>
                     </ul>
                 </div>
