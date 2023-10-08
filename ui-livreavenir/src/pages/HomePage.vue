@@ -30,7 +30,7 @@
 
         <h3 class="text-center my-4">Derniers livres ajoutés récemment</h3>
 
-        <div class="row row-cols-2 row-cols-md-4 g-5">
+        <div class="row row-cols-2 row-cols-md-5 g-5">
             <div class="col" v-for="book in lastAddedBooks" :key="book.id">
                 <a :href="`/books/${book.id}/detail`"
                     ><div class="card">

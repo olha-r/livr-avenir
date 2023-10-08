@@ -38,7 +38,6 @@
                         </td>
                         <td>
                             <img
-                                v-if="book.coverImageUrl"
                                 :src="
                                     book.coverImageUrl
                                         ? baseUrl + book.coverImageUrl
@@ -49,7 +48,15 @@
                             />
                         </td>
                         <td>
-                            <i class="bi bi-pencil-square text-primary"></i>
+                            <RouterLink
+                                :to="{
+                                    name: 'update-book',
+                                    params: { id: book.id },
+                                }"
+                                title="Update sticker"
+                            >
+                                <i class="bi bi-pencil-square text-primary"></i>
+                            </RouterLink>
                         </td>
                         <td>
                             <a href="#" @click="remove(book.id)">

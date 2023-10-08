@@ -45,6 +45,7 @@ const router = createRouter({
         { path: '', component: () => import('../pages/admin/AdminDashboard.vue'), name: "admin-dashboard" },
         { path: 'users', component: () => import('../pages/admin/ManageUsers.vue'), name: "manage-users" },
         { path: 'add-book', component: () => import('../pages/admin/AddBook.vue'), name: "add-book" },
+        { path: 'book/:id/update', component: () => import('../pages/admin/UpdateBook.vue'), name: "update-book" },
       ]
     },
     {

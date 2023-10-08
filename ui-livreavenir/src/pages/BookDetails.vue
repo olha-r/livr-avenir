@@ -1,7 +1,6 @@
 <template>
     <main class="container-xl my-5">
-        {{ book_details }}
-        <!-- <div
+        <div
             class="justify-content-center align-items-center book-details-container"
         >
             <div class="input-group mb-3">
@@ -19,36 +18,35 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col">
                         <p class="author">
-                            {{ book_details.author
-                            }}<span class="text-muted fs-6"> (Author)</span>
-                        </p>
-                    </div>
-                    <div class="col">
-                        <p class="text-end">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
+                            <span
+                                v-for="(author, index) in book_details.authors"
+                                :key="index"
+                            >
+                                {{ author.firstName }} {{ author.lastName }}
+                                <span v-if="index < book.authors.length - 1"
+                                    >,
+                                </span> </span
+                            ><span class="text-muted fs-6"> (Auteur(s))</span>
                         </p>
                     </div>
                 </div>
                 <div class="col-12 col-md-5 book-image ps-0">
                     <img
-                        :src="`/src/assets/images/${book_details.image}`"
+                        :src="
+                            book_details.coverImageUrl
+                                ? baseUrl + book_details.coverImageUrl
+                                : baseUrl + 'default-image.jpg'
+                        "
+                        alt="Cover Image"
                         class="img-fluid"
-                        alt="book image"
                     />
                 </div>
                 <div class="col book-info p-3">
                     <p class="fst-italic">Résumé:</p>
-                    <p>{{ book_details.description }}</p>
+                    <p>{{ book_details.summary }}</p>
                     <div class="row">
                         <p>
                             <span class="badge text-bg-warning me-1">{{
-                                book_details.category
-                            }}</span
-                            ><span class="badge text-bg-warning me-1">{{
                                 book_details.category
                             }}</span>
                         </p>
@@ -72,27 +70,20 @@
                         <div class="col">
                             <p>
                                 <span class="fw-light">Edition: </span
-                                >{{ book_details.edition }}
+                                >{{ book_details.publisher }}
                             </p>
                         </div>
                         <div class="col">
                             <p>
                                 <span class="fw-light">Nombres de pages: </span
-                                >560
+                                >{{ book_details.pageCount }}
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <p>
-                                <span class="fw-light">Format: </span
-                                >{{ book_details.formatName }}
-                            </p>
-                        </div>
-                        <div class="col">
-                            <p>
-                                <span class="fw-light">Langue: </span
-                                >{{ book_details.languageName }}
+                                <span class="fw-light">Langue: </span>
                             </p>
                         </div>
                     </div>
@@ -110,11 +101,11 @@
                     <p class="text-center">Jonh Doe</p>
                 </div>
                 <div class="col-12 col-md-2">
-                    <p class="text-center">{{ book_details.conditionName }}</p>
+                    <p class="text-center">Condition</p>
                     <p class="text-center">Ajouté le 23/10/22</p>
                 </div>
                 <div class="col-12 col-md-2">
-                    <p class="text-center">{{ book_details.point }}</p>
+                    <p class="text-center">Points</p>
                     <p class="text-center">points</p>
                 </div>
                 <div
@@ -134,31 +125,23 @@
                     </button>
                 </div>
             </div>
-        </div> -->
+        </div>
     </main>
 </template>
 
-<script>
+<script setup>
 import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../stores/book-store";
-export default {
-    name: "BookDetails",
-    setup() {
-        const bookStoreObj = BookStore();
-        const { book_details } = storeToRefs(bookStoreObj);
-        const route = useRoute();
-        const book_id = route.params.id;
-        const imageUrl = ref("");
-        onBeforeMount(() => {
-            bookStoreObj.get_book_details(book_id);
-            imageUrl.value = `../assets/images/${book_details.image}`;
-        });
-        return {
-            book_details,
-            imageUrl,
-        };
-    },
-};
+
+const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
+const bookStoreObj = BookStore();
+const { book_details } = storeToRefs(bookStoreObj);
+const route = useRoute();
+const book_id = route.params.id;
+const imageUrl = ref("");
+onBeforeMount(() => {
+    bookStoreObj.get_book_details(book_id);
+});
 </script>
