@@ -1,5 +1,7 @@
 package co.simplon.livravenir.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +41,13 @@ public class AuthServiceImpl implements AuthService {
 	user.setPassword(hashPassword);
 
 	Role role = roleRepo
-		.getReferenceByName("ROLE_USER");
+		.getReferenceByCode("ROLE_USER");
 	user.setRole(role);
+	LocalDateTime registrationDate = LocalDateTime
+		.now();
+	user.setRegistrationDate(registrationDate);
+	Long pointsNumber = 5L;
+	user.setPointsNumber(pointsNumber);
 	authRepo.save(user);
 
     }

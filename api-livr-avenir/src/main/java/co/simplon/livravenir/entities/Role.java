@@ -8,8 +8,11 @@ import javax.persistence.Table;
 @Table(name = "roles")
 public class Role extends AbstractEntity {
 
-    @Column(name = "name")
+    @Column(name = "role_name")
     private String name;
+
+    @Column(name = "code_role")
+    private String code;
 
     public Role() {
 	// TODO Auto-generated constructor stub
@@ -21,6 +24,14 @@ public class Role extends AbstractEntity {
 
     public void setName(String name) {
 	this.name = name;
+    }
+
+    public String getCode() {
+	return code;
+    }
+
+    public void setCode(String code) {
+	this.code = code;
     }
 
     @Override

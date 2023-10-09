@@ -43,7 +43,6 @@ CREATE TABLE roles (
 
 CREATE TABLE users (
 	id SERIAL,
-	user_name VARCHAR(300) NOT NULL,
 	first_name VARCHAR(300) NOT NULL,
 	last_name VARCHAR(300) NOT NULL,
 	email VARCHAR(300) UNIQUE NOT NULL,

@@ -7,5 +7,5 @@ import co.simplon.livravenir.entities.Role;
 public interface RoleRepository
 	extends JpaRepository<Role, Long> {
 
-    Role getReferenceByName(String string);
+    Role getReferenceByCode(String string);
 }
