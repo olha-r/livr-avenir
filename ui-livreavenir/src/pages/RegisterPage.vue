@@ -12,84 +12,84 @@
                                 >Prénom</label
                             >
                             <input
-                                v-model.trim="state.user.firstName"
+                                v-model.trim="user.firstName"
                                 name="firstName"
                                 id="firstName"
                                 type="text"
                                 class="form-control"
                                 :class="{
-                                    'is-invalid': v$.user.firstName.$error,
+                                    'is-invalid': v$.firstName.$error,
                                 }"
                             />
-                            <ValidationMessage :model="v$.user.firstName" />
+                            <ValidationMessage :model="v$.firstName" />
                         </div>
                         <div class="col-md-6">
                             <label for="lastName" class="form-label required"
                                 >Nom</label
                             >
                             <input
-                                v-model.trim="state.user.lastName"
+                                v-model.trim="user.lastName"
                                 name="lastName"
                                 id="lastName"
                                 type="text"
                                 class="form-control"
                                 :class="{
-                                    'is-invalid': v$.user.lastName.$error,
+                                    'is-invalid': v$.lastName.$error,
                                 }"
                             />
-                            <ValidationMessage :model="v$.user.lastName" />
+                            <ValidationMessage :model="v$.lastName" />
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label required">Email</label>
                     <input
-                        v-model.trim="state.user.email"
+                        v-model.trim="user.email"
                         name="email"
                         id="email"
                         type="email"
                         class="form-control"
                         aria-describedby="emailHelp"
-                        :class="{ 'is-invalid': v$.user.email.$error }"
+                        :class="{ 'is-invalid': v$.email.$error }"
                     />
                     <div id="emailHelp" class="form-text">
                         ex.: prenom.nom@domain.com
                     </div>
-                    <ValidationMessage :model="v$.user.email" />
+                    <ValidationMessage :model="v$.email" />
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label required"
                         >Mot de passe</label
                     >
                     <input
-                        v-model.trim="state.user.password"
+                        v-model.trim="user.password"
                         name="password"
                         id="password"
                         type="password"
                         class="form-control"
-                        :class="{ 'is-invalid': v$.user.password.$error }"
+                        :class="{ 'is-invalid': v$.password.$error }"
                     />
                     <div id="passwordHelp" class="form-text">
                         Au moins 1 majuscule et 1 miniscule, au moins un nombre
                         au moins 1 de !@#%&*?
                     </div>
-                    <ValidationMessage :model="v$.user.password" />
+                    <ValidationMessage :model="v$.password" />
                 </div>
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label required"
                         >Confirmer le mot de passe</label
                     >
                     <input
-                        v-model.trim="state.user.confirmPassword"
+                        v-model.trim="user.confirmPassword"
                         name="confirmPassword"
                         id="confirmPassword"
                         type="password"
                         class="form-control"
                         :class="{
-                            'is-invalid': v$.user.confirmPassword.$error,
+                            'is-invalid': v$.confirmPassword.$error,
                         }"
                     />
-                    <ValidationMessage :model="v$.user.confirmPassword" />
+                    <ValidationMessage :model="v$.confirmPassword" />
                 </div>
                 <button type="submit" class="btn btn-primary col-12 mb-3">
                     Créer
@@ -99,7 +99,7 @@
     </main>
 </template>
 
-<script>
+<script setup>
 import { reactive, computed } from "vue";
 import useValidate from "@vuelidate/core";
 import {
@@ -113,125 +113,98 @@ import {
 import ValidationMessage from "../components/commons/ValidationMessage.vue";
 import { AuthStore } from "../stores/auth-store";
 
-export default {
-    name: "RegisterPage",
-    components: {
-        ValidationMessage,
-    },
-    setup() {
-        const state = reactive({
-            user: {
-                firstName: null,
-                lastName: null,
-                email: null,
-                password: null,
-                confirmPassword: null,
-            },
-        });
-        const validPassword = helpers.regex(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*?]).{8,42}$/
-        );
-        const rules = computed(() => {
-            return {
-                user: {
-                    firstName: {
-                        required: helpers.withMessage(
-                            "Veuillez renseigner ce champ.",
-                            required
-                        ),
-                        minLength: helpers.withMessage(
-                            "Veuillez saisir au moins 2 caractères.",
-                            minLength(2)
-                        ),
-                        maxLength: helpers.withMessage(
-                            "Veuillez saisir moins de 30 caractères.",
-                            maxLength(30)
-                        ),
-                    },
-                    lastName: {
-                        required: helpers.withMessage(
-                            "Veuillez renseigner ce champ.",
-                            required
-                        ),
-                        minLength: helpers.withMessage(
-                            "Veuillez saisir au moins 2 caractères.",
-                            minLength(2)
-                        ),
-                        maxLength: helpers.withMessage(
-                            "Veuillez saisir moins de 100 caractères.",
-                            maxLength(100)
-                        ),
-                    },
-                    email: {
-                        required: helpers.withMessage(
-                            "Veuillez renseigner ce champ.",
-                            required
-                        ),
-                        email: helpers.withMessage(
-                            "Veuillez saisir votre adresse e-mail au format votrenom@example.com",
-                            email
-                        ),
-                    },
-                    password: {
-                        required: helpers.withMessage(
-                            "Veuillez renseigner ce champ.",
-                            required
-                        ),
-                        validPassword: helpers.withMessage(
-                            "Mot de passe non valide.",
-                            validPassword
-                        ),
-                    },
-                    confirmPassword: {
-                        required: helpers.withMessage(
-                            "Veuillez renseigner ce champ.",
-                            required
-                        ),
-                        sameAs: helpers.withMessage(
-                            "Veuillez saisir les mots de passe identiques.",
-                            sameAs(state.user.password)
-                        ),
-                    },
-                },
-            };
-        });
-        const v$ = useValidate(rules, state);
-        return {
-            state,
-            v$,
-            validPassword,
-        };
-    },
-    methods: {
-        async onSubmit() {
-            const auth_store = AuthStore();
-            this.v$.$validate();
-            if (!this.v$.$error) {
-                const my_user = this.state.user;
-                delete my_user.confirmPassword;
-                console.log(my_user);
-                // const resp = await this.$http.post("/auth/sign-up", my_user);
-                const resp = await auth_store.register(my_user);
-                console.log(resp);
-                // const resp = await fetch("http://localhost:8080/auth/sign-up", {
-                //     method: "POST",
-                //     headers: {
-                //         method: "Post",
-                //         "Content-Type": "application/json",
-                //     },
-                //     body: JSON.stringify(my_user),
-                // });
-                if (resp.status === 204) {
-                    alert(
-                        `Utilisateur ${my_user.email} a été créer avec success.`
-                    );
-                } else {
-                    alert(
-                        `Nous n'avons pas pu créer utilisateur ${my_user.email}.`
-                    );
-                }
-            }
+const authStore = AuthStore();
+const user = reactive({
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null,
+    confirmPassword: null,
+});
+const validPassword = helpers.regex(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*?]).{8,42}$/
+);
+const rules = computed(() => {
+    return {
+        firstName: {
+            required: helpers.withMessage(
+                "Veuillez renseigner ce champ.",
+                required
+            ),
+            minLength: helpers.withMessage(
+                "Veuillez saisir au moins 2 caractères.",
+                minLength(2)
+            ),
+            maxLength: helpers.withMessage(
+                "Veuillez saisir moins de 30 caractères.",
+                maxLength(30)
+            ),
         },
-    },
+        lastName: {
+            required: helpers.withMessage(
+                "Veuillez renseigner ce champ.",
+                required
+            ),
+            minLength: helpers.withMessage(
+                "Veuillez saisir au moins 2 caractères.",
+                minLength(2)
+            ),
+            maxLength: helpers.withMessage(
+                "Veuillez saisir moins de 100 caractères.",
+                maxLength(100)
+            ),
+        },
+        email: {
+            required: helpers.withMessage(
+                "Veuillez renseigner ce champ.",
+                required
+            ),
+            email: helpers.withMessage(
+                "Veuillez saisir votre adresse e-mail au format votrenom@example.com",
+                email
+            ),
+        },
+        password: {
+            required: helpers.withMessage(
+                "Veuillez renseigner ce champ.",
+                required
+            ),
+            validPassword: helpers.withMessage(
+                "Mot de passe non valide.",
+                validPassword
+            ),
+        },
+        confirmPassword: {
+            required: helpers.withMessage(
+                "Veuillez renseigner ce champ.",
+                required
+            ),
+            sameAs: helpers.withMessage(
+                "Veuillez saisir les mots de passe identiques.",
+                sameAs(user.password)
+            ),
+        },
+    };
+});
+const v$ = useValidate(rules, user);
+
+const onSubmit = async () => {
+    const resp = await v$.value.$validate();
+    console.log(user);
+    console.log(resp);
+    if (!v$.value.$error) {
+        delete user.confirmPassword;
+        const resp = await authStore.register(user);
+        console.log(resp);
+
+        if (resp.status === 204) {
+            v$.value.$reset();
+            alert(`Utilisateur ${user.email} a été créer avec success.`);
+        } else {
+            alert(`Nous n'avons pas pu créer utilisateur ${user.email}.`);
+        }
+    } else {
+        console.log("There are errors");
+    }
 };
 </script>

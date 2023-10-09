@@ -77,9 +77,8 @@ const v$ = useValidate(rules, user);
 const authStore = AuthStore();
 
 const onSubmit = async () => {
-    const result = await v$.value.$validate();
-
-    if (!v$.value.$errors) {
+    await v$.value.$validate();
+    if (!v$.value.$error) {
         console.log("No errors");
         const my_user = this.user;
         console.log(my_user);

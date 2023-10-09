@@ -334,7 +334,7 @@ const bookStore = BookStore();
 const add_new_book = async () => {
     const result = await v$.value.$validate();
 
-    if (!v$.value.$errors) {
+    if (!v$.value.$error) {
         console.log("No errors");
         // console.log(inputs);
         // console.log(token);
