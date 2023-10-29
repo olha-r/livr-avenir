@@ -20,9 +20,9 @@ public class BookUpdate {
 
     private Long categoryId;
 
-    private Long userId;
+    private Long languageId;
 
-    private Set<Long> languageIdList;
+    private Long userId;
 
     private Set<Long> authorIdList;
 
@@ -93,13 +93,12 @@ public class BookUpdate {
 	this.userId = userId;
     }
 
-    public Set<Long> getLanguageIdList() {
-	return languageIdList;
+    public Long getLanguageId() {
+	return languageId;
     }
 
-    public void setLanguageIdList(
-	    Set<Long> languageIdList) {
-	this.languageIdList = languageIdList;
+    public void setLanguageId(Long languageId) {
+	this.languageId = languageId;
     }
 
     public Set<Long> getAuthorIdList() {

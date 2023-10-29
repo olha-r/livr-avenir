@@ -1,6 +1,5 @@
 DELETE FROM book_items;
 DELETE FROM book_authors;
-DELETE FROM book_languages;
 DELETE FROM books;
 DELETE FROM conditions;
 DELETE FROM categories;
@@ -20,7 +19,7 @@ INSERT INTO roles
     ('ROLE_ADMIN', 'ADMIN'),  ('ROLE_USER', 'USER');
     
 INSERT INTO users
-	(user_name, first_name, last_name, email, password, registration_date, points_number, role_id)
+	(first_name, last_name, email, password, registration_date, points_number, role_id)
 	VALUES
     ( 'Olha', 'Raulet', 'raulet.olha@gmail.com', '$2a$11$mTbgXh6GL/hWlZgzYMB55OrswkrWOC0squWLwJjSVBMp1Lmfbqdk6', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_ADMIN')),
 	( 'Diane', 'Mallet', 'diane.mallet@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER')),
@@ -89,9 +88,9 @@ INSERT INTO authors
 	('guillaume-durand', 'Guillaume', 'Durand');
 
 INSERT INTO books
-	(isbn, title, publication_year, cover_image_url, page_count, summary, publisher_id, category_id, user_id)
+	(isbn, title, publication_year, cover_image_url, page_count, summary, publisher_id, category_id, user_id, language_id)
 	VALUES
-    ('978-2-38292-066-4', 'Déjeunons sur lherbe', '2010',  'dejeunons-sur-l-herbe.jpg', '250', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia inventore animi quidem, tempore molestiae facilis voluptas veniam nostrum, temporibus iste pariatur fugit laborum in quis et repellat hic esse harum.', (SELECT p.id FROM publishers p WHERE p.publisher_code = 'essai'), (SELECT c.id FROM categories c WHERE c.category_code = 'literature'), (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'));
+    ('978-2-38292-066-4', 'Déjeunons sur lherbe', '2010',  'dejeunons-sur-l-herbe.jpg', '250', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia inventore animi quidem, tempore molestiae facilis voluptas veniam nostrum, temporibus iste pariatur fugit laborum in quis et repellat hic esse harum.', (SELECT p.id FROM publishers p WHERE p.publisher_code = 'essai'), (SELECT c.id FROM categories c WHERE c.category_code = 'literature'), (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'), (SELECT l.id FROM languages l WHERE l.code_iso = 'fr'));
 
 INSERT INTO conditions 
 	(condition_code, condition_name, logical_order)
@@ -103,11 +102,6 @@ INSERT INTO book_items
 	VALUES
     ('2376292836729', 'Description', 2, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'good'), null, (SELECT b.id FROM books b WHERE b.isbn = '978-2-38292-066-4'), (SELECT u.id FROM users u WHERE u.email = 'tom.cat@gmail.com')),
     ('2372292836727', 'Description', 4, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'very_good'), null, (SELECT b.id FROM books b WHERE b.isbn = '978-2-38292-066-4'), (SELECT u.id FROM users u WHERE u.email = 'michelle.gautier@hotmail.fr')) ;
-
-INSERT INTO book_languages
-    (book_id, language_id)
-    VALUES
-    ((SELECT b.id FROM books b WHERE b.isbn = '978-2-38292-066-4'), (SELECT l.id FROM languages l WHERE l.code_iso = 'fr'));
 
 INSERT INTO book_authors
     (book_id, author_id)

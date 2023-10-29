@@ -33,8 +33,6 @@ public class BookController {
     @PostMapping
     public void createBook(
 	    @ModelAttribute BookCreate inputs) {
-	System.out.println(
-		"controller, before service" + inputs);
 	bookService.createBook(inputs);
     }
 

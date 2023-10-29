@@ -54,12 +54,9 @@ public class Book extends AbstractEntity {
 		    @JoinColumn(name = "author_id") })
     private Set<Author> authors = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
-	    CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "book_languages", joinColumns = {
-	    @JoinColumn(name = "book_id") }, inverseJoinColumns = {
-		    @JoinColumn(name = "language_id") })
-    private Set<Language> languages = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "language_id")
+    private Language language;
 
     public Book() {
 	// TODO Auto-generated constructor stub
@@ -78,22 +75,6 @@ public class Book extends AbstractEntity {
     public void removeAuthors() {
 	for (Author author : new HashSet<>(authors)) {
 	    removeAuthor(author);
-	}
-    }
-
-    public void addLanguage(Language language) {
-	this.languages.add(language);
-	language.getBooks().add(this);
-    }
-
-    public void removeLanguage(Language language) {
-	this.getLanguages().remove(language);
-	language.getBooks().remove(this);
-    }
-
-    public void removeLanguages() {
-	for (Language language : new HashSet<>(languages)) {
-	    removeLanguage(language);
 	}
     }
 
@@ -177,12 +158,12 @@ public class Book extends AbstractEntity {
 	this.authors = authors;
     }
 
-    public Set<Language> getLanguages() {
-	return languages;
+    public Language getLanguage() {
+	return language;
     }
 
-    public void setLanguages(Set<Language> languages) {
-	this.languages = languages;
+    public void setLanguage(Language language) {
+	this.language = language;
     }
 
 }

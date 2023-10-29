@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS book_items;
 DROP TABLE IF EXISTS book_authors;
-DROP TABLE IF EXISTS book_languages;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS conditions;
 DROP TABLE IF EXISTS categories;
@@ -100,15 +99,15 @@ CREATE TABLE languages (
 
 CREATE TABLE publishers (
 	id SERIAL,
-    publisher_code VARCHAR(30) NOT null,
-	publisher_name VARCHAR(30) UNIQUE NOT null,
+    publisher_code VARCHAR(100) NOT null,
+	publisher_name VARCHAR(100) UNIQUE NOT null,
 	constraint pk_publisher_id primary key(id)
 );
 
 CREATE TABLE categories (
 	id SERIAL,
-    category_code VARCHAR(30) NOT null,
-	category_name VARCHAR(30) UNIQUE NOT null,
+    category_code VARCHAR(100) NOT null,
+	category_name VARCHAR(100) UNIQUE NOT null,
 	constraint pk_category_id primary key(id)
 );
 
@@ -123,6 +122,7 @@ CREATE TABLE books (
     publisher_id INTEGER NOT NULL,
     category_id INTEGER NOT null,
     user_id INTEGER NOT NULL,
+    language_id INTEGER NOT NULL,
     constraint pk_book_id primary key(id),
 	constraint fk_publisher_id
 			foreign key (publisher_id)
@@ -132,7 +132,10 @@ CREATE TABLE books (
 			references categories(id),
 	constraint fk_user_id
 			foreign key (user_id)
-			references users(id)
+			references users(id),
+	constraint fk_language_id
+			foreign key (language_id)
+			references languages(id)
 );
 
 CREATE TABLE conditions (
@@ -168,18 +171,6 @@ CREATE TABLE book_items (
 			references users(id)
 );
 
-CREATE TABLE book_languages (
-id SERIAL,
-book_id INTEGER not null,
-language_id INTEGER not null,
-	constraint pk_book_languages_id primary key(id),
-constraint fk_book_id
-			foreign key (book_id)
-			references books(id),
-constraint fk_language_id
-			foreign key (language_id)
-			references languages(id)
-);
 
 CREATE TABLE book_authors (
 id SERIAL,

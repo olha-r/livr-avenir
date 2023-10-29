@@ -75,13 +75,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public void createBook(BookCreate inputs) {
 	Book entity = new Book();
-	System.out.println("service" + inputs);
 	entity.setIsbn(inputs.getIsbn());
 	entity.setTitle(inputs.getTitle());
 	entity.setPublicationYear(
 		inputs.getPublicationYear());
 	entity.setPageCount(inputs.getPageCount());
 	entity.setSummary(inputs.getSummary());
+
 	Category category = categories
 		.getReferenceById(inputs.getCategoryId());
 	entity.setCategory(category);
@@ -95,9 +95,13 @@ public class BookServiceImpl implements BookService {
 	    }
 
 	}
-	Publisher publisherToAdd = publishers
+	Publisher publisherId = publishers
 		.findPublisherByName(publisher.getName());
-	entity.setPublisher(publisherToAdd);
+	entity.setPublisher(publisherId);
+
+	Language language = languages
+		.getReferenceById(inputs.getLanguageId());
+	entity.setLanguage(language);
 
 	User user = users
 		.getReferenceById(inputs.getUserId());
@@ -124,21 +128,14 @@ public class BookServiceImpl implements BookService {
 	}
 	entity.setAuthors(authorList);
 
-	List<Language> languageList = languages
-		.findAllById(inputs.getLanguageIdList());
-
-	entity.setLanguages(new HashSet<>(languageList));
-
-	MultipartFile file = inputs.getCoverImageUrl();
-
-	String baseName = UUID.randomUUID().toString();
-	String imageName = baseName + inputs
-		.getCoverImageUrl().getOriginalFilename();
-	entity.setCoverImageUrl(imageName);
-	System.out.println(entity);
-	System.out.println(imageName);
-	store(file, imageName);
-
+	/*
+	 * MultipartFile file = inputs.getCoverImageUrl();
+	 * 
+	 * String baseName = UUID.randomUUID().toString(); String imageName = baseName +
+	 * inputs .getCoverImageUrl().getOriginalFilename();
+	 * entity.setCoverImageUrl(imageName); System.out.println(entity);
+	 * System.out.println(imageName); store(file, imageName);
+	 */
 	books.save(entity);
 
     }
@@ -203,10 +200,10 @@ public class BookServiceImpl implements BookService {
 	List<Author> authorList = authors
 		.findAllById(inputs.getAuthorIdList());
 	entity.setAuthors(new HashSet<>(authorList));
-	List<Language> languageList = languages
-		.findAllById(inputs.getLanguageIdList());
-	entity.setLanguages(new HashSet<>(languageList));
 
+	Language language = languages
+		.getReferenceById(inputs.getLanguageId());
+	entity.setLanguage(language);
 	/*
 	 * MultipartFile file = inputs.getCoverImageUrl(); if (file != null) { String
 	 * baseName = UUID.randomUUID().toString(); String imageName = baseName +

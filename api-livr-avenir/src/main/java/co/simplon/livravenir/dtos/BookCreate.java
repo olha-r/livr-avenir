@@ -25,7 +25,7 @@ public class BookCreate {
 
     private Long userId;
 
-    private Set<Long> languageIdList = new HashSet<>();
+    private Long languageId;
 
     private Set<AuthorCreate> authorList = new HashSet<>();
 
@@ -98,13 +98,12 @@ public class BookCreate {
 	this.userId = userId;
     }
 
-    public Set<Long> getLanguageIdList() {
-	return languageIdList;
+    public Long getLanguageId() {
+	return languageId;
     }
 
-    public void setLanguageIdList(
-	    Set<Long> languageIdList) {
-	this.languageIdList = languageIdList;
+    public void setLanguageId(Long languageId) {
+	this.languageId = languageId;
     }
 
     public Set<AuthorCreate> getAuthorList() {

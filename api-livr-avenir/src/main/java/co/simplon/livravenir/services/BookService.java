@@ -15,10 +15,10 @@ public interface BookService {
 
     Collection<BookItemList> getAllBooks();
 
-    void updateBook(Long id, BookUpdate inputs);
-
     BookDetail getdBookDetail(Long id);
 
     void deleteBook(Long id);
+
+    void updateBook(Long id, BookUpdate inputs);
 
 }
