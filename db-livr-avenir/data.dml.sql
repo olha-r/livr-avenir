@@ -85,12 +85,17 @@ INSERT INTO publishers
 INSERT INTO authors 
 	(author_code, first_name, last_name)
 	VALUES 
-	('guillaume-durand', 'Guillaume', 'Durand');
+	('guillaume-durand', 'Guillaume', 'Durand'),
+    ('albert-camus', 'Albert', 'Camus'),
+    ('alexandre-dumas', 'Alexandre', 'Dumas'),
+    ('edgar-allan-poe', 'Edgar Allan', 'Poe'),
+    ('victor-hugo', 'Victor', 'Hugo'),
+    ('virginie-grimaldi', 'Virginie', 'Grimaldi');
 
 INSERT INTO books
 	(isbn, title, publication_year, cover_image_url, page_count, summary, publisher_id, category_id, user_id, language_id)
 	VALUES
-    ('978-2-38292-066-4', 'Déjeunons sur lherbe', '2010',  'dejeunons-sur-l-herbe.jpg', '250', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia inventore animi quidem, tempore molestiae facilis voluptas veniam nostrum, temporibus iste pariatur fugit laborum in quis et repellat hic esse harum.', (SELECT p.id FROM publishers p WHERE p.publisher_code = 'essai'), (SELECT c.id FROM categories c WHERE c.category_code = 'literature'), (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'), (SELECT l.id FROM languages l WHERE l.code_iso = 'fr'));
+    ('9782382920664', 'Déjeunons sur lherbe', '2010',  'dejeunons-sur-l-herbe.jpg', '250', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia inventore animi quidem, tempore molestiae facilis voluptas veniam nostrum, temporibus iste pariatur fugit laborum in quis et repellat hic esse harum.', (SELECT p.id FROM publishers p WHERE p.publisher_code = 'essai'), (SELECT c.id FROM categories c WHERE c.category_code = 'literature'), (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'), (SELECT l.id FROM languages l WHERE l.code_iso = 'fr'));
 
 INSERT INTO conditions 
 	(condition_code, condition_name, logical_order)
@@ -100,10 +105,10 @@ INSERT INTO conditions
 INSERT INTO book_items
 	(item_code, description, points_price, added_at, condition_id, order_id, book_id, user_id)
 	VALUES
-    ('2376292836729', 'Description', 2, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'good'), null, (SELECT b.id FROM books b WHERE b.isbn = '978-2-38292-066-4'), (SELECT u.id FROM users u WHERE u.email = 'tom.cat@gmail.com')),
-    ('2372292836727', 'Description', 4, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'very_good'), null, (SELECT b.id FROM books b WHERE b.isbn = '978-2-38292-066-4'), (SELECT u.id FROM users u WHERE u.email = 'michelle.gautier@hotmail.fr')) ;
+    ('2376292836729', 'Description', 2, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'good'), null, (SELECT b.id FROM books b WHERE b.isbn = '9782382920664'), (SELECT u.id FROM users u WHERE u.email = 'tom.cat@gmail.com')),
+    ('2372292836727', 'Description', 4, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'very_good'), null, (SELECT b.id FROM books b WHERE b.isbn = '9782382920664'), (SELECT u.id FROM users u WHERE u.email = 'michelle.gautier@hotmail.fr')) ;
 
 INSERT INTO book_authors
     (book_id, author_id)
     VALUES
-    ((SELECT b.id FROM books b WHERE b.isbn = '978-2-38292-066-4'), (SELECT a.id FROM authors a WHERE a.author_code = 'guillaume-durand'));
+    ((SELECT b.id FROM books b WHERE b.isbn = '9782382920664'), (SELECT a.id FROM authors a WHERE a.author_code = 'guillaume-durand'));
