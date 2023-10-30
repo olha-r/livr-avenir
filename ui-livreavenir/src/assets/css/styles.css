@@ -125,3 +125,8 @@ h3 {
     font-size: 2.5rem;
     color: var(black);
 }
+
+.required::after {
+    content: ' *';
+    color: red;
+}

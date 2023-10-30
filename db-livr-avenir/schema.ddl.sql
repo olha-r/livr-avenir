@@ -113,11 +113,11 @@ CREATE TABLE categories (
 
 CREATE TABLE books (
     id SERIAL,
-    isbn VARCHAR(20) UNIQUE NOT NULL, 
-    title VARCHAR(150) NOT NULL,
+    isbn VARCHAR(13) UNIQUE NOT NULL, 
+    title VARCHAR(200) NOT NULL,
     publication_year VARCHAR(4) NOT NULL,
     cover_image_url VARCHAR(300),
-    page_count VARCHAR(10) NOT NULL,
+    page_count VARCHAR(5) NOT NULL,
     summary VARCHAR(1000) NOT NULL,
     publisher_id INTEGER NOT NULL,
     category_id INTEGER NOT null,

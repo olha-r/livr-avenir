@@ -1,6 +1,5 @@
 <template>
     <main class="container-xl my-2 home-page">
-        {{ lastAddedBooks }}
         <div class="mb-4 rounded-3 home-page-img position-relative">
             <div
                 class="position-absolute top-50 start-50 translate-middle-x text-center"
@@ -14,9 +13,9 @@
                 </button>
             </div>
         </div>
-        <SearchComponent />
+        <!-- <SearchComponent /> -->
 
-        <div class="d-flex flex-row justify-content-around mb-3">
+        <!-- <div class="d-flex flex-row justify-content-around mb-3">
             <button type="button" class="btn btn-primary me-3">
                 57 livres disponible
             </button>
@@ -26,7 +25,7 @@
             <button type="button" class="btn btn-primary">
                 6 livres ajoutés en favoris
             </button>
-        </div>
+        </div> -->
 
         <h3 class="text-center my-4">Derniers livres ajoutés récemment</h3>
 
@@ -35,7 +34,11 @@
                 <a :href="`/books/${book.id}/detail`"
                     ><div class="card">
                         <img
-                            :src="baseUrl + book.coverImageUrl"
+                            :src="
+                                book.coverImageUrl
+                                    ? baseUrl + book.coverImageUrl
+                                    : baseUrl + 'default-image.jpg'
+                            "
                             class="card-img-top"
                             alt="Cover Image"
                         />
@@ -47,7 +50,7 @@
                             <p
                                 class="card-subtitle mb-2 text-muted text-center"
                             >
-                                <span
+                                <p class="p-0 m-0"
                                     v-for="(author, index) in book.authors"
                                     :key="index"
                                 >
@@ -55,7 +58,7 @@
                                     <span v-if="index < book.authors.length - 1"
                                         >,
                                     </span>
-                                </span>
+                                </p>
                             </p>
                         </div>
                     </div></a

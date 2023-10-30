@@ -9,7 +9,9 @@
             <form novalidate @submit.prevent="add_new_book">
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label for="isbn" class="form-label">ISBN</label>
+                        <label for="isbn" class="form-label required"
+                            >ISBN</label
+                        >
                         <input
                             v-model.trim="inputs.isbn"
                             name="isbn"
@@ -20,7 +22,7 @@
                         <ValidationMessage :model="v$.isbn" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="title" class="form-label"
+                        <label for="title" class="form-label required"
                             >Titre de livre</label
                         >
                         <input
@@ -38,7 +40,9 @@
                         <!-- <button class="btn btn-large">
                             Ajouter nouveau auteur
                         </button> -->
-                        <label for="authorId" class="form-label">Auteur</label>
+                        <label for="authorId" class="form-label required"
+                            >Auteur</label
+                        >
                         <select
                             v-model.number="inputs.authorList"
                             name="authorId"
@@ -55,7 +59,7 @@
                     <div class="col-md-12 mb-3">
                         <!-- <PublisherSearch></PublisherSearch> -->
                         <div class="col-md-6 mb-3">
-                            <label for="edition" class="form-label"
+                            <label for="edition" class="form-label required"
                                 >Edition</label
                             >
 
@@ -74,7 +78,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="publicationYear" class="form-label"
+                        <label for="publicationYear" class="form-label required"
                             >L'année de publication</label
                         >
                         <input
@@ -88,7 +92,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="pageCount" class="form-label"
+                        <label for="pageCount" class="form-label required"
                             >Nombre de pages</label
                         >
                         <input
@@ -102,7 +106,7 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="languageId" class="form-label"
+                        <label for="languageId" class="form-label required"
                             >Langue</label
                         >
                         <select
@@ -118,7 +122,7 @@
                         <ValidationMessage :model="v$.languageId" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="categoryId" class="form-label"
+                        <label for="categoryId" class="form-label required"
                             >Category</label
                         >
                         <select
@@ -135,7 +139,7 @@
                     </div>
 
                     <div class="col-md-12 mb-3">
-                        <label for="summary" class="form-label"
+                        <label for="summary" class="form-label required"
                             >Description</label
                         >
                         <textarea
@@ -246,6 +250,18 @@ const rules = computed(() => {
                 "Veuillez renseigner ce champ.",
                 required
             ),
+            numeric: helpers.withMessage(
+                "Veuillez saisir seulement des nombres.",
+                numeric
+            ),
+            minLength: helpers.withMessage(
+                "Veuillez saisir 4 caractères.",
+                minLength(4)
+            ),
+            maxLength: helpers.withMessage(
+                "Veuillez saisir 4 caractères.",
+                maxLength(4)
+            ),
         },
         pageCount: {
             required: helpers.withMessage(
@@ -256,6 +272,10 @@ const rules = computed(() => {
                 "Veuillez saisir seulement des nombres.",
                 numeric
             ),
+            maxLength: helpers.withMessage(
+                "Veuillez saisir moins de 5 caractères.",
+                maxLength(5)
+            ),
         },
         summary: {
             required: helpers.withMessage(
@@ -263,8 +283,8 @@ const rules = computed(() => {
                 required
             ),
             minLength: helpers.withMessage(
-                "Veuillez saisir au moins 2 caractères.",
-                minLength(2)
+                "Veuillez saisir au moins 10 caractères.",
+                minLength(10)
             ),
             maxLength: helpers.withMessage(
                 "Veuillez saisir moins de 1000 caractères.",
@@ -278,12 +298,6 @@ const rules = computed(() => {
             ),
         },
         categoryId: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
-        },
-        userId: {
             required: helpers.withMessage(
                 "Veuillez renseigner ce champ.",
                 required
