@@ -31,7 +31,8 @@ public class ResourceConfig {
 		.antMatchers("/auth/sign-up").permitAll()
 		.antMatchers(HttpMethod.GET, "/books/**",
 			"/categories", "/publishers",
-			"/formats", "/languages")
+			"/formats", "/languages",
+			"/authors")
 		.permitAll().antMatchers("/admin")
 		.hasRole("ADMIN").antMatchers("/admin")
 		.hasAuthority("ROLE_ADMIN").anyRequest()
