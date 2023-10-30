@@ -26,6 +26,6 @@ export const AuthStore = defineStore('auth-store', {
             this.loggedIn = true;
         }
         return promise;
-      },
-    },
-  })
+},
+}, 
+})

@@ -80,10 +80,13 @@ const onSubmit = async () => {
     await v$.value.$validate();
     if (!v$.value.$error) {
         console.log("No errors");
-        const my_user = this.user;
+        const my_user = user;
         console.log(my_user);
-        const resp = await this.authStore.login(my_user);
+        const resp = await authStore.login(my_user);
+        console.log("Response", resp);
         if (resp.status === 200) {
+            const token = resp.body.token;
+            console.log("Token after login", token);
             alert(`Utilisateur ${my_user.email} est connecté`);
         } else {
             alert(`Nous n'avons pas pu trouvé utilisateur ${my_user.email}.`);

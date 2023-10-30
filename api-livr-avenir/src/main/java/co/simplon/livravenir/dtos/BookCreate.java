@@ -19,7 +19,7 @@ public class BookCreate {
 
     private MultipartFile coverImageUrl;
 
-    private PublisherCreate publisher;
+    private Long publisher;
 
     private Long categoryId;
 
@@ -27,7 +27,7 @@ public class BookCreate {
 
     private Long languageId;
 
-    private Set<AuthorCreate> authorList = new HashSet<>();
+    private Set<Long> authorList = new HashSet<>();
 
     public BookCreate() {
 	// Required no-arg constructor
@@ -82,11 +82,11 @@ public class BookCreate {
 	this.coverImageUrl = coverImageUrl;
     }
 
-    public PublisherCreate getPublisher() {
+    public Long getPublisher() {
 	return publisher;
     }
 
-    public void setPublisher(PublisherCreate publisher) {
+    public void setPublisher(Long publisher) {
 	this.publisher = publisher;
     }
 
@@ -106,12 +106,11 @@ public class BookCreate {
 	this.languageId = languageId;
     }
 
-    public Set<AuthorCreate> getAuthorList() {
+    public Set<Long> getAuthorList() {
 	return authorList;
     }
 
-    public void setAuthorList(
-	    Set<AuthorCreate> authorList) {
+    public void setAuthorList(Set<Long> authorList) {
 	this.authorList = authorList;
     }
 

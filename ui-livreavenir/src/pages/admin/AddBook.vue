@@ -11,7 +11,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="isbn" class="form-label">ISBN</label>
                         <input
-                            v-model.trim="formData.isbn"
+                            v-model.trim="inputs.isbn"
                             name="isbn"
                             id="isbn"
                             type="text"
@@ -24,7 +24,7 @@
                             >Titre de livre</label
                         >
                         <input
-                            v-model.trim="formData.title"
+                            v-model.trim="inputs.title"
                             name="title"
                             id="title"
                             type="text"
@@ -34,45 +34,43 @@
                     </div>
 
                     <div class="col-md-12 mb-3">
-                        <label for="author" class="form-label">Auteur</label>
-                        <AuthorSearch></AuthorSearch>
+                        <!-- <AuthorSearch></AuthorSearch> -->
                         <!-- <button class="btn btn-large">
                             Ajouter nouveau auteur
                         </button> -->
-                        <!-- <input
-                            v-model.trim="formData.authors[0].firstName"
-                            name="author"
-                            id="author"
-                            type="text"
-                            class="form-control"
-                        />
-                        <ValidationMessage :model="v$.authors[0].firstName" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="author" class="form-label"
-                            >Nom de l'auteur</label
+                        <label for="authorId" class="form-label">Auteur</label>
+                        <select
+                            v-model.number="inputs.authorList"
+                            name="authorId"
+                            id="authorId"
+                            class="form-select"
+                            size="4"
+                            multiple
                         >
-                        <input
-                            v-model.trim="formData.authors[0].lastName"
-                            name="author"
-                            id="author"
-                            type="text"
-                            class="form-control"
-                        />
-                        <ValidationMessage :model="v$.authors[0].lastName" /> -->
+                            <AuthorLabelValue :items="author_list" />
+                        </select>
+                        <ValidationMessage :model="v$.authorList" />
                     </div>
 
                     <div class="col-md-12 mb-3">
-                        <label for="edition" class="form-label">Edition</label>
-                        <PublisherSearch></PublisherSearch>
-                        <!-- <input
-                            v-model.trim="formData.publisher.name"
-                            name="edition"
-                            id="edition"
-                            type="text"
-                            class="form-control"
-                        />
-                        <ValidationMessage :model="v$.publisher.name" /> -->
+                        <!-- <PublisherSearch></PublisherSearch> -->
+                        <div class="col-md-6 mb-3">
+                            <label for="edition" class="form-label"
+                                >Edition</label
+                            >
+
+                            <select
+                                v-model.number="inputs.publisher"
+                                id="publisher"
+                                class="form-select"
+                            >
+                                <option selected disabled value="0">
+                                    Choisir publisher...
+                                </option>
+                                <LabelValues :items="publisher_list" />
+                            </select>
+                            <ValidationMessage :model="v$.publisher" />
+                        </div>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -80,7 +78,7 @@
                             >L'année de publication</label
                         >
                         <input
-                            v-model.trim="formData.publicationYear"
+                            v-model.trim="inputs.publicationYear"
                             name="publicationYear"
                             id="publicationYear"
                             type="text"
@@ -94,7 +92,7 @@
                             >Nombre de pages</label
                         >
                         <input
-                            v-model.trim="formData.pageCount"
+                            v-model.trim="inputs.pageCount"
                             name="pageCount"
                             id="pageCount"
                             type="text"
@@ -108,7 +106,7 @@
                             >Langue</label
                         >
                         <select
-                            v-model.number="formData.languageId"
+                            v-model.number="inputs.languageId"
                             id="languageId"
                             class="form-select"
                         >
@@ -124,7 +122,7 @@
                             >Category</label
                         >
                         <select
-                            v-model.number="formData.categoryId"
+                            v-model.number="inputs.categoryId"
                             id="categoryId"
                             class="form-select"
                         >
@@ -141,7 +139,7 @@
                             >Description</label
                         >
                         <textarea
-                            v-model.trim="formData.summary"
+                            v-model.trim="inputs.summary"
                             name="summary"
                             id="summary"
                             class="form-control"
@@ -179,13 +177,14 @@
 
 <script setup>
 import LabelValues from "../../components/commons/LabelValues.vue";
-import AuthorSearch from "../../components/admin/AuthorSearch.vue";
-import PublisherSearch from "../../components/admin/PublisherSearch.vue";
+import AuthorLabelValue from "../../components/commons/AuthorLabelValue.vue";
 import { onBeforeMount, reactive, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { AddBookFormStore } from "../../stores/add-book-form-store";
 import { BookStore } from "../../stores/book-store";
 import { AuthStore } from "../../stores/auth-store";
+import { AuthorStore } from "../../stores/author-store";
+import { publisherStore } from "../../stores/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
 import {
     required,
@@ -196,17 +195,17 @@ import {
 } from "@vuelidate/validators";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
 
-const formData = reactive({
+const inputs = reactive({
     isbn: null,
     title: null,
     publicationYear: null,
     pageCount: null,
     summary: null,
-    publisher: {},
+    publisher: null,
     categoryId: null,
-    userId: 14,
+    userId: 1,
     languageId: [],
-    authors: [{ firstName: null, lastName: null }],
+    authorList: [],
 });
 const rules = computed(() => {
     return {
@@ -273,20 +272,10 @@ const rules = computed(() => {
             ),
         },
         publisher: {
-            name: {
-                required: helpers.withMessage(
-                    "Veuillez renseigner ce champ.",
-                    required
-                ),
-                minLength: helpers.withMessage(
-                    "Veuillez saisir au moins 2 caractères.",
-                    minLength(2)
-                ),
-                maxLength: helpers.withMessage(
-                    "Veuillez saisir moins de 300 caractères.",
-                    maxLength(300)
-                ),
-            },
+            required: helpers.withMessage(
+                "Veuillez renseigner ce champ.",
+                required
+            ),
         },
         categoryId: {
             required: helpers.withMessage(
@@ -306,25 +295,29 @@ const rules = computed(() => {
                 required
             ),
         },
-        authors: [
+        authorList: [
             {
-                firstName: {
-                    required: helpers.withMessage(
-                        "Veuillez renseigner ce champ.",
-                        required
-                    ),
-                },
-                lastName: { required },
+                required: helpers.withMessage(
+                    "Veuillez renseigner ce champ.",
+                    required
+                ),
             },
         ],
     };
 });
-const v$ = useVuelidate(rules, formData);
+const v$ = useVuelidate(rules, inputs);
 const addBookStoreObj = AddBookFormStore();
 const { list_languages, list_categories } = storeToRefs(addBookStoreObj);
+const publisherStoreObj = publisherStore();
+const { publisher_list } = storeToRefs(publisherStoreObj);
+const authorStoreObj = AuthorStore();
+const { author_list } = storeToRefs(authorStoreObj);
 onBeforeMount(() => {
+    console.log("Add book page token", token);
     addBookStoreObj.get_list_languages();
     addBookStoreObj.get_list_categories();
+    publisherStoreObj.get_publisher_list();
+    authorStoreObj.get_author_list();
 });
 
 const authStoreObj = AuthStore();
@@ -336,27 +329,29 @@ const add_new_book = async () => {
 
     if (!v$.value.$error) {
         console.log("No errors");
-        // console.log(inputs);
-        // console.log(token);
-        // const formData = new FormData();
-        // formData.append("isbn", inputs.isbn);
-        // formData.append("title", inputs.title);
-        // formData.append("publicationYear", inputs.publicationYear);
-        // formData.append("pageCount", inputs.pageCount);
-        // formData.append("summary", inputs.summary);
-        // formData.append("publisher", inputs.publisher);
-        // formData.append("categoryId", inputs.categoryId);
-        // formData.append("userId", inputs.userId);
-        // formData.append("languageIdList", inputs.languageIdList);
-        // formData.append("authors", inputs.authors);
-        // const resp = await bookStore.add_new_book(formData, token);
-        // console.log("resp", resp);
 
-        // if (resp.status === 204) {
-        //     alert(`Livre a été créer avec success.`);
-        // } else {
-        //     alert(`Nous n'avons pas pu créer le livre.`);
-        // }
+        console.log(token);
+
+        const formData = new FormData();
+        formData.append("isbn", inputs.isbn);
+        formData.append("title", inputs.title);
+        formData.append("publicationYear", inputs.publicationYear);
+        formData.append("pageCount", inputs.pageCount);
+        formData.append("summary", inputs.summary);
+        formData.append("publisher", inputs.publisher);
+        formData.append("categoryId", inputs.categoryId);
+        formData.append("userId", inputs.userId);
+        formData.append("languageId", inputs.languageId);
+        formData.append("authorList", inputs.authorList);
+        console.log("Form data", inputs);
+        const resp = await bookStore.add_new_book(formData, token);
+        console.log("resp", resp);
+
+        if (resp.status === 204) {
+            alert(`Livre a été créer avec success.`);
+        } else {
+            alert(`Nous n'avons pas pu créer le livre.`);
+        }
     } else {
         console.log("There are errors");
     }

@@ -9,7 +9,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -86,47 +85,47 @@ public class BookServiceImpl implements BookService {
 		.getReferenceById(inputs.getCategoryId());
 	entity.setCategory(category);
 
-	PublisherCreate publisher = inputs.getPublisher();
-	if (publisher != null) {
-	    Optional<Publisher> optionalPublisher = publishers
-		    .findByName(publisher.getName());
-	    if (optionalPublisher.isEmpty()) {
-		createPublisher(publisher);
-	    }
-
-	}
-	Publisher publisherId = publishers
-		.findPublisherByName(publisher.getName());
-	entity.setPublisher(publisherId);
+	/*
+	 * PublisherCreate publisher = inputs.getPublisher(); if (publisher != null) {
+	 * Optional<Publisher> optionalPublisher = publishers
+	 * .findByName(publisher.getName()); if (optionalPublisher.isEmpty()) {
+	 * createPublisher(publisher); }
+	 * 
+	 * } Publisher publisherId = publishers
+	 * .findPublisherByName(publisher.getName()); entity.setPublisher(publisherId);
+	 */
 
 	Language language = languages
 		.getReferenceById(inputs.getLanguageId());
 	entity.setLanguage(language);
+
+	Publisher publisher = publishers
+		.getReferenceById(inputs.getPublisher());
+	entity.setPublisher(publisher);
 
 	User user = users
 		.getReferenceById(inputs.getUserId());
 	entity.setUser(user);
 
 	Set<Author> authorList = new HashSet<>();
-	Set<AuthorCreate> inputsAuthorList = inputs
-		.getAuthorList();
-	if (inputsAuthorList != null) {
-	    for (AuthorCreate authorCreate : inputsAuthorList) {
-		Optional<Author> authorOptional = authors
-			.findByFirstNameAndLastName(
-				authorCreate.getFirstName(),
-				authorCreate.getLastName());
-		if (authorOptional.isEmpty()) {
-		    createAuthor(authorCreate);
-		}
-		Optional<Author> allAuthors = authors
-			.findByFirstNameAndLastName(
-				authorCreate.getFirstName(),
-				authorCreate.getLastName());
-		allAuthors.ifPresent(authorList::add);
-	    }
+	for (Long authorId : inputs.getAuthorList()) {
+	    Author author = authors
+		    .getReferenceById(authorId);
+	    authorList.add(author);
 	}
 	entity.setAuthors(authorList);
+
+	/*
+	 * Set<Author> authorList = new HashSet<>(); Set<AuthorCreate> inputsAuthorList
+	 * = inputs .getAuthorList(); if (inputsAuthorList != null) { for (AuthorCreate
+	 * authorCreate : inputsAuthorList) { Optional<Author> authorOptional = authors
+	 * .findByFirstNameAndLastName( authorCreate.getFirstName(),
+	 * authorCreate.getLastName()); if (authorOptional.isEmpty()) {
+	 * createAuthor(authorCreate); } Optional<Author> allAuthors = authors
+	 * .findByFirstNameAndLastName( authorCreate.getFirstName(),
+	 * authorCreate.getLastName()); allAuthors.ifPresent(authorList::add); } }
+	 * entity.setAuthors(authorList);
+	 */
 
 	/*
 	 * MultipartFile file = inputs.getCoverImageUrl();

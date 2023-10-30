@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import co.simplon.livravenir.dtos.LabelValue;
+import co.simplon.livravenir.dtos.PublisherCreate;
 import co.simplon.livravenir.entities.Publisher;
 
 public interface PublisherRepository
@@ -16,5 +17,7 @@ public interface PublisherRepository
     Optional<Publisher> findByName(String publisher);
 
     Publisher findPublisherByName(String name);
+
+    Publisher getReferenceById(PublisherCreate publisher);
 
 }
