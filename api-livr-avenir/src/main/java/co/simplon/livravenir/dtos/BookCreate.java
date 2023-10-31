@@ -3,30 +3,54 @@ package co.simplon.livravenir.dtos;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import org.springframework.lang.NonNull;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BookCreate {
 
+    @NotBlank
+    @Size(min = 10, max = 13)
     private String isbn;
 
+    @NotBlank
+    @Size(min = 2, max = 200)
     private String title;
 
+    @NotBlank
+    @Size(min = 4, max = 4)
     private String publicationYear;
 
+    @NotBlank
+    @Size(max = 5)
     private String pageCount;
 
+    @NotBlank
+    @Size(min = 10, max = 1000)
     private String summary;
 
     private MultipartFile coverImageUrl;
 
+    @NonNull
+    @Positive
     private Long publisher;
 
+    @NonNull
+    @Positive
     private Long categoryId;
 
+    @NonNull
+    @Positive
     private Long userId;
 
+    @NonNull
+    @Positive
     private Long languageId;
 
+    @NonNull
     private Set<Long> authorList = new HashSet<>();
 
     public BookCreate() {
