@@ -7,9 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -25,11 +23,13 @@ import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.dtos.PublisherCreate;
 import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
+import co.simplon.livravenir.entities.BookAuthors;
 import co.simplon.livravenir.entities.Category;
 import co.simplon.livravenir.entities.Language;
 import co.simplon.livravenir.entities.Publisher;
 import co.simplon.livravenir.entities.User;
 import co.simplon.livravenir.repositories.AuthorRepository;
+import co.simplon.livravenir.repositories.BookAuthorsRepository;
 import co.simplon.livravenir.repositories.BookRepository;
 import co.simplon.livravenir.repositories.CategoryRepository;
 import co.simplon.livravenir.repositories.LanguageRepository;
@@ -52,6 +52,8 @@ public class BookServiceImpl implements BookService {
 
     private final UserRepository users;
 
+    private final BookAuthorsRepository bookAuthorsRepo;
+
     @Value("${livravenir.uploads.location}")
     private String uploadDir;
 
@@ -59,7 +61,8 @@ public class BookServiceImpl implements BookService {
 	    CategoryRepository categories,
 	    PublisherRepository publishers,
 	    UserRepository users, AuthorRepository authors,
-	    LanguageRepository languages) {
+	    LanguageRepository languages,
+	    BookAuthorsRepository bookAuthorsRepo) {
 
 	this.books = books;
 	this.categories = categories;
@@ -67,6 +70,7 @@ public class BookServiceImpl implements BookService {
 	this.users = users;
 	this.authors = authors;
 	this.languages = languages;
+	this.bookAuthorsRepo = bookAuthorsRepo;
 
     }
 
@@ -107,13 +111,16 @@ public class BookServiceImpl implements BookService {
 		.getReferenceById(inputs.getUserId());
 	entity.setUser(user);
 
-	Set<Author> authorList = new HashSet<>();
+	Book savedBook = books.save(entity);
+
 	for (Long authorId : inputs.getAuthorList()) {
 	    Author author = authors
 		    .getReferenceById(authorId);
-	    authorList.add(author);
+	    BookAuthors bookAuthorsEntity = new BookAuthors();
+	    bookAuthorsEntity.setAuthorId(author);
+	    bookAuthorsEntity.setBookId(savedBook);
+	    bookAuthorsRepo.save(bookAuthorsEntity);
 	}
-	entity.setAuthors(authorList);
 
 	/*
 	 * Set<Author> authorList = new HashSet<>(); Set<AuthorCreate> inputsAuthorList
@@ -135,7 +142,6 @@ public class BookServiceImpl implements BookService {
 	 * entity.setCoverImageUrl(imageName); System.out.println(entity);
 	 * System.out.println(imageName); store(file, imageName);
 	 */
-	books.save(entity);
 
     }
 
@@ -198,7 +204,7 @@ public class BookServiceImpl implements BookService {
 	entity.setUser(user);
 	List<Author> authorList = authors
 		.findAllById(inputs.getAuthorIdList());
-	entity.setAuthors(new HashSet<>(authorList));
+	/* entity.setAuthors(new HashSet<>(authorList)); */
 
 	Language language = languages
 		.getReferenceById(inputs.getLanguageId());

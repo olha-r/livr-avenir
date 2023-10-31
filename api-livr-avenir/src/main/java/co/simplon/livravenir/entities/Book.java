@@ -1,15 +1,9 @@
 package co.simplon.livravenir.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -47,35 +41,12 @@ public class Book extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
-	    CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "book_authors", joinColumns = {
-	    @JoinColumn(name = "book_id") }, inverseJoinColumns = {
-		    @JoinColumn(name = "author_id") })
-    private Set<Author> authors = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id")
     private Language language;
 
     public Book() {
 	// TODO Auto-generated constructor stub
-    }
-
-    public void addAuthor(Author author) {
-	this.authors.add(author);
-	author.getBooks().add(this);
-    }
-
-    public void removeAuthor(Author author) {
-	this.getAuthors().remove(author);
-	author.getBooks().remove(this);
-    }
-
-    public void removeAuthors() {
-	for (Author author : new HashSet<>(authors)) {
-	    removeAuthor(author);
-	}
     }
 
     public String getIsbn() {
@@ -148,14 +119,6 @@ public class Book extends AbstractEntity {
 
     public void setUser(User user) {
 	this.user = user;
-    }
-
-    public Set<Author> getAuthors() {
-	return authors;
-    }
-
-    public void setAuthors(Set<Author> authors) {
-	this.authors = authors;
     }
 
     public Language getLanguage() {

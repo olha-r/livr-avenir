@@ -1,13 +1,7 @@
 package co.simplon.livravenir.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,11 +16,6 @@ public class Author extends AbstractEntity {
 
     @Column(name = "author_code")
     private String authorCode;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
-	    CascadeType.PERSIST,
-	    CascadeType.MERGE }, mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();
 
     public Author() {
 	// TODO Auto-generated constructor stub
@@ -47,14 +36,6 @@ public class Author extends AbstractEntity {
 
     public void setLastName(String lastName) {
 	this.lastName = lastName;
-    }
-
-    public Set<Book> getBooks() {
-	return books;
-    }
-
-    public void setBooks(Set<Book> books) {
-	this.books = books;
     }
 
     public String getAuthorCode() {
