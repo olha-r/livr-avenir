@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import {AuthStore} from '../stores/auth-store'
+import { storeToRefs } from 'pinia';
 
 
 const router = createRouter({
@@ -9,25 +11,14 @@ const router = createRouter({
       component: () => import('../layouts/MainLayout.vue'),
       children: [
         { path: '', component: () => import('../pages/HomePage.vue'), name: "home" },
-      ],
-    //   meta:{
-    //     requiresAuth: false
-    //   }
-
+      ]
     },
-    // {
-    //   path: '/add-new-book',
-    //   component: () => import('../layouts/MainLayout.vue'),
-    //   children: [
-    //     { path: '', component: () => import('../pages/AddBook.vue'), name: "add-book" },
-    //   ]
-    // },
     {
       path: '/books/:id/detail',
       component: () => import('../layouts/MainLayout.vue'),
       children: [
         { path: '', component: () => import('../pages/BookDetails.vue'), name: "book-details" },
-      ]
+      ],
     },
     {
       path: '/auth',
@@ -46,7 +37,11 @@ const router = createRouter({
         { path: 'users', component: () => import('../pages/admin/ManageUsers.vue'), name: "manage-users" },
         { path: 'add-book', component: () => import('../pages/admin/AddBook.vue'), name: "add-book" },
         { path: 'book/:id/update', component: () => import('../pages/admin/UpdateBook.vue'), name: "update-book" },
-      ]
+      ],
+      meta:{
+        requiresAuth: true,
+        permission: 'admin'
+      }
     },
     {
       path: '/:catchAll(.*)*',
@@ -55,11 +50,19 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach(async (to, from) => {
-//     if(to.meta.requiresAuth && !authService.isLoggedIn()){
-//         const loggedIn = await authService.login();
-//         if(!loggedIn) return '/login'
-//     }
-// })
+router.beforeEach(async (to, from) => {
+    const authStore = AuthStore();
+    const {isLoggedIn, userRole} = storeToRefs(authStore);
+    console.log("Logged in", isLoggedIn.value);
+    console.log("ROLE", userRole.value);
+    if(to.meta.requiresAuth && !isLoggedIn.value){
+        return '/auth/login'
+    }
+    if(to.meta.permission == 'admin' && userRole.value == "USER"){
+        console.log("Vous n'avez pas droit à acceder aux ressources démandés.");
+        // Ajouter page d'erreur
+        return '/'
+    }
+})
 
 export default router

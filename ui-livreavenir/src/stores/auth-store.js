@@ -6,7 +6,7 @@ export const AuthStore = defineStore('auth-store', {
         users: [],
         user: null,
         userRole: null,
-        loggedIn: false,
+        isLoggedIn: false,
         token: null
     }),
     actions: {
@@ -23,9 +23,10 @@ export const AuthStore = defineStore('auth-store', {
         if(promise.status === 200) {
             this.token = promise.body.token;
             this.userRole = promise.body.role
-            this.loggedIn = true;
+            this.isLoggedIn = true;
         }
         return promise;
 },
+
 }, 
 })
