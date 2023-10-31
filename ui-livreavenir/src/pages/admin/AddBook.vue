@@ -180,6 +180,8 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
+
 import LabelValues from "../../components/commons/LabelValues.vue";
 import AuthorLabelValue from "../../components/commons/AuthorLabelValue.vue";
 import { onBeforeMount, reactive, computed } from "vue";
@@ -337,15 +339,13 @@ onBeforeMount(() => {
 const authStoreObj = AuthStore();
 const { token } = authStoreObj;
 const bookStore = BookStore();
+const router = useRouter();
 
 const add_new_book = async () => {
     const result = await v$.value.$validate();
 
     if (!v$.value.$error) {
-        console.log("No errors");
-
         console.log(token);
-
         const formData = new FormData();
         formData.append("isbn", inputs.isbn);
         formData.append("title", inputs.title);
@@ -362,7 +362,10 @@ const add_new_book = async () => {
         console.log("resp", resp);
 
         if (resp.status === 204) {
-            alert(`Livre a été créer avec success.`);
+            console.log(`Livre a été créer avec success.`);
+            setTimeout(() => {
+                router.push("/admin");
+            }, 3000); // Redirect after 3 seconds
         } else {
             alert(`Nous n'avons pas pu créer le livre.`);
         }
