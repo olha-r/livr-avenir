@@ -1,10 +1,10 @@
 <script setup>
 import LabelValues from "../../components/commons/LabelValues.vue";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { AddBookFormStore } from "../../stores/add-book-form-store";
-import { BookStore } from "../../stores/book-store";
-import { AuthStore } from "../../stores/auth-store";
+import { AddBookFormStore } from "../../store/add-book-form-store";
+import { BookStore } from "../../store/book-store";
+import { AuthStore } from "../../store/auth-store";
 import { useRoute } from "vue-router";
 
 const addFormBookStoreObj = AddBookFormStore();
@@ -13,24 +13,13 @@ const bookStoreObj = BookStore();
 const { book_details } = storeToRefs(bookStoreObj);
 const route = useRoute();
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
     addFormBookStoreObj.get_list_languages();
     addFormBookStoreObj.get_list_categories();
-    bookStoreObj.get_book_details(route.params.id);
+    await bookStoreObj.get_book_details(route.params.id);
 });
 
-const inputs = {
-    isbn: null,
-    title: null,
-    publicationYear: null,
-    pageCount: null,
-    summary: null,
-    publisher: {},
-    categoryId: 0,
-    userId: 14,
-    languageIdList: [],
-    authors: [{ firstName: null, lastName: null }],
-};
+let inputs = ref({});
 const authStoreObj = AuthStore();
 const { token } = authStoreObj;
 const bookStore = BookStore();

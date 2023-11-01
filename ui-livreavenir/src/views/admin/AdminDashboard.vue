@@ -3,8 +3,8 @@ import { onBeforeMount } from "vue";
 import SearchComponent from "../../components/SearchComponent.vue";
 import ToastComponent from "../../components/commons/ToastComponent.vue";
 import { storeToRefs } from "pinia";
-import { BookStore } from "../../stores/book-store";
-import { AuthStore } from "../../stores/auth-store";
+import { BookStore } from "../../store/book-store";
+import { AuthStore } from "../../store/auth-store";
 import ToastComponentVue from "../../components/commons/ToastComponent.vue";
 const bookStore = BookStore();
 const bookStoreObj = BookStore();
@@ -17,11 +17,6 @@ const { token } = authStoreObj;
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const remove = async (id) => {
     const resp = await bookStore.delete_book(id, token);
-    if (resp.status === 204) {
-        console.error(resp);
-    } else {
-        console.error(resp);
-    }
 };
 </script>
 <template>

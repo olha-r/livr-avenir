@@ -5,11 +5,11 @@ import LabelValues from "../../components/commons/LabelValues.vue";
 import AuthorLabelValue from "../../components/commons/AuthorLabelValue.vue";
 import { onBeforeMount, reactive, computed } from "vue";
 import { storeToRefs } from "pinia";
-import { AddBookFormStore } from "../../stores/add-book-form-store";
-import { BookStore } from "../../stores/book-store";
-import { AuthStore } from "../../stores/auth-store";
-import { AuthorStore } from "../../stores/author-store";
-import { publisherStore } from "../../stores/publisher-store";
+import { AddBookFormStore } from "../../store/add-book-form-store";
+import { BookStore } from "../../store/book-store";
+import { AuthStore } from "../../store/auth-store";
+import { AuthorStore } from "../../store/author-store";
+import { publisherStore } from "../../store/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
 import {
     required,
@@ -186,7 +186,7 @@ const add_new_book = async () => {
                 router.push("/admin");
             }, 3000); // Redirect after 3 seconds
         } else {
-            alert(`Nous n'avons pas pu créer le livre.`);
+            console.error(`Nous n'avons pas pu créer le livre.`);
         }
     } else {
         console.log("There are errors");

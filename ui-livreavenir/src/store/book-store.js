@@ -31,6 +31,10 @@ export const BookStore = defineStore('book-store', {
         async delete_book(book_id, token){
             const bookHttp = new BookHttp();
             const promise = await bookHttp.delete_book(book_id, token);
+            console.log("PROMISE", promise);
+            if(promise.status== 204){
+                this.get_last_added_books();
+            }
             return promise; 
         }
     },
