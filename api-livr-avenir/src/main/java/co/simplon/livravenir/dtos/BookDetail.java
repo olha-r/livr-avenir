@@ -1,8 +1,5 @@
 package co.simplon.livravenir.dtos;
 
-import co.simplon.livravenir.entities.Category;
-import co.simplon.livravenir.entities.Publisher;
-
 public interface BookDetail {
 
     Long getId();
@@ -19,8 +16,8 @@ public interface BookDetail {
 
     String getSummary();
 
-    Category getCategory();
+    LabelValue getCategory();
 
-    Publisher getPublisher();
+    LabelValue getPublisher();
 
 }
