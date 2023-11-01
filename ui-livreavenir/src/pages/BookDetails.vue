@@ -1,3 +1,19 @@
+<script setup>
+import { onBeforeMount, ref } from "vue";
+import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
+import { BookStore } from "../stores/book-store";
+
+const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
+const bookStoreObj = BookStore();
+const { book_details } = storeToRefs(bookStoreObj);
+const route = useRoute();
+const book_id = route.params.id;
+const imageUrl = ref("");
+onBeforeMount(() => {
+    bookStoreObj.get_book_details(book_id);
+});
+</script>
 <template>
     <main class="container-xl my-5">
         <div
@@ -128,20 +144,3 @@
         </div>
     </main>
 </template>
-
-<script setup>
-import { onBeforeMount, ref } from "vue";
-import { useRoute } from "vue-router";
-import { storeToRefs } from "pinia";
-import { BookStore } from "../stores/book-store";
-
-const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
-const bookStoreObj = BookStore();
-const { book_details } = storeToRefs(bookStoreObj);
-const route = useRoute();
-const book_id = route.params.id;
-const imageUrl = ref("");
-onBeforeMount(() => {
-    bookStoreObj.get_book_details(book_id);
-});
-</script>

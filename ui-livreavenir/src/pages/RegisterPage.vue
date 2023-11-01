@@ -1,104 +1,3 @@
-<template>
-    <main class="container-xl my-1">
-        <div class="row justify-content-center align-items-center">
-            <div class="d-flex justify-content-center mt-4">
-                <h1>Créer un compte</h1>
-            </div>
-            <form novalidate @submit.prevent="onSubmit" class="col-md-5">
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="firstName" class="form-label required"
-                                >Prénom</label
-                            >
-                            <input
-                                v-model.trim="user.firstName"
-                                name="firstName"
-                                id="firstName"
-                                type="text"
-                                class="form-control"
-                                :class="{
-                                    'is-invalid': v$.firstName.$error,
-                                }"
-                            />
-                            <ValidationMessage :model="v$.firstName" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="lastName" class="form-label required"
-                                >Nom</label
-                            >
-                            <input
-                                v-model.trim="user.lastName"
-                                name="lastName"
-                                id="lastName"
-                                type="text"
-                                class="form-control"
-                                :class="{
-                                    'is-invalid': v$.lastName.$error,
-                                }"
-                            />
-                            <ValidationMessage :model="v$.lastName" />
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label required">Email</label>
-                    <input
-                        v-model.trim="user.email"
-                        name="email"
-                        id="email"
-                        type="email"
-                        class="form-control"
-                        aria-describedby="emailHelp"
-                        :class="{ 'is-invalid': v$.email.$error }"
-                    />
-                    <div id="emailHelp" class="form-text">
-                        ex.: prenom.nom@domain.com
-                    </div>
-                    <ValidationMessage :model="v$.email" />
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label required"
-                        >Mot de passe</label
-                    >
-                    <input
-                        v-model.trim="user.password"
-                        name="password"
-                        id="password"
-                        type="password"
-                        class="form-control"
-                        :class="{ 'is-invalid': v$.password.$error }"
-                    />
-                    <div id="passwordHelp" class="form-text">
-                        Au moins 1 majuscule et 1 miniscule, au moins un nombre
-                        au moins 1 de !@#%&*?
-                    </div>
-                    <ValidationMessage :model="v$.password" />
-                </div>
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label required"
-                        >Confirmer le mot de passe</label
-                    >
-                    <input
-                        v-model.trim="user.confirmPassword"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        type="password"
-                        class="form-control"
-                        :class="{
-                            'is-invalid': v$.confirmPassword.$error,
-                        }"
-                    />
-                    <ValidationMessage :model="v$.confirmPassword" />
-                </div>
-                <button type="submit" class="btn btn-primary col-12 mb-3">
-                    Créer
-                </button>
-            </form>
-        </div>
-    </main>
-</template>
-
 <script setup>
 import { reactive, computed } from "vue";
 import useValidate from "@vuelidate/core";
@@ -208,3 +107,103 @@ const onSubmit = async () => {
     }
 };
 </script>
+<template>
+    <main class="container-xl my-1">
+        <div class="row justify-content-center align-items-center">
+            <div class="d-flex justify-content-center mt-4">
+                <h1>Créer un compte</h1>
+            </div>
+            <form novalidate @submit.prevent="onSubmit" class="col-md-5">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label required"
+                                >Prénom</label
+                            >
+                            <input
+                                v-model.trim="user.firstName"
+                                name="firstName"
+                                id="firstName"
+                                type="text"
+                                class="form-control"
+                                :class="{
+                                    'is-invalid': v$.firstName.$error,
+                                }"
+                            />
+                            <ValidationMessage :model="v$.firstName" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label required"
+                                >Nom</label
+                            >
+                            <input
+                                v-model.trim="user.lastName"
+                                name="lastName"
+                                id="lastName"
+                                type="text"
+                                class="form-control"
+                                :class="{
+                                    'is-invalid': v$.lastName.$error,
+                                }"
+                            />
+                            <ValidationMessage :model="v$.lastName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label required">Email</label>
+                    <input
+                        v-model.trim="user.email"
+                        name="email"
+                        id="email"
+                        type="email"
+                        class="form-control"
+                        aria-describedby="emailHelp"
+                        :class="{ 'is-invalid': v$.email.$error }"
+                    />
+                    <div id="emailHelp" class="form-text">
+                        ex.: prenom.nom@domain.com
+                    </div>
+                    <ValidationMessage :model="v$.email" />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label required"
+                        >Mot de passe</label
+                    >
+                    <input
+                        v-model.trim="user.password"
+                        name="password"
+                        id="password"
+                        type="password"
+                        class="form-control"
+                        :class="{ 'is-invalid': v$.password.$error }"
+                    />
+                    <div id="passwordHelp" class="form-text">
+                        Au moins 1 majuscule et 1 miniscule, au moins un nombre
+                        au moins 1 de !@#%&*?
+                    </div>
+                    <ValidationMessage :model="v$.password" />
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label required"
+                        >Confirmer le mot de passe</label
+                    >
+                    <input
+                        v-model.trim="user.confirmPassword"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        type="password"
+                        class="form-control"
+                        :class="{
+                            'is-invalid': v$.confirmPassword.$error,
+                        }"
+                    />
+                    <ValidationMessage :model="v$.confirmPassword" />
+                </div>
+                <button type="submit" class="btn btn-primary col-12 mb-3">
+                    Créer
+                </button>
+            </form>
+        </div>
+    </main>
+</template>
