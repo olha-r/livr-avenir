@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -32,6 +33,7 @@ public class BookCreate {
     @Size(min = 10, max = 1000)
     private String summary;
 
+    @NotNull
     private MultipartFile coverImageUrl;
 
     @NonNull

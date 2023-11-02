@@ -14,6 +14,7 @@ import { publisherStore } from "../../store/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
 import {
     required,
+    requiredIf,
     minLength,
     maxLength,
     numeric,
@@ -32,6 +33,7 @@ const inputs = reactive({
     userId: 1,
     languageId: [],
     authorList: [],
+    coverImageUrl: undefined,
 });
 const rules = computed(() => {
     return {
@@ -139,6 +141,14 @@ const rules = computed(() => {
                 ),
             },
         ],
+        coverImageUrl: {
+            required: requiredIf(() => {
+                return inputs.coverImageUrl === undefined;
+            }),
+            maxValue: (coverImageUrl) => {
+                return coverImageUrl ? coverImageUrl.size <= 1048576 : true;
+            },
+        },
     };
 });
 const v$ = useVuelidate(rules, inputs);
@@ -177,6 +187,7 @@ const add_new_book = async () => {
         formData.append("userId", inputs.userId);
         formData.append("languageId", inputs.languageId);
         formData.append("authorList", inputs.authorList);
+        formData.append("coverImageUrl", inputs.coverImageUrl);
         console.log("Form data", inputs);
         const resp = await bookStore.add_new_book(formData, token);
         console.log("resp", resp);
@@ -200,7 +211,7 @@ const add_new_book = async () => {
     }
 };
 const handleImageUpload = (event) => {
-    formData.image = event.target.files[0];
+    inputs.coverImageUrl = event.target.files[0];
 };
 </script>
 <template>
@@ -369,6 +380,7 @@ const handleImageUpload = (event) => {
                             class="form-control"
                             @change="handleImageUpload"
                         />
+                        <ValidationMessage :model="v$.coverImageUrl" />
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
