@@ -53,13 +53,17 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
         <h3 class="text-center my-4">Derniers livres ajoutés récemment</h3>
 
         <div class="row row-cols-2 row-cols-md-5 g-5">
-            <div class="col" v-for="book in lastAddedBooks" :key="book.id">
-                <a :href="`/books/${book.id}/detail`"
+            <div
+                class="col"
+                v-for="(item, index) in lastAddedBooks"
+                :key="index"
+            >
+                <a :href="`/books/${item.book.id}/detail`"
                     ><div class="card">
                         <img
                             :src="
-                                book.coverImageUrl
-                                    ? baseUrl + book.coverImageUrl
+                                item.book.coverImageUrl
+                                    ? baseUrl + item.book.coverImageUrl
                                     : baseUrl + 'default-image.jpg'
                             "
                             class="card-img-top"
@@ -68,21 +72,28 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 
                         <div class="card-body">
                             <h5 class="card-title text-center">
-                                {{ book.title }}
+                                {{ item.book.title }}
                             </h5>
-                            <p
+                            <div
                                 class="card-subtitle mb-2 text-muted text-center"
                             >
-                                <p class="p-0 m-0"
-                                    v-for="(author, index) in book.authors"
-                                    :key="index"
+                                <p
+                                    class="p-0 m-0"
+                                    v-for="(
+                                        author, authorIndex
+                                    ) in item.listAuthor"
+                                    :key="authorIndex"
                                 >
                                     {{ author.firstName }} {{ author.lastName }}
-                                    <span v-if="index < book.authors.length - 1"
+                                    <span
+                                        v-if="
+                                            authorIndex <
+                                            item.listAuthor.length - 1
+                                        "
                                         >,
                                     </span>
                                 </p>
-                            </p>
+                            </div>
                         </div>
                     </div></a
                 >
