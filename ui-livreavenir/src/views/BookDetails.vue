@@ -10,12 +10,13 @@ const { book_details } = storeToRefs(bookStoreObj);
 const route = useRoute();
 const book_id = route.params.id;
 const imageUrl = ref("");
-onBeforeMount(() => {
-    bookStoreObj.get_book_details(book_id);
+onBeforeMount(async () => {
+    await bookStoreObj.get_book_details(book_id);
 });
 </script>
 <template>
     <main class="container-xl my-5">
+        {{ book_details.book }}
         <div
             class="justify-content-center align-items-center book-details-container"
         >
@@ -30,16 +31,18 @@ onBeforeMount(() => {
                 </button>
             </div>
             <div class="row mt-3">
-                <h3>{{ book_details.title }}</h3>
+                <h3>{{ book_details.book.title }}</h3>
                 <div class="row d-flex justify-content-center">
                     <div class="col">
                         <p class="author">
                             <span
-                                v-for="(author, index) in book_details.authors"
+                                v-for="(
+                                    author, index
+                                ) in book_details.authorlist"
                                 :key="index"
                             >
                                 {{ author.firstName }} {{ author.lastName }}
-                                <span v-if="index < book.authors.length - 1"
+                                <span v-if="index < authorList.length - 1"
                                     >,
                                 </span> </span
                             ><span class="text-muted fs-6"> (Auteur(s))</span>
@@ -49,8 +52,8 @@ onBeforeMount(() => {
                 <div class="col-12 col-md-5 book-image ps-0">
                     <img
                         :src="
-                            book_details.coverImageUrl
-                                ? baseUrl + book_details.coverImageUrl
+                            book_details.book.coverImageUrl
+                                ? baseUrl + book_details.book.coverImageUrl
                                 : baseUrl + 'default-image.jpg'
                         "
                         alt="Cover Image"
@@ -59,11 +62,11 @@ onBeforeMount(() => {
                 </div>
                 <div class="col book-info p-3">
                     <p class="fst-italic">Résumé:</p>
-                    <p>{{ book_details.summary }}</p>
+                    <p>{{ book_details.book.summary }}</p>
                     <div class="row">
                         <p>
                             <span class="badge text-bg-warning me-1">{{
-                                book_details.category
+                                book_details.book.category.name
                             }}</span>
                         </p>
                         <p>Caractéristiques:</p>
@@ -71,14 +74,14 @@ onBeforeMount(() => {
                         <div class="col">
                             <p>
                                 <span class="fw-light">ISBN: </span
-                                >{{ book_details.isbn }}
+                                >{{ book_details.book.isbn }}
                             </p>
                         </div>
                         <div class="col">
                             <p>
                                 <span class="fw-light"
                                     >L'année de parution: </span
-                                >{{ book_details.publicationYear }}
+                                >{{ book_details.book.publicationYear }}
                             </p>
                         </div>
                     </div>
@@ -86,13 +89,13 @@ onBeforeMount(() => {
                         <div class="col">
                             <p>
                                 <span class="fw-light">Edition: </span
-                                >{{ book_details.publisher }}
+                                >{{ book_details.publisher.name }}
                             </p>
                         </div>
                         <div class="col">
                             <p>
                                 <span class="fw-light">Nombres de pages: </span
-                                >{{ book_details.pageCount }}
+                                >{{ book_details.book.pageCount }}
                             </p>
                         </div>
                     </div>
@@ -100,6 +103,7 @@ onBeforeMount(() => {
                         <div class="col">
                             <p>
                                 <span class="fw-light">Langue: </span>
+                                {{ book_details.book.language }}
                             </p>
                         </div>
                     </div>
