@@ -11,23 +11,24 @@ public class ImageSizeValidator implements
     private long maxValue;
 
     @Override
-    public void initialize(ImageSize maxValue) {
-	this.maxValue = maxValue.maxValue();
+    public void initialize(ImageSize annotation) {
+	long value = annotation.value();
+	if (value <= 0) {
+	    throw new IllegalArgumentException(String
+		    .format("value must be positive: %s",
+			    value));
+	}
+	maxValue = value;
     }
 
     @Override
-    public boolean isValid(MultipartFile value,
+    public boolean isValid(MultipartFile imageFile,
 	    ConstraintValidatorContext context) {
-	if (value == null) {
+	if (imageFile == null) {
 	    return true;
 	}
 
-	if (value.getSize() < maxValue) {
-	    return true;
-
-	}
-
-	return false;
+	return imageFile.getSize() <= maxValue;
     }
 
 }
