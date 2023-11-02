@@ -6,6 +6,7 @@ import { email, helpers, required } from "@vuelidate/validators";
 import { AuthStore } from "../store/auth-store";
 import ValidationMessage from "../components/commons/ValidationMessage.vue";
 import { storeToRefs } from "pinia";
+import { usePageStore } from "../store/page-store";
 
 const user = reactive({
     email: null,
@@ -34,7 +35,7 @@ const rules = computed(() => {
 const v$ = useValidate(rules, user);
 const authStore = AuthStore();
 const { userRole } = storeToRefs(authStore);
-
+const pageStore = usePageStore();
 const router = useRouter();
 const onSubmit = async () => {
     await v$.value.$validate();
@@ -48,16 +49,22 @@ const onSubmit = async () => {
             console.log("Token after login", token);
             console.log(`Utilisateur ${user.email} est connecté`);
             if (userRole.value == "ADMIN") {
-                setTimeout(() => {
-                    router.push("/admin");
-                }, 1000); // Redirect
+                router.push("/admin");
+                pageStore.alert.type = "success";
+                pageStore.alert.message = `Utilisateur ${user.email} est connecté`;
+                pageStore.alert.show = true;
             } else {
-                setTimeout(() => {
-                    router.push("/");
-                }, 1000); // Redirect
+                pageStore.alert.type = "success";
+                pageStore.alert.message = `Utilisateur ${user.email} est connecté`;
+                pageStore.alert.show = true;
             }
         } else {
-            alert(`Nous n'avons pas pu trouvé utilisateur ${user.email}.`);
+            pageStore.alert.type = "error";
+            pageStore.alert.message = `Nous n'avons pas pu trouvé utilisateur ${user.email}.`;
+            pageStore.alert.show = true;
+            console.log(
+                `Nous n'avons pas pu trouvé utilisateur ${user.email}.`
+            );
         }
     } else {
         console.log("There are errors");

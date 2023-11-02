@@ -5,6 +5,7 @@ import ToastComponent from "../../components/commons/ToastComponent.vue";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../../store/book-store";
 import { AuthStore } from "../../store/auth-store";
+import { usePageStore } from "../../store/page-store";
 import ToastComponentVue from "../../components/commons/ToastComponent.vue";
 const bookStore = BookStore();
 const bookStoreObj = BookStore();
@@ -18,6 +19,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const remove = async (id) => {
     const resp = await bookStore.delete_book(id, token);
 };
+const pageStore = usePageStore();
 </script>
 <template>
     <main class="container-xl my-2 home-page">

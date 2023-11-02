@@ -9,6 +9,7 @@ import { AddBookFormStore } from "../../store/add-book-form-store";
 import { BookStore } from "../../store/book-store";
 import { AuthStore } from "../../store/auth-store";
 import { AuthorStore } from "../../store/author-store";
+import { usePageStore } from "../../store/page-store";
 import { publisherStore } from "../../store/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
 import {
@@ -159,7 +160,7 @@ const authStoreObj = AuthStore();
 const { token } = authStoreObj;
 const bookStore = BookStore();
 const router = useRouter();
-
+const pageStore = usePageStore();
 const add_new_book = async () => {
     const result = await v$.value.$validate();
 
@@ -181,11 +182,17 @@ const add_new_book = async () => {
         console.log("resp", resp);
 
         if (resp.status === 204) {
+            pageStore.alert.type = "success";
+            pageStore.alert.message = `Livre a été créer avec success.`;
+            pageStore.alert.show = true;
             console.log(`Livre a été créer avec success.`);
             setTimeout(() => {
                 router.push("/admin");
             }, 3000); // Redirect after 3 seconds
         } else {
+            pageStore.alert.type = "error";
+            pageStore.alert.message = `Nous n'avons pas pu créer le livre.`;
+            pageStore.alert.show = true;
             console.error(`Nous n'avons pas pu créer le livre.`);
         }
     } else {
