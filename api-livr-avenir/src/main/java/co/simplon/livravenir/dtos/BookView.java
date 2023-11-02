@@ -2,13 +2,13 @@ package co.simplon.livravenir.dtos;
 
 import java.util.List;
 
-public class BookAuthorView {
+public class BookView {
 
     private BookDetail book;
 
     private List<AuthorDetail> authorList;
 
-    public BookAuthorView() {
+    public BookView() {
     }
 
     public BookDetail getBook() {

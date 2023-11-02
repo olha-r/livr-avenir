@@ -1,10 +1,8 @@
 package co.simplon.livravenir.dtos;
 
-public interface BookItemList {
+public interface BookItem {
 
     Long getId();
-
-    String getIsbn();
 
     String getTitle();
 

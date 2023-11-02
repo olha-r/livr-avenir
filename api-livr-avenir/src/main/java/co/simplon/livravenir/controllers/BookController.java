@@ -1,6 +1,6 @@
 package co.simplon.livravenir.controllers;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.livravenir.dtos.BookAuthorView;
 import co.simplon.livravenir.dtos.BookCreate;
-import co.simplon.livravenir.dtos.BookItemList;
+import co.simplon.livravenir.dtos.BookItemView;
 import co.simplon.livravenir.dtos.BookUpdate;
+import co.simplon.livravenir.dtos.BookView;
 import co.simplon.livravenir.services.BookService;
 
 @RestController
@@ -39,7 +39,7 @@ public class BookController {
     }
 
     @GetMapping
-    public Collection<BookItemList> getAllBooks() {
+    public List<BookItemView> getAllBooks() {
 	return bookService.getAllBooks();
     }
 
@@ -57,7 +57,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}/detail")
-    public BookAuthorView getdBookDetail(
+    public BookView getdBookDetail(
 	    @PathVariable("id") Long id) {
 	return bookService.getdBookDetail(id);
     }

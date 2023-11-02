@@ -1,6 +1,6 @@
 package co.simplon.livravenir.services;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,11 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.livravenir.dtos.AuthorDetail;
-import co.simplon.livravenir.dtos.BookAuthorView;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
-import co.simplon.livravenir.dtos.BookItemList;
+import co.simplon.livravenir.dtos.BookItem;
+import co.simplon.livravenir.dtos.BookItemView;
 import co.simplon.livravenir.dtos.BookUpdate;
+import co.simplon.livravenir.dtos.BookView;
 import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.BookAuthor;
@@ -120,8 +121,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Collection<BookItemList> getAllBooks() {
-	return books.findAllBooksProjectedBy();
+    public List<BookItemView> getAllBooks() {
+	List<BookItem> bookList = books
+		.findAllBooksProjectedBy();
+	List<BookItemView> bookItemList = new ArrayList<>();
+	for (BookItem book : bookList) {
+	    List<AuthorDetail> authorList = authors
+		    .retrieveBookAuthors(book.getId());
+
+	    BookItemView view = new BookItemView();
+
+	    view.setListAuthor(authorList);
+	    view.setBook(book);
+	    bookItemList.add(view);
+	}
+
+	return bookItemList;
     }
 
     @Transactional
@@ -160,11 +175,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookAuthorView getdBookDetail(Long id) {
+    public BookView getdBookDetail(Long id) {
 	BookDetail book = books.findProjectedById(id);
 	List<AuthorDetail> authorList = authors
 		.retrieveBookAuthors(id);
-	BookAuthorView bookDetail = new BookAuthorView();
+	BookView bookDetail = new BookView();
 	bookDetail.setAuthorList(authorList);
 	bookDetail.setBook(book);
 	return bookDetail;
