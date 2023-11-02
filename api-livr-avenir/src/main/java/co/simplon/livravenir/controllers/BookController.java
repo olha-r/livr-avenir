@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.livravenir.dtos.BookCreate;
+import co.simplon.livravenir.dtos.BookItemAdminView;
 import co.simplon.livravenir.dtos.BookItemView;
 import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.dtos.BookView;
@@ -41,6 +42,11 @@ public class BookController {
     @GetMapping
     public List<BookItemView> getAllBooks() {
 	return bookService.getAllBooks();
+    }
+
+    @GetMapping("/admin")
+    public List<BookItemAdminView> getAllBooksForAdmin() {
+	return bookService.getAllBooksForAdmin();
     }
 
     @PutMapping("/{id}")

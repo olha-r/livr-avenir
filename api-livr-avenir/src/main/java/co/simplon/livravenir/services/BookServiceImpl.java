@@ -13,6 +13,8 @@ import co.simplon.livravenir.dtos.AuthorDetail;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
 import co.simplon.livravenir.dtos.BookItem;
+import co.simplon.livravenir.dtos.BookItemAdmin;
+import co.simplon.livravenir.dtos.BookItemAdminView;
 import co.simplon.livravenir.dtos.BookItemView;
 import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.dtos.BookView;
@@ -183,6 +185,24 @@ public class BookServiceImpl implements BookService {
 	bookDetail.setAuthorList(authorList);
 	bookDetail.setBook(book);
 	return bookDetail;
+    }
+
+    @Override
+    public List<BookItemAdminView> getAllBooksForAdmin() {
+	List<BookItemAdmin> bookList = books
+		.findAllProjectedBy();
+	List<BookItemAdminView> bookItemList = new ArrayList<>();
+	for (BookItemAdmin book : bookList) {
+	    List<AuthorDetail> authorList = authors
+		    .retrieveBookAuthors(book.getId());
+
+	    BookItemAdminView view = new BookItemAdminView();
+
+	    view.setListAuthor(authorList);
+	    view.setBook(book);
+	    bookItemList.add(view);
+	}
+	return bookItemList;
     }
 
 }
