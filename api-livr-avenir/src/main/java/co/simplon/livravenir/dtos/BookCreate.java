@@ -34,6 +34,11 @@ public class BookCreate {
     private String summary;
 
     @NotNull
+    /*
+     * @ImageType({ MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+     * 
+     * @ImageSize
+     */
     private MultipartFile coverImageUrl;
 
     @NonNull

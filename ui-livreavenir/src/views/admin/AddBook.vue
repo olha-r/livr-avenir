@@ -142,9 +142,12 @@ const rules = computed(() => {
             },
         ],
         coverImageUrl: {
-            required: requiredIf(() => {
-                return inputs.coverImageUrl === undefined;
-            }),
+            required: helpers.withMessage(
+                "Veuillez ajouter une image.",
+                requiredIf(() => {
+                    return inputs.coverImageUrl === undefined;
+                })
+            ),
             maxValue: (coverImageUrl) => {
                 return coverImageUrl ? coverImageUrl.size <= 1048576 : true;
             },

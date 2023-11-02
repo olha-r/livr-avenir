@@ -9,11 +9,15 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import org.springframework.http.MediaType;
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Documented
 @Constraint(validatedBy = ImageTypeValidator.class)
 public @interface ImageType {
+
+    String[] value() default { MediaType.ALL_VALUE };
 
     String message() default "Image type is not valid";
 
