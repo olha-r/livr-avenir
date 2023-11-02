@@ -9,9 +9,9 @@ import { usePageStore } from "../../store/page-store";
 import ToastComponentVue from "../../components/commons/ToastComponent.vue";
 const bookStore = BookStore();
 const bookStoreObj = BookStore();
-const { lastAddedBooks } = storeToRefs(bookStoreObj);
+const { bookListForAdmin } = storeToRefs(bookStoreObj);
 onBeforeMount(() => {
-    bookStoreObj.get_last_added_books();
+    bookStoreObj.get_book_list_admin();
 });
 const authStoreObj = AuthStore();
 const { token } = authStoreObj;
@@ -39,31 +39,46 @@ const pageStore = usePageStore();
                         <th scope="col">ISBN</th>
                         <th scope="col">Titre</th>
                         <th scope="col">Auteur(s)</th>
+                        <th scope="col">Edition</th>
+                        <th scope="col">Categorie</th>
                         <th scope="col">Image</th>
                         <th scope="col" colspan="2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(book, index) in lastAddedBooks" :key="book.id">
+                    <tr v-for="(item, index) in bookListForAdmin" :key="index">
                         <th scope="row">{{ index + 1 }}</th>
-                        <td>{{ book.isbn }}</td>
-                        <td>{{ book.title }}</td>
+                        <td>{{ item.book.isbn }}</td>
+                        <td>{{ item.book.title }}</td>
                         <td>
                             <span
-                                v-for="(author, index) in book.authors"
-                                :key="index"
+                                v-for="(author, authorIndex) in item.listAuthor"
+                                :key="authorIndex"
                             >
-                                {{ author.firstName }} {{ author.lastName }}
-                                <span v-if="index < book.authors.length - 1"
+                                {{ author.firstName }}
+                                {{ author.lastName }}
+                                <span
+                                    v-if="
+                                        authorIndex < item.listAuthor.length - 1
+                                    "
                                     >,
+                                    <br />
                                 </span>
                             </span>
                         </td>
                         <td>
+                            {{ item.book.publisher.name }}
+                        </td>
+                        <td>
+                            <span class="badge text-bg-warning me-1">{{
+                                item.book.category.name
+                            }}</span>
+                        </td>
+                        <td>
                             <img
                                 :src="
-                                    book.coverImageUrl
-                                        ? baseUrl + book.coverImageUrl
+                                    item.book.coverImageUrl
+                                        ? baseUrl + item.book.coverImageUrl
                                         : baseUrl + 'default-image.jpg'
                                 "
                                 alt="Cover Image"
@@ -74,7 +89,7 @@ const pageStore = usePageStore();
                             <RouterLink
                                 :to="{
                                     name: 'update-book',
-                                    params: { id: book.id },
+                                    params: { id: item.book.id },
                                 }"
                                 title="Update sticker"
                             >
@@ -82,7 +97,7 @@ const pageStore = usePageStore();
                             </RouterLink>
                         </td>
                         <td>
-                            <a href="#" @click="remove(book.id)">
+                            <a href="#" @click="remove(item.book.id)">
                                 <i class="bi bi-trash3 text-danger"></i
                             ></a>
                         </td>

@@ -16,6 +16,11 @@ export class BookHttp {
         const response = await http.get(url);
         return response;
     };
+    async get_book_list_admin() {
+        const url = `/books/admin`;
+        const response = await http.get(url);
+        return response;
+    };
     async get_book_details(book_id) {
         const url = `/books/${book_id}/detail`;
         const response = await http.get(url);

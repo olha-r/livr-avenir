@@ -4,6 +4,7 @@ import {BookHttp} from "../services/BookHttp";
 export const BookStore = defineStore('book-store', {
     state: () => ({
         lastAddedBooks: [],
+        bookListForAdmin: [],
         book_details: {}
     }),
     actions: {
@@ -17,6 +18,14 @@ export const BookStore = defineStore('book-store', {
             const promise = await bookHttp.get_last_added_books();
             if(promise.status === 200) {
                 this.lastAddedBooks = promise.body;
+            }
+            return promise; 
+        },
+        async get_book_list_admin(){
+            const bookHttp = new BookHttp();
+            const promise = await bookHttp.get_book_list_admin();
+            if(promise.status === 200) {
+                this.bookListForAdmin = promise.body;
             }
             return promise; 
         },
