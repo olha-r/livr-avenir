@@ -1,3 +1,26 @@
+<script setup>
+import { onBeforeMount } from "vue";
+import SearchComponent from "../components/SearchComponent.vue";
+import { storeToRefs } from "pinia";
+import { BookStore } from "../store/book-store";
+
+const bookStoreObj = BookStore();
+const { lastAddedBooks } = storeToRefs(bookStoreObj);
+onBeforeMount(() => {
+    bookStoreObj.get_last_added_books();
+});
+const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
+
+// methods: {
+//     async initLastAddedBooks() {
+//         const resp = await this.$http.get("/books");
+//         this.lastAddedBooks = resp.body;
+//     },
+// },
+// beforeMount() {
+//     this.initLastAddedBooks();
+// },
+</script>
 <template>
     <main class="container-xl my-2 home-page">
         <div class="mb-4 rounded-3 home-page-img position-relative">
@@ -67,28 +90,4 @@
         </div>
     </main>
 </template>
-
-<script setup>
-import { onBeforeMount } from "vue";
-import SearchComponent from "../components/SearchComponent.vue";
-import { storeToRefs } from "pinia";
-import { BookStore } from "../stores/book-store";
-
-const bookStoreObj = BookStore();
-const { lastAddedBooks } = storeToRefs(bookStoreObj);
-onBeforeMount(() => {
-    bookStoreObj.get_last_added_books();
-});
-const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
-
-// methods: {
-//     async initLastAddedBooks() {
-//         const resp = await this.$http.get("/books");
-//         this.lastAddedBooks = resp.body;
-//     },
-// },
-// beforeMount() {
-//     this.initLastAddedBooks();
-// },
-</script>
 

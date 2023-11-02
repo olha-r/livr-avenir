@@ -1,11 +1,5 @@
 package co.simplon.livravenir.services;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -15,12 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.livravenir.dtos.AuthorCreate;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
 import co.simplon.livravenir.dtos.BookItemList;
 import co.simplon.livravenir.dtos.BookUpdate;
-import co.simplon.livravenir.dtos.PublisherCreate;
 import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.BookAuthors;
@@ -39,6 +31,8 @@ import co.simplon.livravenir.repositories.UserRepository;
 @Service
 @Transactional(readOnly = true)
 public class BookServiceImpl implements BookService {
+
+    private final FileStorage storage;
 
     private final BookRepository books;
 
@@ -62,7 +56,8 @@ public class BookServiceImpl implements BookService {
 	    PublisherRepository publishers,
 	    UserRepository users, AuthorRepository authors,
 	    LanguageRepository languages,
-	    BookAuthorsRepository bookAuthorsRepo) {
+	    BookAuthorsRepository bookAuthorsRepo,
+	    FileStorage storage) {
 
 	this.books = books;
 	this.categories = categories;
@@ -71,6 +66,7 @@ public class BookServiceImpl implements BookService {
 	this.authors = authors;
 	this.languages = languages;
 	this.bookAuthorsRepo = bookAuthorsRepo;
+	this.storage = storage;
 
     }
 
@@ -122,6 +118,11 @@ public class BookServiceImpl implements BookService {
 	    bookAuthorsRepo.save(bookAuthorsEntity);
 	}
 
+	MultipartFile file = inputs.getCoverImageUrl();
+	String baseName = UUID.randomUUID().toString();
+	String fileName = storage.store(file, baseName);
+	entity.setCoverImageUrl(fileName);
+
 	/*
 	 * Set<Author> authorList = new HashSet<>(); Set<AuthorCreate> inputsAuthorList
 	 * = inputs .getAuthorList(); if (inputsAuthorList != null) { for (AuthorCreate
@@ -134,46 +135,7 @@ public class BookServiceImpl implements BookService {
 	 * entity.setAuthors(authorList);
 	 */
 
-	/*
-	 * MultipartFile file = inputs.getCoverImageUrl();
-	 * 
-	 * String baseName = UUID.randomUUID().toString(); String imageName = baseName +
-	 * inputs .getCoverImageUrl().getOriginalFilename();
-	 * entity.setCoverImageUrl(imageName); System.out.println(entity);
-	 * System.out.println(imageName); store(file, imageName);
-	 */
-
-    }
-
-    private void createPublisher(PublisherCreate inputs) {
-	Publisher entity = new Publisher();
-	entity.setName(inputs.getName());
-	String uuid = String.valueOf(UUID.randomUUID());
-	entity.setCode(uuid);
-	publishers.save(entity);
-
-    }
-
-    private void createAuthor(AuthorCreate inputs) {
-	Author entity = new Author();
-	entity.setFirstName(inputs.getFirstName());
-	entity.setLastName(inputs.getLastName());
-	String uuid = String.valueOf(UUID.randomUUID());
-	entity.setAuthorCode(uuid);
-	authors.save(entity);
-    }
-
-    private void store(MultipartFile file,
-	    String fileName) {
-	Path uploadPath = Paths.get(uploadDir);
-	Path target = uploadPath.resolve(fileName);
-	try (InputStream in = file.getInputStream()) {
-
-	    Files.copy(in, target,
-		    StandardCopyOption.REPLACE_EXISTING);
-	} catch (IOException ex) {
-	    throw new RuntimeException(ex);
-	}
+	books.save(entity);
 
     }
 
@@ -209,6 +171,7 @@ public class BookServiceImpl implements BookService {
 	Language language = languages
 		.getReferenceById(inputs.getLanguageId());
 	entity.setLanguage(language);
+
 	/*
 	 * MultipartFile file = inputs.getCoverImageUrl(); if (file != null) { String
 	 * baseName = UUID.randomUUID().toString(); String imageName = baseName +

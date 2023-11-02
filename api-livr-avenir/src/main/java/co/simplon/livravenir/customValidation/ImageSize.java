@@ -15,11 +15,14 @@ import javax.validation.Payload;
 @Constraint(validatedBy = ImageSizeValidator.class)
 public @interface ImageSize {
 
+    static final long ONE_MB = 1048576L;
+
+    long value() default ImageSize.ONE_MB;
+
     String message() default "Image size is too large";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
-    long maxValue();
 }

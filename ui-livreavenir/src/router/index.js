@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import {AuthStore} from '../stores/auth-store'
+import {AuthStore} from '../store/auth-store'
 import { storeToRefs } from 'pinia';
 
 
@@ -10,42 +10,42 @@ const router = createRouter({
       path: '/',
       component: () => import('../layouts/MainLayout.vue'),
       children: [
-        { path: '', component: () => import('../pages/HomePage.vue'), name: "home" },
+        { path: '', component: () => import('../views/HomePage.vue'), name: "home" },
       ]
     },
     {
       path: '/books/:id/detail',
       component: () => import('../layouts/MainLayout.vue'),
       children: [
-        { path: '', component: () => import('../pages/BookDetails.vue'), name: "book-details" },
+        { path: '', component: () => import('../views/BookDetails.vue'), name: "book-details" },
       ],
     },
     {
       path: '/auth',
       component: () => import('../layouts/MainLayout.vue'),
       children: [
-        { path: 'register', component: () => import('../pages/RegisterPage.vue'), name: "register" },
-        { path: 'login',component: () => import('../pages/LoginPage.vue'), name: "login" },
-        { path: 'profile',component: () => import('../pages/UserProfile.vue'), name: "profile" },
+        { path: 'register', component: () => import('../views/RegisterPage.vue'), name: "register" },
+        { path: 'login',component: () => import('../views/LoginPage.vue'), name: "login" },
+        { path: 'profile',component: () => import('../views/UserProfile.vue'), name: "profile" },
       ]
     },
     {
       path: '/admin',
       component: () => import('../layouts/AdminLayout.vue'),
       children: [
-        { path: '', component: () => import('../pages/admin/AdminDashboard.vue'), name: "admin-dashboard" },
-        { path: 'users', component: () => import('../pages/admin/ManageUsers.vue'), name: "manage-users" },
-        { path: 'add-book', component: () => import('../pages/admin/AddBook.vue'), name: "add-book" },
-        { path: 'book/:id/update', component: () => import('../pages/admin/UpdateBook.vue'), name: "update-book" },
+        { path: '', component: () => import('../views/admin/AdminDashboard.vue'), name: "admin-dashboard" },
+        { path: 'users', component: () => import('../views/admin/ManageUsers.vue'), name: "manage-users" },
+        { path: 'add-book', component: () => import('../views/admin/AddBook.vue'), name: "add-book" },
+        { path: 'book/:id/update', component: () => import('../views/admin/UpdateBook.vue'), name: "update-book" },
       ],
-      meta:{
-        requiresAuth: true,
-        permission: 'admin'
-      }
+    //   meta:{
+    //     requiresAuth: true,
+    //     permission: 'admin'
+    //   }
     },
     {
       path: '/:catchAll(.*)*',
-      component: () => import('../pages/ErrorNotFound.vue'),
+      component: () => import('../views/ErrorNotFound.vue'),
     },
   ]
 })

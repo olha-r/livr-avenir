@@ -1,3 +1,35 @@
+<script setup>
+import { ref, computed, onBeforeMount } from "vue";
+import { storeToRefs } from "pinia";
+import { publisherStore } from "../../stores/publisher-store";
+const publisherStoreObj = publisherStore();
+const { publisher_list } = storeToRefs(publisherStoreObj);
+
+const searchPublisherQuery = ref("");
+const newPublisher = ref({ firstName: "", lastName: "" });
+onBeforeMount(() => {
+    publisherStoreObj.get_publisher_list();
+});
+const publishers = ref([]);
+const selectedPublishers = ref([]);
+
+// Function to filter publishers based on the searchpublisherQuery
+const filteredPublishers = computed(() => {
+    publishers.value = publisher_list.value;
+    return publishers.value.filter((publisher) => {
+        return (
+            publisher.name
+                .toLowerCase()
+                .indexOf(searchPublisherQuery.value.toLowerCase()) != -1
+        );
+    });
+});
+// Function to add the selected publisher to the list
+const addPublisherToSelectedList = (publisher) => {
+    selectedPublishers.value.push(publisher);
+    searchPublisherQuery.value = "";
+};
+</script>
 <template>
     <div class="col-md-12 mb-3">
         {{ publisher_list }}
@@ -43,35 +75,3 @@
         </div>
     </div>
 </template>
-<script setup>
-import { ref, computed, onBeforeMount } from "vue";
-import { storeToRefs } from "pinia";
-import { publisherStore } from "../../stores/publisher-store";
-const publisherStoreObj = publisherStore();
-const { publisher_list } = storeToRefs(publisherStoreObj);
-
-const searchPublisherQuery = ref("");
-const newPublisher = ref({ firstName: "", lastName: "" });
-onBeforeMount(() => {
-    publisherStoreObj.get_publisher_list();
-});
-const publishers = ref([]);
-const selectedPublishers = ref([]);
-
-// Function to filter publishers based on the searchpublisherQuery
-const filteredPublishers = computed(() => {
-    publishers.value = publisher_list.value;
-    return publishers.value.filter((publisher) => {
-        return (
-            publisher.name
-                .toLowerCase()
-                .indexOf(searchPublisherQuery.value.toLowerCase()) != -1
-        );
-    });
-});
-// Function to add the selected publisher to the list
-const addPublisherToSelectedList = (publisher) => {
-    selectedPublishers.value.push(publisher);
-    searchPublisherQuery.value = "";
-};
-</script>

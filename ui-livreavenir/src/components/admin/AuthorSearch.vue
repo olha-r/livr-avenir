@@ -1,3 +1,39 @@
+<script setup>
+import { ref, computed, onBeforeMount } from "vue";
+import { storeToRefs } from "pinia";
+import { AuthorStore } from "../../stores/author-store";
+const authorStore = AuthorStore();
+const authorStoreObj = AuthorStore();
+const { author_list } = storeToRefs(authorStoreObj);
+
+const searchAuthorQuery = ref("");
+const newAuthor = ref({ firstName: "", lastName: "" });
+onBeforeMount(() => {
+    authorStoreObj.get_author_list();
+});
+const authors = ref([]);
+const selectedAuthors = ref([]);
+
+// Function to filter authors based on the searchAuthorQuery
+const filteredAuthors = computed(() => {
+    authors.value = author_list.value;
+    return authors.value.filter((author) => {
+        return (
+            author.firstName
+                .toLowerCase()
+                .indexOf(searchAuthorQuery.value.toLowerCase()) != -1 ||
+            author.lastName
+                .toLowerCase()
+                .indexOf(searchAuthorQuery.value.toLowerCase()) != -1
+        );
+    });
+});
+// Function to add the selected author to the list
+const addAuthorToSelectedList = (author) => {
+    selectedAuthors.value.push(author);
+    searchAuthorQuery.value = "";
+};
+</script>
 <template>
     <div class="col-md-12 mb-3">
         <!-- Display selected authors -->
@@ -43,39 +79,3 @@
         </div>
     </div>
 </template>
-<script setup>
-import { ref, computed, onBeforeMount } from "vue";
-import { storeToRefs } from "pinia";
-import { AuthorStore } from "../../stores/author-store";
-const authorStore = AuthorStore();
-const authorStoreObj = AuthorStore();
-const { author_list } = storeToRefs(authorStoreObj);
-
-const searchAuthorQuery = ref("");
-const newAuthor = ref({ firstName: "", lastName: "" });
-onBeforeMount(() => {
-    authorStoreObj.get_author_list();
-});
-const authors = ref([]);
-const selectedAuthors = ref([]);
-
-// Function to filter authors based on the searchAuthorQuery
-const filteredAuthors = computed(() => {
-    authors.value = author_list.value;
-    return authors.value.filter((author) => {
-        return (
-            author.firstName
-                .toLowerCase()
-                .indexOf(searchAuthorQuery.value.toLowerCase()) != -1 ||
-            author.lastName
-                .toLowerCase()
-                .indexOf(searchAuthorQuery.value.toLowerCase()) != -1
-        );
-    });
-});
-// Function to add the selected author to the list
-const addAuthorToSelectedList = (author) => {
-    selectedAuthors.value.push(author);
-    searchAuthorQuery.value = "";
-};
-</script>

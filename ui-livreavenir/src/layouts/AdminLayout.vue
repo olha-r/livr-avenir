@@ -1,13 +1,12 @@
 <script setup>
 import AdminHeader from "../components/admin/AdminHeader.vue";
-const components = {
-    AdminHeader,
-};
+import NotificationComponent from "../components/commons/NotificationComponent.vue";
 </script>
 
 <template>
     <div>
         <AdminHeader />
+        <NotificationComponent />
         <RouterView />
     </div>
 </template>
