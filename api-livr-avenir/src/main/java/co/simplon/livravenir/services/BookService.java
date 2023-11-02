@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import co.simplon.livravenir.dtos.BookAuthorView;
 import co.simplon.livravenir.dtos.BookCreate;
-import co.simplon.livravenir.dtos.BookDetail;
 import co.simplon.livravenir.dtos.BookItemList;
 import co.simplon.livravenir.dtos.BookUpdate;
 
@@ -15,10 +15,10 @@ public interface BookService {
 
     Collection<BookItemList> getAllBooks();
 
-    BookDetail getdBookDetail(Long id);
-
     void deleteBook(Long id);
 
     void updateBook(Long id, BookUpdate inputs);
+
+    BookAuthorView getdBookDetail(Long id);
 
 }

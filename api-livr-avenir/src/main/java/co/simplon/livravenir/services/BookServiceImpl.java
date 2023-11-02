@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.simplon.livravenir.dtos.AuthorDetail;
+import co.simplon.livravenir.dtos.BookAuthorView;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
 import co.simplon.livravenir.dtos.BookItemList;
 import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
-import co.simplon.livravenir.entities.BookAuthors;
+import co.simplon.livravenir.entities.BookAuthor;
 import co.simplon.livravenir.entities.Category;
 import co.simplon.livravenir.entities.Language;
 import co.simplon.livravenir.entities.Publisher;
@@ -85,16 +87,6 @@ public class BookServiceImpl implements BookService {
 		.getReferenceById(inputs.getCategoryId());
 	entity.setCategory(category);
 
-	/*
-	 * PublisherCreate publisher = inputs.getPublisher(); if (publisher != null) {
-	 * Optional<Publisher> optionalPublisher = publishers
-	 * .findByName(publisher.getName()); if (optionalPublisher.isEmpty()) {
-	 * createPublisher(publisher); }
-	 * 
-	 * } Publisher publisherId = publishers
-	 * .findPublisherByName(publisher.getName()); entity.setPublisher(publisherId);
-	 */
-
 	Language language = languages
 		.getReferenceById(inputs.getLanguageId());
 	entity.setLanguage(language);
@@ -112,9 +104,9 @@ public class BookServiceImpl implements BookService {
 	for (Long authorId : inputs.getAuthorList()) {
 	    Author author = authors
 		    .getReferenceById(authorId);
-	    BookAuthors bookAuthorsEntity = new BookAuthors();
-	    bookAuthorsEntity.setAuthorId(author);
-	    bookAuthorsEntity.setBookId(savedBook);
+	    BookAuthor bookAuthorsEntity = new BookAuthor();
+	    bookAuthorsEntity.setAuthor(author);
+	    bookAuthorsEntity.setBook(savedBook);
 	    bookAuthorsRepo.save(bookAuthorsEntity);
 	}
 
@@ -123,25 +115,12 @@ public class BookServiceImpl implements BookService {
 	String fileName = storage.store(file, baseName);
 	entity.setCoverImageUrl(fileName);
 
-	/*
-	 * Set<Author> authorList = new HashSet<>(); Set<AuthorCreate> inputsAuthorList
-	 * = inputs .getAuthorList(); if (inputsAuthorList != null) { for (AuthorCreate
-	 * authorCreate : inputsAuthorList) { Optional<Author> authorOptional = authors
-	 * .findByFirstNameAndLastName( authorCreate.getFirstName(),
-	 * authorCreate.getLastName()); if (authorOptional.isEmpty()) {
-	 * createAuthor(authorCreate); } Optional<Author> allAuthors = authors
-	 * .findByFirstNameAndLastName( authorCreate.getFirstName(),
-	 * authorCreate.getLastName()); allAuthors.ifPresent(authorList::add); } }
-	 * entity.setAuthors(authorList);
-	 */
-
 	books.save(entity);
 
     }
 
     @Override
     public Collection<BookItemList> getAllBooks() {
-	// TODO Auto-generated method stub
 	return books.findAllBooksProjectedBy();
     }
 
@@ -172,24 +151,23 @@ public class BookServiceImpl implements BookService {
 		.getReferenceById(inputs.getLanguageId());
 	entity.setLanguage(language);
 
-	/*
-	 * MultipartFile file = inputs.getCoverImageUrl(); if (file != null) { String
-	 * baseName = UUID.randomUUID().toString(); String imageName = baseName +
-	 * file.getOriginalFilename(); entity.setCoverImageUrl(imageName); store(file,
-	 * imageName); }
-	 */
-
-    }
-
-    @Override
-    public BookDetail getdBookDetail(Long id) {
-	return books.findProjectedById(id);
     }
 
     @Transactional
     @Override
     public void deleteBook(Long id) {
 	books.deleteById(id);
+    }
+
+    @Override
+    public BookAuthorView getdBookDetail(Long id) {
+	BookDetail book = books.findProjectedById(id);
+	List<AuthorDetail> authorList = authors
+		.retrieveBookAuthors(id);
+	BookAuthorView bookDetail = new BookAuthorView();
+	bookDetail.setAuthorList(authorList);
+	bookDetail.setBook(book);
+	return bookDetail;
     }
 
 }

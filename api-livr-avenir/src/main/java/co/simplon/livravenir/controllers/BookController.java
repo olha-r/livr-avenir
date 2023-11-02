@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.livravenir.dtos.BookAuthorView;
 import co.simplon.livravenir.dtos.BookCreate;
-import co.simplon.livravenir.dtos.BookDetail;
 import co.simplon.livravenir.dtos.BookItemList;
 import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.services.BookService;
@@ -43,12 +43,6 @@ public class BookController {
 	return bookService.getAllBooks();
     }
 
-    @GetMapping("/{id}/detail")
-    public BookDetail getdBookDetail(
-	    @PathVariable("id") Long id) {
-	return bookService.getdBookDetail(id);
-    }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBook(@PathVariable("id") Long id,
@@ -62,4 +56,9 @@ public class BookController {
 	bookService.deleteBook(id);
     }
 
+    @GetMapping("/{id}/detail")
+    public BookAuthorView getdBookDetail(
+	    @PathVariable("id") Long id) {
+	return bookService.getdBookDetail(id);
+    }
 }
