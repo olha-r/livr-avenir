@@ -102,6 +102,11 @@ public class BookServiceImpl implements BookService {
 		.getReferenceById(inputs.getUserId());
 	entity.setUser(user);
 
+	MultipartFile file = inputs.getCoverImageUrl();
+	String baseName = UUID.randomUUID().toString();
+	String fileName = storage.store(file, baseName);
+	entity.setCoverImageUrl(fileName);
+
 	Book savedBook = books.save(entity);
 
 	for (Long authorId : inputs.getAuthorList()) {
@@ -112,13 +117,6 @@ public class BookServiceImpl implements BookService {
 	    bookAuthorsEntity.setBook(savedBook);
 	    bookAuthorsRepo.save(bookAuthorsEntity);
 	}
-
-	MultipartFile file = inputs.getCoverImageUrl();
-	String baseName = UUID.randomUUID().toString();
-	String fileName = storage.store(file, baseName);
-	entity.setCoverImageUrl(fileName);
-
-	books.save(entity);
 
     }
 

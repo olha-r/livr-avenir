@@ -30,12 +30,10 @@ public class ResourceConfig {
 		.antMatchers("/auth/sign-in").permitAll()
 		.antMatchers("/auth/sign-up").permitAll()
 		.antMatchers(HttpMethod.GET, "/books/**",
-			"/categories", "/publishers",
-			"/formats", "/languages",
-			"/authors")
+			"/categories", "/formats",
+			"/languages", "/authors", "/publishers")
 		.permitAll().antMatchers("/admin")
-		.hasRole("ADMIN").antMatchers("/admin")
-		.hasAuthority("ROLE_ADMIN").anyRequest()
+		.hasRole("ADMIN").anyRequest()
 		.authenticated().and()
 		.oauth2ResourceServer().jwt();
 

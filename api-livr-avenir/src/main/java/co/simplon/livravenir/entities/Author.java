@@ -1,5 +1,7 @@
 package co.simplon.livravenir.entities;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -44,6 +46,30 @@ public class Author extends AbstractEntity {
 
     public void setAuthorCode(String authorCode) {
 	this.authorCode = authorCode;
+    }
+
+    @Override
+    public String toString() {
+	return String.format(
+		"{firstName=%s, lastName=%s, authorCode=%s}",
+		firstName, lastName, authorCode);
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(authorCode);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!(obj instanceof Author)) {
+	    return false;
+	}
+	Author other = (Author) obj;
+	return Objects.equals(authorCode, other.authorCode);
     }
 
 }

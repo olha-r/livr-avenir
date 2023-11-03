@@ -1,5 +1,7 @@
 package co.simplon.livravenir.entities;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -127,6 +129,32 @@ public class Book extends AbstractEntity {
 
     public void setLanguage(Language language) {
 	this.language = language;
+    }
+
+    @Override
+    public String toString() {
+	return String.format(
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, category=%s, publisher=%s, user=%s, language=%s}",
+		isbn, title, publicationYear, pageCount,
+		summary, coverImageUrl, category, publisher,
+		user, language);
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(isbn);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!(obj instanceof Book)) {
+	    return false;
+	}
+	Book other = (Book) obj;
+	return Objects.equals(isbn, other.isbn);
     }
 
 }

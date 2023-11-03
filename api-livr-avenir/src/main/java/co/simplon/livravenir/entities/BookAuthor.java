@@ -36,4 +36,10 @@ public class BookAuthor extends AbstractEntity {
 	this.author = author;
     }
 
+    @Override
+    public String toString() {
+	return String.format("{author=%s, book=%s}", author,
+		book);
+    }
+
 }

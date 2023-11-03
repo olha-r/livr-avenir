@@ -1,5 +1,7 @@
 package co.simplon.livravenir.entities;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -36,7 +38,25 @@ public class Role extends AbstractEntity {
 
     @Override
     public String toString() {
-	return String.format("{name=%s, getId()=%s}", name,
-		getId());
+	return String.format("{name=%s, code=%s}", name,
+		code);
     }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(code);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!(obj instanceof Role)) {
+	    return false;
+	}
+	Role other = (Role) obj;
+	return Objects.equals(code, other.code);
+    }
+
 }

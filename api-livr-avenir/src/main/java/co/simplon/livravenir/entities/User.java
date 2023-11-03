@@ -1,6 +1,7 @@
 package co.simplon.livravenir.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -101,6 +102,23 @@ public class User extends AbstractEntity {
 	return String.format(
 		"{email=%s,  firstName=%s, lastName=%s, password=%s, role=%s}",
 		email, firstName, lastName, password, role);
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(email);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!(obj instanceof User)) {
+	    return false;
+	}
+	User other = (User) obj;
+	return Objects.equals(email, other.email);
     }
 
 }

@@ -4,12 +4,14 @@ import java.util.Collection;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.livravenir.dtos.LabelValue;
 import co.simplon.livravenir.dtos.PublisherCreate;
 import co.simplon.livravenir.entities.Publisher;
 import co.simplon.livravenir.repositories.PublisherRepository;
 
+@Transactional(readOnly = true)
 @Service
 public class PublisherServiceImpl
 	implements PublisherService {
@@ -26,6 +28,7 @@ public class PublisherServiceImpl
 	return publishers.findAllProjectedBy();
     }
 
+    @Transactional
     @Override
     public void createPublisher(PublisherCreate inputs) {
 	Publisher entity = new Publisher();

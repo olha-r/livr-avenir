@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.livravenir.dtos.Credentials;
 import co.simplon.livravenir.dtos.TokenInfo;
@@ -13,6 +14,7 @@ import co.simplon.livravenir.repositories.AuthRepository;
 import co.simplon.livravenir.repositories.RoleRepository;
 import co.simplon.livravenir.utils.AuthHelper;
 
+@Transactional(readOnly = true)
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -29,6 +31,7 @@ public class AuthServiceImpl implements AuthService {
 	this.roleRepo = roleRepo;
     }
 
+    @Transactional
     @Override
     public void signUp(Credentials inputs) {
 	User user = new User();
@@ -52,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
 
     }
 
+    @Transactional
     @Override
     public TokenInfo signIn(Credentials inputs) {
 	String identifier = inputs.getEmail();

@@ -1,5 +1,7 @@
 package co.simplon.livravenir.entities;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -47,4 +49,29 @@ public class Language extends AbstractEntity {
     public void setLogicalOrder(long logicalOrder) {
 	this.logicalOrder = logicalOrder;
     }
+
+    @Override
+    public String toString() {
+	return String.format(
+		"{codeIso=%s, name=%s, logicalOrder=%s}",
+		codeIso, name, logicalOrder);
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(codeIso);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (!(obj instanceof Language)) {
+	    return false;
+	}
+	Language other = (Language) obj;
+	return Objects.equals(codeIso, other.codeIso);
+    }
+
 }
