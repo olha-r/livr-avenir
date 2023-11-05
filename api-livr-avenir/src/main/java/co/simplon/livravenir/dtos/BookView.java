@@ -27,4 +27,11 @@ public class BookView {
 	    Set<AuthorDetail> authorList) {
 	this.authorList = authorList;
     }
+
+    @Override
+    public String toString() {
+	return String.format("{book=%s, authorList=%s}",
+		book, authorList);
+    }
+
 }

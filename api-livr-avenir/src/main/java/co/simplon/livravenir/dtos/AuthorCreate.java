@@ -26,4 +26,10 @@ public class AuthorCreate {
 	this.lastName = lastName;
     }
 
+    @Override
+    public String toString() {
+	return String.format("{firstName=%s, lastName=%s}",
+		firstName, lastName);
+    }
+
 }

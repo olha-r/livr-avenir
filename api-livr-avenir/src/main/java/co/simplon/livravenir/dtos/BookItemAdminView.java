@@ -28,4 +28,10 @@ public class BookItemAdminView {
 	this.listAuthor = listAuthor;
     }
 
+    @Override
+    public String toString() {
+	return String.format("{book=%s, listAuthor=%s}",
+		book, listAuthor);
+    }
+
 }

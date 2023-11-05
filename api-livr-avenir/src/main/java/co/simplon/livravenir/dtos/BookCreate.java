@@ -155,4 +155,13 @@ public class BookCreate {
 	this.categoryId = categoryId;
     }
 
+    @Override
+    public String toString() {
+	return String.format(
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, publisher=%s, categoryId=%s, userId=%s, languageId=%s, authorList=%s}",
+		isbn, title, publicationYear, pageCount,
+		summary, coverImageUrl, publisher,
+		categoryId, userId, languageId, authorList);
+    }
+
 }
