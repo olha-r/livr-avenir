@@ -8,8 +8,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.web.multipart.MultipartFile;
+
+import co.simplon.livravenir.customValidation.ImageSize;
+import co.simplon.livravenir.customValidation.ImageType;
 
 public class BookCreate {
 
@@ -34,11 +38,9 @@ public class BookCreate {
     private String summary;
 
     @NotNull
-    /*
-     * @ImageType({ MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
-     * 
-     * @ImageSize
-     */
+    @ImageType({ MediaType.IMAGE_JPEG_VALUE,
+	    MediaType.IMAGE_PNG_VALUE })
+    @ImageSize
     private MultipartFile coverImageUrl;
 
     @NonNull
