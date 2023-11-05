@@ -1,12 +1,12 @@
 package co.simplon.livravenir.dtos;
 
-import java.util.List;
+import java.util.Set;
 
 public class BookItemView {
 
     private BookItem book;
 
-    private List<AuthorDetail> listAuthor;
+    private Set<AuthorDetail> listAuthor;
 
     public BookItemView() {
     }
@@ -19,12 +19,12 @@ public class BookItemView {
 	this.book = book;
     }
 
-    public List<AuthorDetail> getListAuthor() {
+    public Set<AuthorDetail> getListAuthor() {
 	return listAuthor;
     }
 
     public void setListAuthor(
-	    List<AuthorDetail> listAuthor) {
+	    Set<AuthorDetail> listAuthor) {
 	this.listAuthor = listAuthor;
     }
 

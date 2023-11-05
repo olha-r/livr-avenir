@@ -1,6 +1,6 @@
 package co.simplon.livravenir.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -40,12 +40,12 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookItemView> getAllBooks() {
+    public Set<BookItemView> getAllBooks() {
 	return bookService.getAllBooks();
     }
 
     @GetMapping("/admin")
-    public List<BookItemAdminView> getAllBooksForAdmin() {
+    public Set<BookItemAdminView> getAllBooksForAdmin() {
 	return bookService.getAllBooksForAdmin();
     }
 

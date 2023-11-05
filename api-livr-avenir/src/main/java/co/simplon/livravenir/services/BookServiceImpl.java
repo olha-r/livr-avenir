@@ -1,7 +1,8 @@
 package co.simplon.livravenir.services;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -121,12 +122,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookItemView> getAllBooks() {
-	List<BookItem> bookList = books
+    public Set<BookItemView> getAllBooks() {
+	Set<BookItem> bookList = books
 		.findAllBooksProjectedBy();
-	List<BookItemView> bookItemList = new ArrayList<>();
+	Set<BookItemView> bookItemList = new HashSet<>();
 	for (BookItem book : bookList) {
-	    List<AuthorDetail> authorList = authors
+	    Set<AuthorDetail> authorList = authors
 		    .retrieveBookAuthors(book.getId());
 
 	    BookItemView view = new BookItemView();
@@ -177,7 +178,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookView getdBookDetail(Long id) {
 	BookDetail book = books.findProjectedById(id);
-	List<AuthorDetail> authorList = authors
+	Set<AuthorDetail> authorList = authors
 		.retrieveBookAuthors(id);
 	BookView bookDetail = new BookView();
 	bookDetail.setAuthorList(authorList);
@@ -186,12 +187,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookItemAdminView> getAllBooksForAdmin() {
-	List<BookItemAdmin> bookList = books
+    public Set<BookItemAdminView> getAllBooksForAdmin() {
+	Set<BookItemAdmin> bookList = books
 		.findAllProjectedBy();
-	List<BookItemAdminView> bookItemList = new ArrayList<>();
+	Set<BookItemAdminView> bookItemList = new HashSet<>();
 	for (BookItemAdmin book : bookList) {
-	    List<AuthorDetail> authorList = authors
+	    Set<AuthorDetail> authorList = authors
 		    .retrieveBookAuthors(book.getId());
 
 	    BookItemAdminView view = new BookItemAdminView();
