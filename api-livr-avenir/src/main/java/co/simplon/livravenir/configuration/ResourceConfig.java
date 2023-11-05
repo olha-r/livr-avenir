@@ -27,12 +27,18 @@ public class ResourceConfig {
 	    throws Exception {
 	http.cors().and().csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/auth/sign-in").permitAll()
-		.antMatchers("/auth/sign-up").permitAll()
+		.antMatchers("/auth/sign-in",
+			"/auth/sign-up")
+		.permitAll()
 		.antMatchers(HttpMethod.GET, "/books/**",
 			"/categories", "/formats",
-			"/languages", "/authors", "/publishers")
-		.permitAll().antMatchers("/admin")
+			"/languages", "/authors",
+			"/publishers")
+		.permitAll()
+		.antMatchers(HttpMethod.POST, "books",
+			"/publishers", "authors")
+		.hasRole("ADMIN")
+		.antMatchers(HttpMethod.DELETE, "/books")
 		.hasRole("ADMIN").anyRequest()
 		.authenticated().and()
 		.oauth2ResourceServer().jwt();
