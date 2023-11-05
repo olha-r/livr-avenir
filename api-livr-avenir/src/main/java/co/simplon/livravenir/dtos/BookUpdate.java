@@ -1,33 +1,66 @@
 package co.simplon.livravenir.dtos;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
+import org.springframework.web.multipart.MultipartFile;
+
+import co.simplon.livravenir.customValidation.ImageSize;
+import co.simplon.livravenir.customValidation.ImageType;
 
 public class BookUpdate {
 
+    @NotBlank
+    @Size(min = 10, max = 13)
     private String isbn;
 
+    @NotBlank
+    @Size(min = 2, max = 200)
     private String title;
 
+    @NotBlank
+    @Size(min = 4, max = 4)
     private String publicationYear;
 
+    @NotBlank
+    @Size(max = 5)
     private String pageCount;
 
+    @NotBlank
+    @Size(min = 10, max = 1000)
     private String summary;
 
-    /* private MultipartFile coverImageUrl; */
+    @ImageType({ MediaType.IMAGE_JPEG_VALUE,
+	    MediaType.IMAGE_PNG_VALUE })
+    @ImageSize
+    private MultipartFile coverImageUrl;
 
-    private Long publisherId;
+    @NonNull
+    @Positive
+    private Long publisher;
 
+    @NonNull
+    @Positive
     private Long categoryId;
 
-    private Long languageId;
-
+    @NonNull
+    @Positive
     private Long userId;
 
-    private Set<Long> authorIdList;
+    @NonNull
+    @Positive
+    private Long languageId;
+
+    @NonNull
+    private Set<Long> authorList = new HashSet<>();
 
     public BookUpdate() {
-	// TODO Auto-generated constructor stub
     }
 
     public String getIsbn() {
@@ -70,19 +103,29 @@ public class BookUpdate {
 	this.summary = summary;
     }
 
-    /*
-     * public MultipartFile getCoverImageUrl() { return coverImageUrl; }
-     * 
-     * public void setCoverImageUrl( MultipartFile coverImageUrl) {
-     * this.coverImageUrl = coverImageUrl; }
-     */
-
-    public Long getPublisherId() {
-	return publisherId;
+    public MultipartFile getCoverImageUrl() {
+	return coverImageUrl;
     }
 
-    public void setPublisherId(Long publisherId) {
-	this.publisherId = publisherId;
+    public void setCoverImageUrl(
+	    MultipartFile coverImageUrl) {
+	this.coverImageUrl = coverImageUrl;
+    }
+
+    public Long getPublisher() {
+	return publisher;
+    }
+
+    public void setPublisher(Long publisher) {
+	this.publisher = publisher;
+    }
+
+    public Long getCategoryId() {
+	return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+	this.categoryId = categoryId;
     }
 
     public Long getUserId() {
@@ -101,20 +144,21 @@ public class BookUpdate {
 	this.languageId = languageId;
     }
 
-    public Set<Long> getAuthorIdList() {
-	return authorIdList;
+    public Set<Long> getAuthorList() {
+	return authorList;
     }
 
-    public void setAuthorIdList(Set<Long> authorIdList) {
-	this.authorIdList = authorIdList;
+    public void setAuthorList(Set<Long> authorList) {
+	this.authorList = authorList;
     }
 
-    public Long getCategoryId() {
-	return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-	this.categoryId = categoryId;
+    @Override
+    public String toString() {
+	return String.format(
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, publisher=%s, categoryId=%s, userId=%s, languageId=%s, authorList=%s}",
+		isbn, title, publicationYear, pageCount,
+		summary, coverImageUrl, publisher,
+		categoryId, userId, languageId, authorList);
     }
 
 }

@@ -1,7 +1,6 @@
 package co.simplon.livravenir.services;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -64,7 +63,6 @@ public class BookServiceImpl implements BookService {
 	    LanguageRepository languages,
 	    BookAuthorsRepository bookAuthorsRepo,
 	    FileStorage storage) {
-
 	this.books = books;
 	this.categories = categories;
 	this.publishers = publishers;
@@ -73,7 +71,6 @@ public class BookServiceImpl implements BookService {
 	this.languages = languages;
 	this.bookAuthorsRepo = bookAuthorsRepo;
 	this.storage = storage;
-
     }
 
     @Transactional
@@ -150,22 +147,48 @@ public class BookServiceImpl implements BookService {
 		inputs.getPublicationYear());
 	entity.setPageCount(inputs.getPageCount());
 	entity.setSummary(inputs.getSummary());
+
 	Category category = categories
 		.getReferenceById(inputs.getCategoryId());
 	entity.setCategory(category);
-	Publisher publisher = publishers
-		.getReferenceById(inputs.getPublisherId());
-	entity.setPublisher(publisher);
-	User user = users
-		.getReferenceById(inputs.getUserId());
-	entity.setUser(user);
-	List<Author> authorList = authors
-		.findAllById(inputs.getAuthorIdList());
-	/* entity.setAuthors(new HashSet<>(authorList)); */
 
 	Language language = languages
 		.getReferenceById(inputs.getLanguageId());
 	entity.setLanguage(language);
+
+	Publisher publisher = publishers
+		.getReferenceById(inputs.getPublisher());
+	entity.setPublisher(publisher);
+
+	User user = users
+		.getReferenceById(inputs.getUserId());
+	entity.setUser(user);
+
+	MultipartFile file = inputs.getCoverImageUrl();
+	if (file != null) {
+	    String original = entity.getCoverImageUrl();
+	    String baseName = UUID.randomUUID().toString();
+	    String newFullName = storage.replace(file,
+		    baseName, original);
+	    entity.setCoverImageUrl(newFullName);
+	}
+
+	Set<Long> authorList = authors
+		.retrieveBookAuthorsId(entity.getId());
+
+	System.out.println("Author list" + authors);
+
+	for (Long authorId : inputs.getAuthorList()) {
+	    if (!authorList.contains(authorId)) {
+		Author author = authors
+			.getReferenceById(authorId);
+		BookAuthor bookAuthorsEntity = new BookAuthor();
+		bookAuthorsEntity.setAuthor(author);
+		bookAuthorsEntity.setBook(entity);
+		bookAuthorsRepo.save(bookAuthorsEntity);
+	    }
+
+	}
 
     }
 
