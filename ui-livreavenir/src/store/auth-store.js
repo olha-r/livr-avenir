@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia'
 import {AuthHttp} from "../services/AuthHttp";
+import { useStorage } from '@vueuse/core'
 
 export const AuthStore = defineStore('auth-store', {
     state: () => ({
         users: [],
-        user: null,
-        userRole: null,
-        isLoggedIn: false,
-        token: null
+        user: useStorage('user', null),
+        userRole: useStorage('user-role', null),
+        isLoggedIn: useStorage('is-logged-in', false),
+        token: useStorage('token', null)
     }),
     actions: {
       async register(payload) {

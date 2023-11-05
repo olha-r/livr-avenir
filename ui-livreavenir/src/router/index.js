@@ -38,10 +38,10 @@ const router = createRouter({
         { path: 'add-book', component: () => import('../views/admin/AddBook.vue'), name: "add-book" },
         { path: 'book/:id/update', component: () => import('../views/admin/UpdateBook.vue'), name: "update-book" },
       ],
-    //   meta:{
-    //     requiresAuth: true,
-    //     permission: 'admin'
-    //   }
+      meta:{
+        requiresAuth: true,
+        permission: 'admin'
+      }
     },
     {
       path: '/:catchAll(.*)*',
