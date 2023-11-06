@@ -51,10 +51,6 @@ public class BookUpdate {
 
     @NonNull
     @Positive
-    private Long userId;
-
-    @NonNull
-    @Positive
     private Long languageId;
 
     @NonNull
@@ -128,14 +124,6 @@ public class BookUpdate {
 	this.categoryId = categoryId;
     }
 
-    public Long getUserId() {
-	return userId;
-    }
-
-    public void setUserId(Long userId) {
-	this.userId = userId;
-    }
-
     public Long getLanguageId() {
 	return languageId;
     }
@@ -155,10 +143,10 @@ public class BookUpdate {
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, publisher=%s, categoryId=%s, userId=%s, languageId=%s, authorList=%s}",
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, publisher=%s, categoryId=%s,  languageId=%s, authorList=%s}",
 		isbn, title, publicationYear, pageCount,
 		summary, coverImageUrl, publisher,
-		categoryId, userId, languageId, authorList);
+		categoryId, languageId, authorList);
     }
 
 }

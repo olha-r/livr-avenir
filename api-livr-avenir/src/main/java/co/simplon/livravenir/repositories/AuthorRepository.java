@@ -19,7 +19,7 @@ public interface AuthorRepository
     Set<AuthorDetail> retrieveBookAuthors(
 	    @Param("bookId") Long id);
 
-    @Query("SELECT a.id AS id FROM Author a JOIN BookAuthor ba ON a.id=ba.author.id WHERE ba.book.id = :bookId")
+    @Query("SELECT a.id FROM Author a JOIN BookAuthor ba ON a.id=ba.author.id WHERE ba.book.id = :bookId")
     Set<Long> retrieveBookAuthorsId(
 	    @Param("bookId") Long id);
 

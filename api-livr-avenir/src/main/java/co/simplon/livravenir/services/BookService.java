@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import co.simplon.livravenir.dtos.BookCreate;
+import co.simplon.livravenir.dtos.BookForUpdate;
 import co.simplon.livravenir.dtos.BookItemAdminView;
 import co.simplon.livravenir.dtos.BookItemView;
 import co.simplon.livravenir.dtos.BookUpdate;
@@ -20,8 +21,10 @@ public interface BookService {
 
     void deleteBook(Long id);
 
-    void updateBook(Long id, BookUpdate inputs);
+    void updateBook(@Valid Long id, BookUpdate inputs);
 
     BookView getdBookDetail(Long id);
+
+    BookForUpdate forUpdate(Long id);
 
 }

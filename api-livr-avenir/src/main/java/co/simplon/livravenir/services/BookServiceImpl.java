@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.simplon.livravenir.dtos.AuthorDetail;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
+import co.simplon.livravenir.dtos.BookForUpdate;
 import co.simplon.livravenir.dtos.BookItem;
 import co.simplon.livravenir.dtos.BookItemAdmin;
 import co.simplon.livravenir.dtos.BookItemAdminView;
@@ -160,10 +161,6 @@ public class BookServiceImpl implements BookService {
 		.getReferenceById(inputs.getPublisher());
 	entity.setPublisher(publisher);
 
-	User user = users
-		.getReferenceById(inputs.getUserId());
-	entity.setUser(user);
-
 	MultipartFile file = inputs.getCoverImageUrl();
 	if (file != null) {
 	    String original = entity.getCoverImageUrl();
@@ -173,13 +170,18 @@ public class BookServiceImpl implements BookService {
 	    entity.setCoverImageUrl(newFullName);
 	}
 
-	Set<Long> authorList = authors
+	Set<Long> existingAuthorIdList = authors
 		.retrieveBookAuthorsId(entity.getId());
-
-	System.out.println("Author list" + authors);
-
-	for (Long authorId : inputs.getAuthorList()) {
-	    if (!authorList.contains(authorId)) {
+	Set<Long> authorIdInputs = inputs.getAuthorList();
+	for (Long existingAuthorId : existingAuthorIdList) {
+	    if (!authorIdInputs
+		    .contains(existingAuthorId)) {
+		bookAuthorsRepo.deleteBookAuthorsByAuthorId(
+			existingAuthorId);
+	    }
+	}
+	for (Long authorId : authorIdInputs) {
+	    if (!existingAuthorIdList.contains(authorId)) {
 		Author author = authors
 			.getReferenceById(authorId);
 		BookAuthor bookAuthorsEntity = new BookAuthor();
@@ -187,7 +189,6 @@ public class BookServiceImpl implements BookService {
 		bookAuthorsEntity.setBook(entity);
 		bookAuthorsRepo.save(bookAuthorsEntity);
 	    }
-
 	}
 
     }
@@ -205,7 +206,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookView getdBookDetail(Long id) {
-	BookDetail book = books.findProjectedById(id);
+	BookDetail book = books.findProjectedDetailById(id);
 	Set<AuthorDetail> authorList = authors
 		.retrieveBookAuthors(id);
 	BookView bookDetail = new BookView();
@@ -230,6 +231,11 @@ public class BookServiceImpl implements BookService {
 	    bookItemList.add(view);
 	}
 	return bookItemList;
+    }
+
+    @Override
+    public BookForUpdate forUpdate(Long id) {
+	return books.findProjectedById(id);
     }
 
 }

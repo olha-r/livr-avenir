@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import co.simplon.livravenir.dtos.BookDetail;
+import co.simplon.livravenir.dtos.BookForUpdate;
 import co.simplon.livravenir.dtos.BookItem;
 import co.simplon.livravenir.dtos.BookItemAdmin;
 import co.simplon.livravenir.entities.Book;
@@ -14,8 +15,10 @@ public interface BookRepository
 
     Set<BookItem> findAllBooksProjectedBy();
 
-    BookDetail findProjectedById(Long id);
+    BookForUpdate findProjectedById(Long id);
 
     Set<BookItemAdmin> findAllProjectedBy();
+
+    BookDetail findProjectedDetailById(Long id);
 
 }

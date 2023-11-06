@@ -15,4 +15,9 @@ public interface BookAuthorsRepository
     void deleteBookAuthorsByBookId(
 	    @Param("bookId") Long id);
 
+    @Modifying
+    @Query("DELETE FROM BookAuthor ba WHERE ba.author.id = :authorId")
+    void deleteBookAuthorsByAuthorId(
+	    @Param("authorId") Long id);
+
 }
