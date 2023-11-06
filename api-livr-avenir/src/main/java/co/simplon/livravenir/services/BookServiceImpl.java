@@ -195,8 +195,11 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void deleteBook(Long id) {
+	Book entity = books.findById(id).get();
+	String imageFullName = entity.getCoverImageUrl();
 	bookAuthorsRepo.deleteBookAuthorsByBookId(id);
 	books.deleteById(id);
+	storage.delete(imageFullName);
 
     }
 
