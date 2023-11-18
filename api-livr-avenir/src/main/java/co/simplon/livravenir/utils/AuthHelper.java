@@ -34,14 +34,19 @@ public class AuthHelper {
 	return encoder.matches(candidate, hash);
     }
 
-    public String createJWT(String role, String name) {
+    public String createJWT(String role, String userId,
+	    String firstName, String lastName,
+	    String email) {
 	Instant now = Instant.now();
 	Instant expirationTime = now
 		.plusSeconds(expiration);
 	return JWT.create().withIssuer(issuer)
-		.withSubject(name).withIssuedAt(now)
+		.withSubject(userId).withIssuedAt(now)
 		.withExpiresAt(expirationTime)
-		.withClaim("role", role).sign(algorithm);
+		.withClaim("role", role)
+		.withClaim("first name", firstName)
+		.withClaim("last name", lastName)
+		.withClaim("email", email).sign(algorithm);
     }
 
     public static class Builder {

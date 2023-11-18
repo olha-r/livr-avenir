@@ -65,10 +65,13 @@ public class AuthServiceImpl implements AuthService {
 	    boolean match = authHelper.matches(candidate,
 		    user.getPassword());
 	    if (match) {
+		String userId = Long.toString(user.getId());
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
 		String email = user.getEmail();
 		String role = user.getRole().getName();
 		String token = authHelper.createJWT(role,
-			email);
+			userId, firstName, lastName, email);
 
 		TokenInfo tokenInfo = new TokenInfo();
 		tokenInfo.setToken(token);
