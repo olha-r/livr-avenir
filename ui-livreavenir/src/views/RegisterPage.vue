@@ -10,7 +10,7 @@ import {
     sameAs,
 } from "@vuelidate/validators";
 import ValidationMessage from "../components/commons/ValidationMessage.vue";
-import { AuthStore } from "../store/auth-store";
+import { AuthStore } from "../stores/auth-store";
 
 const authStore = AuthStore();
 const user = reactive({

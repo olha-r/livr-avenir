@@ -2,7 +2,7 @@
 import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
-import { BookStore } from "../store/book-store";
+import { BookStore } from "../stores/book-store";
 
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const bookStoreObj = BookStore();

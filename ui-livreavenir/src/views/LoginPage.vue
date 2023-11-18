@@ -3,10 +3,10 @@ import { reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import useValidate from "@vuelidate/core";
 import { email, helpers, required } from "@vuelidate/validators";
-import { AuthStore } from "../store/auth-store";
+import { AuthStore } from "../stores/auth-store";
 import ValidationMessage from "../components/commons/ValidationMessage.vue";
 import { storeToRefs } from "pinia";
-import { usePageStore } from "../store/page-store";
+import { usePageStore } from "../stores/page-store";
 
 const user = reactive({
     email: null,

@@ -12,7 +12,7 @@
   
 <script setup>
 import { computed, ref, watch } from "vue";
-import { usePageStore } from "../../store/page-store";
+import { usePageStore } from "../../stores/page-store";
 
 const pageStore = usePageStore();
 const alertClass = computed(() => {

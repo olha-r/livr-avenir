@@ -2,7 +2,7 @@
 import { onBeforeMount } from "vue";
 import SearchComponent from "../components/commons/SearchComponent.vue";
 import { storeToRefs } from "pinia";
-import { BookStore } from "../store/book-store";
+import { BookStore } from "../stores/book-store";
 
 const bookStoreObj = BookStore();
 const { lastAddedBooks } = storeToRefs(bookStoreObj);

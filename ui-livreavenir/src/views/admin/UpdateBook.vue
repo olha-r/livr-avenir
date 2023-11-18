@@ -2,9 +2,9 @@
 import LabelValues from "../../components/commons/LabelValues.vue";
 import { onBeforeMount, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { AddBookFormStore } from "../../store/add-book-form-store";
-import { BookStore } from "../../store/book-store";
-import { AuthStore } from "../../store/auth-store";
+import { AddBookFormStore } from "../../stores/add-book-form-store";
+import { BookStore } from "../../stores/book-store";
+import { AuthStore } from "../../stores/auth-store";
 import { useRoute } from "vue-router";
 
 const addFormBookStoreObj = AddBookFormStore();

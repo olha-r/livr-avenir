@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import {AuthStore} from '../store/auth-store'
+import {AuthStore} from '../stores/auth-store'
 import { storeToRefs } from 'pinia';
 
 
