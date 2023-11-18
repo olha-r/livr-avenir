@@ -9,8 +9,11 @@ export default {
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
                 <RouterLink class="navbar-brand" :to="{ name: 'home' }"
-                    >Livr'avenir</RouterLink
-                >
+                    ><img
+                        src="../../assets/images/logo/logo.png"
+                        alt="logo"
+                        style="height: 35px"
+                /></RouterLink>
                 <button
                     class="navbar-toggler"
                     type="button"
