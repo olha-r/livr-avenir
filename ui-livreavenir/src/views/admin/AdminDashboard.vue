@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeMount } from "vue";
-import SearchComponent from "../../components/SearchComponent.vue";
+import SearchComponent from "../../components/commons/SearchComponent.vue";
 import ToastComponent from "../../components/commons/ToastComponent.vue";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../../store/book-store";
@@ -102,7 +102,7 @@ const remove = async (id) => {
                                     name: 'update-book',
                                     params: { id: item.book.id },
                                 }"
-                                title="Update sticker"
+                                title="Update book"
                             >
                                 <i class="bi bi-pencil-square text-primary"></i>
                             </RouterLink>

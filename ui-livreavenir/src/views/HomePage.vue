@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeMount } from "vue";
-import SearchComponent from "../components/SearchComponent.vue";
+import SearchComponent from "../components/commons/SearchComponent.vue";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../store/book-store";
 

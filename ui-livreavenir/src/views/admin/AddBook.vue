@@ -1,9 +1,10 @@
 <script setup>
 import { useRouter } from "vue-router";
+import Multiselect from "vue-multiselect";
 
 import LabelValues from "../../components/commons/LabelValues.vue";
 import AuthorLabelValue from "../../components/commons/AuthorLabelValue.vue";
-import { onBeforeMount, reactive, computed } from "vue";
+import { onMounted, reactive, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { AddBookFormStore } from "../../store/add-book-form-store";
 import { BookStore } from "../../store/book-store";
@@ -161,7 +162,7 @@ const publisherStoreObj = publisherStore();
 const { publisher_list } = storeToRefs(publisherStoreObj);
 const authorStoreObj = AuthorStore();
 const { author_list } = storeToRefs(authorStoreObj);
-onBeforeMount(() => {
+onMounted(() => {
     console.log("Add book page token", token);
     addBookStoreObj.get_list_languages();
     addBookStoreObj.get_list_categories();
@@ -174,6 +175,7 @@ const { token } = authStoreObj;
 const bookStore = BookStore();
 const router = useRouter();
 const pageStore = usePageStore();
+const testOptions = ["One", "Two", "Tree"];
 const add_new_book = async () => {
     const result = await v$.value.$validate();
 
@@ -259,10 +261,17 @@ const handleImageUpload = (event) => {
                         <!-- <button class="btn btn-large">
                             Ajouter nouveau auteur
                         </button> -->
+
                         <label for="authorId" class="form-label required"
                             >Auteur</label
                         >
-                        <select
+                        <multiselect
+                            v-model.number="inputs.authorList"
+                            :options="testOptions"
+                        >
+                            /></multiselect
+                        >
+                        <!-- <select
                             v-model.number="inputs.authorList"
                             name="authorId"
                             id="authorId"
@@ -271,13 +280,13 @@ const handleImageUpload = (event) => {
                             multiple
                         >
                             <AuthorLabelValue :items="author_list" />
-                        </select>
+                        </select> -->
                         <ValidationMessage :model="v$.authorList" />
                     </div>
 
                     <div class="col-md-12 mb-3">
                         <!-- <PublisherSearch></PublisherSearch> -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-12 mb-3">
                             <label for="edition" class="form-label required"
                                 >Edition</label
                             >
@@ -389,7 +398,7 @@ const handleImageUpload = (event) => {
                 <div class="d-flex justify-content-center">
                     <button
                         type="submit"
-                        class="btn btn-lg btn-primary col-md-4 my-3"
+                        class="btn btn-lg btn-primary col-md-4 col-12 my-3"
                     >
                         Ajouter
                     </button>
