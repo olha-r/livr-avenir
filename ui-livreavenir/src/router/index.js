@@ -45,7 +45,7 @@ const router = createRouter({
     },
     {
       path: '/:catchAll(.*)*',
-      component: () => import('../views/ErrorNotFound.vue'),
+      component: () => import('../views/errors/ErrorNotFound.vue'),
     },
   ]
 })

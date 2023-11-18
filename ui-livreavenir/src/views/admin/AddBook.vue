@@ -22,6 +22,7 @@ import {
     helpers,
 } from "@vuelidate/validators";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
+const requiredMessage = "Veuillez renseigner ce champ.";
 
 const inputs = reactive({
     isbn: null,
@@ -39,10 +40,7 @@ const inputs = reactive({
 const rules = computed(() => {
     return {
         isbn: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
             minLength: helpers.withMessage(
                 "Veuillez saisir au moins 10 caractères.",
                 minLength(10)
@@ -57,10 +55,7 @@ const rules = computed(() => {
             ),
         },
         title: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
             minLength: helpers.withMessage(
                 "Veuillez saisir au moins 2 caractères.",
                 minLength(2)
@@ -71,10 +66,7 @@ const rules = computed(() => {
             ),
         },
         publicationYear: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
             numeric: helpers.withMessage(
                 "Veuillez saisir seulement des nombres.",
                 numeric
@@ -89,10 +81,7 @@ const rules = computed(() => {
             ),
         },
         pageCount: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
             numeric: helpers.withMessage(
                 "Veuillez saisir seulement des nombres.",
                 numeric
@@ -103,10 +92,7 @@ const rules = computed(() => {
             ),
         },
         summary: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
             minLength: helpers.withMessage(
                 "Veuillez saisir au moins 10 caractères.",
                 minLength(10)
@@ -117,29 +103,17 @@ const rules = computed(() => {
             ),
         },
         publisher: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
         },
         categoryId: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
         },
         languageId: {
-            required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
-                required
-            ),
+            required: helpers.withMessage(requiredMessage, required),
         },
         authorList: [
             {
-                required: helpers.withMessage(
-                    "Veuillez renseigner ce champ.",
-                    required
-                ),
+                required: helpers.withMessage(requiredMessage, required),
             },
         ],
         coverImageUrl: {
@@ -177,10 +151,8 @@ const router = useRouter();
 const pageStore = usePageStore();
 const testOptions = ["One", "Two", "Tree"];
 const add_new_book = async () => {
-    const result = await v$.value.$validate();
-
+    await v$.value.$validate();
     if (!v$.value.$error) {
-        console.log(token);
         const formData = new FormData();
         formData.append("isbn", inputs.isbn);
         formData.append("title", inputs.title);
@@ -211,7 +183,7 @@ const add_new_book = async () => {
             pageStore.alert.show = true;
             console.error(`Nous n'avons pas pu créer le livre.`);
         }
-    } else {
+            } else {
         console.log("There are errors");
     }
 };
@@ -271,7 +243,7 @@ const handleImageUpload = (event) => {
                         >
                             /></multiselect
                         >
-                        <!-- <select
+                         <!-- <select
                             v-model.number="inputs.authorList"
                             name="authorId"
                             id="authorId"
@@ -283,14 +255,12 @@ const handleImageUpload = (event) => {
                         </select> -->
                         <ValidationMessage :model="v$.authorList" />
                     </div>
-
                     <div class="col-md-12 mb-3">
                         <!-- <PublisherSearch></PublisherSearch> -->
                         <div class="col-md-12 mb-3">
                             <label for="edition" class="form-label required"
                                 >Edition</label
                             >
-
                             <select
                                 v-model.number="inputs.publisher"
                                 id="publisher"
@@ -304,7 +274,6 @@ const handleImageUpload = (event) => {
                             <ValidationMessage :model="v$.publisher" />
                         </div>
                     </div>
-
                     <div class="col-md-6 mb-3">
                         <label for="publicationYear" class="form-label required"
                             >L'année de publication</label
@@ -318,7 +287,6 @@ const handleImageUpload = (event) => {
                         />
                         <ValidationMessage :model="v$.publicationYear" />
                     </div>
-
                     <div class="col-md-6 mb-3">
                         <label for="pageCount" class="form-label required"
                             >Nombre de pages</label
@@ -332,7 +300,6 @@ const handleImageUpload = (event) => {
                         />
                         <ValidationMessage :model="v$.pageCount" />
                     </div>
-
                     <div class="col-md-6 mb-3">
                         <label for="languageId" class="form-label required"
                             >Langue</label
@@ -365,7 +332,6 @@ const handleImageUpload = (event) => {
                         </select>
                         <ValidationMessage :model="v$.categoryId" />
                     </div>
-
                     <div class="col-md-12 mb-3">
                         <label for="summary" class="form-label required"
                             >Description</label
@@ -379,7 +345,6 @@ const handleImageUpload = (event) => {
                         ></textarea>
                         <ValidationMessage :model="v$.summary" />
                     </div>
-
                     <div class="col-md-12 mb-3">
                         <label for="image" class="form-label"
                             >Ajouter l'image de votre livre</label
