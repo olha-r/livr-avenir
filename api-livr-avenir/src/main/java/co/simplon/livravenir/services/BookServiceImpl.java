@@ -95,11 +95,23 @@ public class BookServiceImpl implements BookService {
 	Language language = languages
 		.getReferenceById(inputs.getLanguageId());
 	entity.setLanguage(language);
-
+    
 	Publisher publisher = publishers
 		.getReferenceById(inputs.getPublisher());
 	entity.setPublisher(publisher);
+	User user = getCurrentAuthenticatedUser();
+	entity.setUser(user);
+	MultipartFile file = inputs.getCoverImageUrl();
+	String baseName = UUID.randomUUID().toString();
+	String fileName = storage.store(file, baseName);
+	entity.setCoverImageUrl(fileName);
+	Book savedBook = books.save(entity);
+	addBookAuthors(inputs.getAuthorList(), savedBook);
 
+    }
+
+    private User getCurrentAuthenticatedUser() {
+	User user = null;
 	Authentication authentication = SecurityContextHolder
 		.getContext().getAuthentication();
 	Long currentUserId = null;
@@ -108,23 +120,16 @@ public class BookServiceImpl implements BookService {
 		    .getName();
 	    currentUserId = Long
 		    .parseLong(authenticatedUserId);
-	    System.out.println(
-		    "Current user id " + currentUserId);
 	}
 	if (currentUserId != null) {
-	    User user = users
-		    .getReferenceById(currentUserId);
-	    entity.setUser(user);
+	    user = users.getReferenceById(currentUserId);
 	}
+	return user;
+    }
 
-	MultipartFile file = inputs.getCoverImageUrl();
-	String baseName = UUID.randomUUID().toString();
-	String fileName = storage.store(file, baseName);
-	entity.setCoverImageUrl(fileName);
-
-	Book savedBook = books.save(entity);
-
-	for (Long authorId : inputs.getAuthorList()) {
+    private void addBookAuthors(Set<Long> authorList,
+	    Book savedBook) {
+	for (Long authorId : authorList) {
 	    Author author = authors
 		    .getReferenceById(authorId);
 	    BookAuthor bookAuthorsEntity = new BookAuthor();
@@ -132,7 +137,6 @@ public class BookServiceImpl implements BookService {
 	    bookAuthorsEntity.setBook(savedBook);
 	    bookAuthorsRepo.save(bookAuthorsEntity);
 	}
-
     }
 
     @Override
