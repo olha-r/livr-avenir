@@ -35,8 +35,8 @@ public class ResourceConfig {
 			"/languages", "/authors",
 			"/publishers")
 		.permitAll()
-		.antMatchers(HttpMethod.POST, "books",
-			"/publishers", "authors")
+		.antMatchers(HttpMethod.POST, "/books",
+			"/publishers", "/authors")
 		.hasRole("ADMIN")
 		.antMatchers(HttpMethod.DELETE, "/books")
 		.hasRole("ADMIN").anyRequest()
