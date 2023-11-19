@@ -20,4 +20,6 @@ public interface BookDetail {
 
     LabelValue getPublisher();
 
+    LabelValue getLanguage();
+
 }

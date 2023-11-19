@@ -10,8 +10,16 @@ public interface BookItemAdmin {
 
     String getCoverImageUrl();
 
+    String getPublicationYear();
+
+    String getPageCount();
+
+    String getSummary();
+
     LabelValue getCategory();
 
     LabelValue getPublisher();
+
+    LabelValue getLanguage();
 
 }

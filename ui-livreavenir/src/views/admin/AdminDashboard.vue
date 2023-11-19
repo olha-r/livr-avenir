@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount } from "vue";
+import { onMounted, ref } from "vue";
 import SearchComponent from "../../components/commons/SearchComponent.vue";
 import ToastComponent from "../../components/commons/ToastComponent.vue";
 import { storeToRefs } from "pinia";
@@ -10,7 +10,7 @@ import ToastComponentVue from "../../components/commons/ToastComponent.vue";
 const bookStore = BookStore();
 const bookStoreObj = BookStore();
 const { bookListForAdmin } = storeToRefs(bookStoreObj);
-onBeforeMount(() => {
+onMounted(() => {
     bookStoreObj.get_book_list_admin();
 });
 const authStoreObj = AuthStore();
@@ -30,6 +30,13 @@ const remove = async (id) => {
         pageStore.alert.show = true;
         console.error(`Nous n'avons pas pu supprimer le livre.`);
     }
+};
+let selectedBook = ref({});
+const openBookModal = (book) => {
+    selectedBook = book;
+    // Open the Bootstrap modal
+    const modal = new bootstrap.Modal(document.getElementById("bookModal"));
+    modal.show();
 };
 </script>
 <template>
@@ -57,7 +64,11 @@ const remove = async (id) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in bookListForAdmin" :key="index">
+                    <tr
+                        v-for="(item, index) in bookListForAdmin"
+                        :key="index"
+                        @click="openBookModal(item.book)"
+                    >
                         <th scope="row">{{ index + 1 }}</th>
                         <td>{{ item.book.isbn }}</td>
                         <td>{{ item.book.title }}</td>
@@ -116,6 +127,74 @@ const remove = async (id) => {
                 </tbody>
             </table>
         </div>
+
+        <!-- <div class="modal" tabindex="-1" role="dialog" id="bookModal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>
+                            <span class="badge text-bg-warning me-1">{{
+                                selectedBook.value.category.name
+                            }}</span>
+                            <span class="badge text-bg-secondary me-1">{{
+                                selectedBook.value.language.name
+                            }}</span>
+                        </p>
+                        <p>
+                            <strong>ISBN:</strong> {{ selectedBook.value.isbn }}
+                        </p>
+                        <p>
+                            <strong>Titre:</strong>
+                            {{ selectedBook.value.title }}
+                        </p>
+                        <p>
+                            <strong>Auteur(s):</strong>
+                            {{ selectedBook.value.listAuthor }}
+                            <span
+                                v-for="(author, authorIndex) in selectedBook
+                                    .value.listAuthor"
+                                :key="authorIndex"
+                            >
+                                {{ author.firstName }}
+                                {{ author.lastName }}
+                                <span
+                                    v-if="
+                                        authorIndex <
+                                        selectedBook.value.listAuthor.length - 1
+                                    "
+                                    >,
+                                    <br />
+                                </span>
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Edition:</strong>
+                            {{ selectedBook.value.publisher.name }}
+                        </p>
+                        <p>
+                            <strong>L'année de publication:</strong>
+                            {{ selectedBook.value.publicationYear }}
+                        </p>
+                        <p>
+                            <strong>Nombre de pages:</strong>
+                            {{ selectedBook.value.pageCount }}
+                        </p>
+                        <p>
+                            <strong>Description:</strong>
+                            {{ selectedBook.value.summary }}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </main>
 </template>
-
