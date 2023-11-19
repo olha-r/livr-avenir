@@ -188,15 +188,18 @@ const update_book = async () => {
             pageStore.alert.type = "success";
             pageStore.alert.message = `Livre a été mis à jour avec succès.`;
             pageStore.alert.show = true;
-
+            router.push("/admin");
             setTimeout(() => {
-                router.push("/admin");
-            }, 3000); // Redirect after 3 seconds
+                pageStore.alert.show = false;
+            }, 5000);
         } else {
             // Handle error
             pageStore.alert.type = "error";
             pageStore.alert.message = `Nous n'avons pas pu mettre à jour le livre.`;
             pageStore.alert.show = true;
+            setTimeout(() => {
+                pageStore.alert.show = false;
+            }, 5000);
         }
     } else {
         console.log("There are errors");

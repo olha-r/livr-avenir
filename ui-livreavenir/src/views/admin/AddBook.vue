@@ -148,7 +148,7 @@ const { token } = authStoreObj;
 const bookStore = BookStore();
 const router = useRouter();
 const pageStore = usePageStore();
-const testOptions = ["One", "Two", "Tree"];
+
 const add_new_book = async () => {
     await v$.value.$validate();
     if (!v$.value.$error) {
@@ -174,12 +174,16 @@ const add_new_book = async () => {
             console.log(`Livre a été créer avec success.`);
             setTimeout(() => {
                 router.push("/admin");
-            }, 3000); // Redirect after 3 seconds
+                pageStore.alert.show = false;
+            }, 5000); // Redirect after 3 seconds
         } else {
             pageStore.alert.type = "error";
             pageStore.alert.message = `Nous n'avons pas pu créer le livre.`;
             pageStore.alert.show = true;
             console.error(`Nous n'avons pas pu créer le livre.`);
+            setTimeout(() => {
+                pageStore.alert.show = false;
+            }, 5000);
         }
     } else {
         console.log("There are errors");

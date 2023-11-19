@@ -53,10 +53,16 @@ const onSubmit = async () => {
                 pageStore.alert.type = "success";
                 pageStore.alert.message = `Utilisateur ${user.email} est connecté`;
                 pageStore.alert.show = true;
+                setTimeout(() => {
+                    pageStore.alert.show = false;
+                }, 5000); // Redirect after 3 seconds
             } else {
                 pageStore.alert.type = "success";
                 pageStore.alert.message = `Utilisateur ${user.email} est connecté`;
                 pageStore.alert.show = true;
+                setTimeout(() => {
+                    pageStore.alert.show = false;
+                }, 5000);
             }
         } else {
             pageStore.alert.type = "error";
@@ -65,6 +71,9 @@ const onSubmit = async () => {
             console.log(
                 `Nous n'avons pas pu trouvé utilisateur ${user.email}.`
             );
+            setTimeout(() => {
+                pageStore.alert.show = false;
+            }, 5000);
         }
     } else {
         console.log("There are errors");
