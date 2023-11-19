@@ -34,13 +34,13 @@ export default {
                                 >Livres</RouterLink
                             >
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'manage-users' }"
                                 >Users</RouterLink
                             >
-                        </li>
+                        </li> -->
 
                         <li class="nav-item">
                             <RouterLink class="nav-link" :to="{ name: 'login' }"

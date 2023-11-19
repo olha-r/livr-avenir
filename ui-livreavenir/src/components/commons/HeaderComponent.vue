@@ -1,7 +1,4 @@
 <script>
-export default {
-    name: "HeaderComponent",
-};
 </script>
 
 <template>
@@ -39,13 +36,6 @@ export default {
                                 >Accueil</RouterLink
                             >
                         </li>
-                        <li class="nav-item">
-                            <RouterLink
-                                class="nav-link"
-                                :to="{ name: 'add-book' }"
-                                >Ajouter un livre</RouterLink
-                            >
-                        </li>
 
                         <li class="nav-item">
                             <RouterLink
@@ -59,9 +49,9 @@ export default {
                                 >Se connecter</RouterLink
                             >
                         </li>
-                        <li>
+                        <!-- <li>
                             <i class="bi bi-person-circle"></i>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
