@@ -2,6 +2,8 @@ package co.simplon.livravenir.dtos;
 
 public interface BookForUpdate {
 
+    String getId();
+
     String getIsbn();
 
     String getTitle();
@@ -19,5 +21,4 @@ public interface BookForUpdate {
     LabelValue getPublisher();
 
     LabelValue getLanguage();
-
 }

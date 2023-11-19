@@ -26,12 +26,25 @@ export class BookHttp {
         const response = await http.get(url);
         return response;
     };
+    async get_book_for_update(book_id) {
+        const url = `/books/${book_id}/for-update`;
+        const response = await http.get(url);
+        return response;
+    };
     async delete_book(book_id, token) {
         const url = `/books/${book_id}`;
         const headers= {
               Authorization: `Bearer ${token}`
             };
         const response = await http.delete(url, {headers});
+        return response;
+    };
+    async update_book(book_id, payload, token) {
+        const url = `/books/${book_id}`;
+        const headers= {
+              Authorization: `Bearer ${token}`
+            };
+        const response = await http.put(url, payload, {headers});
         return response;
     };
 

@@ -5,7 +5,8 @@ export const BookStore = defineStore('book-store', {
     state: () => ({
         lastAddedBooks: [],
         bookListForAdmin: [],
-        book_details: {}
+        book_details: {},
+        book_for_update: {}
     }),
     actions: {
         async add_new_book(payload, token){
@@ -37,9 +38,26 @@ export const BookStore = defineStore('book-store', {
             }
             return promise; 
         },
+        async get_book_for_update(book_id){
+            const bookHttp = new BookHttp();
+            const promise = await bookHttp.get_book_for_update(book_id);
+            if(promise.status === 200) {
+                this.book_for_update = promise.body;
+            }
+            return promise; 
+        },
         async delete_book(book_id, token){
             const bookHttp = new BookHttp();
             const promise = await bookHttp.delete_book(book_id, token);
+            console.log("PROMISE", promise);
+            if(promise.status== 204){
+                this.get_last_added_books();
+            }
+            return promise; 
+        },
+        async update_book(book_id, payload, token){
+            const bookHttp = new BookHttp();
+            const promise = await bookHttp.update_book(book_id, payload, token);
             console.log("PROMISE", promise);
             if(promise.status== 204){
                 this.get_last_added_books();
