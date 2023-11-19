@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import {AuthHttp} from "../services/AuthHttp";
 import { useStorage } from '@vueuse/core'
 
-export const AuthStore = defineStore('auth-store', {
+export const useAuthStore = defineStore('auth-store', {
     state: () => ({
         users: [],
         user: useStorage('user', null),
@@ -10,6 +10,10 @@ export const AuthStore = defineStore('auth-store', {
         isLoggedIn: useStorage('is-logged-in', false),
         token: useStorage('token', null)
     }),
+    getters: {
+        isAuthenticated: (state) => !!state?.user,
+        isAdmin: (state) => state?.userRole === 'ADMIN',
+      },
     actions: {
       async register(payload) {
         const authHttp = new AuthHttp();
@@ -27,7 +31,6 @@ export const AuthStore = defineStore('auth-store', {
             this.isLoggedIn = true;
         }
         return promise;
-},
-
+    },  
 }, 
 })

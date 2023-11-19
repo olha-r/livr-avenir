@@ -7,7 +7,7 @@ import { onMounted, reactive, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { AddBookFormStore } from "../../stores/add-book-form-store";
 import { BookStore } from "../../stores/book-store";
-import { AuthStore } from "../../stores/auth-store";
+import { useAuthStore } from "../../stores/auth-store";
 import { AuthorStore } from "../../stores/author-store";
 import { usePageStore } from "../../stores/page-store";
 import { publisherStore } from "../../stores/publisher-store";
@@ -142,7 +142,7 @@ onMounted(() => {
     authorStoreObj.get_author_list();
 });
 
-const authStoreObj = AuthStore();
+const authStoreObj = useAuthStore();
 const { token } = authStoreObj;
 const bookStore = BookStore();
 const router = useRouter();

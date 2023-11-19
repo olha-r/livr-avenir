@@ -3,7 +3,7 @@ import { reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import useValidate from "@vuelidate/core";
 import { email, helpers, required } from "@vuelidate/validators";
-import { AuthStore } from "../../stores/auth-store";
+import { useAuthStore } from "../../stores/auth-store";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
 import { storeToRefs } from "pinia";
 import { usePageStore } from "../../stores/page-store";
@@ -33,7 +33,7 @@ const rules = computed(() => {
     };
 });
 const v$ = useValidate(rules, user);
-const authStore = AuthStore();
+const authStore = useAuthStore();
 const { userRole } = storeToRefs(authStore);
 const pageStore = usePageStore();
 const router = useRouter();
@@ -55,8 +55,9 @@ const onSubmit = async () => {
                 pageStore.alert.show = true;
                 setTimeout(() => {
                     pageStore.alert.show = false;
-                }, 5000); // Redirect after 3 seconds
+                }, 5000);
             } else {
+                router.push("/");
                 pageStore.alert.type = "success";
                 pageStore.alert.message = `Utilisateur ${user.email} est connecté`;
                 pageStore.alert.show = true;

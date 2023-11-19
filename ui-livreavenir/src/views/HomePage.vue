@@ -53,7 +53,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
         <h3 class="text-center my-4">Derniers livres ajoutés récemment</h3>
 
         <div
-            class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-5 justify-content-center align-items-start"
+            class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center align-items-start"
         >
             <div
                 class="col d-flex align-items-stretch"
@@ -61,7 +61,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                 :key="index"
             >
                 <a :href="`/books/${item.book.id}/detail`"
-                    ><div class="card mx-2 d-flex flex-column">
+                    ><div class="card mx-3 d-flex flex-column">
                         <img
                             :src="
                                 item.book.coverImageUrl
@@ -76,9 +76,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         <div
                             class="card-body d-flex flex-column justify-content-between"
                         >
-                            <h5 class="card-title text-center">
+                            <h6 class="card-title text-center">
                                 {{ item.book.title }}
-                            </h5>
+                            </h6>
                             <div
                                 class="card-subtitle mb-2 text-muted text-center"
                             >

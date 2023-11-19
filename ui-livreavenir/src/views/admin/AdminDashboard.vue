@@ -4,7 +4,7 @@ import SearchComponent from "../../components/commons/SearchComponent.vue";
 import ToastComponent from "../../components/commons/ToastComponent.vue";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../../stores/book-store";
-import { AuthStore } from "../../stores/auth-store";
+import { useAuthStore } from "../../stores/auth-store";
 import { usePageStore } from "../../stores/page-store";
 import ToastComponentVue from "../../components/commons/ToastComponent.vue";
 const bookStore = BookStore();
@@ -13,7 +13,7 @@ const { bookListForAdmin } = storeToRefs(bookStoreObj);
 onMounted(() => {
     bookStoreObj.get_book_list_admin();
 });
-const authStoreObj = AuthStore();
+const authStoreObj = useAuthStore();
 const { token } = authStoreObj;
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const pageStore = usePageStore();

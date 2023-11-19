@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, computed } from "vue";
+import { useRouter } from "vue-router";
 import useValidate from "@vuelidate/core";
 import {
     email,
@@ -10,9 +11,10 @@ import {
     sameAs,
 } from "@vuelidate/validators";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
-import { AuthStore } from "../../stores/auth-store";
-
-const authStore = AuthStore();
+import { useAuthStore } from "../../stores/auth-store";
+import { usePageStore } from "../../stores/page-store";
+const router = useRouter();
+const authStore = useAuthStore();
 const user = reactive({
     firstName: null,
     lastName: null,
@@ -86,7 +88,7 @@ const rules = computed(() => {
     };
 });
 const v$ = useValidate(rules, user);
-
+const pageStore = usePageStore();
 const onSubmit = async () => {
     const resp = await v$.value.$validate();
     console.log(user);
@@ -94,11 +96,15 @@ const onSubmit = async () => {
     if (!v$.value.$error) {
         delete user.confirmPassword;
         const resp = await authStore.register(user);
-        console.log(resp);
-
         if (resp.status === 204) {
             v$.value.$reset();
-            alert(`Utilisateur ${user.email} a été créer avec success.`);
+            router.push("/auth/login");
+            pageStore.alert.type = "success";
+            pageStore.alert.message = `Utilisateur ${user.email} a été créer avec success. Vous pouvez vou connecter.`;
+            pageStore.alert.show = true;
+            setTimeout(() => {
+                pageStore.alert.show = false;
+            }, 3000);
         } else {
             alert(`Nous n'avons pas pu créer utilisateur ${user.email}.`);
         }

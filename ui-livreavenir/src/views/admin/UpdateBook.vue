@@ -10,7 +10,7 @@ import { AuthorStore } from "../../stores/author-store";
 import { usePageStore } from "../../stores/page-store";
 import { publisherStore } from "../../stores/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
-import { AuthStore } from "../../stores/auth-store";
+import { useAuthStore } from "../../stores/auth-store";
 import {
     required,
     requiredIf,
@@ -163,7 +163,7 @@ onMounted(async () => {
     publisherStoreObj.get_publisher_list();
     authorStoreObj.get_author_list();
 });
-const authStoreObj = AuthStore();
+const authStoreObj = useAuthStore();
 const { token } = authStoreObj;
 const update_book = async () => {
     await v$.value.$validate();
