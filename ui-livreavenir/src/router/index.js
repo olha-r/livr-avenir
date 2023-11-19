@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import {AuthStore} from '../stores/auth-store'
+import {useAuthStore} from '../stores/auth-store'
 import { storeToRefs } from 'pinia';
 
 
@@ -59,7 +59,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-    const authStore = AuthStore();
+    const authStore = useAuthStore();
     const {isLoggedIn, userRole} = storeToRefs(authStore);
     console.log("Logged in", isLoggedIn.value);
     console.log("ROLE", userRole.value);

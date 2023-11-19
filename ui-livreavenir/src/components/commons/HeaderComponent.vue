@@ -1,4 +1,11 @@
-<script>
+<script setup>
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/auth-store";
+import { ref, computed, onMounted } from "vue";
+
+const authStore = useAuthStore();
+const { isAdmin } = storeToRefs(authStore);
+console.log(isAdmin.value);
 </script>
 
 <template>
@@ -24,7 +31,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        <li class="nav-item" v-if="isAdmin">
                             <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'admin-dashboard' }"
@@ -36,23 +43,29 @@
                                 >Accueil</RouterLink
                             >
                         </li>
+                    </ul>
 
-                        <li class="nav-item">
-                            <RouterLink
-                                class="nav-link"
-                                :to="{ name: 'register' }"
-                                >S'inscrire</RouterLink
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <RouterLink class="nav-link" :to="{ name: 'login' }"
-                                >Se connecter</RouterLink
-                            >
-                        </li>
-                        <!-- <li>
+                    <div class="navbar-header navbar-right pull-right">
+                        <ul class="nav navbar-nav navbar-right pull-right">
+                            <li class="nav-item">
+                                <RouterLink
+                                    class="nav-link"
+                                    :to="{ name: 'register' }"
+                                    >S'inscrire</RouterLink
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <RouterLink
+                                    class="nav-link"
+                                    :to="{ name: 'login' }"
+                                    >Se connecter</RouterLink
+                                >
+                            </li>
+                            <!-- <li>
                             <i class="bi bi-person-circle"></i>
                         </li> -->
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

@@ -14,35 +14,30 @@ export default {
                         alt="logo"
                         style="height: 35px"
                 /></RouterLink>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
                             <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'admin-dashboard' }"
                                 >Livres</RouterLink
                             >
                         </li>
-                        <!-- <li class="nav-item">
+                        <li>
+                            <!-- <li class="nav-item">
                             <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'manage-users' }"
                                 >Users</RouterLink
                             >
                         </li> -->
-
-                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-header navbar-left pull-left">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
                             <RouterLink class="nav-link" :to="{ name: 'login' }"
                                 ><i class="bi bi-box-arrow-right"></i
                             ></RouterLink>
