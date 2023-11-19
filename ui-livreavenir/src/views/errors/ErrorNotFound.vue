@@ -1,12 +1,14 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col text-center">
-                <h1>404</h1>
-                <h2>Opps! Page not found.</h2>
+            <div class="col-md-6 offset-md-3 text-center">
+                <h1 class="m-5">404</h1>
+                <h2 class="m-5">Oups, voilà qui n'était pas prévu !</h2>
 
-                <h3 class="h2">The page you are looking for doesn't exist!</h3>
-                <a href="" class="btn btn-primary">Go to Home</a>
+                <p class="m-5">Désolé mais ce lien est introuvable !</p>
+                <a href="" class="btn btn-primary mt-4"
+                    >Retour à la page d'accueil</a
+                >
             </div>
         </div>
     </div>
