@@ -52,25 +52,30 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 
         <h3 class="text-center my-4">Derniers livres ajoutés récemment</h3>
 
-        <div class="row row-cols-2 row-cols-md-5 g-5">
+        <div
+            class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-5 justify-content-center align-items-start"
+        >
             <div
-                class="col"
+                class="col d-flex align-items-stretch"
                 v-for="(item, index) in lastAddedBooks"
                 :key="index"
             >
                 <a :href="`/books/${item.book.id}/detail`"
-                    ><div class="card">
+                    ><div class="card mx-2 d-flex flex-column">
                         <img
                             :src="
                                 item.book.coverImageUrl
                                     ? baseUrl + item.book.coverImageUrl
                                     : baseUrl + 'default-image.jpg'
                             "
-                            class="card-img-top"
+                            class="card-img-bottom"
+                            style="object-fit: cover"
                             alt="Cover Image"
                         />
 
-                        <div class="card-body">
+                        <div
+                            class="card-body d-flex flex-column justify-content-between"
+                        >
                             <h5 class="card-title text-center">
                                 {{ item.book.title }}
                             </h5>
