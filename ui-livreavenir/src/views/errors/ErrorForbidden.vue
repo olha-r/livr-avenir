@@ -2,8 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <h1>401 Unauthorized</h1>
-                <h2>Désolé, vous n’êtes pas autorisé à accéder à cette page</h2>
+                <h1>403 Forbidden</h1>
+                <h2>
+                    Vous n'avez pas droit à accéder aux ressources demandées.
+                </h2>
 
                 <a href="/" class="btn btn-primary"
                     >Revenir à la page d'accueil</a

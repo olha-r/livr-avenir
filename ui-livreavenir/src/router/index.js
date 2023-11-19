@@ -24,8 +24,8 @@ const router = createRouter({
       path: '/auth',
       component: () => import('../layouts/MainLayout.vue'),
       children: [
-        { path: 'register', component: () => import('../views/RegisterPage.vue'), name: "register" },
-        { path: 'login',component: () => import('../views/LoginPage.vue'), name: "login" },
+        { path: 'register', component: () => import('../views/auth/RegisterPage.vue'), name: "register" },
+        { path: 'login',component: () => import('../views/auth/LoginPage.vue'), name: "login" },
         { path: 'profile',component: () => import('../views/UserProfile.vue'), name: "profile" },
       ]
     },
@@ -44,6 +44,14 @@ const router = createRouter({
       }
     },
     {
+        path: '/error',
+        component: () => import('../layouts/MainLayout.vue'),
+        children: [
+          { path: '403', component: () => import('../views/errors/ErrorForbidden.vue'), name: "forbidden" },
+          { path: '401', component: () => import('../views/errors/ErrorUnauthorized.vue'), name: "unauthorized" },
+        ]
+      },
+    {
       path: '/:catchAll(.*)*',
       component: () => import('../views/errors/ErrorNotFound.vue'),
     },
@@ -59,9 +67,8 @@ router.beforeEach(async (to, from) => {
         return '/auth/login'
     }
     if(to.meta.permission == 'admin' && userRole.value == "USER"){
-        console.log("Vous n'avez pas droit à acceder aux ressources démandés.");
-        // Ajouter page d'erreur
-        return '/'
+        console.log("Vous n'avez pas droit à accéder aux ressources demandées.");
+        return '/error/401'
     }
 })
 
