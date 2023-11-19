@@ -36,10 +36,10 @@ public class ResourceConfig {
 			"/publishers")
 		.permitAll()
 		.antMatchers(HttpMethod.POST, "/books",
-			"/publishers", "/authors")
-		.hasRole("ADMIN")
+            "/publishers", "/authors")
+		.hasAuthority("ADMIN")
 		.antMatchers(HttpMethod.DELETE, "/books")
-		.hasRole("ADMIN").anyRequest()
+		.hasAuthority("ADMIN").anyRequest()
 		.authenticated().and()
 		.oauth2ResourceServer().jwt();
 
