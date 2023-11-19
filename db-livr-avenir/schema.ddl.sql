@@ -120,22 +120,14 @@ CREATE TABLE books (
     page_count VARCHAR(5) NOT NULL,
     summary VARCHAR(1000) NOT NULL,
     publisher_id INTEGER NOT NULL,
-    category_id INTEGER NOT null,
+    category_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     language_id INTEGER NOT NULL,
-    constraint pk_book_id primary key(id),
-	constraint fk_publisher_id
-			foreign key (publisher_id)
-			references publishers(id),
-	constraint fk_category_id
-			foreign key (category_id)
-			references categories(id),
-	constraint fk_user_id
-			foreign key (user_id)
-			references users(id),
-	constraint fk_language_id
-			foreign key (language_id)
-			references languages(id)
+    CONSTRAINT pk_book_id primary key(id),
+	CONSTRAINT fk_publisher_id FOREIGN KEY (publisher_id) REFERENCES publishers(id),
+	CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES categories(id),
+	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id),
+	CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES languages(id)
 );
 
 CREATE TABLE conditions (
