@@ -1,7 +1,6 @@
 <script setup>
+import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
 import { useRouter } from "vue-router";
-import Multiselect from "vue-multiselect";
-
 import LabelValues from "../../components/commons/LabelValues.vue";
 import AuthorLabelValue from "../../components/commons/AuthorLabelValue.vue";
 import { onMounted, reactive, computed } from "vue";
@@ -192,6 +191,9 @@ const add_new_book = async () => {
 const handleImageUpload = (event) => {
     inputs.coverImageUrl = event.target.files[0];
 };
+const updateAuthorList = (value) => {
+    inputs.authorList = value;
+};
 </script>
 <template>
     <main class="container-xl my-5">
@@ -231,34 +233,16 @@ const handleImageUpload = (event) => {
                     </div>
 
                     <div class="col-md-12 mb-3">
-                        <!-- <AuthorSearch></AuthorSearch> -->
-                        <!-- <button class="btn btn-large">
-                            Ajouter nouveau auteur
-                        </button> -->
-
                         <label for="authorId" class="form-label required"
                             >Auteur</label
                         >
-                        <!-- <multiselect
-                            v-model.number="inputs.authorList"
-                            :options="testOptions"
-                        >
-                            /></multiselect
-                        > -->
-                        <select
-                            v-model.number="inputs.authorList"
-                            name="authorId"
-                            id="authorId"
-                            class="form-select"
-                            size="4"
-                            multiple
-                        >
-                            <AuthorLabelValue :items="author_list" />
-                        </select>
+                        <SearchMultiSelect
+                            :authorList="inputs.authorList"
+                            @updateAuthorList="updateAuthorList"
+                        />
                         <ValidationMessage :model="v$.authorList" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <!-- <PublisherSearch></PublisherSearch> -->
                         <div class="col-md-12 mb-3">
                             <label for="edition" class="form-label required"
                                 >Edition</label

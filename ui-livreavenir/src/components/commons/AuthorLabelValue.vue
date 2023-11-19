@@ -9,7 +9,7 @@ export default {
 };
 </script>
 <template>
-    <option selected>Open this select menu</option>
+    <option disabled>Choisir author...</option>
     <option v-for="item in items" :key="item.id" :value="item.id">
         {{ item.firstName }} {{ item.lastName }}
     </option>
