@@ -3,7 +3,6 @@
         <Multiselect
             v-model.trim="authorList"
             mode="tags"
-            placeholder="Choisir auteur(s)"
             :options="options"
             :searchable="true"
             @input="updateAuthorList"
@@ -40,4 +39,3 @@ const updateAuthorList = (value) => {
     emit("updateAuthorList", value);
 };
 </script>
-<style src="@vueform/multiselect/themes/default.css"></style>

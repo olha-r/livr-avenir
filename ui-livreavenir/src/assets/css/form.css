@@ -32,7 +32,7 @@ label.form-check-label:focus,
     background-color: var(--light-green-color);
 }
 
-.form-select:focus {
+.form-select:focus, .multiselect.is-active {
     border: 3px solid var(--light-green-color);
     border-color: var(--light-green-color);
     box-shadow: 0px 0px 4px 4px var(--light-green-color);
@@ -45,4 +45,16 @@ label.form-check-label:focus,
 .required:after {
     content: "*";
     color: rgb(209, 1, 1);
+}
+
+.multiselect-wrapper, .multiselect-tags-search {
+    background-color: var(--light-green-color) !important;
+}
+
+/* .multiselect-caret {
+    
+} */
+
+.multiselect-tag {
+    background-color: var(--dark-orange-color);
 }
