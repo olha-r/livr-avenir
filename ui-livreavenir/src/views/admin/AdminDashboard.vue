@@ -42,8 +42,8 @@ const remove = async (id) => {
                 </button></RouterLink
             >
         </div>
-        <div class="row row-cols-2 row-cols-md-4 g-5">
-            <table class="table table-hover">
+        <div class="row row-cols-2 row-cols-md-4 g-5 table-responsive-lg">
+            <table class="table table-hover align-middle">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

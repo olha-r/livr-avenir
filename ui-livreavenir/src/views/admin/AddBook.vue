@@ -32,7 +32,6 @@ const inputs = reactive({
     summary: null,
     publisher: null,
     categoryId: null,
-    userId: 1,
     languageId: [],
     authorList: [],
     coverImageUrl: undefined,
@@ -161,7 +160,6 @@ const add_new_book = async () => {
         formData.append("summary", inputs.summary);
         formData.append("publisher", inputs.publisher);
         formData.append("categoryId", inputs.categoryId);
-        formData.append("userId", inputs.userId);
         formData.append("languageId", inputs.languageId);
         formData.append("authorList", inputs.authorList);
         formData.append("coverImageUrl", inputs.coverImageUrl);
@@ -183,7 +181,7 @@ const add_new_book = async () => {
             pageStore.alert.show = true;
             console.error(`Nous n'avons pas pu créer le livre.`);
         }
-            } else {
+    } else {
         console.log("There are errors");
     }
 };
@@ -237,13 +235,13 @@ const handleImageUpload = (event) => {
                         <label for="authorId" class="form-label required"
                             >Auteur</label
                         >
-                        <multiselect
+                        <!-- <multiselect
                             v-model.number="inputs.authorList"
                             :options="testOptions"
                         >
                             /></multiselect
-                        >
-                         <!-- <select
+                        > -->
+                        <select
                             v-model.number="inputs.authorList"
                             name="authorId"
                             id="authorId"
@@ -252,7 +250,7 @@ const handleImageUpload = (event) => {
                             multiple
                         >
                             <AuthorLabelValue :items="author_list" />
-                        </select> -->
+                        </select>
                         <ValidationMessage :model="v$.authorList" />
                     </div>
                     <div class="col-md-12 mb-3">
