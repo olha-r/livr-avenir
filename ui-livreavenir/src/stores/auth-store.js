@@ -8,7 +8,8 @@ export const useAuthStore = defineStore('auth-store', {
         user: useStorage('user', null),
         userRole: useStorage('user-role', null),
         isLoggedIn: useStorage('is-logged-in', false),
-        token: useStorage('token', null)
+        token: useStorage('token', null),
+        userFullName: useStorage('userFullName', null)
     }),
     getters: {
         isAuthenticated: (state) => !!state?.user,
@@ -29,8 +30,19 @@ export const useAuthStore = defineStore('auth-store', {
             this.token = promise.body.token;
             this.userRole = promise.body.role
             this.isLoggedIn = true;
+            console.log(promise.body);
+            this.userFullName= `${promise.body.firstName} ${promise.body.lastName}`;
         }
         return promise;
     },  
+
+    async logout() {
+        this.token = null;
+        this.userRole = null;
+        this.isLoggedIn = false;
+        this.user = null;
+        this.userFullName = null;
+        // Ajoutez appele d'API de déconnexion
+    },
 }, 
 })

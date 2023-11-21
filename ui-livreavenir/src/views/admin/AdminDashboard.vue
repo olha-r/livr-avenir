@@ -21,9 +21,9 @@ const remove = async (id) => {
     const resp = await bookStore.delete_book(id, token);
     if (resp.status === 204) {
         pageStore.alert.type = "success";
-        pageStore.alert.message = `Livre a été supprimer avec success.`;
+        pageStore.alert.message = `Livre a été supprimé avec success.`;
         pageStore.alert.show = true;
-        console.log(`Livre a été supprimer avec success.`);
+        console.log(`Livre a été supprimé avec success.`);
     } else {
         pageStore.alert.type = "error";
         pageStore.alert.message = `Nous n'avons pas pu supprimer le livre.`;
@@ -33,8 +33,7 @@ const remove = async (id) => {
 };
 let selectedBook = ref({});
 const openBookModal = (book) => {
-    selectedBook = book;
-    // Open the Bootstrap modal
+    selectedBook.value = book;
     const modal = new bootstrap.Modal(document.getElementById("bookModal"));
     modal.show();
 };
@@ -64,15 +63,17 @@ const openBookModal = (book) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr
-                        v-for="(item, index) in bookListForAdmin"
-                        :key="index"
-                        @click="openBookModal(item.book)"
-                    >
-                        <th scope="row">{{ index + 1 }}</th>
-                        <td>{{ item.book.isbn }}</td>
-                        <td>{{ item.book.title }}</td>
-                        <td>
+                    <tr v-for="(item, index) in bookListForAdmin" :key="index">
+                        <th scope="row" @click="openBookModal(item.book)">
+                            {{ index + 1 }}
+                        </th>
+                        <td @click="openBookModal(item.book)">
+                            {{ item.book.isbn }}
+                        </td>
+                        <td @click="openBookModal(item.book)">
+                            {{ item.book.title }}
+                        </td>
+                        <td @click="openBookModal(item.book)">
                             <span
                                 v-for="(author, authorIndex) in item.listAuthor"
                                 :key="authorIndex"
@@ -88,15 +89,16 @@ const openBookModal = (book) => {
                                 </span>
                             </span>
                         </td>
-                        <td>
+                        <td @click="openBookModal(item.book)">
                             {{ item.book.publisher.name }}
                         </td>
-                        <td>
-                            <span class="badge text-bg-warning me-1">{{
-                                item.book.category.name
-                            }}</span>
+                        <td @click="openBookModal(item.book)">
+                            <span
+                                class="badge text-bg-warning px-3 category-badge"
+                                >{{ item.book.category.name }}</span
+                            >
                         </td>
-                        <td>
+                        <td @click="openBookModal(item.book)">
                             <img
                                 :src="
                                     item.book.coverImageUrl
@@ -115,12 +117,20 @@ const openBookModal = (book) => {
                                 }"
                                 title="Update book"
                             >
-                                <i class="bi bi-pencil-square text-primary"></i>
+                                <i
+                                    class="bi bi-pencil-square fs-4 me-2"
+                                    @click.stop="() => openBookModal(item.book)"
+                                ></i>
                             </RouterLink>
                         </td>
                         <td>
-                            <a href="#" @click="remove(item.book.id)">
-                                <i class="bi bi-trash3 text-danger"></i
+                            <a
+                                href="#"
+                                @click="remove(item.book.id)"
+                                @click.stop="() => openBookModal(item.book)"
+                                class="mx-3"
+                            >
+                                <i class="bi bi-trash3 text-danger fs-4"></i
                             ></a>
                         </td>
                     </tr>
@@ -128,61 +138,22 @@ const openBookModal = (book) => {
             </table>
         </div>
 
-        <!-- <div class="modal" tabindex="-1" role="dialog" id="bookModal">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal fade" id="bookModal" tabindex="-1">
+            <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bookModalLabel">
+                            {{ selectedBook.title }}
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                        ></button>
+                    </div>
                     <div class="modal-body">
-                        <p>
-                            <span class="badge text-bg-warning me-1">{{
-                                selectedBook.value.category.name
-                            }}</span>
-                            <span class="badge text-bg-secondary me-1">{{
-                                selectedBook.value.language.name
-                            }}</span>
-                        </p>
-                        <p>
-                            <strong>ISBN:</strong> {{ selectedBook.value.isbn }}
-                        </p>
-                        <p>
-                            <strong>Titre:</strong>
-                            {{ selectedBook.value.title }}
-                        </p>
-                        <p>
-                            <strong>Auteur(s):</strong>
-                            {{ selectedBook.value.listAuthor }}
-                            <span
-                                v-for="(author, authorIndex) in selectedBook
-                                    .value.listAuthor"
-                                :key="authorIndex"
-                            >
-                                {{ author.firstName }}
-                                {{ author.lastName }}
-                                <span
-                                    v-if="
-                                        authorIndex <
-                                        selectedBook.value.listAuthor.length - 1
-                                    "
-                                    >,
-                                    <br />
-                                </span>
-                            </span>
-                        </p>
-                        <p>
-                            <strong>Edition:</strong>
-                            {{ selectedBook.value.publisher.name }}
-                        </p>
-                        <p>
-                            <strong>L'année de publication:</strong>
-                            {{ selectedBook.value.publicationYear }}
-                        </p>
-                        <p>
-                            <strong>Nombre de pages:</strong>
-                            {{ selectedBook.value.pageCount }}
-                        </p>
-                        <p>
-                            <strong>Description:</strong>
-                            {{ selectedBook.value.summary }}
-                        </p>
+                        <!-- Display book information  -->
+                        <p><strong>ISBN:</strong> {{ selectedBook.isbn }}</p>
                     </div>
                     <div class="modal-footer">
                         <button
@@ -195,6 +166,6 @@ const openBookModal = (book) => {
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </main>
 </template>

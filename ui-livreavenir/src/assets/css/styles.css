@@ -29,7 +29,25 @@ a {
 /********* Navbar **********/
 .navbar {
     background-color: var(--light-green-color) !important;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
+
+  .navbar-text {
+    font-size: 1.2rem;
+    font-weight: bold ;
+    font-family: 'Marhey', sans-serif;
+    color: var(--dark-orange-color)!important;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1.5rem;
+    color: var(--dark-green-color);
+  }
+  .navbar-nav .nav-link:hover {
+    color: var(--dark-orange-color);
+    
+  }
 
 .navbar a {
     color: var(--dark-green-color);
@@ -130,3 +148,21 @@ h3 {
     content: ' *';
     color: red;
 }
+
+.logout {
+    color: var(--dark-green-color);
+}
+.logout:hover {
+    color: var(--dark-orange-color);
+}
+
+
+.bi-pencil-square {
+    color: var(--dark-green-color)!important;
+}
+
+.category-badge {
+    color: var(--main-bg-color)!important;
+    background-color: var(--dark-orange-color)!important;
+}
+  

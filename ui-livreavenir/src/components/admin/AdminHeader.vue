@@ -1,6 +1,10 @@
-<script>
-export default {
-    name: "HeaderComponent",
+<script setup>
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "../../stores/auth-store";
+const authStore = useAuthStore();
+const { isLoggedIn, userFullName } = storeToRefs(authStore);
+const logout = () => {
+    authStore.logout();
 };
 </script>
 
@@ -26,23 +30,21 @@ export default {
                         </li>
                         <li>
                             <!-- <li class="nav-item">
-                            <RouterLink
+                                <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'manage-users' }"
                                 >Users</RouterLink
-                            >
-                        </li> -->
+                                >
+                            </li> -->
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-header navbar-left pull-left">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            <RouterLink class="nav-link" :to="{ name: 'login' }"
-                                ><i class="bi bi-box-arrow-right"></i
-                            ></RouterLink>
-                        </li>
-                    </ul>
+                <div class="navbar-text me-5">Bonjour, {{ userFullName }}!</div>
+
+                <div class="navbar-text">
+                    <a href="#" @click="logout">
+                        <i class="bi bi-box-arrow-right fs-2 logout me-4"></i>
+                    </a>
                 </div>
             </div>
         </nav>
