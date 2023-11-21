@@ -27,4 +27,6 @@ public interface BookService {
 
     BookForUpdate forUpdate(Long id);
 
+    boolean isbnExist(String isbn);
+
 }

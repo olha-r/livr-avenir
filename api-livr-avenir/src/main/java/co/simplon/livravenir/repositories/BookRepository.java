@@ -23,4 +23,6 @@ public interface BookRepository
 
     BookDetail findProjectedDetailById(Long id);
 
+    boolean existsByIsbn(String string);
+
 }

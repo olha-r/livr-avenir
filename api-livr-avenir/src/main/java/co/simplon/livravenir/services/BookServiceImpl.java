@@ -95,7 +95,7 @@ public class BookServiceImpl implements BookService {
 	Language language = languages
 		.getReferenceById(inputs.getLanguageId());
 	entity.setLanguage(language);
-    
+
 	Publisher publisher = publishers
 		.getReferenceById(inputs.getPublisher());
 	entity.setPublisher(publisher);
@@ -256,6 +256,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookForUpdate forUpdate(Long id) {
 	return books.findProjectedById(id);
+    }
+
+    @Override
+    public boolean isbnExist(String isbn)
+	    throws UnsupportedOperationException {
+
+	return this.books.existsByIsbn(isbn.toString());
     }
 
 }
