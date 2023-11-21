@@ -35,7 +35,6 @@ public class AuthHelper {
     }
 
     public String createJWT(String role, String userId,
-	    String firstName, String lastName,
 	    String email) {
 	Instant now = Instant.now();
 	Instant expirationTime = now
@@ -44,8 +43,6 @@ public class AuthHelper {
 		.withSubject(userId).withIssuedAt(now)
 		.withExpiresAt(expirationTime)
 		.withClaim("role", role)
-		.withClaim("first name", firstName)
-		.withClaim("last name", lastName)
 		.withClaim("email", email).sign(algorithm);
     }
 

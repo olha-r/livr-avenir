@@ -66,16 +66,19 @@ public class AuthServiceImpl implements AuthService {
 		    user.getPassword());
 	    if (match) {
 		String userId = Long.toString(user.getId());
-		String firstName = user.getFirstName();
-		String lastName = user.getLastName();
 		String email = user.getEmail();
 		String role = user.getRole().getName();
 		String token = authHelper.createJWT(role,
-			userId, firstName, lastName, email);
+			userId, email);
 
 		TokenInfo tokenInfo = new TokenInfo();
 		tokenInfo.setToken(token);
 		tokenInfo.setRole(role);
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		tokenInfo.setFirstName(firstName);
+		tokenInfo.setLastName(lastName);
+
 		return tokenInfo;
 	    } else {
 		throw new BadCredentialsException(
