@@ -43,8 +43,8 @@ label.form-check-label:focus,
 }
 
 .required:after {
-    content: "*";
-    color: rgb(209, 1, 1);
+    content: " *";
+    color: var(--dark-orange-color);
 }
 
 .multiselect-wrapper, .multiselect-tags-search {

@@ -336,7 +336,7 @@ const updateAuthorList = (value) => {
                         <ValidationMessage :model="v$.summary" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="image" class="form-label">{{
+                        <label for="image" class="form-label required">{{
                             t("admin.bookForm.imageCreate")
                         }}</label>
                         <input
