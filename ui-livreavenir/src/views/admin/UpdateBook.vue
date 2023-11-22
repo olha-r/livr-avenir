@@ -20,7 +20,8 @@ import {
     helpers,
 } from "@vuelidate/validators";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
-
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const requiredMessage = "Veuillez renseigner ce champ.";
 
 const route = useRoute();
@@ -221,14 +222,14 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
             class="justify-content-center align-items-center book-details-container"
         >
             <div class="text-center">
-                <h1>Modifier un livre</h1>
+                <h3>{{ t("admin.bookForm.titleUpdate") }} titre de livre</h3>
             </div>
             <form novalidate @submit.prevent="update_book">
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label for="isbn" class="form-label required"
-                            >ISBN</label
-                        >
+                        <label for="isbn" class="form-label required">{{
+                            t("admin.bookForm.isbn")
+                        }}</label>
                         <input
                             v-model.trim="inputs.isbn"
                             name="isbn"
@@ -239,9 +240,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         <ValidationMessage :model="v$.isbn" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="title" class="form-label required"
-                            >Titre de livre</label
-                        >
+                        <label for="title" class="form-label required">{{
+                            t("admin.bookForm.bookTitle")
+                        }}</label>
                         <input
                             v-model.trim="inputs.title"
                             name="title"
@@ -258,9 +259,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                     Ajouter nouveau auteur
                 </button> -->
 
-                        <label for="authorId" class="form-label required"
-                            >Auteur</label
-                        >
+                        <label for="authorId" class="form-label required">{{
+                            t("admin.bookForm.author")
+                        }}</label>
                         <!-- <multiselect
                     v-model.number="inputs.authorList"
                     :options="testOptions"
@@ -282,9 +283,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                     <div class="col-md-12 mb-3">
                         <!-- <PublisherSearch></PublisherSearch> -->
                         <div class="col-md-12 mb-3">
-                            <label for="edition" class="form-label required"
-                                >Edition</label
-                            >
+                            <label for="edition" class="form-label required">{{
+                                t("admin.bookForm.publisher")
+                            }}</label>
                             <select
                                 v-model.number="inputs.publisher"
                                 id="publisher"
@@ -299,8 +300,10 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="publicationYear" class="form-label required"
-                            >L'année de publication</label
+                        <label
+                            for="publicationYear"
+                            class="form-label required"
+                            >{{ t("admin.bookForm.publicationYear") }}</label
                         >
                         <input
                             v-model.trim="inputs.publicationYear"
@@ -312,9 +315,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         <ValidationMessage :model="v$.publicationYear" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="pageCount" class="form-label required"
-                            >Nombre de pages</label
-                        >
+                        <label for="pageCount" class="form-label required">{{
+                            t("admin.bookForm.pageCount")
+                        }}</label>
                         <input
                             v-model.trim="inputs.pageCount"
                             name="pageCount"
@@ -325,9 +328,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         <ValidationMessage :model="v$.pageCount" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="languageId" class="form-label required"
-                            >Langue</label
-                        >
+                        <label for="languageId" class="form-label required">{{
+                            t("admin.bookForm.language")
+                        }}</label>
                         <select
                             v-model.number="inputs.languageId"
                             id="languageId"
@@ -341,9 +344,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         <ValidationMessage :model="v$.languageId" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="categoryId" class="form-label required"
-                            >Category</label
-                        >
+                        <label for="categoryId" class="form-label required">{{
+                            t("admin.bookForm.category")
+                        }}</label>
                         <select
                             v-model.number="inputs.categoryId"
                             id="categoryId"
@@ -357,9 +360,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         <ValidationMessage :model="v$.categoryId" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="summary" class="form-label required"
-                            >Description</label
-                        >
+                        <label for="summary" class="form-label required">{{
+                            t("admin.bookForm.summary")
+                        }}</label>
                         <textarea
                             v-model.trim="inputs.summary"
                             name="summary"
@@ -370,9 +373,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         <ValidationMessage :model="v$.summary" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="image" class="form-label"
-                            >Nouvelle image</label
-                        >
+                        <label for="image" class="form-label">{{
+                            t("admin.bookForm.imageUpdate")
+                        }}</label>
                         <input
                             name="image"
                             id="image"
@@ -396,7 +399,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                         type="submit"
                         class="btn btn-lg btn-primary col-md-4 col-12 my-3"
                     >
-                        Modifier
+                        {{ t("admin.bookForm.buttonCreate") }}
                     </button>
                 </div>
             </form>

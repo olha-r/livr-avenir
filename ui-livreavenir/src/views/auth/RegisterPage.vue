@@ -13,6 +13,8 @@ import {
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
 import { useAuthStore } from "../../stores/auth-store";
 import { usePageStore } from "../../stores/page-store";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore();
 const user = reactive({
@@ -117,14 +119,16 @@ const onSubmit = async () => {
     <main class="container-xl my-1">
         <div class="row justify-content-center align-items-center">
             <div class="d-flex justify-content-center mt-4">
-                <h1>Créer un compte</h1>
+                <h3>{{ t("signUpForm.title") }}</h3>
             </div>
             <form novalidate @submit.prevent="onSubmit" class="col-md-5">
                 <div class="mb-3">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="firstName" class="form-label required"
-                                >Prénom</label
+                            <label
+                                for="firstName"
+                                class="form-label required"
+                                >{{ t("signUpForm.firstName") }}</label
                             >
                             <input
                                 v-model.trim="user.firstName"
@@ -139,9 +143,9 @@ const onSubmit = async () => {
                             <ValidationMessage :model="v$.firstName" />
                         </div>
                         <div class="col-md-6">
-                            <label for="lastName" class="form-label required"
-                                >Nom</label
-                            >
+                            <label for="lastName" class="form-label required">{{
+                                t("signUpForm.lastName")
+                            }}</label>
                             <input
                                 v-model.trim="user.lastName"
                                 name="lastName"
@@ -157,7 +161,9 @@ const onSubmit = async () => {
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label required">Email</label>
+                    <label for="email" class="form-label required">{{
+                        t("signUpForm.email.label")
+                    }}</label>
                     <input
                         v-model.trim="user.email"
                         name="email"
@@ -168,14 +174,14 @@ const onSubmit = async () => {
                         :class="{ 'is-invalid': v$.email.$error }"
                     />
                     <div id="emailHelp" class="form-text">
-                        ex.: prenom.nom@domain.com
+                        {{ t("signUpForm.email.helpText") }}
                     </div>
                     <ValidationMessage :model="v$.email" />
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label required"
-                        >Mot de passe</label
-                    >
+                    <label for="password" class="form-label required">{{
+                        t("signUpForm.password.label")
+                    }}</label>
                     <input
                         v-model.trim="user.password"
                         name="password"
@@ -185,15 +191,14 @@ const onSubmit = async () => {
                         :class="{ 'is-invalid': v$.password.$error }"
                     />
                     <div id="passwordHelp" class="form-text">
-                        Au moins 1 majuscule et 1 miniscule, au moins un nombre
-                        au moins 1 de !@#%&*?
+                        {{ t("signUpForm.password.helpText") }}
                     </div>
                     <ValidationMessage :model="v$.password" />
                 </div>
                 <div class="mb-3">
-                    <label for="confirmPassword" class="form-label required"
-                        >Confirmer le mot de passe</label
-                    >
+                    <label for="confirmPassword" class="form-label required">{{
+                        t("signUpForm.confirmPassword")
+                    }}</label>
                     <input
                         v-model.trim="user.confirmPassword"
                         name="confirmPassword"
@@ -207,7 +212,7 @@ const onSubmit = async () => {
                     <ValidationMessage :model="v$.confirmPassword" />
                 </div>
                 <button type="submit" class="btn btn-primary col-12 mb-3">
-                    Créer
+                    {{ t("signUpForm.button") }}
                 </button>
             </form>
         </div>

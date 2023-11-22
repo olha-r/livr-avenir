@@ -4,22 +4,15 @@ import SearchComponent from "../components/commons/SearchComponent.vue";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../stores/book-store";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const bookStoreObj = BookStore();
 const { lastAddedBooks } = storeToRefs(bookStoreObj);
 onBeforeMount(() => {
     bookStoreObj.get_last_added_books();
 });
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
-
-// methods: {
-//     async initLastAddedBooks() {
-//         const resp = await this.$http.get("/books");
-//         this.lastAddedBooks = resp.body;
-//     },
-// },
-// beforeMount() {
-//     this.initLastAddedBooks();
-// },
 </script>
 <template>
     <main class="container-xl my-2 home-page">
@@ -27,13 +20,13 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
             <div
                 class="position-absolute top-50 start-50 translate-middle-x text-center"
             >
-                <h1>Livr'avenir</h1>
-                <h6>
+                <h1>{{ t("homepage.mainTitle") }}</h1>
+                <!-- <h6>
                     Envie d'echanger tes livres? Decouvre comment ça marche.
                 </h6>
                 <button class="btn btn-lg btn-dark" type="button">
                     A propos
-                </button>
+                </button> -->
             </div>
         </div>
         <!-- <SearchComponent /> -->
@@ -50,7 +43,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
             </button>
         </div> -->
 
-        <h3 class="text-center my-4">Derniers livres ajoutés récemment</h3>
+        <h3 class="text-center my-4">{{ t("homepage.title") }}</h3>
 
         <div
             class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center align-items-start"

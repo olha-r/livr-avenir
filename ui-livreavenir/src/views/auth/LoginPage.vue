@@ -7,7 +7,8 @@ import { useAuthStore } from "../../stores/auth-store";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
 import { storeToRefs } from "pinia";
 import { usePageStore } from "../../stores/page-store";
-
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const user = reactive({
     email: null,
     password: null,
@@ -85,11 +86,13 @@ const onSubmit = async () => {
     <main class="container-xl my-5">
         <div class="row justify-content-center align-items-center">
             <div class="d-flex justify-content-center mt-4">
-                <h1>Se connecter</h1>
+                <h3>{{ t("signIn.title") }}</h3>
             </div>
             <form novalidate @submit.prevent="onSubmit" class="col-md-5">
                 <div class="mb-3">
-                    <label for="email" class="form-label required">Email</label>
+                    <label for="email" class="form-label required">{{
+                        t("signIn.email")
+                    }}</label>
                     <input
                         v-model.trim="user.email"
                         name="email"
@@ -102,9 +105,9 @@ const onSubmit = async () => {
                     <ValidationMessage :model="v$.email" />
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label required"
-                        >Mot de passe</label
-                    >
+                    <label for="password" class="form-label required">{{
+                        t("signIn.password")
+                    }}</label>
                     <input
                         v-model.trim="user.password"
                         name="password"
@@ -118,7 +121,7 @@ const onSubmit = async () => {
                     <ValidationMessage :model="v$.password" />
                 </div>
                 <button nametype="submit" class="btn btn-primary col-12 mb-3">
-                    Se connecter
+                    {{ t("signIn.button") }}
                 </button>
             </form>
         </div>

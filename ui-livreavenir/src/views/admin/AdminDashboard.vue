@@ -7,6 +7,8 @@ import { BookStore } from "../../stores/book-store";
 import { useAuthStore } from "../../stores/auth-store";
 import { usePageStore } from "../../stores/page-store";
 import ToastComponentVue from "../../components/commons/ToastComponent.vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const bookStore = BookStore();
 const bookStoreObj = BookStore();
 const { bookListForAdmin } = storeToRefs(bookStoreObj);
@@ -40,11 +42,13 @@ const openBookModal = (book) => {
 </script>
 <template>
     <main class="container-xl my-2 home-page">
-        <h3 class="text-center my-4">Livres disponibles</h3>
+        <h3 class="text-center my-4">
+            {{ t("admin.dashboard.title") }}
+        </h3>
         <div class="container text-end">
             <RouterLink class="nav-link" :to="{ name: 'add-book' }">
                 <button type="button" class="btn btn-primary m-3">
-                    Ajouter livre
+                    {{ t("admin.dashboard.addBookBtn") }}
                 </button></RouterLink
             >
         </div>
@@ -53,13 +57,27 @@ const openBookModal = (book) => {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">ISBN</th>
-                        <th scope="col">Titre</th>
-                        <th scope="col">Auteur(s)</th>
-                        <th scope="col">Edition</th>
-                        <th scope="col">Categorie</th>
-                        <th scope="col">Image</th>
-                        <th scope="col" colspan="2">Actions</th>
+                        <th scope="col">
+                            {{ t("admin.dashboard.table.isbn") }}
+                        </th>
+                        <th scope="col">
+                            {{ t("admin.dashboard.table.bookTitle") }}
+                        </th>
+                        <th scope="col">
+                            {{ t("admin.dashboard.table.author") }}
+                        </th>
+                        <th scope="col">
+                            {{ t("admin.dashboard.table.publisher") }}
+                        </th>
+                        <th scope="col">
+                            {{ t("admin.dashboard.table.category") }}
+                        </th>
+                        <th scope="col">
+                            {{ t("admin.dashboard.table.image") }}
+                        </th>
+                        <th scope="col" colspan="2">
+                            {{ t("admin.dashboard.table.actions") }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

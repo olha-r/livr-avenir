@@ -2,10 +2,11 @@
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth-store";
 import { ref, computed, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
 const { isAdmin } = storeToRefs(authStore);
-console.log(isAdmin.value);
+const { t } = useI18n();
 </script>
 
 <template>
@@ -35,12 +36,14 @@ console.log(isAdmin.value);
                             <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'admin-dashboard' }"
-                                >Admin</RouterLink
+                                >{{ t("navbar.adminItem") }}</RouterLink
                             >
                         </li>
                         <li class="nav-item">
-                            <RouterLink class="nav-link" :to="{ name: 'home' }"
-                                >Accueil</RouterLink
+                            <RouterLink
+                                class="nav-link"
+                                :to="{ name: 'home' }"
+                                >{{ t("navbar.homePageItem") }}</RouterLink
                             >
                         </li>
                     </ul>
@@ -51,14 +54,14 @@ console.log(isAdmin.value);
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'register' }"
-                                    >S'inscrire</RouterLink
+                                    >{{ t("navbar.signUp") }}</RouterLink
                                 >
                             </li>
                             <li class="nav-item">
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'login' }"
-                                    >Se connecter</RouterLink
+                                    >{{ t("navbar.login") }}</RouterLink
                                 >
                             </li>
                             <!-- <li>
