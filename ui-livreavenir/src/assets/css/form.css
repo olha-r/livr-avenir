@@ -58,3 +58,8 @@ label.form-check-label:focus,
 .multiselect-tag {
     background-color: var(--dark-orange-color);
 }
+
+.image-update {
+    max-width: 100%;
+    height: 200px
+}

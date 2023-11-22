@@ -11,6 +11,7 @@ import { usePageStore } from "../../stores/page-store";
 import { publisherStore } from "../../stores/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
 import { useAuthStore } from "../../stores/auth-store";
+import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
 import {
     required,
     requiredIf,
@@ -213,11 +214,13 @@ const handleImageUpload = (event) => {
     inputs.coverImageUrl = event.target.files[0];
 };
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
+const updateAuthorList = (value) => {
+    inputs.authorList = value;
+};
 </script>
 
 <template>
     <main class="container-xl my-5">
-        {{ inputs }}
         <div
             class="justify-content-center align-items-center book-details-container"
         >
@@ -254,30 +257,13 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                     </div>
 
                     <div class="col-md-12 mb-3">
-                        <!-- <AuthorSearch></AuthorSearch> -->
-                        <!-- <button class="btn btn-large">
-                    Ajouter nouveau auteur
-                </button> -->
-
                         <label for="authorId" class="form-label required">{{
                             t("admin.bookForm.author")
                         }}</label>
-                        <!-- <multiselect
-                    v-model.number="inputs.authorList"
-                    :options="testOptions"
-                >
-                    /></multiselect
-                > -->
-                        <select
-                            v-model.number="inputs.authorList"
-                            name="authorId"
-                            id="authorId"
-                            class="form-select"
-                            size="4"
-                            multiple
-                        >
-                            <AuthorLabelValue :items="author_list" />
-                        </select>
+                        <SearchMultiSelect
+                            :authorList="inputs.authorList"
+                            @updateAuthorList="updateAuthorList"
+                        />
                         <ValidationMessage :model="v$.authorList" />
                     </div>
                     <div class="col-md-12 mb-3">
@@ -385,11 +371,12 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                             @change="handleImageUpload"
                         />
                         <ValidationMessage :model="v$.coverImageUrl" />
-                        <div v-if="inputs.coverImageUrl && !newImage">
+                        <div>
                             <img
+                                v-if="inputs.coverImageUrl && !newImage"
                                 :src="baseUrl + inputs.coverImageUrl"
                                 alt="Selected Image"
-                                style="max-width: 100%; height: auto"
+                                class="image-update"
                             />
                         </div>
                     </div>
