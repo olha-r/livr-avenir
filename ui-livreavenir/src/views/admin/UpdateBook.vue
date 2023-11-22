@@ -227,7 +227,9 @@ const updateAuthorList = (value) => {
             class="justify-content-center align-items-center book-details-container"
         >
             <div class="text-center">
-                <h3>{{ t("admin.bookForm.titleUpdate") }} titre de livre</h3>
+                <h3>
+                    {{ t("admin.bookForm.titleUpdate") }}
+                </h3>
             </div>
             <form novalidate @submit.prevent="update_book">
                 <div class="row">
@@ -260,7 +262,7 @@ const updateAuthorList = (value) => {
 
                     <div class="col-md-12 mb-3">
                         <label for="authorId" class="form-label required">{{
-                            t("admin.bookForm.author")
+                            t("admin.bookForm.author.label")
                         }}</label>
                         <SearchMultiSelect
                             :authorList="inputs.authorList"
@@ -272,7 +274,7 @@ const updateAuthorList = (value) => {
                         <!-- <PublisherSearch></PublisherSearch> -->
                         <div class="col-md-12 mb-3">
                             <label for="edition" class="form-label required">{{
-                                t("admin.bookForm.publisher")
+                                t("admin.bookForm.publisher.label")
                             }}</label>
                             <select
                                 v-model.number="inputs.publisher"
@@ -280,7 +282,7 @@ const updateAuthorList = (value) => {
                                 class="form-select"
                             >
                                 <option selected disabled value="0">
-                                    Choisir publisher...
+                                    {{ t("admin.bookForm.publisher.option") }}
                                 </option>
                                 <LabelValues :items="publisher_list" />
                             </select>
@@ -317,7 +319,7 @@ const updateAuthorList = (value) => {
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="languageId" class="form-label required">{{
-                            t("admin.bookForm.language")
+                            t("admin.bookForm.language.label")
                         }}</label>
                         <select
                             v-model.number="inputs.languageId"
@@ -325,7 +327,7 @@ const updateAuthorList = (value) => {
                             class="form-select"
                         >
                             <option selected disabled value="0">
-                                Choisir langue...
+                                {{ t("admin.bookForm.language.option") }}
                             </option>
                             <LabelValues :items="list_languages" />
                         </select>
@@ -333,7 +335,7 @@ const updateAuthorList = (value) => {
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="categoryId" class="form-label required">{{
-                            t("admin.bookForm.category")
+                            t("admin.bookForm.category.label")
                         }}</label>
                         <select
                             v-model.number="inputs.categoryId"
@@ -341,7 +343,7 @@ const updateAuthorList = (value) => {
                             class="form-select"
                         >
                             <option selected disabled value="0">
-                                Choisir category...
+                                {{ t("admin.bookForm.category.option") }}
                             </option>
                             <LabelValues :items="list_categories" />
                         </select>
@@ -388,7 +390,7 @@ const updateAuthorList = (value) => {
                         type="submit"
                         class="btn btn-lg btn-primary col-md-4 col-12 my-3"
                     >
-                        {{ t("admin.bookForm.buttonCreate") }}
+                        {{ t("admin.bookForm.buttonUpdate") }}
                     </button>
                 </div>
             </form>

@@ -68,10 +68,10 @@ const onSubmit = async () => {
             }
         } else {
             pageStore.alert.type = "error";
-            pageStore.alert.message = `Nous n'avons pas pu trouvé utilisateur ${user.email}.`;
+            pageStore.alert.message = `Nous n'avons pas pu trouver l'utilisateur ${user.email}.`;
             pageStore.alert.show = true;
             console.log(
-                `Nous n'avons pas pu trouvé utilisateur ${user.email}.`
+                `Nous n'avons pas pu trouver l'utilisateur ${user.email}.`
             );
             setTimeout(() => {
                 pageStore.alert.show = false;

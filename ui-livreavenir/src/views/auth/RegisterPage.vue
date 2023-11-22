@@ -102,11 +102,11 @@ const onSubmit = async () => {
             v$.value.$reset();
             router.push("/auth/login");
             pageStore.alert.type = "success";
-            pageStore.alert.message = `Utilisateur ${user.email} a été créer avec success. Vous pouvez vou connecter.`;
+            pageStore.alert.message = `Utilisateur ${user.email} a été créé avec succès. Vous pouvez vous connecter.`;
             pageStore.alert.show = true;
             setTimeout(() => {
                 pageStore.alert.show = false;
-            }, 3000);
+            }, 5000);
         } else {
             alert(`Nous n'avons pas pu créer utilisateur ${user.email}.`);
         }

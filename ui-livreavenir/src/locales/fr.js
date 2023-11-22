@@ -18,7 +18,7 @@ const frMessages = {
     admin: {
         bookForm: {
             titleCreate: "Ajouter un livre",
-            titleUpdate: "Modifier ",
+            titleUpdate: "Modifier",
             isbn: "ISBN",
             bookTitle: "Titre du livre",
             author: {
