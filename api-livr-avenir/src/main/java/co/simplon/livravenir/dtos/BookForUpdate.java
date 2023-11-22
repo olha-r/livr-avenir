@@ -1,24 +1,36 @@
 package co.simplon.livravenir.dtos;
 
-public interface BookForUpdate {
+import java.util.Set;
 
-    String getId();
+public class BookForUpdate {
 
-    String getIsbn();
+    private BookDetail book;
 
-    String getTitle();
+    private Set<AuthorDetail> listAuthor;
 
-    String getPublicationYear();
+    public BookForUpdate() {
+    }
 
-    String getPageCount();
+    public BookDetail getBook() {
+	return book;
+    }
 
-    String getSummary();
+    public void setBook(BookDetail book) {
+	this.book = book;
+    }
 
-    String getCoverImageUrl();
+    public Set<AuthorDetail> getListAuthor() {
+	return listAuthor;
+    }
 
-    LabelValue getCategory();
+    public void setListAuthor(
+	    Set<AuthorDetail> listAuthor) {
+	this.listAuthor = listAuthor;
+    }
 
-    LabelValue getPublisher();
-
-    LabelValue getLanguage();
+    @Override
+    public String toString() {
+	return String.format("{book=%s, listAuthor=%s}",
+		book, listAuthor);
+    }
 }

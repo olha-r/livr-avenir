@@ -1,7 +1,8 @@
 <template>
     <div>
         <Multiselect
-            v-model.trim="authorList"
+            v-model.trim="authorIdList"
+            :model-value="props.authorList"
             mode="tags"
             :options="options"
             :searchable="true"
@@ -11,16 +12,20 @@
 </template>
   
 <script setup>
-import { AuthorStore } from "../../stores/author-store";
+import { useAuthorStore } from "../../stores/author-store";
 import { storeToRefs } from "pinia";
 import Multiselect from "@vueform/multiselect";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, toRef, watch } from "vue";
 const props = defineProps(["authorList"]);
-const authorStoreObj = AuthorStore();
-const authorList = [];
-const { author_list } = storeToRefs(authorStoreObj);
+const authorStore = useAuthorStore();
+const { author_list } = storeToRefs(authorStore);
 const options = ref([]);
 const emit = defineEmits(["updateAuthorList"]);
+const authorIdList = ref([]);
+const authorsRo = toRef(props, "authorList"); // react to prop
+watch(authorsRo, (value) => {
+    authorIdList.value = authorsRo.value; // OK, textEnvoye is yours
+});
 const getOptions = () => {
     const author_options = author_list.value;
     for (const author of author_options) {
@@ -31,7 +36,7 @@ const getOptions = () => {
     }
 };
 onMounted(async () => {
-    await authorStoreObj.get_author_list();
+    await authorStore.get_author_list();
     getOptions();
 });
 const updateAuthorList = (value) => {

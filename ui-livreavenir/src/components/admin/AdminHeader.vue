@@ -1,6 +1,9 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useAuthStore } from "../../stores/auth-store";
+import { useAuthStore } from "@/stores/auth-store";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 const authStore = useAuthStore();
 const { isLoggedIn, userFullName } = storeToRefs(authStore);
 const logout = () => {
@@ -21,11 +24,18 @@ const logout = () => {
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
+                        <li class="nav-item">
+                            <RouterLink
+                                class="nav-link"
+                                :to="{ name: 'home' }"
+                                >{{ t("navbar.homePageItem") }}</RouterLink
+                            >
+                        </li>
                         <li>
                             <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'admin-dashboard' }"
-                                >Livres</RouterLink
+                                >{{ t("navbarAdmin.bookItem") }}</RouterLink
                             >
                         </li>
                         <li>
@@ -33,13 +43,15 @@ const logout = () => {
                                 <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'manage-users' }"
-                                >Users</RouterLink
+                                >{{ t("navbarAdmin.userItem") }}</RouterLink
                                 >
                             </li> -->
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-text me-5">Bonjour, {{ userFullName }}!</div>
+                <div class="navbar-text me-5" v-if="isLoggedIn">
+                    {{ t("navbarAdmin.hello") }}, {{ userFullName }}!
+                </div>
 
                 <div class="navbar-text">
                     <a href="#" @click="logout">
