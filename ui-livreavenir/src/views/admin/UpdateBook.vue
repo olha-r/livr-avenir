@@ -149,16 +149,18 @@ onMounted(async () => {
     await bookStore.get_book_for_update(bookId.value);
     // Set the form inputs with the fetched data
     const bookDetails = bookStore.book_for_update;
-    inputs.isbn = bookDetails.isbn || null;
-    inputs.title = bookDetails.title || null;
-    inputs.publicationYear = bookDetails.publicationYear || null;
-    inputs.pageCount = bookDetails.pageCount || null;
-    inputs.summary = bookDetails.summary || null;
-    inputs.publisher = bookDetails.publisher.id || null;
-    inputs.categoryId = bookDetails.category.id || null;
-    inputs.languageId = bookDetails.language.id || null;
-    inputs.coverImageUrl = bookDetails.coverImageUrl || null;
-    inputs.authorList = bookDetails.authorList || [];
+    console.log(bookDetails);
+    inputs.isbn = bookDetails.book.isbn || null;
+    inputs.title = bookDetails.book.title || null;
+    inputs.publicationYear = bookDetails.book.publicationYear || null;
+    inputs.pageCount = bookDetails.book.pageCount || null;
+    inputs.summary = bookDetails.book.summary || null;
+    inputs.publisher = bookDetails.book.publisher.id || null;
+    inputs.categoryId = bookDetails.book.category.id || null;
+    inputs.languageId = bookDetails.book.language.id || null;
+    inputs.coverImageUrl = bookDetails.book.coverImageUrl || null;
+    const idArray = bookDetails.listAuthor.map((author) => author.id);
+    inputs.authorList = idArray || [];
     // Fetch other necessary data
     addBookStoreObj.get_list_languages();
     addBookStoreObj.get_list_categories();
