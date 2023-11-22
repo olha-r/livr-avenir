@@ -25,4 +25,6 @@ public interface BookRepository
 
     boolean existsByIsbn(String string);
 
+    Set<BookDetail> findAllForUpdateProjectedBy();
+
 }

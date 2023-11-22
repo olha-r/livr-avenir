@@ -255,7 +255,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookForUpdate forUpdate(Long id) {
-	return books.findProjectedById(id);
+	BookDetail book = books.findProjectedDetailById(id);
+	Set<AuthorDetail> authorList = authors
+		.retrieveBookAuthors(id);
+	BookForUpdate bookDetail = new BookForUpdate();
+	bookDetail.setListAuthor(authorList);
+	bookDetail.setBook(book);
+	return bookDetail;
     }
 
     @Override
