@@ -1,12 +1,14 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth-store";
-import { ref, computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
-const { isAdmin } = storeToRefs(authStore);
+const { isAdmin, isLoggedIn, userFullName } = storeToRefs(authStore);
 const { t } = useI18n();
+const logout = () => {
+    authStore.logout();
+};
 </script>
 
 <template>
@@ -32,13 +34,6 @@ const { t } = useI18n();
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item" v-if="isAdmin">
-                            <RouterLink
-                                class="nav-link"
-                                :to="{ name: 'admin-dashboard' }"
-                                >{{ t("navbar.adminItem") }}</RouterLink
-                            >
-                        </li>
                         <li class="nav-item">
                             <RouterLink
                                 class="nav-link"
@@ -46,29 +41,42 @@ const { t } = useI18n();
                                 >{{ t("navbar.homePageItem") }}</RouterLink
                             >
                         </li>
+                        <li class="nav-item" v-if="isLoggedIn && isAdmin">
+                            <RouterLink
+                                class="nav-link"
+                                :to="{ name: 'admin-dashboard' }"
+                                >{{ t("navbar.adminItem") }}</RouterLink
+                            >
+                        </li>
                     </ul>
 
                     <div class="navbar-header navbar-right pull-right">
                         <ul class="nav navbar-nav navbar-right pull-right">
-                            <li class="nav-item">
+                            <li class="nav-item" v-if="!isLoggedIn">
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'register' }"
                                     >{{ t("navbar.signUp") }}</RouterLink
                                 >
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" v-if="!isLoggedIn">
                                 <RouterLink
                                     class="nav-link"
                                     :to="{ name: 'login' }"
                                     >{{ t("navbar.login") }}</RouterLink
                                 >
                             </li>
+
                             <!-- <li>
                             <i class="bi bi-person-circle"></i>
                         </li> -->
                         </ul>
                     </div>
+                </div>
+                <div class="navbar-text">
+                    <a href="#" @click="logout" v-if="isLoggedIn">
+                        <i class="bi bi-box-arrow-right fs-2 logout me-4"></i>
+                    </a>
                 </div>
             </div>
         </nav>

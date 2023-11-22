@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import {AuthHttp} from "../services/AuthHttp";
+import {AuthHttp} from "@/services/AuthHttp";
 import { useStorage } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth-store', {

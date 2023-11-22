@@ -8,7 +8,7 @@ import { storeToRefs } from "pinia";
 import { AddBookFormStore } from "../../stores/add-book-form-store";
 import { BookStore } from "../../stores/book-store";
 import { useAuthStore } from "../../stores/auth-store";
-import { AuthorStore } from "../../stores/author-store";
+import { useAuthorStore } from "../../stores/author-store";
 import { usePageStore } from "../../stores/page-store";
 import { publisherStore } from "../../stores/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
@@ -134,14 +134,14 @@ const addBookStoreObj = AddBookFormStore();
 const { list_languages, list_categories } = storeToRefs(addBookStoreObj);
 const publisherStoreObj = publisherStore();
 const { publisher_list } = storeToRefs(publisherStoreObj);
-const authorStoreObj = AuthorStore();
-const { author_list } = storeToRefs(authorStoreObj);
+const authorStore = useAuthorStore();
+const { author_list } = storeToRefs(authorStore);
 onMounted(() => {
     console.log("Add book page token", token);
     addBookStoreObj.get_list_languages();
     addBookStoreObj.get_list_categories();
     publisherStoreObj.get_publisher_list();
-    authorStoreObj.get_author_list();
+    authorStore.get_author_list();
 });
 
 const authStoreObj = useAuthStore();

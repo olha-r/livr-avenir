@@ -1,9 +1,10 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useAuthStore } from "../../stores/auth-store";
-const authStore = useAuthStore();
+import { useAuthStore } from "@/stores/auth-store";
 import { useI18n } from "vue-i18n";
+
 const { t } = useI18n();
+const authStore = useAuthStore();
 const { isLoggedIn, userFullName } = storeToRefs(authStore);
 const logout = () => {
     authStore.logout();
@@ -23,6 +24,13 @@ const logout = () => {
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
+                        <li class="nav-item">
+                            <RouterLink
+                                class="nav-link"
+                                :to="{ name: 'home' }"
+                                >{{ t("navbar.homePageItem") }}</RouterLink
+                            >
+                        </li>
                         <li>
                             <RouterLink
                                 class="nav-link"
@@ -41,7 +49,7 @@ const logout = () => {
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-text me-5">
+                <div class="navbar-text me-5" v-if="isLoggedIn">
                     {{ t("navbarAdmin.hello") }}, {{ userFullName }}!
                 </div>
 

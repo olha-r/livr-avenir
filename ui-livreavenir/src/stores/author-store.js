@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import {AuthorHttp} from "../services/AuthorHttp";
 
-export const AuthorStore = defineStore('author-store', {
+export const useAuthorStore = defineStore('author-store', {
     state: () => ({
         author_list: [],
     }),
