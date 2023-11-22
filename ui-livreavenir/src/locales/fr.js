@@ -1,7 +1,7 @@
 const frMessages = {
     homepage: {
       mainTitle: "Livr'avenir",
-      title: "Derniers livres ajoutés récemment"
+      title: "Explorez nos livres"
 
     },
     navbar: {
@@ -20,15 +20,27 @@ const frMessages = {
             titleCreate: "Ajouter un livre",
             titleUpdate: "Modifier ",
             isbn: "ISBN",
-            bookTitle: "Titre de livre",
-            author: "Auteur(s)",
-            publisher: "Edition",
-            publicationYear: "L'année de publication",
+            bookTitle: "Titre du livre",
+            author: {
+                label: "Auteur(s)",
+                option: "Sélectionner un auteur"
+            },
+            publisher: {
+                label: "Éditeur",
+                option: "Sélectionner un éditeur"
+            },
+            publicationYear: "Année de publication",
             pageCount: "Nombre de pages",
-            language: "Langue",
-            category: "Categorie",
+            language: {
+                label: "Langue",
+                option: "Sélectionner une langue"
+            },
+            category: {
+                label: "Catégorie",
+                option: "Sélectionner une catégorie"
+            },
             summary: "Description",
-            imageCreate: "Ajouter l'image de votre livre",
+            imageCreate: "Ajouter la couverture du livre",
             imageUpdate: "Nouvelle image",
             buttonCreate: "Ajouter",
             buttonUpdate: "Modifier",
@@ -36,16 +48,16 @@ const frMessages = {
         },
         dashboard: {
             title: "Livres disponibles",
-            addBookBtn: "Ajouter livre",
+            addBookBtn: "Ajouter un livre",
             table: {
                 isbn: "ISBN",
                 bookTitle: "Titre",
                 author: "Auteur(s)",
-                publisher: "Edition",
-                publicationYear: "L'année de publication",
+                publisher: "Éditeur",
+                publicationYear: "Année de publication",
                 pageCount: "Nombre de pages",
                 language: "Langue",
-                category: "Categorie",
+                category: "Catégorie",
                 summary: "Description",
                 image: "Image",
                 actions: "Actions"
@@ -55,26 +67,25 @@ const frMessages = {
         }
     },
     signUpForm: {
-            title: "Créer un compte",
+            title: "S'inscrire",
             firstName: "Prénom",
             lastName: "Nom",
             email: {
                 label:"Email",
-                helpText: "ex.: prenom.nom{'@'}domain.com"
+                helpText: "ex. : prenom.nom{'@'}domain.com"
             },
             password: 
             {
                 label: "Mot de passe",
-                helpText: "Au moins 1 majuscule et 1 miniscule, au moins un nombre au moins 1 de {'!@#%&*?'}"
+                helpText: "Au moins une majuscule, une minuscule, un chiffre, et un caractère spécial parmi {'!@#%&*?'}"
             },
             confirmPassword: "Confirmer le mot de passe",
-            button: "Créer"
+            button: "S'inscrire"
     },
     signIn: {
             title: "Se connecter",
             email: "Email",
             password:  "Mot de passe",
-            
             button: "Se connecter"
     }
   };
