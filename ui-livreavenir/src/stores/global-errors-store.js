@@ -8,6 +8,7 @@ export const useGlobalStore = defineStore('global', {
   actions: {
     setError(message) {
       this.error = message;
+      console.log("Error" + this.error);
     },
 
     clearError() {

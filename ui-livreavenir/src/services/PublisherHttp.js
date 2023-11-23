@@ -1,5 +1,4 @@
-import {http} from './http-common';
-
+import {http} from './axios';
 export class PublisherHttp {
     
     async get_publisher_list() {

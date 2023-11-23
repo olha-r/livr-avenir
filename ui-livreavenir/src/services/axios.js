@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useGlobalStore } from '../stores/global-errors-store';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // const HEADERS = [{
@@ -7,7 +8,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 //           }];
 const ACCEPTED_STATUS = [200, 201, 202, 204, 400];
 
-export const http = axios.create({
+const http = axios.create({
         baseURL: BASE_URL,
         validateStatus: (status) => {
             return ACCEPTED_STATUS.includes(status);
@@ -36,7 +37,7 @@ export const http = axios.create({
         },
         (error) => {
           // Handle response error
-          const store = useStore();
+          const store = useGlobalStore();
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -52,5 +53,6 @@ export const http = axios.create({
         }
       );
    
+      export {http};
 
     
