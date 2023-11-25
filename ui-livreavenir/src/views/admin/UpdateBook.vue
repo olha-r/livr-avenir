@@ -1,30 +1,28 @@
 <script setup>
-import { useRouter, useRoute } from "vue-router";
-import LabelValues from "../../components/commons/LabelValues.vue";
-import AuthorLabelValue from "../../components/commons/AuthorLabelValue.vue";
 import { onMounted, reactive, computed, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
-import { AddBookFormStore } from "../../stores/add-book-form-store";
 import { BookStore } from "../../stores/book-store";
 import { useAuthorStore } from "../../stores/author-store";
 import { usePageStore } from "../../stores/page-store";
 import { publisherStore } from "../../stores/publisher-store";
 import { useVuelidate } from "@vuelidate/core";
 import { useAuthStore } from "../../stores/auth-store";
-import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
+import { AddBookFormStore } from "../../stores/add-book-form-store";
 import {
     required,
-    requiredIf,
     minLength,
     maxLength,
     numeric,
     helpers,
 } from "@vuelidate/validators";
+import LabelValues from "../../components/commons/LabelValues.vue";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
+import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
 import { useI18n } from "vue-i18n";
+
 const { t } = useI18n();
 const requiredMessage = "Veuillez renseigner ce champ.";
-
 const route = useRoute();
 const bookId = ref(route.params.id);
 const router = useRouter();
@@ -38,19 +36,18 @@ const inputs = reactive({
     categoryId: null,
     languageId: null,
     authorList: [],
-    coverImageUrl: undefined,
+    coverImageUrl: null,
 });
-
 const rules = computed(() => {
     return {
         isbn: {
             required: helpers.withMessage(requiredMessage, required),
             minLength: helpers.withMessage(
-                "Veuillez saisir au moins 10 caractères.",
+                "Veuillez saisir 10 ou 13 caractères.",
                 minLength(10)
             ),
             maxLength: helpers.withMessage(
-                "Veuillez saisir moins 10 ou 13 caractères.",
+                "Veuillez saisir 10 ou 13 caractères.",
                 maxLength(13)
             ),
             numeric: helpers.withMessage(
@@ -121,19 +118,13 @@ const rules = computed(() => {
             },
         ],
         coverImageUrl: {
-            required: helpers.withMessage(
-                "Veuillez ajouter une image.",
-                requiredIf(() => {
-                    return inputs.coverImageUrl === undefined;
-                })
-            ),
-            maxValue: (coverImageUrl) => {
-                return coverImageUrl ? coverImageUrl.size <= 1048576 : true;
-            },
+            // maxValue: (coverImageUrl) => {
+            //     return coverImageUrl ? coverImageUrl.size <= 1048576 : true;
+            // },
         },
     };
 });
-
+const image = ref("");
 const v$ = useVuelidate(rules, inputs);
 const addBookStoreObj = AddBookFormStore();
 const { list_languages, list_categories } = storeToRefs(addBookStoreObj);
@@ -158,7 +149,8 @@ onMounted(async () => {
     inputs.publisher = bookDetails.book.publisher.id || null;
     inputs.categoryId = bookDetails.book.category.id || null;
     inputs.languageId = bookDetails.book.language.id || null;
-    inputs.coverImageUrl = bookDetails.book.coverImageUrl || null;
+    //inputs.coverImageUrl = bookDetails.book.coverImageUrl || null;
+    image.value = bookDetails.book.coverImageUrl || null;
     const idArray = bookDetails.listAuthor.map((author) => author.id);
     inputs.authorList = idArray || [];
     // Fetch other necessary data
@@ -171,6 +163,8 @@ const authStoreObj = useAuthStore();
 const { token } = authStoreObj;
 const update_book = async () => {
     await v$.value.$validate();
+    console.log(v$.value.$error);
+    console.log("FORM DATA", inputs);
     if (!v$.value.$error) {
         // Similar to your add_new_book function, but now use bookStore.update_book instead
         const formData = new FormData();
@@ -183,8 +177,10 @@ const update_book = async () => {
         formData.append("categoryId", inputs.categoryId);
         formData.append("languageId", inputs.languageId);
         formData.append("authorList", inputs.authorList);
-        formData.append("coverImageUrl", inputs.coverImageUrl);
-
+        if (inputs.coverImageUrl != null) {
+            formData.append("coverImageUrl", inputs.coverImageUrl);
+        }
+        console.log("FORM DATA", formData);
         const resp = await bookStore.update_book(bookId.value, formData, token);
 
         if (resp.status === 204) {
@@ -377,8 +373,8 @@ const updateAuthorList = (value) => {
                         <ValidationMessage :model="v$.coverImageUrl" />
                         <div>
                             <img
-                                v-if="inputs.coverImageUrl && !newImage"
-                                :src="baseUrl + inputs.coverImageUrl"
+                                v-if="image && !newImage"
+                                :src="baseUrl + image"
                                 alt="Selected Image"
                                 class="image-update"
                             />

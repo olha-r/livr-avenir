@@ -1,9 +1,6 @@
 <script setup>
-import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
-import { useRouter } from "vue-router";
-import LabelValues from "../../components/commons/LabelValues.vue";
-import AuthorLabelValue from "../../components/commons/AuthorLabelValue.vue";
 import { onMounted, reactive, computed } from "vue";
+import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { AddBookFormStore } from "../../stores/add-book-form-store";
 import { BookStore } from "../../stores/book-store";
@@ -20,11 +17,13 @@ import {
     numeric,
     helpers,
 } from "@vuelidate/validators";
+import LabelValues from "../../components/commons/LabelValues.vue";
+import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
 import { useI18n } from "vue-i18n";
+
 const { t } = useI18n();
 const requiredMessage = "Veuillez renseigner ce champ.";
-
 const inputs = reactive({
     isbn: null,
     title: null,
@@ -42,7 +41,7 @@ const rules = computed(() => {
         isbn: {
             required: helpers.withMessage(requiredMessage, required),
             minLength: helpers.withMessage(
-                "Veuillez saisir au moins 10 caractères.",
+                "Veuillez saisir 10 ou 13 caractères.",
                 minLength(10)
             ),
             maxLength: helpers.withMessage(
