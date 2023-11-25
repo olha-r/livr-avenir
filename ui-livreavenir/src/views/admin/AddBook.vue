@@ -172,8 +172,8 @@ const add_new_book = async () => {
             pageStore.alert.message = `Livre a été créé avec succès.`;
             pageStore.alert.show = true;
             console.log(`Livre a été créé avec succès.`);
+            router.push("/admin");
             setTimeout(() => {
-                router.push("/admin");
                 pageStore.alert.show = false;
             }, 5000); // Redirect after 3 seconds
         } else {
@@ -183,7 +183,7 @@ const add_new_book = async () => {
             console.error(`Nous n'avons pas pu créer le livre.`);
             setTimeout(() => {
                 pageStore.alert.show = false;
-            }, 5000);
+            }, 3000);
         }
     } else {
         console.log("There are errors");
