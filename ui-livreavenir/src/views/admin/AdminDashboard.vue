@@ -135,17 +135,13 @@ const openBookModal = (book) => {
                                 }"
                                 title="Update book"
                             >
-                                <i
-                                    class="bi bi-pencil-square fs-4 me-2"
-                                    @click.stop="() => openBookModal(item.book)"
-                                ></i>
+                                <i class="bi bi-pencil-square fs-4 me-2"></i>
                             </RouterLink>
                         </td>
                         <td>
                             <a
                                 href="#"
                                 @click="remove(item.book.id)"
-                                @click.stop="() => openBookModal(item.book)"
                                 class="mx-3"
                             >
                                 <i class="bi bi-trash3 text-danger fs-4"></i
