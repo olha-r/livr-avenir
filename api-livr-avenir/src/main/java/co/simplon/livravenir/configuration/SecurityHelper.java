@@ -1,5 +1,6 @@
 package co.simplon.livravenir.configuration;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -14,10 +15,16 @@ public final class SecurityHelper {
      *
      * @return the id of the authenticated user
      */
-    public static String authenticatedUser() {
-	Authentication auth = SecurityContextHolder
+    public static Long getCurrentAuthenticatedUser() {
+	Authentication authentication = SecurityContextHolder
 		.getContext().getAuthentication();
-	String userName = auth.getName();
-	return userName;
+	Long currentUserId = null;
+	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+	    String authenticatedUserId = authentication
+		    .getName();
+	    currentUserId = Long
+		    .parseLong(authenticatedUserId);
+	}
+	return currentUserId;
     }
 }

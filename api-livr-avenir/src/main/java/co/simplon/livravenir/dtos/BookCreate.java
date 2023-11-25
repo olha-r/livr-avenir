@@ -14,11 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.livravenir.customValidation.ImageSize;
 import co.simplon.livravenir.customValidation.ImageType;
+import co.simplon.livravenir.customValidation.UniqueIsbn;
 
 public class BookCreate {
 
     @NotBlank
     @Size(min = 10, max = 13)
+    @UniqueIsbn
     private String isbn;
 
     @NotBlank
@@ -59,7 +61,6 @@ public class BookCreate {
     private Set<Long> authorList = new HashSet<>();
 
     public BookCreate() {
-	// Required no-arg constructor
     }
 
     public String getIsbn() {

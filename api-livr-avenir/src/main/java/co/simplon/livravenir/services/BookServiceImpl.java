@@ -5,13 +5,11 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.simplon.livravenir.configuration.SecurityHelper;
 import co.simplon.livravenir.dtos.AuthorDetail;
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookDetail;
@@ -99,7 +97,13 @@ public class BookServiceImpl implements BookService {
 	Publisher publisher = publishers
 		.getReferenceById(inputs.getPublisher());
 	entity.setPublisher(publisher);
-	User user = getCurrentAuthenticatedUser();
+	User user = null;
+	Long authenticatedUserId = SecurityHelper
+		.getCurrentAuthenticatedUser();
+	if (authenticatedUserId != null) {
+	    user = users
+		    .getReferenceById(authenticatedUserId);
+	}
 	entity.setUser(user);
 	MultipartFile file = inputs.getCoverImageUrl();
 	String baseName = UUID.randomUUID().toString();
@@ -108,23 +112,6 @@ public class BookServiceImpl implements BookService {
 	Book savedBook = books.save(entity);
 	addBookAuthors(inputs.getAuthorList(), savedBook);
 
-    }
-
-    private User getCurrentAuthenticatedUser() {
-	User user = null;
-	Authentication authentication = SecurityContextHolder
-		.getContext().getAuthentication();
-	Long currentUserId = null;
-	if (!(authentication instanceof AnonymousAuthenticationToken)) {
-	    String authenticatedUserId = authentication
-		    .getName();
-	    currentUserId = Long
-		    .parseLong(authenticatedUserId);
-	}
-	if (currentUserId != null) {
-	    user = users.getReferenceById(currentUserId);
-	}
-	return user;
     }
 
     private void addBookAuthors(Set<Long> authorList,
