@@ -51,7 +51,7 @@ export const BookStore = defineStore('book-store', {
             const promise = await bookHttp.delete_book(book_id, token);
             console.log("PROMISE", promise);
             if(promise.status== 204){
-                this.get_last_added_books();
+                this.get_book_list_admin();
             }
             return promise; 
         },
@@ -60,7 +60,7 @@ export const BookStore = defineStore('book-store', {
             const promise = await bookHttp.update_book(book_id, payload, token);
             console.log("PROMISE", promise);
             if(promise.status== 204){
-                this.get_last_added_books();
+                this.get_book_list_admin();
             }
             return promise; 
         }

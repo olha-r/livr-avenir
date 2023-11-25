@@ -175,7 +175,7 @@ const add_new_book = async () => {
             router.push("/admin");
             setTimeout(() => {
                 pageStore.alert.show = false;
-            }, 5000); // Redirect after 3 seconds
+            }, 5000);
         } else {
             pageStore.alert.type = "error";
             pageStore.alert.message = `Nous n'avons pas pu créer le livre.`;
