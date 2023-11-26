@@ -116,7 +116,7 @@ CREATE TABLE books (
     isbn VARCHAR(13) UNIQUE NOT NULL, 
     title VARCHAR(200) NOT NULL,
     publication_year VARCHAR(4) NOT NULL,
-    cover_image_url VARCHAR(300),
+    cover_image_url VARCHAR(300) NOT NULL,
     page_count VARCHAR(5) NOT NULL,
     summary VARCHAR(1000) NOT NULL,
     publisher_id INTEGER NOT NULL,
