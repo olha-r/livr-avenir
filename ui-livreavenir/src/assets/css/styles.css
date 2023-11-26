@@ -166,3 +166,6 @@ h3 {
     background-color: var(--dark-orange-color)!important;
 }
   
+.bg-danger {
+    background-color: #CD5C5C !important;
+}

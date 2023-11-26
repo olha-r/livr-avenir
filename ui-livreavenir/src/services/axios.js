@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { useGlobalStore } from '../stores/global-errors-store';
+import {useAuthStore} from '../stores/auth-store'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-// const HEADERS = [{
-//             'Accept': 'application/json',
-//             'Authorization': 'Bearer {token}'
-//           }];
 const ACCEPTED_STATUS = [200, 201, 202, 204, 400];
 
 const http = axios.create({
@@ -13,14 +10,17 @@ const http = axios.create({
         validateStatus: (status) => {
             return ACCEPTED_STATUS.includes(status);
         },
-        // HEADERS
     });
 
     http.interceptors.request.use(
     (config) => {
-      const token = "";
+        const authStore = useAuthStore();
+
+      const token = authStore.token;
       if (token) {
+        console.log("Token from axios");
         config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Accept = 'application/json';
       }
       return config;
     },
@@ -36,23 +36,23 @@ const http = axios.create({
         return { status: status, body: body };
         },
         (error) => {
-          // Handle response error
           const store = useGlobalStore();
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            store.setError(error.response.data.message || 'An error occurred');
-          } else if (error.request) {
-            // The request was made but no response was received
-            store.setError('No response from the server');
-          } else {
-            // Something happened in setting up the request that triggered an Error
+          console.log('error', error);
+          if (error?.response?.data) {
+            store.setError(error.response.data);
+            setTimeout(() => {
+                store.clearError();
+            }, 5000);
+        } else {
             store.setError('An error occurred');
+            setTimeout(() => {
+                store.clearError();
+            }, 5000);
           }
           return Promise.reject(error);
         }
       );
    
-      export {http};
+export {http};
 
     

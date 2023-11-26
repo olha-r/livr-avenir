@@ -10,11 +10,13 @@ const { error } = storeToRefs(store);
 <template>
     <div>
         <HeaderComponent />
-        <div
-            v-if="error"
-            class="col-2 error-message text-center text-white p-3 bg-danger mt-3"
-        >
-            {{ error }}
+        <div>
+            <div
+                v-if="error"
+                class="text-center alert alert-danger container mt-3 p-3 mt-3"
+            >
+                {{ error }}
+            </div>
         </div>
         <NotificationComponent />
         <RouterView />

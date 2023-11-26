@@ -5,7 +5,7 @@ export class BookHttp {
     async add_new_book(payload, token) {
         const url = `/books`;
         const headers ={
-              Authorization: `Bearer ${token}`
+            //   Authorization: `Bearer ${token}`
             };
         headers['Content-Type'] = 'multipart/form-data';
         const response = await http.post(url, payload, {headers});
