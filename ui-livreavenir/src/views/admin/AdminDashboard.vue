@@ -28,7 +28,7 @@ const remove = async (id) => {
         console.log(`Livre a été supprimé avec success.`);
         setTimeout(() => {
             pageStore.alert.show = false;
-        }, 5000); // Redirect after 3 seconds
+        }, 6000); // Redirect after 3 seconds
     } else {
         pageStore.alert.type = "error";
         pageStore.alert.message = `Nous n'avons pas pu supprimer le livre.`;
@@ -36,7 +36,7 @@ const remove = async (id) => {
         console.error(`Nous n'avons pas pu supprimer le livre.`);
         setTimeout(() => {
             pageStore.alert.show = false;
-        }, 5000); // Redirect after 3 seconds
+        }, 6000); // Redirect after 3 seconds
     }
 };
 let selectedBook = ref({});

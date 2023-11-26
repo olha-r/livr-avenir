@@ -56,7 +56,7 @@ const onSubmit = async () => {
                 pageStore.alert.show = true;
                 setTimeout(() => {
                     pageStore.alert.show = false;
-                }, 5000);
+                }, 7000);
             } else {
                 router.push("/");
                 pageStore.alert.type = "success";
@@ -64,7 +64,7 @@ const onSubmit = async () => {
                 pageStore.alert.show = true;
                 setTimeout(() => {
                     pageStore.alert.show = false;
-                }, 5000);
+                }, 6000);
             }
         }
         if (!resp) {
@@ -76,7 +76,7 @@ const onSubmit = async () => {
             );
             setTimeout(() => {
                 pageStore.alert.show = false;
-            }, 5000);
+            }, 6000);
         }
     } else {
         console.log("There are errors");
