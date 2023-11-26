@@ -40,10 +40,12 @@ const remove = async (id) => {
     }
 };
 let selectedBook = ref({});
-const openBookModal = (book) => {
+let selectedBookAuthorList = ref({});
+const openBookModal = async (book, listAuthor) => {
     selectedBook.value = book;
+    selectedBookAuthorList.value = listAuthor;
     const modal = new bootstrap.Modal(document.getElementById("bookModal"));
-    modal.show();
+    await modal.show();
 };
 </script>
 <template>
@@ -88,16 +90,19 @@ const openBookModal = (book) => {
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in bookListForAdmin" :key="index">
-                        <th scope="row" @click="openBookModal(item.book)">
+                        <th
+                            scope="row"
+                            @click="openBookModal(item.book, item.listAuthor)"
+                        >
                             {{ index + 1 }}
                         </th>
-                        <td @click="openBookModal(item.book)">
+                        <td @click="openBookModal(item.book, item.listAuthor)">
                             {{ item.book.isbn }}
                         </td>
-                        <td @click="openBookModal(item.book)">
+                        <td @click="openBookModal(item.book, item.listAuthor)">
                             {{ item.book.title }}
                         </td>
-                        <td @click="openBookModal(item.book)">
+                        <td @click="openBookModal(item.book, item.listAuthor)">
                             <span
                                 v-for="(author, authorIndex) in item.listAuthor"
                                 :key="authorIndex"
@@ -113,16 +118,16 @@ const openBookModal = (book) => {
                                 </span>
                             </span>
                         </td>
-                        <td @click="openBookModal(item.book)">
+                        <td @click="openBookModal(item.book, item.listAuthor)">
                             {{ item.book.publisher.name }}
                         </td>
-                        <td @click="openBookModal(item.book)">
+                        <td @click="openBookModal(item.book, item.listAuthor)">
                             <span
                                 class="badge text-bg-warning px-3 category-badge"
                                 >{{ item.book.category.name }}</span
                             >
                         </td>
-                        <td @click="openBookModal(item.book)">
+                        <td @click="openBookModal(item.book, item.listAuthor)">
                             <img
                                 :src="
                                     item.book.coverImageUrl
@@ -158,7 +163,7 @@ const openBookModal = (book) => {
             </table>
         </div>
 
-        <div class="modal fade" id="bookModal" tabindex="-1">
+        <!-- <div class="modal modal-lg fade" id="bookModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -171,9 +176,71 @@ const openBookModal = (book) => {
                             data-bs-dismiss="modal"
                         ></button>
                     </div>
-                    <div class="modal-body">
-                        <!-- Display book information  -->
-                        <p><strong>ISBN:</strong> {{ selectedBook.isbn }}</p>
+                    <div class="modal-body" v-if="selectedBook">
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.author")
+                            }}</strong>
+
+                            <span
+                                v-for="(
+                                    author, authorIndex
+                                ) in selectedBookAuthorList"
+                                :key="authorIndex"
+                            >
+                                {{ author.firstName }}
+                                {{ author.lastName }}
+                                <span
+                                    v-if="
+                                        authorIndex <
+                                        selectedBookAuthorList.length - 1
+                                    "
+                                    >,
+                                </span>
+                            </span>
+                        </p>
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.isbn")
+                            }}</strong>
+                            {{ selectedBook.isbn }}
+                        </p>
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.publisher")
+                            }}</strong>
+                            {{ selectedBook.publisher.name }}
+                        </p>
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.publicationYear")
+                            }}</strong>
+                            {{ selectedBook.publicationYear }}
+                        </p>
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.pageCount")
+                            }}</strong>
+                            {{ selectedBook.pageCount }}
+                        </p>
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.summary")
+                            }}</strong>
+                            {{ selectedBook.summary }}
+                        </p>
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.language")
+                            }}</strong>
+                            {{ selectedBook.language.name }}
+                        </p>
+                        <p>
+                            <strong>{{
+                                t("admin.dashboard.bookInfo.category")
+                            }}</strong>
+                            {{ selectedBook.category.name }}
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button
@@ -186,6 +253,6 @@ const openBookModal = (book) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </main>
 </template>

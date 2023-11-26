@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { BookStore } from "../stores/book-store";
@@ -10,7 +10,7 @@ const { book_details } = storeToRefs(bookStoreObj);
 const route = useRoute();
 const book_id = route.params.id;
 const imageUrl = ref("");
-onBeforeMount(async () => {
+onMounted(async () => {
     await bookStoreObj.get_book_details(book_id);
 });
 </script>

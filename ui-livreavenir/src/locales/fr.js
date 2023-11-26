@@ -54,16 +54,21 @@ const frMessages = {
                 bookTitle: "Titre",
                 author: "Auteur(s)",
                 publisher: "Éditeur",
-                publicationYear: "Année de publication",
-                pageCount: "Nombre de pages",
-                language: "Langue",
                 category: "Catégorie",
-                summary: "Description",
                 image: "Image",
                 actions: "Actions"
+            },
+            bookInfo: {
+                isbn: "ISBN :",
+                author: "Auteur(s) :",
+                publisher: "Éditeur :",
+                publicationYear: "Année de publication :",
+                pageCount: "Nombre de pages :",
+                language: "Langue :",
+                category: "Catégorie :",
+                summary: "Description :",
+                image: "Image :"
             }
-
-
         }
     },
     signUpForm: {

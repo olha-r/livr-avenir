@@ -66,12 +66,13 @@ const onSubmit = async () => {
                     pageStore.alert.show = false;
                 }, 5000);
             }
-        } else {
+        }
+        if (!resp) {
             pageStore.alert.type = "error";
-            pageStore.alert.message = `Nous n'avons pas pu trouver l'utilisateur ${user.email}.`;
+            pageStore.alert.message = `Le nom d'utilisateur ou le mot de passe est incorrect`;
             pageStore.alert.show = true;
             console.log(
-                `Nous n'avons pas pu trouver l'utilisateur ${user.email}.`
+                `Le nom d'utilisateur ou le mot de passe est incorrect`
             );
             setTimeout(() => {
                 pageStore.alert.show = false;

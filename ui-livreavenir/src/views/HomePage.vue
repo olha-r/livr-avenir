@@ -53,48 +53,43 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
                 v-for="(item, index) in lastAddedBooks"
                 :key="index"
             >
-                <a :href="`/books/${item.book.id}/detail`"
-                    ><div class="card mx-3 d-flex flex-column">
-                        <img
-                            :src="
-                                item.book.coverImageUrl
-                                    ? baseUrl + item.book.coverImageUrl
-                                    : baseUrl + 'default-image.jpg'
-                            "
-                            class="card-img-bottom"
-                            style="object-fit: cover"
-                            alt="Cover Image"
-                        />
+                <!-- <a :href="`/books/${item.book.id}/detail`"> -->
+                <div class="card mx-3 d-flex flex-column">
+                    <img
+                        :src="
+                            item.book.coverImageUrl
+                                ? baseUrl + item.book.coverImageUrl
+                                : baseUrl + 'default-image.jpg'
+                        "
+                        class="card-img-bottom"
+                        style="object-fit: cover"
+                        alt="Cover Image"
+                    />
 
-                        <div
-                            class="card-body d-flex flex-column justify-content-between"
-                        >
-                            <h6 class="card-title text-center">
-                                {{ item.book.title }}
-                            </h6>
-                            <div
-                                class="card-subtitle mb-2 text-muted text-center"
+                    <div
+                        class="card-body d-flex flex-column justify-content-between"
+                    >
+                        <h6 class="card-title text-center">
+                            {{ item.book.title }}
+                        </h6>
+                        <div class="card-subtitle mb-2 text-muted text-center">
+                            <p
+                                class="p-0 m-0"
+                                v-for="(author, authorIndex) in item.listAuthor"
+                                :key="authorIndex"
                             >
-                                <p
-                                    class="p-0 m-0"
-                                    v-for="(
-                                        author, authorIndex
-                                    ) in item.listAuthor"
-                                    :key="authorIndex"
-                                >
-                                    {{ author.firstName }} {{ author.lastName }}
-                                    <span
-                                        v-if="
-                                            authorIndex <
-                                            item.listAuthor.length - 1
-                                        "
-                                        >,
-                                    </span>
-                                </p>
-                            </div>
+                                {{ author.firstName }} {{ author.lastName }}
+                                <span
+                                    v-if="
+                                        authorIndex < item.listAuthor.length - 1
+                                    "
+                                    >,
+                                </span>
+                            </p>
                         </div>
-                    </div></a
-                >
+                    </div>
+                </div>
+                <!-- </a> -->
             </div>
         </div>
     </main>
