@@ -36,17 +36,17 @@ const inputs = reactive({
     authorList: [],
     coverImageUrl: undefined,
 });
+const isIsbnValid = (value) => {
+    const len = value.length;
+    return len === 10 || len === 13;
+};
 const rules = computed(() => {
     return {
         isbn: {
             required: helpers.withMessage(requiredMessage, required),
-            minLength: helpers.withMessage(
+            isISBNValid: helpers.withMessage(
                 "Veuillez saisir 10 ou 13 caractères.",
-                minLength(10)
-            ),
-            maxLength: helpers.withMessage(
-                "Veuillez saisir 10 ou 13 caractères.",
-                maxLength(13)
+                (value) => isIsbnValid(value)
             ),
             numeric: helpers.withMessage(
                 "Veuillez saisir seulement des nombres.",
@@ -135,12 +135,12 @@ const publisherStoreObj = publisherStore();
 const { publisher_list } = storeToRefs(publisherStoreObj);
 const authorStore = useAuthorStore();
 const { author_list } = storeToRefs(authorStore);
-onMounted(() => {
+onMounted(async () => {
     console.log("Add book page token", token);
-    addBookStoreObj.get_list_languages();
-    addBookStoreObj.get_list_categories();
-    publisherStoreObj.get_publisher_list();
-    authorStore.get_author_list();
+    await addBookStoreObj.get_list_languages();
+    await addBookStoreObj.get_list_categories();
+    await publisherStoreObj.get_publisher_list();
+    await authorStore.get_author_list();
 });
 
 const authStoreObj = useAuthStore();

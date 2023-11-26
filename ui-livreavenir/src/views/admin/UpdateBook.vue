@@ -38,17 +38,17 @@ const inputs = reactive({
     authorList: [],
     coverImageUrl: null,
 });
+const isIsbnValid = (value) => {
+    const len = value.length;
+    return len === 10 || len === 13;
+};
 const rules = computed(() => {
     return {
         isbn: {
             required: helpers.withMessage(requiredMessage, required),
-            minLength: helpers.withMessage(
+            isISBNValid: helpers.withMessage(
                 "Veuillez saisir 10 ou 13 caractères.",
-                minLength(10)
-            ),
-            maxLength: helpers.withMessage(
-                "Veuillez saisir 10 ou 13 caractères.",
-                maxLength(13)
+                (value) => isIsbnValid(value)
             ),
             numeric: helpers.withMessage(
                 "Veuillez saisir seulement des nombres.",
@@ -371,6 +371,7 @@ const updateAuthorList = (value) => {
                             @change="handleImageUpload"
                         />
                         <ValidationMessage :model="v$.coverImageUrl" />
+                        <br />
                         <div>
                             <img
                                 v-if="image && !newImage"
