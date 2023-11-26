@@ -14,12 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.livravenir.customValidation.ImageSize;
 import co.simplon.livravenir.customValidation.ImageType;
+import co.simplon.livravenir.customValidation.IsbnLength;
 import co.simplon.livravenir.customValidation.UniqueIsbn;
 
 public class BookCreate {
 
     @NotBlank
-    @Size(min = 10, max = 13)
+    @IsbnLength
     @UniqueIsbn
     private String isbn;
 
