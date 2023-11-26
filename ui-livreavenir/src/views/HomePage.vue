@@ -94,4 +94,12 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
         </div>
     </main>
 </template>
+<style scoped>
+.card-img-bottom {
+    height: 350px;
+    object-fit: cover;
+    /* background-size: cover;
+    background-position: center; */
+}
+</style>
 

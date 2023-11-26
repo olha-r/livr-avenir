@@ -39,13 +39,13 @@ const remove = async (id) => {
         }, 6000); // Redirect after 3 seconds
     }
 };
-let selectedBook = ref({});
-let selectedBookAuthorList = ref({});
-const openBookModal = async (book, listAuthor) => {
+let selectedBook = ref(null);
+let selectedBookAuthorList = ref(null);
+const openBookModal = (book, listAuthor) => {
     selectedBook.value = book;
     selectedBookAuthorList.value = listAuthor;
     const modal = new bootstrap.Modal(document.getElementById("bookModal"));
-    await modal.show();
+    modal.show();
 };
 </script>
 <template>
@@ -163,9 +163,9 @@ const openBookModal = async (book, listAuthor) => {
             </table>
         </div>
 
-        <!-- <div class="modal modal-lg fade" id="bookModal" tabindex="-1">
+        <div class="modal modal-lg fade" id="bookModal" tabindex="-1">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" v-if="selectedBook">
                     <div class="modal-header">
                         <h5 class="modal-title" id="bookModalLabel">
                             {{ selectedBook.title }}
@@ -176,7 +176,7 @@ const openBookModal = async (book, listAuthor) => {
                             data-bs-dismiss="modal"
                         ></button>
                     </div>
-                    <div class="modal-body" v-if="selectedBook">
+                    <div class="modal-body">
                         <p>
                             <strong>{{
                                 t("admin.dashboard.bookInfo.author")
@@ -253,6 +253,6 @@ const openBookModal = async (book, listAuthor) => {
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </main>
 </template>
