@@ -61,7 +61,9 @@ INSERT INTO publishers
 	('essai', 'Essai'),
     ('dargaud', 'Dargaud'),
     ('gallimard', 'Gallimard'),
-    ('gallimard-jeunesse', 'Gallimard Jeunesse');
+    ('gallimard-jeunesse', 'Gallimard Jeunesse'),
+    ('lgf', 'Lgf'),
+    ('pocket', 'Pocket');
 
 INSERT INTO authors 
 	(author_code, first_name, last_name)
@@ -75,27 +77,27 @@ INSERT INTO authors
     ('marion-montaigne', 'Marion', 'Montaigne'),
     ('muriel-barbery', 'Muriel', 'Barbery'),
     ('j-k-rowling', 'J.K.', 'Rowling'),
-    ('sylvain-tesson', 'Sylvain', 'Tesson');
+    ('sylvain-tesson', 'Sylvain', 'Tesson'),
+    ('gustave-flaubert', 'Gustave', 'Flaubert'),
+    ('danielle-steel', 'Danielle', 'Steel'),
+    ('hal-elrod', 'Hal', 'Elrod');
 
 INSERT INTO books
 	(isbn, title, publication_year, cover_image_url, page_count, summary, publisher_id, category_id, user_id, language_id)
 	VALUES
-    ('9782382920664', 'Déjeunons sur l''herbe',
-    '2023',  'dejeunons-sur-l-herbe.jpg', '250',
+    ('9782382920664', 'Déjeunons sur l''herbe', '2023',  'dejeunons-sur-l-herbe.jpg', '250',
     'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia inventore animi quidem, tempore molestiae facilis voluptas veniam nostrum, temporibus iste pariatur fugit laborum in quis et repellat hic esse harum.',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'essai'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
     (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
-    ('2205208098', 'Nos mondes perdus',
-    '2023',  'nos-mondes-perdus.jpg', '208',
+    ('2205208098', 'Nos mondes perdus', '2023',  'nos-mondes-perdus.jpg', '208',
     '1993, sortie en salles de "Jurassic Park" et traumatisme total pour la jeune Marion Montaigne, alors âgée de 13 ans. De cette fascination pour ces terribles reptiles d''un âge oublié va naître une obsession pour les fossiles, la science en général et le dessin anatomique... ainsi que quelques angoisses existentielles. Alors pour exorciser ses démons, rien de tel que la méthode Montaigne : recherches à fond dans les livres et les musées, humour décapant et interrogations bien senties. Une plongée dans la paléontologie, l''histoire des sciences et finalement, l''histoire de l''Histoire.',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'dargaud'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'comics'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
     (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
-    ('9782070464326', 'L''Élégance du hérisson',
-    '2006',  'lelegance-du-herisson.jpg', '413',
+    ('9782070464326', 'L''Élégance du hérisson', '2006',  'lelegance-du-herisson.jpg', '413',
     'Ce roman explore les vies entrelacées d''une concierge parisienne autodidacte et d''une jeune surdouée. À travers leurs réflexions sur l''art, la philosophie et la vie, l''histoire révèle la beauté cachée dans les petites choses. ',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'gallimard'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
@@ -112,6 +114,18 @@ INSERT INTO books
     'dans-les-forets-de-siberie.jpg', '272',
     'Sylvain Tesson relate son expérience de retraite dans une cabane au bord du lac Baïkal en Sibérie. À travers ce récit introspectif, mêlant nature, solitude et découvertes, l''auteur nous transporte dans une aventure captivante au cœur de la taïga, offrant une méditation sur la vie, la liberté et la beauté sauvage.',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'gallimard'),
+    (SELECT c.id FROM categories c WHERE c.category_code = 'leisure-nature-travel'),
+    (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
+    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    ('2266332120', 'Sans retour', '2023', 'sans-retour.jpg', '336',
+    'Certains événements changent une vie à jamais... Bill dirige l''unité de traumatologie des urgences de l''Hôpital général de San Francisco et consacre sa vie à son travail depuis sa séparation. Étoile montante de son hôpital universitaire, Stephanie ne compte pas ses heures de travail, aux dépens de sa famille. Wendy, brillant médecin, est piégée dans une relation sans avenir avec un chirurgien marié. Quant à Tom, sa popularité auprès des femmes n''a d''égal que ses succès au bloc opératoire. Quand ces quatre experts sont invités à Paris pour échanger avec des confrères sur leurs pratiques, c''est une vraie bouffée d''oxygène. Mais une prise d''otages dans une école va bientôt marquer un tournant décisif dans leurs existences, et pourrait bien souder leurs destins à jamais...',
+    (SELECT p.id FROM publishers p WHERE p.publisher_code = 'pocket'),
+    (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
+    (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
+    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    ('2266268554', 'Miracle morning', '2017', 'miracle-morning.jpg', '272',
+    'SE LEVER PLUS TÔT POUR GAGNER UN SUPPLÉMENT DE VIE... Et si la clef du bonheur et de la réussite se trouvait dans cette nouvelle résolution ? C''est la découverte qui a changé la vie d''Hal Elrod ainsi que celle de milliers de lecteurs. Démarrez votre journée par un moment rien qu''à vous, profitez de ce moment de calme pour méditer, faire du sport, lire et préparer votre journée, comme une nouvelle aventure à entamer chaque matin. Et faites de votre quotidien un miracle ! " On y gagne un supplément de vie, efficacité et moral d''acier !',
+    (SELECT p.id FROM publishers p WHERE p.publisher_code = 'pocket'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'leisure-nature-travel'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
     (SELECT l.id FROM languages l WHERE l.code_iso = 'fr'));
@@ -134,4 +148,6 @@ INSERT INTO book_authors
     ((SELECT b.id FROM books b WHERE b.isbn = '2205208098'),(SELECT a.id FROM authors a WHERE a.author_code = 'marion-montaigne')),
     ((SELECT b.id FROM books b WHERE b.isbn = '9782070464326'),(SELECT a.id FROM authors a WHERE a.author_code = 'muriel-barbery')),
     ((SELECT b.id FROM books b WHERE b.isbn = '9782075187541'),(SELECT a.id FROM authors a WHERE a.author_code = 'j-k-rowling')),
-    ((SELECT b.id FROM books b WHERE b.isbn = '9782072836800'),(SELECT a.id FROM authors a WHERE a.author_code = 'sylvain-tesson'));
+    ((SELECT b.id FROM books b WHERE b.isbn = '9782072836800'),(SELECT a.id FROM authors a WHERE a.author_code = 'sylvain-tesson')),
+    ((SELECT b.id FROM books b WHERE b.isbn = '2266332120'),(SELECT a.id FROM authors a WHERE a.author_code = 'danielle-steel')),
+    ((SELECT b.id FROM books b WHERE b.isbn = '2266268554'),(SELECT a.id FROM authors a WHERE a.author_code = 'hal-elrod'));
