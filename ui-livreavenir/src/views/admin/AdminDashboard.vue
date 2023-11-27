@@ -6,8 +6,6 @@ import { useBookStore } from "@/stores/book-store";
 import { useAuthStore } from "@/stores/auth-store";
 import { usePageStore } from "@/stores/page-store";
 import SearchComponent from "@/components/commons/SearchComponent.vue";
-import ToastComponent from "@/components/commons/ToastComponent.vue";
-import ToastComponentVue from "@/components/commons/ToastComponent.vue";
 
 const { t } = useI18n();
 const bookStore = useBookStore();

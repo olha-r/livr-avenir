@@ -81,7 +81,7 @@ const frMessages = {
             minLengthSummary: "Veuillez saisir au moins 10 caractères.",
             maxLengthSummary: "Veuillez saisir moins de 1000 caractères.",
             coverImageUrl: "Veuillez ajouter une image.",
-            email: "Veuillez saisir votre adresse e-mail au format votrenom@example.com",
+            email: "Veuillez saisir votre adresse e-mail au format votrenom{'@'}example.com",
             minLengthFirstName: "Veuillez saisir au moins 2 caractères.",
             maxLengthFirstName: "Veuillez saisir moins de 30 caractères.",
             minLengthLastName: "Veuillez saisir au moins 2 caractères.",
