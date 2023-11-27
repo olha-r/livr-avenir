@@ -23,7 +23,7 @@ import ValidationMessage from "../../components/commons/ValidationMessage.vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
-const requiredMessage = "Veuillez renseigner ce champ.";
+const requiredMessage = `${t("admin.validationMessages.required")}`;
 const inputs = reactive({
     isbn: null,
     title: null,
@@ -45,59 +45,59 @@ const rules = computed(() => {
         isbn: {
             required: helpers.withMessage(requiredMessage, required),
             isISBNValid: helpers.withMessage(
-                "Veuillez saisir 10 ou 13 caractères.",
+                `${t("admin.validationMessages.isISBNValid")}`,
                 (value) => isIsbnValid(value)
             ),
             numeric: helpers.withMessage(
-                "Veuillez saisir seulement des nombres.",
+                `${t("admin.validationMessages.numeric")}`,
                 numeric
             ),
         },
         title: {
             required: helpers.withMessage(requiredMessage, required),
             minLength: helpers.withMessage(
-                "Veuillez saisir au moins 2 caractères.",
+                `${t("admin.validationMessages.minLengthTitle")}`,
                 minLength(2)
             ),
             maxLength: helpers.withMessage(
-                "Veuillez saisir moins de 200 caractères.",
+                `${t("admin.validationMessages.maxLengthTitle")}`,
                 maxLength(200)
             ),
         },
         publicationYear: {
             required: helpers.withMessage(requiredMessage, required),
             numeric: helpers.withMessage(
-                "Veuillez saisir seulement des nombres.",
+                `${t("admin.validationMessages.numeric")}`,
                 numeric
             ),
             minLength: helpers.withMessage(
-                "Veuillez saisir 4 caractères.",
+                `${t("admin.validationMessages.minMaxLengthPublicationYear")}`,
                 minLength(4)
             ),
             maxLength: helpers.withMessage(
-                "Veuillez saisir 4 caractères.",
+                `${t("admin.validationMessages.minMaxLengthPublicationYear")}`,
                 maxLength(4)
             ),
         },
         pageCount: {
             required: helpers.withMessage(requiredMessage, required),
             numeric: helpers.withMessage(
-                "Veuillez saisir seulement des nombres.",
+                `${t("admin.validationMessages.numeric")}`,
                 numeric
             ),
             maxLength: helpers.withMessage(
-                "Veuillez saisir moins de 5 caractères.",
+                `${t("admin.validationMessages.maxLengthPageCount")}`,
                 maxLength(5)
             ),
         },
         summary: {
             required: helpers.withMessage(requiredMessage, required),
             minLength: helpers.withMessage(
-                "Veuillez saisir au moins 10 caractères.",
+                `${t("admin.validationMessages.minLengthSummary")}`,
                 minLength(10)
             ),
             maxLength: helpers.withMessage(
-                "Veuillez saisir moins de 1000 caractères.",
+                `${t("admin.validationMessages.maxLengthSummary")}`,
                 maxLength(1000)
             ),
         },
@@ -117,7 +117,7 @@ const rules = computed(() => {
         ],
         coverImageUrl: {
             required: helpers.withMessage(
-                "Veuillez ajouter une image.",
+                `${t("admin.validationMessages.coverImageUrl")}`,
                 requiredIf(() => {
                     return inputs.coverImageUrl === undefined;
                 })

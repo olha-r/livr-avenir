@@ -69,6 +69,18 @@ const frMessages = {
                 summary: "Description :",
                 image: "Image :"
             }
+        },
+        validationMessages: {
+            required: "Veuillez renseigner ce champ.",
+            isISBNValid:"Veuillez saisir 10 ou 13 caractères.",
+            numeric: "Veuillez saisir seulement des nombres.",
+            minLengthTitle: "Veuillez saisir au moins 2 caractères.",
+            maxLengthTitle: "Veuillez saisir moins de 200 caractères.",
+            minMaxLengthPublicationYear: "Veuillez saisir 4 caractères.",
+            maxLengthPageCount: "Veuillez saisir moins de 5 caractères.",
+            minLengthSummary: "Veuillez saisir au moins 10 caractères.",
+            maxLengthSummary: "Veuillez saisir moins de 1000 caractères.",
+            coverImageUrl: "Veuillez ajouter une image."
         }
     },
     signUpForm: {
