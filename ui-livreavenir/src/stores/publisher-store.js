@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import {PublisherHttp} from "../services/PublisherHttp";
 
-export const publisherStore = defineStore('publisher-store', {
+export const usePublisherStore = defineStore('publisher-store', {
     state: () => ({
         publisher_list: [],
     }),

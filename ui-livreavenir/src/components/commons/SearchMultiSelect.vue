@@ -1,22 +1,11 @@
-<template>
-    <div>
-        <Multiselect
-            v-model.trim="authorIdList"
-            :model-value="props.authorList"
-            mode="tags"
-            :options="options"
-            :searchable="true"
-            @input="updateAuthorList"
-        />
-    </div>
-</template>
-  
 <script setup>
-import { useAuthorStore } from "../../stores/author-store";
-import { storeToRefs } from "pinia";
-import Multiselect from "@vueform/multiselect";
 import { onMounted, ref, toRef, watch } from "vue";
+import Multiselect from "@vueform/multiselect";
+import { storeToRefs } from "pinia";
+import { useAuthorStore } from "@/stores/author-store";
+
 const props = defineProps(["authorList"]);
+
 const authorStore = useAuthorStore();
 const { author_list } = storeToRefs(authorStore);
 const options = ref([]);
@@ -44,3 +33,16 @@ const updateAuthorList = (value) => {
     emit("updateAuthorList", value);
 };
 </script>
+
+<template>
+    <div>
+        <Multiselect
+            v-model.trim="authorIdList"
+            :model-value="props.authorList"
+            mode="tags"
+            :options="options"
+            :searchable="true"
+            @input="updateAuthorList"
+        />
+    </div>
+</template>

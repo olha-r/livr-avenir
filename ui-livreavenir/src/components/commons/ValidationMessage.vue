@@ -1,13 +1,12 @@
-        <script>
-export default {
-    props: {
-        model: {
-            type: Object,
-            required: true,
-        },
+<script setup>
+defineProps({
+    model: {
+        type: Object,
+        required: true,
     },
-};
+});
 </script>
+
 <template>
     <div v-if="model.$invalid" class="text-danger">
         <ul class="list-unstyled">

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import {BookHttp} from "../services/BookHttp";
 
-export const BookStore = defineStore('book-store', {
+export const useBookStore = defineStore('book-store', {
     state: () => ({
         lastAddedBooks: [],
         bookListForAdmin: [],

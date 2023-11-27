@@ -1,13 +1,14 @@
 <script setup>
 import { reactive, computed } from "vue";
+import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import useValidate from "@vuelidate/core";
 import { email, helpers, required } from "@vuelidate/validators";
-import { useAuthStore } from "../../stores/auth-store";
-import ValidationMessage from "../../components/commons/ValidationMessage.vue";
-import { storeToRefs } from "pinia";
-import { usePageStore } from "../../stores/page-store";
-import { useI18n } from "vue-i18n";
+import { useAuthStore } from "@/stores/auth-store";
+import { usePageStore } from "@/stores/page-store";
+import ValidationMessage from "@/components/commons/ValidationMessage.vue";
+
 const { t } = useI18n();
 const user = reactive({
     email: null,
@@ -17,17 +18,17 @@ const rules = computed(() => {
     return {
         email: {
             required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
+                `${t("admin.validationMessages.required")}`,
                 required
             ),
             email: helpers.withMessage(
-                "Veuillez saisir votre adresse e-mail au format votrenom@example.com",
+                `${t("admin.validationMessages.email")}`,
                 email
             ),
         },
         password: {
             required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
+                `${t("admin.validationMessages.required")}`,
                 required
             ),
         },
@@ -83,6 +84,7 @@ const onSubmit = async () => {
     }
 };
 </script>
+
 <template>
     <main class="container-xl my-5">
         <div class="row justify-content-center align-items-center">

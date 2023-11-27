@@ -1,15 +1,4 @@
-<template>
-    [{{ options }}]
-    <div>
-        <Multiselect
-            v-model.trim="value"
-            :options="options"
-            @select="updateValue"
-        />
-    </div>
-</template>
-  
-  <script setup>
+<script setup>
 import Multiselect from "@vueform/multiselect";
 defineProps({
     options: [],
@@ -21,3 +10,14 @@ const updateValue = (value) => {
     emit("updateValue", value);
 };
 </script>
+
+<template>
+    [{{ options }}]
+    <div>
+        <Multiselect
+            v-model.trim="value"
+            :options="options"
+            @select="updateValue"
+        />
+    </div>
+</template>

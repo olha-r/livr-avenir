@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import useValidate from "@vuelidate/core";
 import {
     email,
@@ -10,10 +11,10 @@ import {
     required,
     sameAs,
 } from "@vuelidate/validators";
-import ValidationMessage from "../../components/commons/ValidationMessage.vue";
-import { useAuthStore } from "../../stores/auth-store";
-import { usePageStore } from "../../stores/page-store";
-import { useI18n } from "vue-i18n";
+import ValidationMessage from "@/components/commons/ValidationMessage.vue";
+import { useAuthStore } from "@/stores/auth-store";
+import { usePageStore } from "@/stores/page-store";
+
 const { t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore();
@@ -31,59 +32,59 @@ const rules = computed(() => {
     return {
         firstName: {
             required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
+                `${t("admin.validationMessages.required")}`,
                 required
             ),
             minLength: helpers.withMessage(
-                "Veuillez saisir au moins 2 caractères.",
+                `${t("admin.validationMessages.minLengthFirstName")}`,
                 minLength(2)
             ),
             maxLength: helpers.withMessage(
-                "Veuillez saisir moins de 30 caractères.",
+                `${t("admin.validationMessages.maxLengthFirstName")}`,
                 maxLength(30)
             ),
         },
         lastName: {
             required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
+                `${t("admin.validationMessages.required")}`,
                 required
             ),
             minLength: helpers.withMessage(
-                "Veuillez saisir au moins 2 caractères.",
+                `${t("admin.validationMessages.minLengthLastName")}`,
                 minLength(2)
             ),
             maxLength: helpers.withMessage(
-                "Veuillez saisir moins de 100 caractères.",
+                `${t("admin.validationMessages.maxLengthLastName")}`,
                 maxLength(100)
             ),
         },
         email: {
             required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
+                `${t("admin.validationMessages.required")}`,
                 required
             ),
             email: helpers.withMessage(
-                "Veuillez saisir votre adresse e-mail au format votrenom@example.com",
+                `${t("admin.validationMessages.email")}`,
                 email
             ),
         },
         password: {
             required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
+                `${t("admin.validationMessages.required")}`,
                 required
             ),
             validPassword: helpers.withMessage(
-                "Mot de passe non valide.",
+                `${t("admin.validationMessages.validPassword")}`,
                 validPassword
             ),
         },
         confirmPassword: {
             required: helpers.withMessage(
-                "Veuillez renseigner ce champ.",
+                `${t("admin.validationMessages.required")}`,
                 required
             ),
             sameAs: helpers.withMessage(
-                "Veuillez saisir les mots de passe identiques.",
+                `${t("admin.validationMessages.sameAsPassword")}`,
                 sameAs(user.password)
             ),
         },
@@ -115,6 +116,7 @@ const onSubmit = async () => {
     }
 };
 </script>
+
 <template>
     <main class="container-xl my-1">
         <div class="row justify-content-center align-items-center">

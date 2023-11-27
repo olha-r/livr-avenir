@@ -1,7 +1,8 @@
 <script setup>
 import { ref, computed, onBeforeMount } from "vue";
 import { storeToRefs } from "pinia";
-import { publisherStore } from "../../stores/publisher-store";
+import { publisherStore } from "@/stores/publisher-store";
+
 const publisherStoreObj = publisherStore();
 const { publisher_list } = storeToRefs(publisherStoreObj);
 
@@ -30,6 +31,7 @@ const addPublisherToSelectedList = (publisher) => {
     searchPublisherQuery.value = "";
 };
 </script>
+
 <template>
     <div class="col-md-12 mb-3">
         {{ publisher_list }}

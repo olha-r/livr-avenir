@@ -1,18 +1,7 @@
-<template>
-    <div>
-        <div
-            v-if="pageStore.alert.show"
-            class="text-center alert container mt-3"
-            :class="alertClass"
-        >
-            {{ pageStore.alert.message }}
-        </div>
-    </div>
-</template>
-  
 <script setup>
 import { computed, watch } from "vue";
-import { usePageStore } from "../../stores/page-store";
+import { usePageStore } from "@/stores/page-store";
+
 const pageStore = usePageStore();
 const alertClass = computed(() => {
     return `text-center alert alert-${pageStore.alert.type}`;
@@ -26,3 +15,15 @@ watch(
     }
 );
 </script>
+
+<template>
+    <div>
+        <div
+            v-if="pageStore.alert.show"
+            class="text-center alert container mt-3"
+            :class="alertClass"
+        >
+            {{ pageStore.alert.message }}
+        </div>
+    </div>
+</template>

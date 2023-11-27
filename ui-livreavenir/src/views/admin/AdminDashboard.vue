@@ -1,22 +1,22 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import SearchComponent from "../../components/commons/SearchComponent.vue";
-import ToastComponent from "../../components/commons/ToastComponent.vue";
 import { storeToRefs } from "pinia";
-import { BookStore } from "../../stores/book-store";
-import { useAuthStore } from "../../stores/auth-store";
-import { usePageStore } from "../../stores/page-store";
-import ToastComponentVue from "../../components/commons/ToastComponent.vue";
 import { useI18n } from "vue-i18n";
+import { useBookStore } from "@/stores/book-store";
+import { useAuthStore } from "@/stores/auth-store";
+import { usePageStore } from "@/stores/page-store";
+import SearchComponent from "@/components/commons/SearchComponent.vue";
+import ToastComponent from "@/components/commons/ToastComponent.vue";
+import ToastComponentVue from "@/components/commons/ToastComponent.vue";
+
 const { t } = useI18n();
-const bookStore = BookStore();
-const bookStoreObj = BookStore();
-const { bookListForAdmin } = storeToRefs(bookStoreObj);
+const bookStore = useBookStore();
+const { bookListForAdmin } = storeToRefs(bookStore);
 onMounted(() => {
-    bookStoreObj.get_book_list_admin();
+    bookStore.get_book_list_admin();
 });
-const authStoreObj = useAuthStore();
-const { token } = authStoreObj;
+const authStore = useAuthStore();
+const { token } = authStore;
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const pageStore = usePageStore();
 const remove = async (id) => {
@@ -48,6 +48,7 @@ const openBookModal = (book, listAuthor) => {
     modal.show();
 };
 </script>
+
 <template>
     <main class="container-xl my-2 home-page">
         <h3 class="text-center my-4">

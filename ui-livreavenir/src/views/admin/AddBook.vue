@@ -2,12 +2,7 @@
 import { onMounted, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
-import { AddBookFormStore } from "../../stores/add-book-form-store";
-import { BookStore } from "../../stores/book-store";
-import { useAuthStore } from "../../stores/auth-store";
-import { useAuthorStore } from "../../stores/author-store";
-import { usePageStore } from "../../stores/page-store";
-import { publisherStore } from "../../stores/publisher-store";
+import { useI18n } from "vue-i18n";
 import { useVuelidate } from "@vuelidate/core";
 import {
     required,
@@ -17,10 +12,15 @@ import {
     numeric,
     helpers,
 } from "@vuelidate/validators";
-import LabelValues from "../../components/commons/LabelValues.vue";
-import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
-import ValidationMessage from "../../components/commons/ValidationMessage.vue";
-import { useI18n } from "vue-i18n";
+import { useBookStore } from "@/stores/book-store";
+import { useAuthStore } from "@/stores/auth-store";
+import { usePageStore } from "@/stores/page-store";
+import { usePublisherStore } from "@/stores/publisher-store";
+import { useLanguageStore } from "@/stores/language-store";
+import { useCategoryStore } from "@/stores/category-store";
+import LabelValues from "@/components/commons/LabelValues.vue";
+import SearchMultiSelect from "@/components/commons/SearchMultiSelect.vue";
+import ValidationMessage from "@/components/commons/ValidationMessage.vue";
 
 const { t } = useI18n();
 const requiredMessage = `${t("admin.validationMessages.required")}`;
@@ -129,23 +129,21 @@ const rules = computed(() => {
     };
 });
 const v$ = useVuelidate(rules, inputs);
-const addBookStoreObj = AddBookFormStore();
-const { list_languages, list_categories } = storeToRefs(addBookStoreObj);
-const publisherStoreObj = publisherStore();
-const { publisher_list } = storeToRefs(publisherStoreObj);
-const authorStore = useAuthorStore();
-const { author_list } = storeToRefs(authorStore);
+const languageStore = useLanguageStore();
+const categoryStore = useCategoryStore();
+const publisherStore = usePublisherStore();
+const { publisher_list } = storeToRefs(publisherStore);
+const { list_languages } = storeToRefs(languageStore);
+const { list_categories } = storeToRefs(categoryStore);
 onMounted(async () => {
     console.log("Add book page token", token);
-    await addBookStoreObj.get_list_languages();
-    await addBookStoreObj.get_list_categories();
-    await publisherStoreObj.get_publisher_list();
-    await authorStore.get_author_list();
+    await languageStore.get_list_languages();
+    await categoryStore.get_list_categories();
+    await publisherStore.get_publisher_list();
 });
-
-const authStoreObj = useAuthStore();
-const { token } = authStoreObj;
-const bookStore = BookStore();
+const authStore = useAuthStore();
+const { token } = authStore;
+const bookStore = useBookStore();
 const router = useRouter();
 const pageStore = usePageStore();
 
@@ -196,6 +194,7 @@ const updateAuthorList = (value) => {
     inputs.authorList = value;
 };
 </script>
+
 <template>
     <main class="container-xl my-5">
         <div

@@ -1,19 +1,20 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
-import { BookStore } from "../stores/book-store";
+import { useRoute } from "vue-router";
+import { useBookStore } from "@/stores/book-store";
 
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
-const bookStoreObj = BookStore();
-const { book_details } = storeToRefs(bookStoreObj);
+const bookStore = useBookStore();
+const { book_details } = storeToRefs(bookStore);
 const route = useRoute();
 const book_id = route.params.id;
 const imageUrl = ref("");
 onMounted(async () => {
-    await bookStoreObj.get_book_details(book_id);
+    await bookStore.get_book_details(book_id);
 });
 </script>
+
 <template>
     <main class="container-xl my-5">
         {{ book_details.book }}

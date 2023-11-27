@@ -2,13 +2,8 @@
 import { onMounted, reactive, computed, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
-import { BookStore } from "../../stores/book-store";
-import { useAuthorStore } from "../../stores/author-store";
-import { usePageStore } from "../../stores/page-store";
-import { publisherStore } from "../../stores/publisher-store";
+import { useI18n } from "vue-i18n";
 import { useVuelidate } from "@vuelidate/core";
-import { useAuthStore } from "../../stores/auth-store";
-import { AddBookFormStore } from "../../stores/add-book-form-store";
 import {
     required,
     minLength,
@@ -16,13 +11,17 @@ import {
     numeric,
     helpers,
 } from "@vuelidate/validators";
+import { useBookStore } from "@/stores/book-store";
+import { usePageStore } from "@/stores/page-store";
+import { usePublisherStore } from "@/stores/publisher-store";
+import { useLanguageStore } from "@/stores/language-store";
+import { useCategoryStore } from "@/stores/category-store";
+import { useAuthStore } from "@/stores/auth-store";
 import LabelValues from "../../components/commons/LabelValues.vue";
 import ValidationMessage from "../../components/commons/ValidationMessage.vue";
 import SearchMultiSelect from "../../components/commons/SearchMultiSelect.vue";
-import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
-const requiredMessage = "Veuillez renseigner ce champ.";
 const route = useRoute();
 const bookId = ref(route.params.id);
 const router = useRouter();
@@ -42,6 +41,7 @@ const isIsbnValid = (value) => {
     const len = value.length;
     return len === 10 || len === 13;
 };
+const requiredMessage = `${t("admin.validationMessages.required")}`;
 const rules = computed(() => {
     return {
         isbn: {
@@ -126,14 +126,14 @@ const rules = computed(() => {
 });
 const image = ref("");
 const v$ = useVuelidate(rules, inputs);
-const addBookStoreObj = AddBookFormStore();
-const { list_languages, list_categories } = storeToRefs(addBookStoreObj);
-const publisherStoreObj = publisherStore();
-const { publisher_list } = storeToRefs(publisherStoreObj);
-const authorStore = useAuthorStore();
-const { author_list } = storeToRefs(authorStore);
-const bookStore = BookStore();
+const languageStore = useLanguageStore();
+const categoryStore = useCategoryStore();
+const publisherStore = usePublisherStore();
+const bookStore = useBookStore();
 const pageStore = usePageStore();
+const { list_languages } = storeToRefs(languageStore);
+const { list_categories } = storeToRefs(categoryStore);
+const { publisher_list } = storeToRefs(publisherStore);
 const { book_for_update } = storeToRefs(bookStore);
 onMounted(async () => {
     // Fetch book details based on the bookId
@@ -154,19 +154,17 @@ onMounted(async () => {
     const idArray = bookDetails.listAuthor.map((author) => author.id);
     inputs.authorList = idArray || [];
     // Fetch other necessary data
-    addBookStoreObj.get_list_languages();
-    addBookStoreObj.get_list_categories();
-    publisherStoreObj.get_publisher_list();
-    authorStore.get_author_list();
+    languageStore.get_list_languages();
+    categoryStore.get_list_categories();
+    publisherStore.get_publisher_list();
 });
-const authStoreObj = useAuthStore();
-const { token } = authStoreObj;
+const authStore = useAuthStore();
+const { token } = authStore;
 const update_book = async () => {
     await v$.value.$validate();
     console.log(v$.value.$error);
     console.log("FORM DATA", inputs);
     if (!v$.value.$error) {
-        // Similar to your add_new_book function, but now use bookStore.update_book instead
         const formData = new FormData();
         formData.append("isbn", inputs.isbn);
         formData.append("title", inputs.title);
@@ -184,7 +182,6 @@ const update_book = async () => {
         const resp = await bookStore.update_book(bookId.value, formData, token);
 
         if (resp.status === 204) {
-            // Handle success
             pageStore.alert.type = "success";
             pageStore.alert.message = `Livre a été mis à jour avec succès.`;
             pageStore.alert.show = true;
@@ -193,7 +190,6 @@ const update_book = async () => {
                 pageStore.alert.show = false;
             }, 5000);
         } else {
-            // Handle error
             pageStore.alert.type = "error";
             pageStore.alert.message = `Nous n'avons pas pu mettre à jour le livre.`;
             pageStore.alert.show = true;
@@ -205,7 +201,6 @@ const update_book = async () => {
         console.log("There are errors");
     }
 };
-
 const newImage = ref(false);
 const handleImageUpload = (event) => {
     newImage.value = true;
