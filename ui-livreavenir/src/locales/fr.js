@@ -80,7 +80,14 @@ const frMessages = {
             maxLengthPageCount: "Veuillez saisir moins de 5 caractères.",
             minLengthSummary: "Veuillez saisir au moins 10 caractères.",
             maxLengthSummary: "Veuillez saisir moins de 1000 caractères.",
-            coverImageUrl: "Veuillez ajouter une image."
+            coverImageUrl: "Veuillez ajouter une image.",
+            email: "Veuillez saisir votre adresse e-mail au format votrenom@example.com",
+            minLengthFirstName: "Veuillez saisir au moins 2 caractères.",
+            maxLengthFirstName: "Veuillez saisir moins de 30 caractères.",
+            minLengthLastName: "Veuillez saisir au moins 2 caractères.",
+            maxLengthLastName: "Veuillez saisir moins de 100 caractères.",
+            validPassword: "Mot de passe non valide.",
+            sameAsPassword:"Veuillez saisir les mots de passe identiques."
         }
     },
     signUpForm: {
