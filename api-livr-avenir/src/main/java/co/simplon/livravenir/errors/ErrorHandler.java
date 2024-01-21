@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
@@ -21,7 +22,7 @@ public class ErrorHandler
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
 	    MethodArgumentNotValidException ex,
-	    HttpHeaders headers, HttpStatus status,
+	    HttpHeaders headers, HttpStatusCode status,
 	    WebRequest request) {
 	List<FieldError> errors = ex.getFieldErrors();
 	List<CustomError> customErrors = new ArrayList<>();
@@ -39,7 +40,7 @@ public class ErrorHandler
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(
 	    Exception ex, Object body, HttpHeaders headers,
-	    HttpStatus status, WebRequest request) {
+	    HttpStatusCode status, WebRequest request) {
 	return super.handleExceptionInternal(ex, body,
 		headers, status, request);
     }

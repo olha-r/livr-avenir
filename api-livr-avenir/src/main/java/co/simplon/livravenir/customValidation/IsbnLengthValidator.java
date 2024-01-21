@@ -1,7 +1,7 @@
 package co.simplon.livravenir.customValidation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class IsbnLengthValidator
 	implements ConstraintValidator<IsbnLength, String> {

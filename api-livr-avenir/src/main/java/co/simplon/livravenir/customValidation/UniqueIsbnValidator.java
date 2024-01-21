@@ -1,9 +1,8 @@
 package co.simplon.livravenir.customValidation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
 import co.simplon.livravenir.services.BookService;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class UniqueIsbnValidator
 	implements ConstraintValidator<UniqueIsbn, String> {

@@ -3,16 +3,15 @@ package co.simplon.livravenir.dtos;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.livravenir.customValidation.ImageSize;
 import co.simplon.livravenir.customValidation.ImageType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public class BookUpdate {
 

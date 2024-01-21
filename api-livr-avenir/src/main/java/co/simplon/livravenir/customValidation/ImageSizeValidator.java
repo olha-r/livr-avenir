@@ -1,9 +1,9 @@
 package co.simplon.livravenir.customValidation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class ImageSizeValidator implements
 	ConstraintValidator<ImageSize, MultipartFile> {

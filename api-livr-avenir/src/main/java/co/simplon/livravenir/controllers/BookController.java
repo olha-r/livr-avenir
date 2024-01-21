@@ -2,8 +2,6 @@ package co.simplon.livravenir.controllers;
 
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +20,7 @@ import co.simplon.livravenir.dtos.BookItemView;
 import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.dtos.BookView;
 import co.simplon.livravenir.services.BookService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/books")
