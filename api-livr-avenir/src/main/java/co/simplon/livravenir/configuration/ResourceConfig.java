@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -25,10 +26,11 @@ public class ResourceConfig {
     @Bean
     SecurityFilterChain fitChain(HttpSecurity http)
 	    throws Exception {
-	http.cors().and().csrf().disable()
-		.authorizeHttpRequests((requests) -> {
+	http.cors(cors -> cors.disable())
+		.csrf(csrf -> csrf.disable())
+		.authorizeHttpRequests((authz) -> {
 		    try {
-			requests.requestMatchers(
+			authz.requestMatchers(
 				"/auth/sign-in",
 				"/auth/sign-up").permitAll()
 				.requestMatchers(
@@ -51,13 +53,24 @@ public class ResourceConfig {
 					"/books")
 				.hasAuthority("ADMIN")
 				.anyRequest()
-				.authenticated().and()
-				.oauth2ResourceServer()
-				.jwt();
+				.authenticated();
+
 		    } catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		    }
-		});
+		    try {
+			http.oauth2ResourceServer(
+				(oauth2) -> oauth2
+					.jwt(Customizer
+						.withDefaults()));
+		    } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		    }
+		}
+
+		);
 	return http.build();
     }
 
