@@ -24,53 +24,36 @@ public class ResourceConfig {
     private String secret;
 
     @Bean
-    SecurityFilterChain fitChain(HttpSecurity http)
-	    throws Exception {
-	http.cors(cors -> cors.disable())
+    SecurityFilterChain securityFilterChain(
+	    HttpSecurity http) throws Exception {
+	http.cors(Customizer.withDefaults())
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests((authz) -> {
-		    try {
-			authz.requestMatchers(
-				"/auth/sign-in",
-				"/auth/sign-up").permitAll()
-				.requestMatchers(
-					HttpMethod.GET,
-					"/books/**",
-					"/categories",
-					"/formats",
-					"/languages",
-					"/authors",
-					"/publishers")
-				.permitAll()
-				.requestMatchers(
-					HttpMethod.POST,
-					"/books",
-					"/publishers",
-					"/authors")
-				.hasAuthority("ADMIN")
-				.requestMatchers(
-					HttpMethod.DELETE,
-					"/books")
-				.hasAuthority("ADMIN")
-				.anyRequest()
-				.authenticated();
-
-		    } catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		    }
-		    try {
-			http.oauth2ResourceServer(
-				(oauth2) -> oauth2
-					.jwt(Customizer
-						.withDefaults()));
-		    } catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		    }
+		    authz.requestMatchers("/auth/sign-in",
+			    "/auth/sign-up").permitAll()
+			    .requestMatchers(HttpMethod.GET,
+				    "/books/**",
+				    "/categories",
+				    "/formats",
+				    "/languages",
+				    "/authors",
+				    "/publishers")
+			    .permitAll()
+			    .requestMatchers(
+				    HttpMethod.POST,
+				    "/books", "/publishers",
+				    "/authors")
+			    .hasAuthority("ADMIN")
+			    .requestMatchers(
+				    HttpMethod.DELETE,
+				    "/books")
+			    .hasAuthority("ADMIN")
+			    .anyRequest().authenticated();
 		}
 
-		);
+		).oauth2ResourceServer((oauth2) -> oauth2
+			.jwt(Customizer.withDefaults()));
+	;
 	return http.build();
     }
 
