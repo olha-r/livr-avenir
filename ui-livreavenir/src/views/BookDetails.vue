@@ -17,11 +17,10 @@ onMounted(async () => {
 
 <template>
     <main class="container-xl my-5">
-        {{ book_details.book }}
         <div
             class="justify-content-center align-items-center book-details-container"
         >
-            <div class="input-group mb-3">
+            <!-- <div class="input-group mb-3">
                 <input
                     class="form-control"
                     type="text"
@@ -30,16 +29,16 @@ onMounted(async () => {
                 <button class="btn btn-primary" type="button" id="bookSearch">
                     <i class="bi bi-search"></i>
                 </button>
-            </div>
+            </div> -->
             <div class="row mt-3">
-                <h3>{{ book_details.book.title }}</h3>
+                <h3>{{ book_details?.book?.title }}</h3>
                 <div class="row d-flex justify-content-center">
                     <div class="col">
                         <p class="author">
                             <span
                                 v-for="(
                                     author, index
-                                ) in book_details.authorlist"
+                                ) in book_details?.authorlist"
                                 :key="index"
                             >
                                 {{ author.firstName }} {{ author.lastName }}
@@ -53,8 +52,8 @@ onMounted(async () => {
                 <div class="col-12 col-md-5 book-image ps-0">
                     <img
                         :src="
-                            book_details.book.coverImageUrl
-                                ? baseUrl + book_details.book.coverImageUrl
+                            book_details?.book?.coverImageUrl
+                                ? baseUrl + book_details?.book?.coverImageUrl
                                 : baseUrl + 'default-image.jpg'
                         "
                         alt="Cover Image"
@@ -63,11 +62,11 @@ onMounted(async () => {
                 </div>
                 <div class="col book-info p-3">
                     <p class="fst-italic">Résumé:</p>
-                    <p>{{ book_details.book.summary }}</p>
+                    <p>{{ book_details?.book?.summary }}</p>
                     <div class="row">
                         <p>
                             <span class="badge text-bg-warning me-1">{{
-                                book_details.book.category.name
+                                book_details?.book?.category?.name
                             }}</span>
                         </p>
                         <p>Caractéristiques:</p>
@@ -75,28 +74,28 @@ onMounted(async () => {
                         <div class="col">
                             <p>
                                 <span class="fw-light">ISBN: </span
-                                >{{ book_details.book.isbn }}
+                                >{{ book_details?.book?.isbn }}
                             </p>
                         </div>
                         <div class="col">
                             <p>
                                 <span class="fw-light"
                                     >L'année de parution: </span
-                                >{{ book_details.book.publicationYear }}
+                                >{{ book_details?.book?.publicationYear }}
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <p>
-                                <span class="fw-light">Edition: </span
-                                >{{ book_details.publisher.name }}
+                                <span class="fw-light">Edition </span
+                                >{{ book_details?.book?.publisher?.name }}
                             </p>
                         </div>
                         <div class="col">
                             <p>
                                 <span class="fw-light">Nombres de pages: </span
-                                >{{ book_details.book.pageCount }}
+                                >{{ book_details?.book?.pageCount }}
                             </p>
                         </div>
                     </div>
@@ -104,7 +103,7 @@ onMounted(async () => {
                         <div class="col">
                             <p>
                                 <span class="fw-light">Langue: </span>
-                                {{ book_details.book.language }}
+                                {{ book_details?.book?.language?.name }}
                             </p>
                         </div>
                     </div>
