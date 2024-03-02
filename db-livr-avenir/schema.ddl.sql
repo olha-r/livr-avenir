@@ -132,7 +132,7 @@ CREATE TABLE books (
 
 CREATE TABLE conditions (
 	id SERIAL,
-    condition_code VARCHAR(30) NOT null,
+    condition_code VARCHAR(100) NOT null,
 	condition_name VARCHAR(30) UNIQUE NOT NULL,
 	logical_order SMALLINT NOT null,
 	constraint pk_condition_id primary key(id)
@@ -140,7 +140,7 @@ CREATE TABLE conditions (
 
 CREATE TABLE book_items (
     id SERIAL,
-    item_code VARCHAR(30) NOT null,
+    item_code VARCHAR(100) NOT null,
     description VARCHAR(1000) NOT NULL,
     points_price INTEGER NOT NULL,
     added_at TIMESTAMP NOT NULL,

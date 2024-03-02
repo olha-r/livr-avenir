@@ -10,7 +10,8 @@ INSERT INTO users
 	VALUES
     ( 'Olha', 'Raulet', 'raulet.olha@gmail.com', '$2a$11$mTbgXh6GL/hWlZgzYMB55OrswkrWOC0squWLwJjSVBMp1Lmfbqdk6', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_ADMIN')),
     ( 'Olha', 'Admin', 'admin@admin.com', '$2a$11$mTbgXh6GL/hWlZgzYMB55OrswkrWOC0squWLwJjSVBMp1Lmfbqdk6', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_ADMIN')),
-	( 'Diane', 'Mallet', 'diane.mallet@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER'));
+	( 'Diane', 'Mallet', 'diane.mallet@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER')),
+    ( 'Test', 'User', 'testuser@gmail.com', '$2a$11$mDvDEbWiKeBWlbK/Y6n.uenZ9S6VDoPFj6w15EBOEPqQh7whZKXOC', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER'));
 
 INSERT INTO languages 
 	(language_name, code_iso, logical_order)

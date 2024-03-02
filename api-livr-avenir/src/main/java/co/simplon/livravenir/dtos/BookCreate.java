@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.http.MediaType;
-import org.springframework.lang.NonNull;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.livravenir.customValidation.ImageSize;
@@ -45,19 +44,19 @@ public class BookCreate {
     @ImageSize
     private MultipartFile coverImageUrl;
 
-    @NonNull
+    @NotNull
     @Positive
     private Long publisher;
 
-    @NonNull
+    @NotNull
     @Positive
     private Long categoryId;
 
-    @NonNull
+    @NotNull
     @Positive
     private Long languageId;
 
-    @NonNull
+    @NotNull
     private Set<Long> authorList = new HashSet<>();
 
     public BookCreate() {

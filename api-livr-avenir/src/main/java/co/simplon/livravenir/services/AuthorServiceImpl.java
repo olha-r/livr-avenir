@@ -23,7 +23,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Collection<AuthorDetail> getAllAuthors() {
-	// TODO Auto-generated method stub
 	return authors.findAllProjectedBy();
     }
 
