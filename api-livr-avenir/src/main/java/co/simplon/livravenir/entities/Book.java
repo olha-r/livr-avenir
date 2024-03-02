@@ -48,7 +48,7 @@ public class Book extends AbstractEntity {
     private Language language;
 
     public Book() {
-	// TODO Auto-generated constructor stub
+	//
     }
 
     public String getIsbn() {

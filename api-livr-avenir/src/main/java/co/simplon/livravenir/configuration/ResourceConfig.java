@@ -37,7 +37,8 @@ public class ResourceConfig {
 				    "/formats",
 				    "/languages",
 				    "/authors",
-				    "/publishers")
+				    "/publishers",
+				    "/conditions")
 			    .permitAll()
 			    .requestMatchers(
 				    HttpMethod.POST,

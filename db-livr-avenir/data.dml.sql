@@ -133,7 +133,7 @@ INSERT INTO books
 INSERT INTO conditions 
 	(condition_code, condition_name, logical_order)
 	VALUES
-	('as_new', 'Comme neuf', 1), ('very_good', 'Très bon', 2), ('good', 'Bon', 3), ('satisfying', 'Satisfaisant', '4');
+	('as_new', 'Comme neuf', 1), ('very_good', 'Très bon', 2), ('good', 'Bon', 3), ('satisfying', 'Satisfaisant', 4);
 
 INSERT INTO book_items
 	(item_code, description, points_price, added_at, condition_id, order_id, book_id, user_id)

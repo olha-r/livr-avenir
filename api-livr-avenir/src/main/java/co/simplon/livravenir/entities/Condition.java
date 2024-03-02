@@ -7,20 +7,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "languages")
-public class Language extends AbstractEntity {
+@Table(name = "conditions")
+public class Condition extends AbstractEntity {
 
-    @Column(name = "code_iso")
-    private String codeIso;
+    @Column(name = "condition_code")
+    private String conditionCode;
 
-    @Column(name = "language_name")
+    @Column(name = "condition_name")
     private String name;
 
     @Column(name = "logical_order")
     private long logicalOrder;
 
-    public Language() {
+    public Condition() {
 	//
+    }
+
+    public String getConditionCode() {
+	return conditionCode;
+    }
+
+    @SuppressWarnings("unused")
+    public void setConditionCode(String conditionCode) {
+	this.conditionCode = conditionCode;
     }
 
     public String getName() {
@@ -30,15 +39,6 @@ public class Language extends AbstractEntity {
     @SuppressWarnings("unused")
     public void setName(String name) {
 	this.name = name;
-    }
-
-    public String getCodeIso() {
-	return codeIso;
-    }
-
-    @SuppressWarnings("unused")
-    public void setCodeIso(String codeIso) {
-	this.codeIso = codeIso;
     }
 
     public long getLogicalOrder() {
@@ -53,13 +53,13 @@ public class Language extends AbstractEntity {
     @Override
     public String toString() {
 	return String.format(
-		"{codeIso=%s, name=%s, logicalOrder=%s}",
-		codeIso, name, logicalOrder);
+		"{conditionCode=%s, name=%s, logicalOrder=%s}",
+		conditionCode, name, logicalOrder);
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(codeIso);
+	return Objects.hash(conditionCode);
     }
 
     @Override
@@ -67,11 +67,12 @@ public class Language extends AbstractEntity {
 	if (this == obj) {
 	    return true;
 	}
-	if (!(obj instanceof Language)) {
+	if (!(obj instanceof Condition)) {
 	    return false;
 	}
-	Language other = (Language) obj;
-	return Objects.equals(codeIso, other.codeIso);
+	Condition other = (Condition) obj;
+	return Objects.equals(conditionCode,
+		other.conditionCode);
     }
 
 }

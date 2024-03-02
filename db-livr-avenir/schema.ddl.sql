@@ -163,18 +163,17 @@ CREATE TABLE book_items (
 			references users(id)
 );
 
-
 CREATE TABLE book_authors (
-id SERIAL,
-book_id INTEGER not null,
-author_id INTEGER not null,
-constraint pk_book_authors_id primary key(id),
-constraint fk_book_id
-			foreign key (book_id)
-			references books(id),
-constraint fk_author_id
-			foreign key (author_id)
-			references authors(id)
+    id SERIAL,
+    book_id INTEGER not null,
+    author_id INTEGER not null,
+    constraint pk_book_authors_id primary key(id),
+    constraint fk_book_id
+                foreign key (book_id)
+                references books(id),
+    constraint fk_author_id
+                foreign key (author_id)
+                references authors(id)
 );
 
 
