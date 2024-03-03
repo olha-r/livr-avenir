@@ -1,6 +1,7 @@
 package co.simplon.livravenir.services;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.livravenir.configuration.SecurityHelper;
 import co.simplon.livravenir.dtos.BookItemCreate;
+import co.simplon.livravenir.dtos.ItemListForBook;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.BookItem;
 import co.simplon.livravenir.entities.Condition;
@@ -67,6 +69,16 @@ public class BookItemServiceImpl
 	LocalDateTime now = LocalDateTime.now();
 	entity.setAddedAt(now);
 	bookItems.save(entity);
+    }
+
+    @Override
+    public Set<ItemListForBook> getAllItemsByBook(
+	    Long bookId) {
+	Set<ItemListForBook> itemList = bookItems
+		.findItemsByBookIdOrderByAddedAtDesc(
+			bookId);
+
+	return itemList;
     }
 
 }
