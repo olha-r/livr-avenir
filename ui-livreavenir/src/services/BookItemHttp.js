@@ -10,6 +10,12 @@ export class BookItemHttp {
         const response = await http.post(url, payload, {headers});
         return response;
     };
+
+    async get_items_by_book_id(book_id) {
+        const url = `/book_items/${book_id}`;
+        const response = await http.get(url);
+        return response;
+    };
     
 
 }

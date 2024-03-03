@@ -3,14 +3,16 @@ import { onMounted, ref, reactive, computed, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useBookStore } from "@/stores/book-store";
+
 import { useAuthStore } from "@/stores/auth-store";
 import { useBookItemStore } from "@/stores/book-item-store";
-import { usePageStore } from "@/stores/page-store";
-import { useConditionStore } from "@/stores/condition-store";
 import { useI18n } from "vue-i18n";
 import { useVuelidate } from "@vuelidate/core";
 import LabelValues from "@/components/commons/LabelValues.vue";
 import ValidationMessage from "@/components/commons/ValidationMessage.vue";
+import { useConditionStore } from "@/stores/condition-store";
+import { usePageStore } from "@/stores/page-store";
+import BookItem from "@/components/client/BookItem.vue";
 import {
     required,
     minLength,
@@ -21,31 +23,26 @@ import {
 
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const bookStore = useBookStore();
-const { book_details } = storeToRefs(bookStore);
-
 const bookItemStore = useBookItemStore();
+const { book_details } = storeToRefs(bookStore);
 const route = useRoute();
 const book_id = route.params.id;
 const imageUrl = ref("");
 const conditionStore = useConditionStore();
 const { list_conditions } = storeToRefs(conditionStore);
-
+const { items_by_book } = storeToRefs(bookItemStore);
 onMounted(async () => {
     await bookStore.get_book_details(book_id);
     await conditionStore.get_list_conditions();
+    await bookItemStore.get_items_by_book_id(book_id);
 });
-
 const inputs = reactive({
     bookId: book_details?.book?.id,
     description: null,
     pointsPrice: null,
     conditionId: null,
 });
-watch(book_details, (newBookDetails) => {
-    if (newBookDetails && newBookDetails.book) {
-        inputs.bookId = newBookDetails.book.id;
-    }
-});
+
 const { t } = useI18n();
 const requiredMessage = `${t("admin.validationMessages.required")}`;
 const rules = computed(() => {
@@ -104,16 +101,20 @@ const openNewBookItemModal = () => {
     modal.show();
 };
 const closeModal = () => {
-    showModal.value = false;
+    showModal.value = false; // Hide the modal
     const modalElement = document.getElementById("newBookItem");
     const modalBackdrop = document.querySelector(".modal-backdrop");
     if (modalBackdrop) {
-        modalBackdrop.parentNode.removeChild(modalBackdrop);
+        modalBackdrop.parentNode.removeChild(modalBackdrop); // Remove the modal backdrop from the DOM
     }
     const modal = new bootstrap.Modal(modalElement);
-    modal.hide();
+    modal.hide(); // Hide the Bootstrap modal
 };
-
+watch(book_details, (newBookDetails) => {
+    if (newBookDetails && newBookDetails.book) {
+        inputs.bookId = newBookDetails.book.id;
+    }
+});
 const pageStore = usePageStore();
 const authStore = useAuthStore();
 const { token } = authStore;
@@ -254,7 +255,19 @@ const add_new_book_item = async () => {
                     </button>
                 </div>
             </div>
-            <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
+            <span v-if="items_by_book">
+                <div v-for="(item, index) in items_by_book" :key="index">
+                    <BookItem :item="item" />
+                </div>
+            </span>
+            <div v-else>
+                <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
+                    <div class="col-12">
+                        <p class="text-center">No items</p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
                 <div class="col-12 col-md-2 d-flex justify-content-center">
                     <img
                         src="../assets/images/avatar-man.png"
@@ -289,9 +302,10 @@ const add_new_book_item = async () => {
                         <i class="bi bi-handbag"></i>
                     </button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
+
     <!-- MODAL for add new item book -->
 
     <div
