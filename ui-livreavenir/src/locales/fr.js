@@ -111,6 +111,27 @@ const frMessages = {
             email: "Email",
             password:  "Mot de passe",
             button: "Se connecter"
+    },
+    client: {
+        newItemForm: {
+            titleCreate: "Ajouter un livre pour échange",
+            description: {
+                label: "Description", 
+            },
+            condition: {
+                label: "Quelle est état du livre?",
+                option: "Sélectionner un état du livre"
+            },
+            pointsPrice: {
+                label: "Points d'échange",
+                option: "Sélectionner un état du livre"
+            },
+            buttonCreate: "Ajouter",
+        },
+        validationMessages: {
+            minLengthDescription: "Veuillez saisir au moins 10 caractères.",
+            maxLengthDescription: "Veuillez saisir moins de 1000 caractères.",
+        }
     }
   };
   
