@@ -41,6 +41,13 @@ const logout = () => {
                                 >{{ t("navbar.homePageItem") }}</RouterLink
                             >
                         </li>
+                        <li class="nav-item" v-if="isLoggedIn">
+                            <RouterLink
+                                class="nav-link"
+                                :to="{ name: 'profile' }"
+                                >User profile</RouterLink
+                            >
+                        </li>
                         <li class="nav-item" v-if="isLoggedIn && isAdmin">
                             <RouterLink
                                 class="nav-link"

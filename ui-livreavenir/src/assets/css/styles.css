@@ -66,6 +66,14 @@ a {
     color: var(--dark-green-color) !important;
 }
 
+.btn-outline-primary {
+    background-color: white;
+    color:var(--dark-orange-color);
+    border-color: var(--dark-orange-color);
+    border-radius: 0.6rem;
+
+}
+
 /********** Home page **********/
 .home-page-img {
     background-image: url('../images/books-home-page.jpg');
