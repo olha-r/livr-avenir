@@ -117,7 +117,7 @@ watch(book_details, (newBookDetails) => {
 });
 const pageStore = usePageStore();
 const authStore = useAuthStore();
-const { token } = authStore;
+const { token, isLoggedIn } = authStore;
 const add_new_book_item = async () => {
     await v$.value.$validate();
     if (!v$.value.$error) {
@@ -245,6 +245,7 @@ const add_new_book_item = async () => {
                         </div>
                     </div>
                     <button
+                        v-if="isLoggedIn"
                         class="btn"
                         type="button"
                         id="addNewBookItem"
@@ -255,18 +256,23 @@ const add_new_book_item = async () => {
                     </button>
                 </div>
             </div>
-            <span v-if="items_by_book">
-                <div v-for="(item, index) in items_by_book" :key="index">
-                    <BookItem :item="item" />
-                </div>
-            </span>
-            <div v-else>
-                <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
-                    <div class="col-12">
-                        <p class="text-center">No items</p>
+            <span v-if="isLoggedIn">
+                <span v-if="items_by_book">
+                    <div v-for="(item, index) in items_by_book" :key="index">
+                        <BookItem :item="item" />
+                    </div>
+                </span>
+
+                <div v-else>
+                    <div
+                        class="row book-owner pt-3 mt-5 d-flex align-items-center"
+                    >
+                        <div class="col-12">
+                            <p class="text-center">No items</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </span>
             <!-- <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
                 <div class="col-12 col-md-2 d-flex justify-content-center">
                     <img
