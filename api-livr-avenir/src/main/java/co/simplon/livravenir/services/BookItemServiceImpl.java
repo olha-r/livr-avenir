@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.simplon.livravenir.configuration.SecurityHelper;
 import co.simplon.livravenir.dtos.BookItemCreate;
 import co.simplon.livravenir.dtos.ItemListForBook;
+import co.simplon.livravenir.dtos.ItemListForUser;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.BookItem;
 import co.simplon.livravenir.entities.Condition;
@@ -79,6 +80,15 @@ public class BookItemServiceImpl
 			bookId);
 
 	return itemList;
+    }
+
+    @Override
+    public Set<ItemListForUser> getItemsByUserId() {
+	Long authenticatedUserId = SecurityHelper
+		.getCurrentAuthenticatedUser();
+
+	return bookItems
+		.getBookItemsByUserId(authenticatedUserId);
     }
 
 }

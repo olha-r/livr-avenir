@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.livravenir.dtos.BookItemCreate;
 import co.simplon.livravenir.dtos.ItemListForBook;
+import co.simplon.livravenir.dtos.ItemListForUser;
 import co.simplon.livravenir.services.BookItemService;
 import jakarta.validation.Valid;
 
@@ -38,5 +39,10 @@ public class BookItemController {
     public Set<ItemListForBook> getAllItemsByBook(
 	    @PathVariable("bookId") Long bookId) {
 	return bookItemService.getAllItemsByBook(bookId);
+    }
+
+    @GetMapping("/user")
+    public Set<ItemListForUser> getItemsByUserId() {
+	return bookItemService.getItemsByUserId();
     }
 }
