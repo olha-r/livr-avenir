@@ -9,6 +9,4 @@ export class UserHttp {
         return response;
     };
 
-    
-
 }

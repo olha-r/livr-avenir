@@ -16,6 +16,15 @@ export class BookItemHttp {
         const response = await http.get(url);
         return response;
     };
+
+    async get_items_by_user() {
+        const headers ={
+            //  Authorization: `Bearer ${token}`
+            };
+        const url = `/book_items/user`;
+        const response = await http.get(url, {headers});
+        return response;
+    };
     
 
 }
