@@ -31,5 +31,14 @@ export const useBookItemStore = defineStore('book-item-store', {
             }
             return promise; 
         },
+        async delete_item(item_id, token){
+            const bookItemHttp = new BookItemHttp();
+            const promise = await bookItemHttp.delete_item(item_id, token);
+            console.log("PROMISE", promise);
+            // if(promise.status== 204){
+            //     this.get_book_list_admin();
+            // }
+            return promise; 
+        },
     }, 
 })

@@ -10,8 +10,8 @@ const { user_profile } = storeToRefs(userStore);
 const bookItemStore = useBookItemStore();
 const { items_by_user } = storeToRefs(bookItemStore);
 const showStates = reactive({
-    userInfo: true,
-    offeredBooks: false,
+    userInfo: false,
+    offeredBooks: true,
     orderedBooks: false,
     sentBooks: false,
     pointsNumber: false,

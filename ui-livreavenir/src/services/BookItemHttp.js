@@ -25,6 +25,15 @@ export class BookItemHttp {
         const response = await http.get(url, {headers});
         return response;
     };
+
+    async delete_item(item_id, token) {
+        const url = `/book_items/${item_id}`;
+        const headers= {
+              Authorization: `Bearer ${token}`
+            };
+        const response = await http.delete(url, {headers});
+        return response;
+    };
     
 
 }
