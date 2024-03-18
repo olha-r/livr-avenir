@@ -15,4 +15,6 @@ public interface BookItemService {
 
     Set<ItemListForUser> getItemsByUserId();
 
+    void deleteBookItem(Long id);
+
 }

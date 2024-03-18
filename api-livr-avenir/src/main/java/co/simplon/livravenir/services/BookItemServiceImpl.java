@@ -91,4 +91,11 @@ public class BookItemServiceImpl
 		.getBookItemsByUserId(authenticatedUserId);
     }
 
+    @Transactional
+    @Override
+    public void deleteBookItem(Long id) {
+	BookItem entity = bookItems.findById(id).get();
+	bookItems.deleteById(id);
+    }
+
 }
