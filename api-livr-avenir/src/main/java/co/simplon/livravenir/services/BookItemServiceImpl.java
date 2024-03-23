@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.livravenir.configuration.SecurityHelper;
 import co.simplon.livravenir.dtos.BookItemCreate;
+import co.simplon.livravenir.dtos.BookUpdate;
 import co.simplon.livravenir.dtos.ItemListForBook;
 import co.simplon.livravenir.dtos.ItemListForUser;
 import co.simplon.livravenir.entities.Book;
@@ -19,6 +20,7 @@ import co.simplon.livravenir.repositories.BookItemRepository;
 import co.simplon.livravenir.repositories.BookRepository;
 import co.simplon.livravenir.repositories.ConditionRepository;
 import co.simplon.livravenir.repositories.UserRepository;
+import jakarta.validation.Valid;
 
 @Transactional(readOnly = true)
 @Service
@@ -47,8 +49,7 @@ public class BookItemServiceImpl
     public void createItem(BookItemCreate inputs) {
 	BookItem entity = new BookItem();
 	entity.setDescription(inputs.description());
-	Book book = books
-		.getReferenceById(inputs.conditionId());
+	Book book = books.getReferenceById(inputs.bookId());
 	entity.setBook(book);
 	entity.setPointsPrice(inputs.pointsPrice());
 	Condition condition = conditions
@@ -97,5 +98,7 @@ public class BookItemServiceImpl
 	BookItem entity = bookItems.findById(id).get();
 	bookItems.deleteById(id);
     }
+
+    
 
 }
