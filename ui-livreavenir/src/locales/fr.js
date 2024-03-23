@@ -130,9 +130,20 @@ const frMessages = {
         },
         validationMessages: {
             minLengthDescription: "Veuillez saisir au moins 10 caractères.",
-            maxLengthDescription: "Veuillez saisir moins de 1000 caractères.",
+            maxLengthDescription: "Veuillez saisir moins de 150 caractères.",
+        },
+        bookDetailPage: {
+            bookItemDetail: {
+                date: "Ajouté le",
+               pointsPrice:"Points",
+               condition: "État:",
+               addToCartBtn:"Ajouter au panier"
+            }
+
         }
     }
   };
+
+  
   
 export default frMessages;

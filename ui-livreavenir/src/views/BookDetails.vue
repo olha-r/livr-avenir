@@ -63,7 +63,7 @@ const rules = computed(() => {
             ),
             maxLength: helpers.withMessage(
                 `${t("client.validationMessages.maxLengthDescription")}`,
-                maxLength(1000)
+                maxLength(150)
             ),
         },
         conditionId: {
@@ -129,7 +129,9 @@ const add_new_book_item = async () => {
             pageStore.alert.message = `Votre livre a été ajoutée avec succès.`;
             pageStore.alert.show = true;
             console.log(`Votre livre a été ajoutée avec succès.`);
+
             closeModal();
+            await bookItemStore.get_items_by_book_id(book_id);
             setTimeout(() => {
                 pageStore.alert.show = false;
             }, 5000);
@@ -418,15 +420,6 @@ const add_new_book_item = async () => {
                     </form>
 
                     <!-- End form -->
-                </div>
-                <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
-                        Fermer
-                    </button>
                 </div>
             </div>
         </div>

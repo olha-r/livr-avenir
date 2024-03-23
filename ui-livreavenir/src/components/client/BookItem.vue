@@ -1,7 +1,9 @@
 <script setup>
 import { defineProps } from "vue";
-
+import { useI18n } from "vue-i18n";
 const props = defineProps(["item"]);
+const { d } = useI18n();
+const { t } = useI18n();
 </script>
 <template>
     <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
@@ -10,19 +12,30 @@ const props = defineProps(["item"]);
                 {{ item?.user?.firstName }} {{ item?.user?.lastName }}
             </p>
         </div>
-        <div class="col-12 col-md-3">
-            <p class="text-center">{{ item?.condition?.name }}</p>
-            <p class="text-center">Ajouté le {{ item?.addedAt }}</p>
-        </div>
         <div class="col-12 col-md-2">
-            <p class="text-center">Points</p>
+            <p class="text-center">
+                {{ t("client.bookDetailPage.bookItemDetail.condition") }}
+                {{ item?.condition?.name }}
+            </p>
+            <p class="text-center">
+                {{ t("client.bookDetailPage.bookItemDetail.date") }}
+            </p>
+            <p class="text-center"></p>
+            <p class="text-center">{{ d(item?.addedAt, "short", "fr-FR") }}</p>
+        </div>
+        <div class="col-12 col-md-1">
+            <p class="text-center">
+                {{ t("client.bookDetailPage.bookItemDetail.pointsPrice") }}
+            </p>
             <p class="text-center">{{ item?.pointsPrice }}</p>
         </div>
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-5">
             <p class="text-center">{{ item?.description }}</p>
         </div>
         <div class="col-12 col-md-2 d-flex flex-column justify-content-center">
-            <p class="text-center m-0">Emprenter</p>
+            <p class="text-center m-0">
+                {{ t("client.bookDetailPage.bookItemDetail.addToCartBtn") }}
+            </p>
             <button class="btn" href="#">
                 <i class="bi bi-handbag"></i>
             </button>

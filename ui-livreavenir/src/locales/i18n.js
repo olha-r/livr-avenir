@@ -1,5 +1,6 @@
 import { createI18n } from 'vue-i18n';
 import frMessages from './fr';
+import datetimeFormats from './datetimeFormats';
 
 const i18n = createI18n({
     legacy: false,
@@ -8,7 +9,7 @@ const i18n = createI18n({
     messages: {
         fr: frMessages
     },
-    // datetimeFormats,
+    datetimeFormats,
     // numberFormats
 });
 
