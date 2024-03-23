@@ -6,9 +6,13 @@ public final class CustomError {
 
     private final String fieldName;
 
-    public CustomError(String code, String fieldName) {
+    private final String errMsg;
+
+    public CustomError(String code, String fieldName,
+	    String errMsg) {
 	this.code = code;
 	this.fieldName = fieldName;
+	this.errMsg = errMsg;
     }
 
     public String getCode() {
@@ -19,10 +23,15 @@ public final class CustomError {
 	return fieldName;
     }
 
+    public String getErrMsg() {
+	return errMsg;
+    }
+
     @Override
     public String toString() {
-	return "{code=" + code + ", fieldName=" + fieldName
-		+ "}";
+	return String.format(
+		"{code=%s, fieldName=%s, errMsg=%s}", code,
+		fieldName, errMsg);
     }
 
 }
