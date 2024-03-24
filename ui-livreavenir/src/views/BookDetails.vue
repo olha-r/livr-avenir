@@ -216,9 +216,10 @@ const add_new_book_item = async () => {
                     <p>{{ book_details?.book?.summary }}</p>
                     <div class="row">
                         <p>
-                            <span class="badge text-bg-warning me-1">{{
-                                book_details?.book?.category?.name
-                            }}</span>
+                            <span
+                                class="badge text-bg-warning px-3 category-badge me-1"
+                                >{{ book_details?.book?.category?.name }}</span
+                            >
                         </p>
                         <p>
                             {{ t("client.bookDetailPage.bookDetail.info") }}
@@ -287,7 +288,7 @@ const add_new_book_item = async () => {
                     </div>
                     <button
                         v-if="isLoggedIn"
-                        class="btn"
+                        class="btn btn-outline-primary"
                         type="button"
                         id="addNewBookItem"
                         @click="openNewBookItemModal"

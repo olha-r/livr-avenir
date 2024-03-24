@@ -121,59 +121,66 @@ const update_item = async () => {
         console.log("There are errors");
     }
 };
+const cancelEdit = () => {
+    props.exitEditMode();
+};
 </script>
 
 <template>
     <form novalidate @submit.prevent="update_item">
-        <div class="row">
-            <div class="col-md-12 mb-3">
-                <label for="description" class="form-label required"
-                    >Description
-                </label>
-                <textarea
-                    v-model.trim="inputs.description"
-                    name="description"
-                    id="description"
-                    class="form-control"
-                    rows="3"
-                ></textarea>
-                <ValidationMessage :model="v$.description" />
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="conditionId" class="form-label required"
-                    >Condition
-                </label>
-                <select
-                    v-model.number="inputs.conditionId"
-                    id="conditionId"
-                    class="form-select"
-                >
-                    <option selected disabled value="0">option</option>
-                    <LabelValues :items="list_conditions" />
-                </select>
-                <ValidationMessage :model="v$.conditionId" />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="pointsPrice" class="form-label required"
-                    >Point price
-                </label>
-                <select
-                    v-model.number="inputs.pointsPrice"
-                    id="pointsPrice"
-                    class="form-select"
-                >
-                    <option selected disabled value="0">option</option>
-                    <LabelValues :items="pointsPriceOptions" />
-                </select>
-                <ValidationMessage :model="v$.pointsPrice" />
-            </div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <button
-                type="submit"
-                class="btn btn-lg btn-primary col-md-4 col-12 my-3"
+        <div class="mb-3">
+            <label for="description" class="form-label required"
+                >Description</label
             >
+            <textarea
+                v-model.trim="inputs.description"
+                name="description"
+                id="description"
+                class="form-control form-control-sm"
+                rows="3"
+            ></textarea>
+            <ValidationMessage :model="v$.description" />
+        </div>
+
+        <div class="mb-3">
+            <label for="conditionId" class="form-label required"
+                >Condition</label
+            >
+            <select
+                v-model.number="inputs.conditionId"
+                id="conditionId"
+                class="form-select form-select-sm"
+            >
+                <option selected disabled value="0">Select condition</option>
+                <LabelValues :items="list_conditions" />
+            </select>
+            <ValidationMessage :model="v$.conditionId" />
+        </div>
+
+        <div class="mb-3">
+            <label for="pointsPrice" class="form-label required"
+                >Point price</label
+            >
+            <select
+                v-model.number="inputs.pointsPrice"
+                id="pointsPrice"
+                class="form-select form-select-sm"
+            >
+                <option selected disabled value="0">Select points price</option>
+                <LabelValues :items="pointsPriceOptions" />
+            </select>
+            <ValidationMessage :model="v$.pointsPrice" />
+        </div>
+
+        <div class="text-center">
+            <button
+                type="button"
+                class="btn btn-secondary btn-sm me-2"
+                @click="cancelEdit"
+            >
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-sm btn-primary me-2">
                 Update
             </button>
         </div>

@@ -33,7 +33,7 @@ onMounted(async () => {
 <template>
     <main class="container-xl my-5">
         <h3 class="text-center mb-3">User profile</h3>
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-around mb-4">
             <a
                 class="btn btn-outline-primary btn-user-section m-1 p-4"
                 :class="activeClass('userInfo')"

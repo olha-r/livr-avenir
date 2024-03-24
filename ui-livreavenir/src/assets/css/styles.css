@@ -53,25 +53,32 @@ a {
     color: var(--dark-green-color);
 }
 
-
 .btn {
-    background-color: var(--dark-orange-color);
-    border-color: var(--dark-orange-color);
-    border-radius: 0.6rem;
+    border-radius: 0.8rem;
 }
 
-.btn:hover, .btn:active, .btn:focus {
-    background-color: var(--light-orange-color) !important;
-    border-color: var(--light-orange-color) !important;
-    color: var(--dark-green-color) !important;
+.btn-primary, .btn.active, 
+.btn.active:hover, .btn.active:focus, .btn.active:active  {
+    background-color: var(--dark-orange-color);
+    border-color: var(--dark-orange-color);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus{
+    background-color: var(--light-orange-color) ;
+    border-color: var(--light-orange-color) ;
+    color: var(--dark-green-color) ;
 }
 
 .btn-outline-primary {
-    background-color: white;
-    color:var(--dark-orange-color);
-    border-color: var(--dark-orange-color);
-    border-radius: 0.6rem;
+    border-color: var(--dark-green-color) ;
+    color: var(--dark-green-color) ;
+}
 
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+    border-color: var(--dark-green-color) ;
+    background-color: var(--dark-green-color) ;
 }
 
 /********** Home page **********/
@@ -128,23 +135,15 @@ h3 {
     border-radius: 10px;
 }
 
-.book-info .btn {
-    background-color: var(--light-orange-color);
-}
-
-.book-info .btn:hover {
-    background-color: var(--dark-orange-color);
-}
-
 .img-like {
     font-size: 1.5rem;
     color: var(black);
 }
 
-.book-owner .btn {
+/* .book-owner .btn {
     background-color: var(--light-orange-color);
     border: var(--light-orange-color);
-}
+} */
 
 .bi-envelope,
 .bi-handbag {

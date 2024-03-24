@@ -43,60 +43,96 @@ const exitEditMode = () => {
 };
 </script>
 <template>
-    <div class="row mb-2">
+    <div class="row mb-4">
         <div
             class="col-md-6"
             v-for="(item, index) in offeredBookList"
             :key="index"
         >
-            <div
-                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250"
-            >
-                <div v-if="editMode && editingItemId === item.id">
-                    <UpdateItemForm :item="item" :exitEditMode="exitEditMode" />
-                </div>
-                <div class="col p-4" v-else>
-                    <h4 class="mb-0">{{ item?.book?.title }}</h4>
-                    <div class="mb-1 text-body-secondary">
-                        ISBN: {{ item?.book?.isbn }}
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item?.book?.title }}</h5>
+                            <p class="card-text text-muted mb-1">
+                                ISBN: {{ item?.book?.isbn }}
+                            </p>
+                            <div v-if="editMode && editingItemId === item.id">
+                                <UpdateItemForm
+                                    :item="item"
+                                    :exitEditMode="exitEditMode"
+                                />
+                            </div>
+                            <div v-else>
+                                <p class="card-text mb-1">
+                                    Points Price: {{ item?.pointsPrice }}
+                                </p>
+                                <p class="card-text mb-1">
+                                    Condition: {{ item?.condition?.name }}
+                                </p>
+                                <p class="card-text mb-1">
+                                    Ajouter le: {{ item?.addedAt }}
+                                </p>
+                                <p class="card-text mb-1">
+                                    My comment: {{ item?.description }}
+                                </p>
+                                <div class="text-center">
+                                    <button
+                                        class="btn btn-sm btn-outline-primary m-2"
+                                        @click="setEditMode(item?.id)"
+                                    >
+                                        <i class="bi bi-pencil-fill me-1"></i>
+                                        Modifier
+                                    </button>
+                                    <button
+                                        class="btn btn-sm btn-outline-danger"
+                                        @click="remove(item?.id)"
+                                    >
+                                        <i class="bi bi-trash-fill me-1"></i>
+                                        Supprimer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="card-text mb-auto">
-                        {{ item?.pointsPrice }} points
-                    </p>
-                    <p class="card-text mb-auto">
-                        Condition: {{ item?.condition?.name }}
-                    </p>
-                    <p class="card-text mb-auto">
-                        Description: {{ item?.description }}
-                    </p>
-                    <p class="card-text mb-auto">
-                        Ajouter le: {{ item?.addedAt }}
-                    </p>
-                    <a
-                        class="btn btn-outline-success m-3"
-                        href="#"
-                        @click="setEditMode(item?.id)"
-                        >Modifier</a
-                    >
-                    <a
-                        class="btn btn-outline-danger m-3"
-                        href="#"
-                        @click="remove(item?.id)"
-                        >Supprimer</a
-                    >
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                    <img
-                        :src="
-                            item?.book?.coverImageUrl
-                                ? baseUrl + item?.book?.coverImageUrl
-                                : baseUrl + 'default-image.jpg'
-                        "
-                        class="img-thumbnail img-book-user"
-                    />
+                    <div class="col-md-4 d-none d-md-block">
+                        <img
+                            :src="
+                                item?.book?.coverImageUrl
+                                    ? baseUrl + item?.book?.coverImageUrl
+                                    : baseUrl + 'default-image.jpg'
+                            "
+                            alt="Book Cover"
+                            class="img-fluid img-book-cover"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+<style>
+/* Add custom styles here */
+.img-book-cover {
+    max-width: 100%;
+    max-height: 250px; /* Adjust the height as needed */
+    object-fit: cover;
+}
 
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 0.875rem;
+}
+
+.card-text.mb-1 {
+    margin-bottom: 0.25rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+}
+</style>
