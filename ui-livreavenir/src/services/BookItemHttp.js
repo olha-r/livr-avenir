@@ -34,6 +34,14 @@ export class BookItemHttp {
         const response = await http.delete(url, {headers});
         return response;
     };
+    async update_item(item_id, payload, token) {
+        const url = `/book_items/${item_id}`;
+        const headers= {
+              Authorization: `Bearer ${token}`
+            };
+        const response = await http.patch(url, payload, {headers});
+        return response;
+    };
     
 
 }

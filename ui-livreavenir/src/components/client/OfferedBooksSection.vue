@@ -1,8 +1,9 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import { useBookItemStore } from "@/stores/book-item-store";
 import { useAuthStore } from "@/stores/auth-store";
 import { usePageStore } from "@/stores/page-store";
+import UpdateItemForm from "@/components/client/UpdateItemForm.vue";
 const props = defineProps(["offeredBookList"]);
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const authStore = useAuthStore();
@@ -29,6 +30,16 @@ const remove = async (id) => {
         }, 6000); // Redirect after 3 seconds
     }
 };
+const editMode = ref(false);
+const editingItemId = ref(null);
+const setEditMode = (id) => {
+    editingItemId.value = id;
+    editMode.value = true;
+};
+const exitEditMode = () => {
+    editMode.value = false;
+    editingItemId.value = null;
+};
 </script>
 <template>
     <div class="row mb-2">
@@ -40,7 +51,10 @@ const remove = async (id) => {
             <div
                 class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250"
             >
-                <div class="col p-4">
+                <div v-if="editMode && editingItemId === item.id">
+                    <UpdateItemForm :item="item" :exitEditMode="exitEditMode" />
+                </div>
+                <div class="col p-4" v-else>
                     <h4 class="mb-0">{{ item?.book?.title }}</h4>
                     <div class="mb-1 text-body-secondary">
                         ISBN: {{ item?.book?.isbn }}
@@ -57,10 +71,12 @@ const remove = async (id) => {
                     <p class="card-text mb-auto">
                         Ajouter le: {{ item?.addedAt }}
                     </p>
-                    <button type="button" class="btn btn-primary m-3">
-                        Modifier
-                    </button>
-
+                    <a
+                        class="btn btn-outline-success m-3"
+                        href="#"
+                        @click="setEditMode(item?.id)"
+                        >Modifier</a
+                    >
                     <a
                         class="btn btn-outline-danger m-3"
                         href="#"

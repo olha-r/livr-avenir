@@ -40,5 +40,11 @@ export const useBookItemStore = defineStore('book-item-store', {
             // }
             return promise; 
         },
+        async update_item(item_id, payload, token){
+            const bookItemHttp = new BookItemHttp();
+            const promise = await bookItemHttp.update_item(item_id, payload, token);
+            console.log("PROMISE", promise);
+            return promise; 
+        }
     }, 
 })
