@@ -113,6 +113,24 @@ const frMessages = {
             button: "Se connecter"
     },
     client: {
+        profile: {
+            section: {
+                userInfo:{
+                label: "User info",
+                email: "Email",
+                fullName: "Nom complet",
+                registationDate: "Inscrit depuis:"
+                } ,
+            offeredBooks: {
+                label :"Livres proposées",
+                title: "Livres à echanger"
+            },
+            pointsNumber: {
+                label: "Points number",
+            }
+            
+        },
+        },
         newItemForm: {
             titleCreate: "Ajouter un livre pour échange",
             description: {
@@ -124,7 +142,7 @@ const frMessages = {
             },
             pointsPrice: {
                 label: "Points d'échange",
-                option: "Sélectionner un état du livre"
+                option: "Sélectionner le prix du livre"
             },
             buttonCreate: "Ajouter",
         },
@@ -147,9 +165,13 @@ const frMessages = {
             },
             bookItemDetail: {
                 noItems: "No items",
-                date: "Ajouté le",
-                pointsPrice:"Points",
-                condition: "État:",
+                date: "Ajouté le ",
+                pointsPrice:"Points: ",
+                condition: "État: ",
+                description: "Mon commentaire: ",
+                btnModify: "Modifier",
+                btnDelete: "Supprimer",
+                btnCancel: "Annuler",
                 addToCartBtn:"Ajouter au panier"
             }
 

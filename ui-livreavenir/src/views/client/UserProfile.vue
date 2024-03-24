@@ -4,7 +4,9 @@ import { useUserStore } from "@/stores/user-store";
 import { useBookItemStore } from "@/stores/book-item-store";
 import { storeToRefs } from "pinia";
 import OfferedBooksSection from "@/components/client/OfferedBooksSection.vue";
-
+import { useI18n } from "vue-i18n";
+const { d } = useI18n();
+const { t } = useI18n();
 const userStore = useUserStore();
 const { user_profile } = storeToRefs(userStore);
 const bookItemStore = useBookItemStore();
@@ -38,14 +40,16 @@ onMounted(async () => {
                 class="btn btn-outline-primary btn-user-section m-1 p-4"
                 :class="activeClass('userInfo')"
                 @click="toggleSection('userInfo')"
-                >User info</a
             >
+                {{ t("client.profile.section.userInfo.label") }}
+            </a>
             <a
                 class="btn btn-outline-primary m-1 p-4"
                 :class="activeClass('offeredBooks')"
                 @click="toggleSection('offeredBooks')"
-                >Livres proposées</a
             >
+                {{ t("client.profile.section.offeredBooks.label") }}
+            </a>
             <!-- <a
                 class="btn btn-outline-primary m-1 p-4"
                 :class="activeClass('orderedBooks')"
@@ -62,20 +66,21 @@ onMounted(async () => {
                 class="btn btn-outline-primary m-1 p-4"
                 :class="activeClass('pointsNumber')"
                 @click="toggleSection('pointsNumber')"
-                >Points number</a
+            >
+                {{ t("client.profile.section.pointsNumber.label") }}</a
             >
         </div>
         <div v-if="showStates.userInfo">
-            <h6>Email</h6>
+            <h6>{{ t("client.profile.section.userInfo.email") }}</h6>
             <p>{{ user_profile?.email }}</p>
-            <h6>Full name</h6>
+            <h6>{{ t("client.profile.section.userInfo.fullName") }}</h6>
             <p>{{ user_profile?.firstName }} {{ user_profile?.lastName }}</p>
-            <h6>Inscrit depuis:</h6>
-            <p>{{ user_profile?.registrationDate }}</p>
+            <h6>{{ t("client.profile.section.userInfo.registrationDate") }}</h6>
+            <p>{{ d(user_profile?.registrationDate, "short", "fr-FR") }}</p>
         </div>
 
         <div v-if="showStates.offeredBooks">
-            <h6>Listes des livre à echanger</h6>
+            <h6>{{ t("client.profile.section.offeredBooks.title") }}</h6>
             <OfferedBooksSection :offeredBookList="items_by_user" />
             <!-- <pre>{{ items_by_user }}</pre> -->
         </div>
@@ -91,7 +96,7 @@ onMounted(async () => {
         </div> -->
 
         <div v-if="showStates.pointsNumber">
-            <h6>Points number</h6>
+            <h6>{{ t("client.profile.section.pointsNumber.label") }}</h6>
             <p>{{ user_profile?.pointsNumber }}</p>
         </div>
     </main>

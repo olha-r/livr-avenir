@@ -129,9 +129,9 @@ const cancelEdit = () => {
 <template>
     <form novalidate @submit.prevent="update_item">
         <div class="mb-3">
-            <label for="description" class="form-label required"
-                >Description</label
-            >
+            <label for="description" class="form-label required">
+                {{ t("client.bookDetailPage.bookItemDetail.description") }}
+            </label>
             <textarea
                 v-model.trim="inputs.description"
                 name="description"
@@ -144,29 +144,33 @@ const cancelEdit = () => {
 
         <div class="mb-3">
             <label for="conditionId" class="form-label required"
-                >Condition</label
-            >
+                >{{ t("client.newItemForm.condition.label") }}
+            </label>
             <select
                 v-model.number="inputs.conditionId"
                 id="conditionId"
                 class="form-select form-select-sm"
             >
-                <option selected disabled value="0">Select condition</option>
+                <option selected disabled value="0">
+                    {{ t("client.newItemForm.condition.option") }}
+                </option>
                 <LabelValues :items="list_conditions" />
             </select>
             <ValidationMessage :model="v$.conditionId" />
         </div>
 
         <div class="mb-3">
-            <label for="pointsPrice" class="form-label required"
-                >Point price</label
+            <label for="pointsPrice" class="form-label required">
+                {{ t("client.newItemForm.pointsPrice.label") }}</label
             >
             <select
                 v-model.number="inputs.pointsPrice"
                 id="pointsPrice"
                 class="form-select form-select-sm"
             >
-                <option selected disabled value="0">Select points price</option>
+                <option selected disabled value="0">
+                    {{ t("client.newItemForm.pointsPrice.option") }}
+                </option>
                 <LabelValues :items="pointsPriceOptions" />
             </select>
             <ValidationMessage :model="v$.pointsPrice" />
@@ -178,10 +182,10 @@ const cancelEdit = () => {
                 class="btn btn-secondary btn-sm me-2"
                 @click="cancelEdit"
             >
-                Cancel
+                {{ t("client.bookDetailPage.bookItemDetail.btnCancel") }}
             </button>
             <button type="submit" class="btn btn-sm btn-primary me-2">
-                Update
+                {{ t("client.bookDetailPage.bookItemDetail.btnModify") }}
             </button>
         </div>
     </form>

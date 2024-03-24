@@ -4,6 +4,9 @@ import { useBookItemStore } from "@/stores/book-item-store";
 import { useAuthStore } from "@/stores/auth-store";
 import { usePageStore } from "@/stores/page-store";
 import UpdateItemForm from "@/components/client/UpdateItemForm.vue";
+import { useI18n } from "vue-i18n";
+const { d } = useI18n();
+const { t } = useI18n();
 const props = defineProps(["offeredBookList"]);
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const authStore = useAuthStore();
@@ -55,7 +58,8 @@ const exitEditMode = () => {
                         <div class="card-body">
                             <h5 class="card-title">{{ item?.book?.title }}</h5>
                             <p class="card-text text-muted mb-1">
-                                ISBN: {{ item?.book?.isbn }}
+                                {{ t("client.bookDetailPage.bookDetail.isbn") }}
+                                {{ item?.book?.isbn }}
                             </p>
                             <div v-if="editMode && editingItemId === item.id">
                                 <UpdateItemForm
@@ -65,16 +69,38 @@ const exitEditMode = () => {
                             </div>
                             <div v-else>
                                 <p class="card-text mb-1">
-                                    Points Price: {{ item?.pointsPrice }}
+                                    {{
+                                        t(
+                                            "client.bookDetailPage.bookItemDetail.pointsPrice"
+                                        )
+                                    }}
+                                    {{ item?.pointsPrice }}
                                 </p>
                                 <p class="card-text mb-1">
-                                    Condition: {{ item?.condition?.name }}
+                                    {{
+                                        t(
+                                            "client.bookDetailPage.bookItemDetail.condition"
+                                        )
+                                    }}
+                                    {{ item?.condition?.name }}
                                 </p>
                                 <p class="card-text mb-1">
-                                    Ajouter le: {{ item?.addedAt }}
+                                    {{
+                                        t(
+                                            "client.bookDetailPage.bookItemDetail.date"
+                                        )
+                                    }}
+                                    {{ d(item?.addedAt, "short", "fr-FR") }}
                                 </p>
                                 <p class="card-text mb-1">
-                                    My comment: {{ item?.description }}
+                                    {{
+                                        t(
+                                            "client.bookDetailPage.bookItemDetail.description"
+                                        )
+                                    }}
+                                </p>
+                                <p class="card-text mb-1">
+                                    {{ item?.description }}
                                 </p>
                                 <div class="text-center">
                                     <button
@@ -82,14 +108,22 @@ const exitEditMode = () => {
                                         @click="setEditMode(item?.id)"
                                     >
                                         <i class="bi bi-pencil-fill me-1"></i>
-                                        Modifier
+                                        {{
+                                            t(
+                                                "client.bookDetailPage.bookItemDetail.btnModify"
+                                            )
+                                        }}
                                     </button>
                                     <button
                                         class="btn btn-sm btn-outline-danger"
                                         @click="remove(item?.id)"
                                     >
                                         <i class="bi bi-trash-fill me-1"></i>
-                                        Supprimer
+                                        {{
+                                            t(
+                                                "client.bookDetailPage.bookItemDetail.btnDelete"
+                                            )
+                                        }}
                                     </button>
                                 </div>
                             </div>
