@@ -129,8 +129,14 @@ const add_new_book_item = async () => {
             pageStore.alert.message = `Votre livre a été ajoutée avec succès.`;
             pageStore.alert.show = true;
             console.log(`Votre livre a été ajoutée avec succès.`);
-
             closeModal();
+            // Reset form fields
+            inputs.description = null;
+            inputs.pointsPrice = null;
+            inputs.conditionId = null;
+            v$.value.$reset();
+            // Deactivate modal form
+            showModal.value = false;
             await bookItemStore.get_items_by_book_id(book_id);
             setTimeout(() => {
                 pageStore.alert.show = false;
@@ -184,7 +190,11 @@ const add_new_book_item = async () => {
                                     "
                                     >,
                                 </span> </span
-                            ><span class="text-muted fs-6"> (Auteur(s))</span>
+                            ><span class="text-muted fs-6">
+                                {{
+                                    t("client.bookDetailPage.bookDetail.author")
+                                }}</span
+                            >
                         </p>
                     </div>
                 </div>
@@ -200,7 +210,9 @@ const add_new_book_item = async () => {
                     />
                 </div>
                 <div class="col book-info p-3">
-                    <p class="fst-italic">Résumé:</p>
+                    <p class="fst-italic">
+                        {{ t("client.bookDetailPage.bookDetail.description") }}
+                    </p>
                     <p>{{ book_details?.book?.summary }}</p>
                     <div class="row">
                         <p>
@@ -208,18 +220,29 @@ const add_new_book_item = async () => {
                                 book_details?.book?.category?.name
                             }}</span>
                         </p>
-                        <p>Caractéristiques:</p>
+                        <p>
+                            {{ t("client.bookDetailPage.bookDetail.info") }}
+                        </p>
 
                         <div class="col">
                             <p>
-                                <span class="fw-light">ISBN: </span
+                                <span class="fw-light"
+                                    >{{
+                                        t(
+                                            "client.bookDetailPage.bookDetail.isbn"
+                                        )
+                                    }} </span
                                 >{{ book_details?.book?.isbn }}
                             </p>
                         </div>
                         <div class="col">
                             <p>
                                 <span class="fw-light"
-                                    >L'année de parution: </span
+                                    >{{
+                                        t(
+                                            "client.bookDetailPage.bookDetail.publicationYear"
+                                        )
+                                    }} </span
                                 >{{ book_details?.book?.publicationYear }}
                             </p>
                         </div>
@@ -227,13 +250,23 @@ const add_new_book_item = async () => {
                     <div class="row">
                         <div class="col">
                             <p>
-                                <span class="fw-light">Edition </span
+                                <span class="fw-light"
+                                    >{{
+                                        t(
+                                            "client.bookDetailPage.bookDetail.publisher"
+                                        )
+                                    }} </span
                                 >{{ book_details?.book?.publisher?.name }}
                             </p>
                         </div>
                         <div class="col">
                             <p>
-                                <span class="fw-light">Nombres de pages: </span
+                                <span class="fw-light">
+                                    {{
+                                        t(
+                                            "client.bookDetailPage.bookDetail.pageCount"
+                                        )
+                                    }} </span
                                 >{{ book_details?.book?.pageCount }}
                             </p>
                         </div>
@@ -241,7 +274,13 @@ const add_new_book_item = async () => {
                     <div class="row">
                         <div class="col">
                             <p>
-                                <span class="fw-light">Langue: </span>
+                                <span class="fw-light">
+                                    {{
+                                        t(
+                                            "client.bookDetailPage.bookDetail.language"
+                                        )
+                                    }}
+                                </span>
                                 {{ book_details?.book?.language?.name }}
                             </p>
                         </div>
@@ -253,8 +292,11 @@ const add_new_book_item = async () => {
                         id="addNewBookItem"
                         @click="openNewBookItemModal"
                     >
-                        <i class="bi bi-plus"></i>
-                        Ajouter un exemplaire
+                        <i class="bi bi-plus">
+                            {{
+                                t("client.bookDetailPage.bookDetail.addItemBtn")
+                            }}
+                        </i>
                     </button>
                 </div>
             </div>
@@ -270,47 +312,17 @@ const add_new_book_item = async () => {
                         class="row book-owner pt-3 mt-5 d-flex align-items-center"
                     >
                         <div class="col-12">
-                            <p class="text-center">No items</p>
+                            <p class="text-center">
+                                {{
+                                    t(
+                                        "client.bookDetailPage.bookItemDetail.noItems"
+                                    )
+                                }}
+                            </p>
                         </div>
                     </div>
                 </div>
             </span>
-            <!-- <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
-                <div class="col-12 col-md-2 d-flex justify-content-center">
-                    <img
-                        src="../assets/images/avatar-man.png"
-                        class="avatar"
-                        alt="avatar"
-                    />
-                </div>
-                <div class="col-12 col-md-2">
-                    <p class="text-center">Jonh Doe</p>
-                </div>
-                <div class="col-12 col-md-2">
-                    <p class="text-center">Condition</p>
-                    <p class="text-center">Ajouté le 23/10/22</p>
-                </div>
-                <div class="col-12 col-md-2">
-                    <p class="text-center">Points</p>
-                    <p class="text-center">points</p>
-                </div>
-                <div
-                    class="col-12 col-md-2 d-flex flex-column justify-content-center"
-                >
-                    <p class="text-center m-0">Une question?</p>
-                    <button class="btn" href="#">
-                        <i class="bi bi-envelope"></i>
-                    </button>
-                </div>
-                <div
-                    class="col-12 col-md-2 d-flex flex-column justify-content-center"
-                >
-                    <p class="text-center m-0">Emprenter</p>
-                    <button class="btn" href="#">
-                        <i class="bi bi-handbag"></i>
-                    </button>
-                </div>
-            </div> -->
         </div>
     </main>
 

@@ -132,12 +132,25 @@ const frMessages = {
             minLengthDescription: "Veuillez saisir au moins 10 caractères.",
             maxLengthDescription: "Veuillez saisir moins de 150 caractères.",
         },
+        
         bookDetailPage: {
+            bookDetail:{
+                author: " (Auteur(s))",
+                description: "Résumé:",
+                info: "Caractéristiques:",
+                isbn: "ISBN: ",
+                publicationYear:" L'année de parution: ",
+                publisher: "Edition ",
+                pageCount: " Nombres de pages: ",
+                language: "Langue: ",
+                addItemBtn: " Ajouter un exemplaire"
+            },
             bookItemDetail: {
+                noItems: "No items",
                 date: "Ajouté le",
-               pointsPrice:"Points",
-               condition: "État:",
-               addToCartBtn:"Ajouter au panier"
+                pointsPrice:"Points",
+                condition: "État:",
+                addToCartBtn:"Ajouter au panier"
             }
 
         }
