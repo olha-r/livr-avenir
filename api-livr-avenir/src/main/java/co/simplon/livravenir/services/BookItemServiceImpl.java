@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.livravenir.configuration.SecurityHelper;
 import co.simplon.livravenir.dtos.BookItemCreate;
-import co.simplon.livravenir.dtos.BookUpdate;
+import co.simplon.livravenir.dtos.BookItemUpdate;
 import co.simplon.livravenir.dtos.ItemListForBook;
 import co.simplon.livravenir.dtos.ItemListForUser;
 import co.simplon.livravenir.entities.Book;
@@ -99,6 +99,18 @@ public class BookItemServiceImpl
 	bookItems.deleteById(id);
     }
 
-    
+    @Transactional
+    @Override
+    public void updateBookItem(Long id,
+	    @Valid BookItemUpdate inputs) {
+
+	BookItem entity = bookItems.findById(id).get();
+	entity.setDescription(inputs.getDescription());
+	Condition condition = conditions
+		.getReferenceById(inputs.getConditionId());
+	entity.setCondition(condition);
+	entity.setPointsPrice(inputs.getPointsPrice());
+
+    }
 
 }
