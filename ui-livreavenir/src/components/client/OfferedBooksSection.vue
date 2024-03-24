@@ -17,6 +17,7 @@ const remove = async (id) => {
         pageStore.alert.message = `Votre exemplaire a été supprimé avec success.`;
         pageStore.alert.show = true;
         console.log(`Votre exemplaire a été supprimé avec success.`);
+        await bookItemStore.get_items_by_user();
         setTimeout(() => {
             pageStore.alert.show = false;
         }, 6000); // Redirect after 3 seconds
@@ -80,7 +81,7 @@ const exitEditMode = () => {
                     <a
                         class="btn btn-outline-danger m-3"
                         href="#"
-                        @click="remove(item?.book?.id)"
+                        @click="remove(item?.id)"
                         >Supprimer</a
                     >
                 </div>
