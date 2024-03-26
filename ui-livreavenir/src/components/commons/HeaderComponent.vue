@@ -4,7 +4,7 @@ import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "@/stores/auth-store";
 import { useCartStore } from "@/stores/cart-store";
-import CartPreview from "@/components/client/CartPreview.vue";
+import CartSidebar from "@/components/client/CartSidebar.vue";
 
 const { t } = useI18n();
 const authStore = useAuthStore();
@@ -74,7 +74,7 @@ const closeCartSidebar = () => {
                     <i class="bi bi-cart-fill fs-2 logout pe-4"></i>
                 </span>
                 <div :class="['cart-sidebar', { show: showCartSidebar }]">
-                    <CartPreview @close="closeCartSidebar" />
+                    <CartSidebar @close="closeCartSidebar" />
                 </div>
                 <a href="#" @click="logout" v-if="isLoggedIn">
                     <i class="bi bi-box-arrow-right fs-2 logout me-4"></i>

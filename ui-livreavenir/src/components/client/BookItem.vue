@@ -1,9 +1,13 @@
 <script setup>
 import { defineProps } from "vue";
 import { useI18n } from "vue-i18n";
+import { useCartStore } from "@/stores/cart-store";
 const props = defineProps(["item"]);
 const { d } = useI18n();
 const { t } = useI18n();
+const addToCart = (item) => {
+    useCartStore().addItem(item);
+};
 </script>
 <template>
     <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
@@ -36,7 +40,7 @@ const { t } = useI18n();
             <p class="text-center m-0">
                 {{ t("client.bookDetailPage.bookItemDetail.addToCartBtn") }}
             </p>
-            <button class="btn" href="#">
+            <button @click="addToCart(item)" class="btn">
                 <i class="bi bi-handbag"></i>
             </button>
         </div>
