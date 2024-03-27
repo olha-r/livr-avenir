@@ -66,7 +66,7 @@ public class BookItemServiceImpl
 	    user = users
 		    .getReferenceById(authenticatedUserId);
 	}
-	entity.setUser(user);
+	entity.setSeller(user);
 
 	LocalDateTime now = LocalDateTime.now();
 	entity.setAddedAt(now);
@@ -88,8 +88,8 @@ public class BookItemServiceImpl
 	Long authenticatedUserId = SecurityHelper
 		.getCurrentAuthenticatedUser();
 
-	return bookItems
-		.getBookItemsByUserId(authenticatedUserId);
+	return bookItems.getBookItemsBySellerId(
+		authenticatedUserId);
     }
 
     @Transactional

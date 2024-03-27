@@ -14,7 +14,7 @@ INSERT INTO users
     ( 'Test', 'User', 'testuser@gmail.com', '$2a$11$mDvDEbWiKeBWlbK/Y6n.uenZ9S6VDoPFj6w15EBOEPqQh7whZKXOC', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER'));
 
 INSERT INTO languages 
-	(language_name, code_iso, logical_order)
+	(language_name, iso_code, logical_order)
 	VALUES
 	('Autre', 'N/a', 1),
     ('Français', 'fr', 2),
@@ -91,45 +91,45 @@ INSERT INTO books
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'essai'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
-    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
     ('2205208098', 'Nos mondes perdus', '2023',  'nos-mondes-perdus.jpg', '208',
     '1993, sortie en salles de "Jurassic Park" et traumatisme total pour la jeune Marion Montaigne, alors âgée de 13 ans. De cette fascination pour ces terribles reptiles d''un âge oublié va naître une obsession pour les fossiles, la science en général et le dessin anatomique... ainsi que quelques angoisses existentielles. Alors pour exorciser ses démons, rien de tel que la méthode Montaigne : recherches à fond dans les livres et les musées, humour décapant et interrogations bien senties. Une plongée dans la paléontologie, l''histoire des sciences et finalement, l''histoire de l''Histoire.',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'dargaud'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'comics'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
-    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
     ('9782070464326', 'L''Élégance du hérisson', '2006',  'lelegance-du-herisson.jpg', '413',
     'Ce roman explore les vies entrelacées d''une concierge parisienne autodidacte et d''une jeune surdouée. À travers leurs réflexions sur l''art, la philosophie et la vie, l''histoire révèle la beauté cachée dans les petites choses. ',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'gallimard'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
-    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
     ('9782075187541', 'Harry Potter à l''école des sorciers',
     '1998',  'harry-potter.jpg', '320',
     'Suivez les aventures de Harry Potter, un jeune sorcier, lors de sa première année à l''école de sorcellerie Poudlard. Avec ses nouveaux amis Ron et Hermione, il découvre les mystères de la magie tout en faisant face à des forces obscures. Un classique de la littérature jeunesse empreint de magie et d''amitié.',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'gallimard-jeunesse'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'children-teens'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
-    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
     ('9782072836800', 'Dans les forêts de Sibérie', '2011', 
     'dans-les-forets-de-siberie.jpg', '272',
     'Sylvain Tesson relate son expérience de retraite dans une cabane au bord du lac Baïkal en Sibérie. À travers ce récit introspectif, mêlant nature, solitude et découvertes, l''auteur nous transporte dans une aventure captivante au cœur de la taïga, offrant une méditation sur la vie, la liberté et la beauté sauvage.',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'gallimard'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'leisure-nature-travel'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
-    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
     ('2266332120', 'Sans retour', '2023', 'sans-retour.jpg', '336',
     'Certains événements changent une vie à jamais... Bill dirige l''unité de traumatologie des urgences de l''Hôpital général de San Francisco et consacre sa vie à son travail depuis sa séparation. Étoile montante de son hôpital universitaire, Stephanie ne compte pas ses heures de travail, aux dépens de sa famille. Wendy, brillant médecin, est piégée dans une relation sans avenir avec un chirurgien marié. Quant à Tom, sa popularité auprès des femmes n''a d''égal que ses succès au bloc opératoire. Quand ces quatre experts sont invités à Paris pour échanger avec des confrères sur leurs pratiques, c''est une vraie bouffée d''oxygène. Mais une prise d''otages dans une école va bientôt marquer un tournant décisif dans leurs existences, et pourrait bien souder leurs destins à jamais...',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'pocket'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
-    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr')),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
     ('2266268554', 'Miracle morning', '2017', 'miracle-morning.jpg', '272',
     'SE LEVER PLUS TÔT POUR GAGNER UN SUPPLÉMENT DE VIE... Et si la clef du bonheur et de la réussite se trouvait dans cette nouvelle résolution ? C''est la découverte qui a changé la vie d''Hal Elrod ainsi que celle de milliers de lecteurs. Démarrez votre journée par un moment rien qu''à vous, profitez de ce moment de calme pour méditer, faire du sport, lire et préparer votre journée, comme une nouvelle aventure à entamer chaque matin. Et faites de votre quotidien un miracle ! " On y gagne un supplément de vie, efficacité et moral d''acier !',
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'pocket'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'leisure-nature-travel'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
-    (SELECT l.id FROM languages l WHERE l.code_iso = 'fr'));
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr'));
 
 INSERT INTO conditions 
 	(condition_code, condition_name, logical_order)

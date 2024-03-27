@@ -49,8 +49,7 @@ public class AuthServiceImpl implements AuthService {
 	LocalDateTime registrationDate = LocalDateTime
 		.now();
 	user.setRegistrationDate(registrationDate);
-	Long pointsNumber = 5L;
-	user.setPointsNumber(pointsNumber);
+	user.setPointsNumber(5);
 	authRepo.save(user);
 
     }

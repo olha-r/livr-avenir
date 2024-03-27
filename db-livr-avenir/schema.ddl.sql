@@ -92,7 +92,7 @@ CREATE TABLE authors (
 CREATE TABLE languages (
 	id SERIAL,
 	language_name VARCHAR(30) UNIQUE NOT NULL,
-	code_iso VARCHAR(30) UNIQUE NOT NULL,
+	iso_code VARCHAR(30) UNIQUE NOT NULL,
 	logical_order SMALLINT NOT NULL,
 	constraint pk_language_id primary key(id)
 );

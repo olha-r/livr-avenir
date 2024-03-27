@@ -13,7 +13,7 @@ const addToCart = (item) => {
     <div class="row book-owner pt-3 mt-5 d-flex align-items-center">
         <div class="col-12 col-md-2">
             <p class="text-center">
-                {{ item?.user?.firstName }} {{ item?.user?.lastName }}
+                {{ item?.seller?.firstName }} {{ item?.seller?.lastName }}
             </p>
         </div>
         <div class="col-12 col-md-2">

@@ -10,8 +10,8 @@ import jakarta.persistence.Table;
 @Table(name = "languages")
 public class Language extends AbstractEntity {
 
-    @Column(name = "code_iso")
-    private String codeIso;
+    @Column(name = "iso_code")
+    private String isoCode;
 
     @Column(name = "language_name")
     private String name;
@@ -32,13 +32,13 @@ public class Language extends AbstractEntity {
 	this.name = name;
     }
 
-    public String getCodeIso() {
-	return codeIso;
+    public String getIsoCode() {
+	return isoCode;
     }
 
     @SuppressWarnings("unused")
-    public void setCodeIso(String codeIso) {
-	this.codeIso = codeIso;
+    public void setIsoCode(String isoCode) {
+	this.isoCode = isoCode;
     }
 
     public long getLogicalOrder() {
@@ -53,13 +53,13 @@ public class Language extends AbstractEntity {
     @Override
     public String toString() {
 	return String.format(
-		"{codeIso=%s, name=%s, logicalOrder=%s}",
-		codeIso, name, logicalOrder);
+		"{isoCode=%s, name=%s, logicalOrder=%s}",
+		isoCode, name, logicalOrder);
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(codeIso);
+	return Objects.hash(isoCode);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Language extends AbstractEntity {
 	    return false;
 	}
 	Language other = (Language) obj;
-	return Objects.equals(codeIso, other.codeIso);
+	return Objects.equals(isoCode, other.isoCode);
     }
 
 }

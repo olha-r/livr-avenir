@@ -16,7 +16,7 @@ public interface ItemListForUser {
 
     Long getBookId();
 
-    UserInfo getUser();
+    UserInfo getSeller();
 
     BookInfo getBook();
 

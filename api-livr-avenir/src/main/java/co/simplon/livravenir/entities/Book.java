@@ -41,7 +41,7 @@ public class Book extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User addedByUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id")
@@ -115,12 +115,12 @@ public class Book extends AbstractEntity {
 	this.publisher = publisher;
     }
 
-    public User getUser() {
-	return user;
+    public User getAddedByUser() {
+	return addedByUser;
     }
 
-    public void setUser(User user) {
-	this.user = user;
+    public void setAddedByUser(User addedByUser) {
+	this.addedByUser = addedByUser;
     }
 
     public Language getLanguage() {
@@ -134,10 +134,10 @@ public class Book extends AbstractEntity {
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, category=%s, publisher=%s, user=%s, language=%s}",
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, category=%s, publisher=%s, addedByUser=%s, language=%s}",
 		isbn, title, publicationYear, pageCount,
 		summary, coverImageUrl, category, publisher,
-		user, language);
+		addedByUser, language);
     }
 
     @Override

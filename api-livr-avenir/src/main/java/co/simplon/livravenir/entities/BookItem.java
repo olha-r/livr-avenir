@@ -36,7 +36,7 @@ public class BookItem extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User seller;
 
     public BookItem() {
 	//
@@ -90,12 +90,12 @@ public class BookItem extends AbstractEntity {
 	this.book = book;
     }
 
-    public User getUser() {
-	return user;
+    public User getSeller() {
+	return seller;
     }
 
-    public void setUser(User user) {
-	this.user = user;
+    public void setSeller(User seller) {
+	this.seller = seller;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class BookItem extends AbstractEntity {
 	return String.format(
 		"{itemCode=%s, description=%s, pointsPrice=%s, addedAt=%s, condition=%s, book=%s, user=%s}",
 		itemCode, description, pointsPrice, addedAt,
-		condition, book, user);
+		condition, book, seller);
     }
 
     @Override

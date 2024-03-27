@@ -104,7 +104,7 @@ public class BookServiceImpl implements BookService {
 	    user = users
 		    .getReferenceById(authenticatedUserId);
 	}
-	entity.setUser(user);
+	entity.setAddedByUser(user);
 	MultipartFile file = inputs.getCoverImageUrl();
 	String baseName = UUID.randomUUID().toString();
 	String fileName = storage.store(file, baseName);

@@ -15,7 +15,7 @@ public interface BookItemRepository
     Set<ItemListForBook> findItemsByBookIdOrderByAddedAtDesc(
 	    @Param("bookId") Long bookId);
 
-    Set<ItemListForUser> getBookItemsByUserId(
-	    @Param("userId") Long userId);
+    Set<ItemListForUser> getBookItemsBySellerId(
+	    @Param("seller") Long seller);
 
 }

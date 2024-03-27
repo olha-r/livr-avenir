@@ -20,7 +20,7 @@ abstract class AbstractEntity {
     }
 
     @SuppressWarnings("unused")
-    public void setId(Long id) {
+    private void setId(Long id) {
 	// Prevents from accidental assignment (set by DB)
 	this.id = id;
     }

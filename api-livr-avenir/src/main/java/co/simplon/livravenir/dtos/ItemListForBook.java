@@ -14,6 +14,6 @@ public interface ItemListForBook {
 
     String getDescription();
 
-    UserInfo getUser();
+    UserInfo getSeller();
 
 }

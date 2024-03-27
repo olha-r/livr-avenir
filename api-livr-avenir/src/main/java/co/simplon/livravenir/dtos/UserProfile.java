@@ -12,7 +12,7 @@ public interface UserProfile {
 
     String getEmail();
 
-    Long getPointsNumber();
+    long getPointsNumber();
 
     LocalDateTime getRegistrationDate();
 

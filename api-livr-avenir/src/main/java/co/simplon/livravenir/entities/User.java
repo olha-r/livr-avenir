@@ -34,7 +34,7 @@ public class User extends AbstractEntity {
     private LocalDateTime registrationDate;
 
     @Column(name = "points_number")
-    private Long pointsNumber;
+    private long pointsNumber;
 
     public User() {
 
@@ -89,19 +89,20 @@ public class User extends AbstractEntity {
 	this.registrationDate = registrationDate;
     }
 
-    public Long getPointsNumber() {
+    public long getPointsNumber() {
 	return pointsNumber;
     }
 
-    public void setPointsNumber(Long pointsNumber) {
+    public void setPointsNumber(long pointsNumber) {
 	this.pointsNumber = pointsNumber;
     }
 
     @Override
     public String toString() {
 	return String.format(
-		"{email=%s,  firstName=%s, lastName=%s, password=%s, role=%s}",
-		email, firstName, lastName, password, role);
+		"{email=%s, firstName=%s, lastName=%s, role=%s, registrationDate=%s, pointsNumber=%s}",
+		email, firstName, lastName, role,
+		registrationDate, pointsNumber);
     }
 
     @Override
