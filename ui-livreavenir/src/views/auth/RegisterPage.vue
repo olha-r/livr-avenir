@@ -94,8 +94,6 @@ const v$ = useValidate(rules, user);
 const pageStore = usePageStore();
 const onSubmit = async () => {
     const resp = await v$.value.$validate();
-    console.log(user);
-    console.log(resp);
     if (!v$.value.$error) {
         delete user.confirmPassword;
         const resp = await authStore.register(user);
@@ -111,8 +109,6 @@ const onSubmit = async () => {
         } else {
             alert(`Nous n'avons pas pu créer utilisateur ${user.email}.`);
         }
-    } else {
-        console.log("There are errors");
     }
 };
 </script>

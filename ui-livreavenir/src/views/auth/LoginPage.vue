@@ -42,14 +42,10 @@ const router = useRouter();
 const onSubmit = async () => {
     await v$.value.$validate();
     if (!v$.value.$error) {
-        console.log("No errors");
-        console.log(user);
         const resp = await authStore.login(user);
-        console.log("Response", resp);
         if (resp.status === 200) {
             const token = resp.body.token;
             console.log("Token after login", token);
-            console.log(`Utilisateur ${user.email} est connecté`);
             if (userRole.value == "ADMIN") {
                 router.push("/admin");
                 pageStore.alert.type = "success";
@@ -72,15 +68,10 @@ const onSubmit = async () => {
             pageStore.alert.type = "error";
             pageStore.alert.message = `Le nom d'utilisateur ou le mot de passe est incorrect`;
             pageStore.alert.show = true;
-            console.log(
-                `Le nom d'utilisateur ou le mot de passe est incorrect`
-            );
             setTimeout(() => {
                 pageStore.alert.show = false;
             }, 6000);
         }
-    } else {
-        console.log("There are errors");
     }
 };
 </script>

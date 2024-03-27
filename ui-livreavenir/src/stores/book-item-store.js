@@ -16,7 +16,6 @@ export const useBookItemStore = defineStore('book-item-store', {
             const bookItemHttp = new BookItemHttp();
             const promise = await bookItemHttp.get_items_by_book_id(book_id);
             if(promise.status === 200) {
-                console.log(promise);
                 this.items_by_book = promise.body;
             }
             return promise; 
@@ -26,7 +25,6 @@ export const useBookItemStore = defineStore('book-item-store', {
             const bookItemHttp = new BookItemHttp();
             const promise = await bookItemHttp.get_items_by_user();
             if(promise.status === 200) {
-                console.log(promise);
                 this.items_by_user = promise.body;
             }
             return promise; 
@@ -34,7 +32,6 @@ export const useBookItemStore = defineStore('book-item-store', {
         async delete_item(item_id, token){
             const bookItemHttp = new BookItemHttp();
             const promise = await bookItemHttp.delete_item(item_id, token);
-            console.log("PROMISE", promise);
             // if(promise.status== 204){
             //     this.get_book_list_admin();
             // }
@@ -43,7 +40,6 @@ export const useBookItemStore = defineStore('book-item-store', {
         async update_item(item_id, payload, token){
             const bookItemHttp = new BookItemHttp();
             const promise = await bookItemHttp.update_item(item_id, payload, token);
-            console.log("PROMISE", promise);
             return promise; 
         }
     }, 

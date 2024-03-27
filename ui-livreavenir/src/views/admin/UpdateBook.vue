@@ -140,7 +140,6 @@ onMounted(async () => {
     await bookStore.get_book_for_update(bookId.value);
     // Set the form inputs with the fetched data
     const bookDetails = bookStore.book_for_update;
-    console.log(bookDetails);
     inputs.isbn = bookDetails.book.isbn || null;
     inputs.title = bookDetails.book.title || null;
     inputs.publicationYear = bookDetails.book.publicationYear || null;
@@ -162,8 +161,6 @@ const authStore = useAuthStore();
 const { token } = authStore;
 const update_book = async () => {
     await v$.value.$validate();
-    console.log(v$.value.$error);
-    console.log("FORM DATA", inputs);
     if (!v$.value.$error) {
         const formData = new FormData();
         formData.append("isbn", inputs.isbn);
@@ -178,7 +175,6 @@ const update_book = async () => {
         if (inputs.coverImageUrl != null) {
             formData.append("coverImageUrl", inputs.coverImageUrl);
         }
-        console.log("FORM DATA", formData);
         const resp = await bookStore.update_book(bookId.value, formData, token);
 
         if (resp.status === 204) {
@@ -197,8 +193,6 @@ const update_book = async () => {
                 pageStore.alert.show = false;
             }, 5000);
         }
-    } else {
-        console.log("There are errors");
     }
 };
 const newImage = ref(false);

@@ -30,7 +30,6 @@ export const useAuthStore = defineStore('auth-store', {
             this.token = promise.body.token;
             this.userRole = promise.body.role
             this.isLoggedIn = true;
-            console.log(promise.body);
             this.userFullName= `${promise.body.firstName} ${promise.body.lastName}`;
         }
         return promise;

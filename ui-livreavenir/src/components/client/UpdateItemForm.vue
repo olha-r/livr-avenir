@@ -60,7 +60,6 @@ onMounted(async () => {
     inputs.description = props.item.description || null;
     inputs.conditionId = props.item.condition.id || null;
     inputs.pointsPrice = props.item.pointsPrice || null;
-    console.log("ID", props.item.bookId);
     await conditionStore.get_list_conditions();
 });
 const pointsPriceOptions = [
@@ -88,9 +87,6 @@ const pointsPriceOptions = [
 const bookItemStore = useBookItemStore();
 const update_item = async () => {
     await v$.value.$validate();
-    console.log(v$.value.$error);
-    console.log("ITEM", props.item);
-    console.log("ITEM id", props.item.id);
 
     if (!v$.value.$error) {
         // inputs["bookId"] = props.item.bookId;
@@ -117,8 +113,6 @@ const update_item = async () => {
                 pageStore.alert.show = false;
             }, 5000);
         }
-    } else {
-        console.log("There are errors");
     }
 };
 const cancelEdit = () => {

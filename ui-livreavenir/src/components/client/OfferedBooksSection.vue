@@ -19,7 +19,6 @@ const remove = async (id) => {
         pageStore.alert.type = "success";
         pageStore.alert.message = `Votre exemplaire a été supprimé avec success.`;
         pageStore.alert.show = true;
-        console.log(`Votre exemplaire a été supprimé avec success.`);
         await bookItemStore.get_items_by_user();
         setTimeout(() => {
             pageStore.alert.show = false;
@@ -28,7 +27,6 @@ const remove = async (id) => {
         pageStore.alert.type = "error";
         pageStore.alert.message = `Nous n'avons pas pu supprimer votre exemplaire.`;
         pageStore.alert.show = true;
-        console.error(`Nous n'avons pas pu supprimer votre exemplaire.`);
         setTimeout(() => {
             pageStore.alert.show = false;
         }, 6000); // Redirect after 3 seconds

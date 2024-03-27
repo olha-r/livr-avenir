@@ -23,7 +23,6 @@ const remove = async (id) => {
         pageStore.alert.type = "success";
         pageStore.alert.message = `Livre a été supprimé avec success.`;
         pageStore.alert.show = true;
-        console.log(`Livre a été supprimé avec success.`);
         setTimeout(() => {
             pageStore.alert.show = false;
         }, 6000); // Redirect after 3 seconds

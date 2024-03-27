@@ -10,7 +10,6 @@ export const useUserStore = defineStore('user-store', {
             const userHttp = new UserHttp();
             const promise = await userHttp.get_user_details();
             if(promise.status === 200) {
-                console.log("Response store", promise);
                 this.user_profile = promise.body;
             }
             return promise; 

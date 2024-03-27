@@ -49,7 +49,6 @@ export const useBookStore = defineStore('book-store', {
         async delete_book(book_id, token){
             const bookHttp = new BookHttp();
             const promise = await bookHttp.delete_book(book_id, token);
-            console.log("PROMISE", promise);
             if(promise.status== 204){
                 this.get_book_list_admin();
             }
@@ -58,7 +57,6 @@ export const useBookStore = defineStore('book-store', {
         async update_book(book_id, payload, token){
             const bookHttp = new BookHttp();
             const promise = await bookHttp.update_book(book_id, payload, token);
-            console.log("PROMISE", promise);
             if(promise.status== 204){
                 this.get_book_list_admin();
             }

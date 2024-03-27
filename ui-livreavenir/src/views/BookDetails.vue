@@ -25,6 +25,8 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const bookStore = useBookStore();
 const bookItemStore = useBookItemStore();
 const { book_details } = storeToRefs(bookStore);
+const authStore = useAuthStore();
+const { token, isLoggedIn } = authStore;
 const route = useRoute();
 const book_id = route.params.id;
 const imageUrl = ref("");
@@ -34,7 +36,9 @@ const { items_by_book } = storeToRefs(bookItemStore);
 onMounted(async () => {
     await bookStore.get_book_details(book_id);
     await conditionStore.get_list_conditions();
-    await bookItemStore.get_items_by_book_id(book_id);
+    if (isLoggedIn) {
+        await bookItemStore.get_items_by_book_id(book_id);
+    }
 });
 const inputs = reactive({
     bookId: book_details?.book?.id,
@@ -116,19 +120,15 @@ watch(book_details, (newBookDetails) => {
     }
 });
 const pageStore = usePageStore();
-const authStore = useAuthStore();
-const { token, isLoggedIn } = authStore;
+
 const add_new_book_item = async () => {
     await v$.value.$validate();
     if (!v$.value.$error) {
-        console.log("INPUTS new item", inputs);
         const resp = await bookItemStore.add_new_book_item(inputs, token);
-        console.log("resp", resp);
         if (resp.status === 204) {
             pageStore.alert.type = "success";
             pageStore.alert.message = `Votre livre a été ajoutée avec succès.`;
             pageStore.alert.show = true;
-            console.log(`Votre livre a été ajoutée avec succès.`);
             closeModal();
             // Reset form fields
             inputs.description = null;
@@ -145,13 +145,10 @@ const add_new_book_item = async () => {
             pageStore.alert.type = "error";
             pageStore.alert.message = `Nous n'avons pas pu ajoutée le livre.`;
             pageStore.alert.show = true;
-            console.error(`Nous n'avons pas pu ajoutée le livre.`);
             setTimeout(() => {
                 pageStore.alert.show = false;
             }, 3000);
         }
-    } else {
-        console.log("There are errors");
     }
 };
 </script>

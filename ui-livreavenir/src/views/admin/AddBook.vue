@@ -136,7 +136,6 @@ const { publisher_list } = storeToRefs(publisherStore);
 const { list_languages } = storeToRefs(languageStore);
 const { list_categories } = storeToRefs(categoryStore);
 onMounted(async () => {
-    console.log("Add book page token", token);
     await languageStore.get_list_languages();
     await categoryStore.get_list_categories();
     await publisherStore.get_publisher_list();
@@ -161,15 +160,12 @@ const add_new_book = async () => {
         formData.append("languageId", inputs.languageId);
         formData.append("authorList", inputs.authorList);
         formData.append("coverImageUrl", inputs.coverImageUrl);
-        console.log("Form data", inputs);
         const resp = await bookStore.add_new_book(formData, token);
-        console.log("resp", resp);
 
         if (resp.status === 204) {
             pageStore.alert.type = "success";
             pageStore.alert.message = `Livre a été créé avec succès.`;
             pageStore.alert.show = true;
-            console.log(`Livre a été créé avec succès.`);
             router.push("/admin");
             setTimeout(() => {
                 pageStore.alert.show = false;
@@ -183,8 +179,6 @@ const add_new_book = async () => {
                 pageStore.alert.show = false;
             }, 3000);
         }
-    } else {
-        console.log("There are errors");
     }
 };
 const handleImageUpload = (event) => {
