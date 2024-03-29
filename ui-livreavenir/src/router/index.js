@@ -26,6 +26,7 @@ const router = createRouter({
       children: [
         { path: 'register', component: () => import('../views/auth/RegisterPage.vue'), name: "register" },
         { path: 'login',component: () => import('../views/auth/LoginPage.vue'), name: "login" },
+        { path: 'activation-account/code/:token',component: () => import('../views/auth/ActivateAccount.vue'), name: "activate-account" },
         { path: 'profile',component: () => import('../views/client/UserProfile.vue'), name: "profile", meta: { requiresAuth: true }, },
       ]
     },

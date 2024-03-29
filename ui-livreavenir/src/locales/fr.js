@@ -176,6 +176,10 @@ const frMessages = {
             }
 
         }
+    },
+    activationAccountPage: {
+        activationSuccess: "Félicitation, votre account est activer",
+        activationFailed: "Désolé, votre account n'était pas activer"
     }
   };
 

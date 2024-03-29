@@ -9,7 +9,8 @@ export const useAuthStore = defineStore('auth-store', {
         userRole: useStorage('user-role', null),
         isLoggedIn: useStorage('is-logged-in', false),
         token: useStorage('token', null),
-        userFullName: useStorage('userFullName', null)
+        userFullName: useStorage('userFullName', null),
+        isEnabled: false,
     }),
     getters: {
         isAuthenticated: (state) => !!state?.user,
@@ -24,13 +25,20 @@ export const useAuthStore = defineStore('auth-store', {
 
       async login(payload) {
         const authHttp = new AuthHttp();
-
         const promise = await authHttp.login(payload);
         if(promise.status === 200) {
             this.token = promise.body.token;
             this.userRole = promise.body.role
             this.isLoggedIn = true;
             this.userFullName= `${promise.body.firstName} ${promise.body.lastName}`;
+        }
+        return promise;
+    },  
+      async verifyUserRegistration(token) {
+        const authHttp = new AuthHttp();
+        const promise = await authHttp.verifyUserRegistration(token);
+        if(promise.status ===200){
+            this.isEnabled = true;
         }
         return promise;
     },  

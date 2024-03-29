@@ -18,7 +18,7 @@ const http = axios.create({
 
       const token = authStore.token;
       if (token) {
-        console.log("Token from axios");
+        console.log("Token from axios: ", token);
         config.headers.Authorization = `Bearer ${token}`;
         config.headers.Accept = 'application/json';
       }
