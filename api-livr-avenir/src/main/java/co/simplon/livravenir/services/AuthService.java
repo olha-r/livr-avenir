@@ -9,4 +9,6 @@ public interface AuthService {
 
     TokenInfo signIn(Credentials inputs);
 
+    void verifyUserRegistration(String confirmationToken);
+
 }

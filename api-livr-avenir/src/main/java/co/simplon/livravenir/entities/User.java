@@ -36,6 +36,9 @@ public class User extends AbstractEntity {
     @Column(name = "points_number")
     private long pointsNumber;
 
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
+
     public User() {
 
     }
@@ -97,12 +100,20 @@ public class User extends AbstractEntity {
 	this.pointsNumber = pointsNumber;
     }
 
+    public boolean getIsEnabled() {
+	return isEnabled;
+    }
+
+    public void setIsEnabled(boolean isEnabled) {
+	this.isEnabled = isEnabled;
+    }
+
     @Override
     public String toString() {
 	return String.format(
-		"{email=%s, firstName=%s, lastName=%s, role=%s, registrationDate=%s, pointsNumber=%s}",
+		"{email=%s, firstName=%s, lastName=%s,  role=%s, registrationDate=%s, pointsNumber=%s, isEnabled=%s}",
 		email, firstName, lastName, role,
-		registrationDate, pointsNumber);
+		registrationDate, pointsNumber, isEnabled);
     }
 
     @Override
@@ -115,11 +126,8 @@ public class User extends AbstractEntity {
 	if (this == obj) {
 	    return true;
 	}
-	if (!(obj instanceof User)) {
-	    return false;
-	}
-	User other = (User) obj;
-	return Objects.equals(email, other.email);
+	return obj instanceof User other
+		&& Objects.equals(email, other.email);
     }
 
 }

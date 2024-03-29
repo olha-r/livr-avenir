@@ -12,4 +12,6 @@ public interface UserRepository
 
     UserProfile getUserById(Long id);
 
+    User findByEmail(String email);
+
 }

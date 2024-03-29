@@ -30,7 +30,8 @@ public class ResourceConfig {
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests((authz) -> {
 		    authz.requestMatchers("/auth/sign-in",
-			    "/auth/sign-up").permitAll()
+			    "/auth/sign-up",
+			    "/auth/verify/**").permitAll()
 			    .requestMatchers(HttpMethod.GET,
 				    "/books/**",
 				    "/categories",
