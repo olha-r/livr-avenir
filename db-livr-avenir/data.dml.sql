@@ -1,4 +1,4 @@
-TRUNCATE TABLE book_items, book_authors, books, conditions, categories, publishers, languages, authors, orders, order_status, users, roles, addresses, cities;
+TRUNCATE TABLE book_items, book_authors, books, conditions, categories, publishers, languages, authors, orders, order_status,verification_tokens, users, roles, addresses, cities;
 
 INSERT INTO roles
 	(code_role, role_name)
@@ -6,12 +6,12 @@ INSERT INTO roles
     ('ROLE_ADMIN', 'ADMIN'),  ('ROLE_USER', 'USER');
     
 INSERT INTO users
-	(first_name, last_name, email, password, registration_date, points_number, role_id)
+	(first_name, last_name, email, password, registration_date, points_number, role_id, is_enabled)
 	VALUES
-    ( 'Olha', 'Raulet', 'raulet.olha@gmail.com', '$2a$11$mTbgXh6GL/hWlZgzYMB55OrswkrWOC0squWLwJjSVBMp1Lmfbqdk6', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_ADMIN')),
-    ( 'Olha', 'Admin', 'admin@admin.com', '$2a$11$mTbgXh6GL/hWlZgzYMB55OrswkrWOC0squWLwJjSVBMp1Lmfbqdk6', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_ADMIN')),
-	( 'Diane', 'Mallet', 'diane.mallet@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER')),
-    ( 'Test', 'User', 'testuser@gmail.com', '$2a$11$mDvDEbWiKeBWlbK/Y6n.uenZ9S6VDoPFj6w15EBOEPqQh7whZKXOC', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER'));
+    ( 'Olha', 'Raulet', 'raulet.olha@gmail.com', '$2a$11$mTbgXh6GL/hWlZgzYMB55OrswkrWOC0squWLwJjSVBMp1Lmfbqdk6', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_ADMIN'), true),
+    ( 'Olha', 'Admin', 'admin@admin.com', '$2a$11$mTbgXh6GL/hWlZgzYMB55OrswkrWOC0squWLwJjSVBMp1Lmfbqdk6', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_ADMIN'), true),
+	( 'Diane', 'Mallet', 'diane.mallet@hotmail.fr', '$2a$11$HZfRa03aYXGReZWnrZvo0eEvC5cr5MmkqrHGURv5GDC3xDjw8hO.K', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER'), true),
+    ( 'Test', 'User', 'testuser@gmail.com', '$2a$11$mDvDEbWiKeBWlbK/Y6n.uenZ9S6VDoPFj6w15EBOEPqQh7whZKXOC', now(), 5, (SELECT r.id FROM roles r WHERE r.code_role = 'ROLE_USER'), true);
 
 INSERT INTO languages 
 	(language_name, iso_code, logical_order)

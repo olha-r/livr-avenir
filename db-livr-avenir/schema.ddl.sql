@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS languages;
 DROP TABLE IF EXISTS authors;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS order_status;
+DROP TABLE IF EXISTS verification_tokens;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS addresses;
@@ -49,10 +50,20 @@ CREATE TABLE users (
     registration_date TIMESTAMP NOT NULL,
     points_number INTEGER,
 	role_id INTEGER NOT NULL,
+    is_enabled BOOLEAN NOT NULL,
 	constraint pk_user_id primary key(id),
 	constraint fk_role_id 
 			foreign key (role_id)
 			references roles(id)
+);
+
+CREATE TABLE verification_tokens (
+    id SERIAL,
+    token CHAR(36),
+    expires_at TIMESTAMP,
+    user_id INTEGER NOT NULL,
+    constraint fk_user_id 
+			foreign key (user_id) references users(id)
 );
 
 CREATE TABLE order_status (
