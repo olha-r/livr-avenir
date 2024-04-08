@@ -1,5 +1,7 @@
 package co.simplon.livravenir.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -34,6 +36,21 @@ public class BookAuthor extends AbstractEntity {
 
     public void setAuthor(Author author) {
 	this.author = author;
+    }
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(author, book);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	return obj instanceof BookAuthor other
+		&& Objects.equals(author, other.author)
+		&& Objects.equals(book, other.book);
     }
 
     @Override

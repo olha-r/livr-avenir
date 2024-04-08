@@ -22,7 +22,15 @@ abstract class AbstractEntity {
     @SuppressWarnings("unused")
     private void setId(Long id) {
 	// Prevents from accidental assignment (set by DB)
-	this.id = id;
+	throw new UnsupportedOperationException();
     }
 
+    @Override
+    public abstract int hashCode();
+
+    @Override
+    public abstract boolean equals(Object obj);
+
+    @Override
+    public abstract String toString();
 }
