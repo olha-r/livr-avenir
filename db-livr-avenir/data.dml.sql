@@ -54,7 +54,7 @@ INSERT INTO languages
 INSERT INTO categories 
 	(category_code, category_name)
 	VALUES 
-	('literature', 'Littérature'), ('children-teens', 'Jeunesse'), ('comics', 'Bandes dessinées'), ('leisure-nature-travel','Loisir - Nature - Voyage'), ('art-music-cinema','Art - Musique - Cinéma'), ('other','Autre');
+	('literature', 'Littérature'), ('children-teens', 'Jeunesse'), ('comics', 'Bandes dessinées'), ('leisure-nature-travel','Loisir - Nature - Voyage'), ('art-music-cinema','Art - Musique - Cinéma'),('self-help', 'Développement personnel'), ('other','Autre');
 
 INSERT INTO publishers 
 	(publisher_code, publisher_name)
@@ -64,7 +64,29 @@ INSERT INTO publishers
     ('gallimard', 'Gallimard'),
     ('gallimard-jeunesse', 'Gallimard Jeunesse'),
     ('lgf', 'Lgf'),
-    ('pocket', 'Pocket');
+    ('pocket', 'Pocket'),
+    ('folio', 'FOLIO'),
+    ('j-ai-lu', 'J''AI LU'),
+    ('un-monde-different', 'Un monde different'),
+    ('addison-wesley-professional', 'Addison-Wesley Professional'),
+    ('albin-michel','Albin Michel'),
+    ('flammarion','Flammarion'),
+    ('spinelle','Spinelle'),
+    ('actes-sud','Actes Sud'),
+    ('seuil','Seuil'),
+    ('calmann-levy','Calmann Levy'),
+    ('stock','Stock'),
+    ('robert-laffont','Robert Laffont'),
+    ('denoël','Denoël'),
+    ('jc-lattes','JC Lattès'),
+    ('p-o-l','P.O.L'),
+    ('mercure-de-france','Mercure de France'),
+    ('les-editions-de-minuit','Les Éditions de Minuit'),
+    ('arthaud','Arthaud'),
+    ('dunod','Dunod'),
+    ('solar','Solar'),
+    ('publiwiz','Publiwiz');
+
 
 INSERT INTO authors 
 	(author_code, first_name, last_name)
@@ -81,6 +103,10 @@ INSERT INTO authors
     ('sylvain-tesson', 'Sylvain', 'Tesson'),
     ('gustave-flaubert', 'Gustave', 'Flaubert'),
     ('danielle-steel', 'Danielle', 'Steel'),
+    ('joshua-bloch', 'Joshua', 'Bloch'),
+    ('robert-kiyosaki', 'Robert', 'Kiyosaki'),
+    ('anna-stuart', 'Anna', 'Stuart'),
+    ('leila-slimani', 'Leïla', 'Slimani'),
     ('hal-elrod', 'Hal', 'Elrod');
 
 INSERT INTO books
@@ -129,7 +155,30 @@ INSERT INTO books
     (SELECT p.id FROM publishers p WHERE p.publisher_code = 'pocket'),
     (SELECT c.id FROM categories c WHERE c.category_code = 'leisure-nature-travel'),
     (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
+    ('9782892259551', 'Père riche, père pauvre', '2017', '9782892259551.jpg', '336',
+    'Robert T. Kiyosaki a remis en question et changé la perception de ''argent de dizaines de millions de gens partout dans le monde. Avec des opinions qui vont souvent à l''encontre de la sagesse populaire, l''auteur est maintenant connu pour son franc-parler, son insolence et son audace. Il est considéré à l''échelle mondiale comme un défenseur passionné de l''éducation financière.',
+    (SELECT p.id FROM publishers p WHERE p.publisher_code = 'un-monde-different'),
+    (SELECT c.id FROM categories c WHERE c.category_code = 'self-help'),
+    (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
+    
+    
+    ('2072764920', 'Chanson douce', '2018', '2072764920.jpg', '256',
+    '"Louise ? Quelle chance vous avez d''être tombés sur elle. Elle a été comme une seconde mère pour mes garçons. Ça a été un vrai crève-coeur quand nous avons dû nous en séparer. Pour tout vous dire, à l''époque, j''ai même songé à faire un troisième enfant pour pouvoir la garder."',
+    (SELECT p.id FROM publishers p WHERE p.publisher_code = 'folio'),
+    (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
+    (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
+    (SELECT l.id FROM languages l WHERE l.iso_code = 'fr')),
+
+
+    ('2290396397', 'La sage-femme d''Auschwitz', '2024', '2290396397.jpg', '480',
+    'Lorsqu''elle arrive à Auschwitz, sous un ciel bas et gris, Ana est persuadée qu''elle ne survivra pas à l''enfer du camp. Mais elle possède une compétence que les nazis recherchent : elle est sage-femme. Son travail sera de donner naissance aux enfants des autres prisonnières. Une mission terrible car, dès qu''ils ont poussé leur premier cri, les nouveau-nés sont emmenés et donnés à des familles allemandes. ',
+    (SELECT p.id FROM publishers p WHERE p.publisher_code = 'j-ai-lu'),
+    (SELECT c.id FROM categories c WHERE c.category_code = 'literature'),
+    (SELECT u.id FROM users u WHERE u.email = 'raulet.olha@gmail.com'),
     (SELECT l.id FROM languages l WHERE l.iso_code = 'fr'));
+    
 
 INSERT INTO conditions 
 	(condition_code, condition_name, logical_order)
@@ -151,4 +200,7 @@ INSERT INTO book_authors
     ((SELECT b.id FROM books b WHERE b.isbn = '9782075187541'),(SELECT a.id FROM authors a WHERE a.author_code = 'j-k-rowling')),
     ((SELECT b.id FROM books b WHERE b.isbn = '9782072836800'),(SELECT a.id FROM authors a WHERE a.author_code = 'sylvain-tesson')),
     ((SELECT b.id FROM books b WHERE b.isbn = '2266332120'),(SELECT a.id FROM authors a WHERE a.author_code = 'danielle-steel')),
+    ((SELECT b.id FROM books b WHERE b.isbn = '9782892259551'),(SELECT a.id FROM authors a WHERE a.author_code = 'robert-kiyosaki')),
+    ((SELECT b.id FROM books b WHERE b.isbn = '2290396397'),(SELECT a.id FROM authors a WHERE a.author_code = 'anna-stuart')),
+    ((SELECT b.id FROM books b WHERE b.isbn = '2072764920'),(SELECT a.id FROM authors a WHERE a.author_code = 'leila-slimani')),
     ((SELECT b.id FROM books b WHERE b.isbn = '2266268554'),(SELECT a.id FROM authors a WHERE a.author_code = 'hal-elrod'));
