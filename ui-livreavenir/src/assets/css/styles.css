@@ -27,11 +27,12 @@ a {
 }
 
 /********* Navbar **********/
-header {
+.navigation {
     background-color: var(--light-green-color) !important;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
 }
+
 
 .nav-link {
     color: var(--dark-green-color) !important;

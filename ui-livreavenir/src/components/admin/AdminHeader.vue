@@ -13,9 +13,11 @@ const logout = () => {
 
 <template>
     <header>
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg bg-light navigation border-bottom">
             <div class="container-fluid">
-                <RouterLink class="navbar-brand" :to="{ name: 'home' }"
+                <RouterLink
+                    class="navbar-brand"
+                    :to="{ name: 'admin-dashboard' }"
                     ><img
                         src="../../assets/images/logo/logo.png"
                         alt="logo"
@@ -27,26 +29,17 @@ const logout = () => {
                         <li class="nav-item">
                             <RouterLink
                                 class="nav-link"
-                                :to="{ name: 'home' }"
-                                >{{ t("navbar.homePageItem") }}</RouterLink
-                            >
-                        </li>
-                        <li>
-                            <RouterLink
-                                class="nav-link"
                                 :to="{ name: 'admin-dashboard' }"
                                 >{{ t("navbarAdmin.bookItem") }}</RouterLink
                             >
                         </li>
-                        <li>
-                            <!-- <li class="nav-item">
+                        <!-- <li class="nav-item">
                                 <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'manage-users' }"
                                 >{{ t("navbarAdmin.userItem") }}</RouterLink
                                 >
                             </li> -->
-                        </li>
                     </ul>
                 </div>
                 <div class="navbar-text me-5 navbar-hello" v-if="isLoggedIn">

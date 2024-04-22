@@ -24,7 +24,7 @@ const closeCartSidebar = () => {
 
 <template>
     <header
-        class="d-flex flex-wrap justify-content-around py-3 mb-4 border-bottom"
+        class="d-flex flex-wrap justify-content-around py-3 mb-4 border-bottom navigation"
     >
         <RouterLink
             class="d-flex align-items-center col-md-3 mb-2 mb-md-0"
@@ -41,16 +41,9 @@ const closeCartSidebar = () => {
                 }}</RouterLink>
             </li>
             <li class="nav-item" v-if="isLoggedIn">
-                <RouterLink class="nav-link px-2" :to="{ name: 'profile' }"
-                    >User profile</RouterLink
-                >
-            </li>
-            <li class="nav-item" v-if="isLoggedIn && isAdmin">
-                <RouterLink
-                    class="nav-link px-2"
-                    :to="{ name: 'admin-dashboard' }"
-                    >{{ t("navbar.adminItem") }}</RouterLink
-                >
+                <RouterLink class="nav-link px-2" :to="{ name: 'profile' }">{{
+                    userFullName
+                }}</RouterLink>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
                 <RouterLink
@@ -66,20 +59,24 @@ const closeCartSidebar = () => {
                     >{{ t("navbar.login") }}</RouterLink
                 >
             </li>
+
             <li class="nav-item" v-else>
-                <span @click="toggleCartSidebar">
-                    <span class="logout pe-2">{{
+                <span
+                    @click="toggleCartSidebar"
+                    class="d-flex align-items-center"
+                >
+                    <i class="bi bi-cart-fill fs-2 logout pe-1 ps-4"></i>
+                    <span class="logout pe-4">{{
                         cartStore.items.length
                     }}</span>
-                    <i class="bi bi-cart-fill fs-2 logout pe-4"></i>
                 </span>
                 <div :class="['cart-sidebar', { show: showCartSidebar }]">
                     <CartSidebar @close="closeCartSidebar" />
                 </div>
-                <a href="#" @click="logout" v-if="isLoggedIn">
-                    <i class="bi bi-box-arrow-right fs-2 logout me-4"></i>
-                </a>
             </li>
+            <a href="#" @click="logout" v-if="isLoggedIn">
+                <i class="bi bi-box-arrow-right fs-2 logout me-4"></i>
+            </a>
         </ul>
     </header>
 </template>

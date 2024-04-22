@@ -166,7 +166,7 @@ const frMessages = {
                 addItemBtn: " Ajouter un exemplaire"
             },
             bookItemDetail: {
-                noItems: "No items",
+                noItems: "Aucun exemplaire disponible pour cet échange pour le moment.",
                 date: "Ajouté le ",
                 pointsPrice:"Points: ",
                 condition: "État: ",
