@@ -33,34 +33,45 @@ header {
     font-weight: bold;
 }
 
- .nav-link {
-    color: var(--dark-green-color);
-  }
- .nav-link:hover {
-    color: var(--dark-orange-color) !important;
-    
-  }
+.nav-link {
+    color: var(--dark-green-color) !important;
+}
 
-.navbar a {
-    color: var(--dark-green-color);
+.nav-link:hover, .nav-link:active {
+   color: var(--dark-orange-color) !important;   
+}
+
+.navbar-hello {
+    color: var(--dark-orange-color);
+    font-family: 'Marhey', sans-serif; 
+ }
+
+/* .btn:active{
+    background-color: red !important;
+} */
+.btn.router-link-active, .btn.router-link-exact-active {
+    color: white !important;
+    background-color: var(--dark-green-color) !important;
+    border-color: var(--dark-green-color) !important ;
 }
 
 .btn {
     border-radius: 0.8rem;
+    margin: 2px;
 }
 
 .btn-primary, .btn.active, 
 .btn.active:hover, .btn.active:focus, .btn.active:active  {
-    background-color: var(--dark-orange-color);
-    border-color: var(--dark-orange-color);
+    background-color: var(--dark-orange-color) !important;
+    border-color: var(--dark-orange-color) !important;
 }
 
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus{
-    background-color: var(--light-orange-color) ;
-    border-color: var(--light-orange-color) ;
-    color: var(--dark-green-color) ;
+    background-color: var(--light-orange-color) !important;
+    border-color: var(--light-orange-color) !important;
+    color: var(--dark-green-color) !important;
 }
 
 .btn-outline-primary {
@@ -69,9 +80,9 @@ header {
 }
 
 .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
-    border-color: var(--dark-green-color) ;
-    background-color: var(--dark-green-color) ;
-}
+    border-color: var(--dark-green-color) !important;
+    background-color: var(--dark-green-color)!important ;
+} 
 
 /********** Home page **********/
 .home-page-img {
@@ -151,10 +162,10 @@ h3 {
 .logout {
     color: var(--dark-green-color);
 }
+
 .logout:hover {
     color: var(--dark-orange-color);
 }
-
 
 .bi-pencil-square {
     color: var(--dark-green-color)!important;
@@ -173,8 +184,6 @@ h3 {
 .img-book-user {
     height: 150px;
 }
-
-
 
 /******* Cart sidebar *****/
 .cart-sidebar {

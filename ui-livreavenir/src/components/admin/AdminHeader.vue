@@ -49,7 +49,7 @@ const logout = () => {
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-text me-5" v-if="isLoggedIn">
+                <div class="navbar-text me-5 navbar-hello" v-if="isLoggedIn">
                     {{ t("navbarAdmin.hello") }}, {{ userFullName }}!
                 </div>
 

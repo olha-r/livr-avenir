@@ -24,6 +24,10 @@ import ValidationMessage from "@/components/commons/ValidationMessage.vue";
 
 const { t } = useI18n();
 const requiredMessage = `${t("admin.validationMessages.required")}`;
+const isIsbnValid = (value) => {
+    const len = value.length;
+    return len === 10 || len === 13;
+};
 const inputs = reactive({
     isbn: null,
     title: null,
@@ -36,10 +40,6 @@ const inputs = reactive({
     authorList: [],
     coverImageUrl: undefined,
 });
-const isIsbnValid = (value) => {
-    const len = value.length;
-    return len === 10 || len === 13;
-};
 const rules = computed(() => {
     return {
         isbn: {
@@ -164,7 +164,7 @@ const add_new_book = async () => {
 
         if (resp.status === 204) {
             pageStore.alert.type = "success";
-            pageStore.alert.message = `Livre a été créé avec succès.`;
+            pageStore.alert.message = `${t("admin.bookForm.successMessage")}`;
             pageStore.alert.show = true;
             router.push("/admin");
             setTimeout(() => {
@@ -172,7 +172,7 @@ const add_new_book = async () => {
             }, 5000);
         } else {
             pageStore.alert.type = "error";
-            pageStore.alert.message = `Nous n'avons pas pu créer le livre.`;
+            pageStore.alert.message = `${t("admin.bookForm.errorMessage")}`;
             pageStore.alert.show = true;
             console.error(`Nous n'avons pas pu créer le livre.`);
             setTimeout(() => {

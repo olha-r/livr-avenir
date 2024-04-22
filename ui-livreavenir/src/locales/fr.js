@@ -44,6 +44,8 @@ const frMessages = {
             imageUpdate: "Nouvelle image",
             buttonCreate: "Ajouter",
             buttonUpdate: "Modifier",
+            successMessage: "Livre a été créé avec succès.",
+            errorMessage: "Nous n'avons pas pu créer le livre."
 
         },
         dashboard: {

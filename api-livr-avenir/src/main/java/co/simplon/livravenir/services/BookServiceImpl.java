@@ -75,9 +75,16 @@ public class BookServiceImpl implements BookService {
 	this.storage = storage;
     }
 
+    /**
+     * Creates a new book entity based on the provided inputs and saves it to the
+     * database.
+     * 
+     * @param inputs The DTO containing inputs for the book to be created.
+     */
     @Transactional
     @Override
     public void createBook(BookCreate inputs) {
+	// Create a new Book entity
 	Book entity = new Book();
 	entity.setIsbn(inputs.getIsbn());
 	entity.setTitle(inputs.getTitle());
@@ -97,6 +104,7 @@ public class BookServiceImpl implements BookService {
 	Publisher publisher = publishers
 		.getReferenceById(inputs.getPublisher());
 	entity.setPublisher(publisher);
+	// Get authenticated user
 	User user = null;
 	Long authenticatedUserId = SecurityHelper
 		.getCurrentAuthenticatedUser();
@@ -107,11 +115,12 @@ public class BookServiceImpl implements BookService {
 	entity.setAddedByUser(user);
 	MultipartFile file = inputs.getCoverImageUrl();
 	String baseName = UUID.randomUUID().toString();
+	// Upload the book cover image
 	String fileName = storage.store(file, baseName);
 	entity.setCoverImageUrl(fileName);
+	// Save book entity
 	Book savedBook = books.save(entity);
 	addBookAuthors(inputs.getAuthorList(), savedBook);
-
     }
 
     private void addBookAuthors(Set<Long> authorList,
