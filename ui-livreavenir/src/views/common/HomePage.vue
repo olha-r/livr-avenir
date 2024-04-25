@@ -53,7 +53,9 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 				v-for="(item, index) in lastAddedBooks"
 				:key="index"
 			>
-				<a :href="`/books/${item.book.id}/detail`">
+				<router-link
+					:to="{ name: 'book-details', params: { id: item.book.id } }"
+				>
 					<div class="card mx-3 d-flex flex-column">
 						<img
 							:src="
@@ -84,7 +86,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 							</div>
 						</div>
 					</div>
-				</a>
+				</router-link>
 			</div>
 		</div>
 	</main>

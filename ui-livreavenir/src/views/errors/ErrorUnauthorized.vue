@@ -6,8 +6,9 @@
 				<h2 class="m-5">
 					Désolé, vous n’êtes pas autorisé à accéder à cette page !
 				</h2>
-
-				<a href="/" class="btn btn-primary m-5">Retour à la page d'accueil</a>
+				<router-link :to="{ name: 'home' }" class="btn btn-primary m-5"
+					>Retour à la page d'accueil</router-link
+				>
 			</div>
 		</div>
 	</div>

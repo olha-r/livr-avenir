@@ -26,12 +26,12 @@ const router = createRouter({
 					name: 'admin-dashboard'
 				},
 				{
-					path: 'add-book',
+					path: 'ajouter-livre',
 					component: () => import('../views/admin/AddBook.vue'),
 					name: 'add-book'
 				},
 				{
-					path: 'book/:id/update',
+					path: 'livre/:id/mettre-a-jour',
 					component: () => import('../views/admin/UpdateBook.vue'),
 					name: 'update-book'
 				}
@@ -42,7 +42,7 @@ const router = createRouter({
 			}
 		},
 		{
-			path: '/books/:id/detail',
+			path: '/livre/:id/detail',
 			component: () => import('../layouts/MainLayout.vue'),
 			children: [
 				{
@@ -57,12 +57,12 @@ const router = createRouter({
 			component: () => import('../layouts/MainLayout.vue'),
 			children: [
 				{
-					path: 'register',
+					path: 'inscription',
 					component: () => import('../views/auth/RegisterPage.vue'),
 					name: 'register'
 				},
 				{
-					path: 'login',
+					path: 'connexion',
 					component: () => import('../views/auth/LoginPage.vue'),
 					name: 'login'
 				},
@@ -72,7 +72,7 @@ const router = createRouter({
 					name: 'activate-account'
 				},
 				{
-					path: 'profile',
+					path: 'profil',
 					component: () => import('../views/client/UserProfile.vue'),
 					name: 'profile',
 					meta: { requiresAuth: true }
@@ -80,7 +80,7 @@ const router = createRouter({
 			]
 		},
 		{
-			path: '/error',
+			path: '/erreur',
 			component: () => import('../layouts/MainLayout.vue'),
 			children: [
 				{
@@ -102,15 +102,15 @@ const router = createRouter({
 	]
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, from, next) => {
 	const authStore = useAuthStore();
 	const { isLoggedIn, userRole } = storeToRefs(authStore);
 	console.log('Logged in: ', isLoggedIn.value, ' ROLE: ', userRole.value);
 	if (to.meta.requiresAuth && !isLoggedIn.value) {
-		return '/auth/login';
+		return '/auth/connexion';
 	}
 	if (to.meta.permission == 'admin' && userRole.value == 'USER') {
-		return '/error/401';
+		return '/erreur/401';
 	}
 });
 

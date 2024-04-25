@@ -6,7 +6,9 @@
 				<h2 class="m-5">Oups, voilà qui n'était pas prévu !</h2>
 
 				<p class="m-5">Désolé mais ce lien est introuvable !</p>
-				<a href="" class="btn btn-primary mt-4">Retour à la page d'accueil</a>
+				<router-link :to="{ name: 'home' }" class="btn btn-primary m-5"
+					>Retour à la page d'accueil</router-link
+				>
 			</div>
 		</div>
 	</div>
