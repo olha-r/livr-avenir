@@ -54,7 +54,7 @@ INSERT INTO languages
 INSERT INTO categories 
 	(category_code, category_name)
 	VALUES 
-	('literature', 'Littérature'), ('children-teens', 'Jeunesse'), ('comics', 'Bandes dessinées'), ('leisure-nature-travel','Loisir - Nature - Voyage'), ('art-music-cinema','Art - Musique - Cinéma'),('self-help', 'Développement personnel'), ('other','Autre');
+	('literature', 'Littérature'), ('children-teens', 'Jeunesse'), ('comics', 'Bandes dessinées'), ('leisure-nature-travel','Loisir - Nature - Voyage'), ('art-music-cinema','Art - Musique - Cinéma'),('self-help', 'Développement personnel'), ('it','Informatique'),('other','Autre');
 
 INSERT INTO publishers 
 	(publisher_code, publisher_name)
@@ -189,7 +189,9 @@ INSERT INTO book_items
 	(item_code, description, points_price, added_at, condition_id, order_id, book_id, user_id)
 	VALUES
     ('2376292836729', 'Description', 2, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'good'), null, (SELECT b.id FROM books b WHERE b.isbn = '9782382920664'), (SELECT u.id FROM users u WHERE u.email = 'diane.mallet@hotmail.fr')),
-    ('2372292836727', 'Description', 4, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'very_good'), null, (SELECT b.id FROM books b WHERE b.isbn = '9782382920664'), (SELECT u.id FROM users u WHERE u.email = 'diane.mallet@hotmail.fr')) ;
+    ('2372292836727', 'Description', 4, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'very_good'), null, (SELECT b.id FROM books b WHERE b.isbn = '9782382920664'), (SELECT u.id FROM users u WHERE u.email = 'diane.mallet@hotmail.fr')) ,
+    ('978207518754112', 'Un classique de la littérature jeunesse rempli de magie et d''aventure. En parfait état, prêt à être échangé.', 4, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'very_good'), null, (SELECT b.id FROM books b WHERE b.isbn = '9782075187541'), (SELECT u.id FROM users u WHERE u.email = 'diane.mallet@hotmail.fr')) ,
+    ('978207518754119', 'Plongez dans le monde magique de Poudlard avec Harry, Ron et Hermione. ', 4, now(), (SELECT c.id FROM conditions c WHERE c.condition_code = 'very_good'), null, (SELECT b.id FROM books b WHERE b.isbn = '9782075187541'), (SELECT u.id FROM users u WHERE u.email = 'testuser@gmail.com')) ;
 
 INSERT INTO book_authors
     (book_id, author_id)
