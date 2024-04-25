@@ -1,10 +1,8 @@
-import {http} from './axios';
+import { http } from './axios';
 export class ConditionHttp {
-    
-    async get_list_conditions() {
-        const url = `/conditions`;
-        const response = await http.get(url);
-        return response;
-    };
-
+	async get_list_conditions() {
+		const url = `/conditions`;
+		const response = await http.get(url);
+		return response;
+	}
 }

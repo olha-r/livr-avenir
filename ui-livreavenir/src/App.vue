@@ -1,9 +1,7 @@
 <template>
-    <RouterView />
+	<RouterView />
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style src="./assets/css/main.css"></style>
-

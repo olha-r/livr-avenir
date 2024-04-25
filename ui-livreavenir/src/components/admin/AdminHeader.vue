@@ -1,57 +1,53 @@
 <script setup>
-import { storeToRefs } from "pinia";
-import { useI18n } from "vue-i18n";
-import { useAuthStore } from "@/stores/auth-store";
+import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
+import { useAuthStore } from '@/stores/auth-store';
 
 const { t } = useI18n();
 const authStore = useAuthStore();
 const { isLoggedIn, userFullName } = storeToRefs(authStore);
 const logout = () => {
-    authStore.logout();
+	authStore.logout();
 };
 </script>
 
 <template>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-light navigation border-bottom">
-            <div class="container-fluid">
-                <RouterLink
-                    class="navbar-brand"
-                    :to="{ name: 'admin-dashboard' }"
-                    ><img
-                        src="../../assets/images/logo/logo.png"
-                        alt="logo"
-                        style="height: 35px"
-                /></RouterLink>
+	<header>
+		<nav class="navbar navbar-expand-lg bg-light navigation border-bottom">
+			<div class="container-fluid">
+				<RouterLink class="navbar-brand" :to="{ name: 'admin-dashboard' }"
+					><img
+						src="../../assets/images/logo/logo.png"
+						alt="logo"
+						style="height: 35px"
+				/></RouterLink>
 
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="nav-item">
-                            <RouterLink
-                                class="nav-link"
-                                :to="{ name: 'admin-dashboard' }"
-                                >{{ t("navbarAdmin.bookItem") }}</RouterLink
-                            >
-                        </li>
-                        <!-- <li class="nav-item">
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-left">
+						<li class="nav-item">
+							<RouterLink class="nav-link" :to="{ name: 'admin-dashboard' }">{{
+								t('navbarAdmin.bookItem')
+							}}</RouterLink>
+						</li>
+						<!-- <li class="nav-item">
                                 <RouterLink
                                 class="nav-link"
                                 :to="{ name: 'manage-users' }"
                                 >{{ t("navbarAdmin.userItem") }}</RouterLink
                                 >
                             </li> -->
-                    </ul>
-                </div>
-                <div class="navbar-text me-5 navbar-hello" v-if="isLoggedIn">
-                    {{ t("navbarAdmin.hello") }}, {{ userFullName }}!
-                </div>
+					</ul>
+				</div>
+				<div class="navbar-text me-5 navbar-hello" v-if="isLoggedIn">
+					{{ t('navbarAdmin.hello') }}, {{ userFullName }}!
+				</div>
 
-                <div class="navbar-text">
-                    <a href="#" @click="logout">
-                        <i class="bi bi-box-arrow-right fs-2 logout me-4"></i>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </header>
+				<div class="navbar-text">
+					<a href="#" @click="logout">
+						<i class="bi bi-box-arrow-right fs-2 logout me-4"></i>
+					</a>
+				</div>
+			</div>
+		</nav>
+	</header>
 </template>

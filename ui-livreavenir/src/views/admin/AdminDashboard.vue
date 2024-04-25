@@ -20,6 +20,7 @@ const pageStore = usePageStore();
 const remove = async (id) => {
     const resp = await bookStore.delete_book(id, token);
     if (resp.status === 204) {
+        bookStore.get_book_list_admin();
         pageStore.alert.type = "success";
         pageStore.alert.message = `Livre a été supprimé avec success.`;
         pageStore.alert.show = true;
