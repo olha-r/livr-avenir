@@ -101,7 +101,9 @@ const onSubmit = async () => {
 			v$.value.$reset();
 			router.push('/auth/login');
 			pageStore.alert.type = 'success';
-			pageStore.alert.message = `Merci cliquer sur le lien envoyé à ${user.email} pour valider votre inscription. `;
+			pageStore.alert.message = `${t('signUpForm.confirmValidationMessage1')} ${
+				user.email
+			} ${t('signUpForm.confirmValidationMessage2')}`;
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;

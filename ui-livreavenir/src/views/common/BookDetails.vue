@@ -126,7 +126,7 @@ const add_new_book_item = async () => {
 		const resp = await bookItemStore.add_new_book_item(inputs, token);
 		if (resp.status === 204) {
 			pageStore.alert.type = 'success';
-			pageStore.alert.message = `Votre livre a été ajoutée avec succès.`;
+			pageStore.alert.message = `${t('client.createItem.successMessage')}`;
 			pageStore.alert.show = true;
 			closeModal();
 			// Reset form fields
@@ -142,7 +142,7 @@ const add_new_book_item = async () => {
 			}, 5000);
 		} else {
 			pageStore.alert.type = 'error';
-			pageStore.alert.message = `Nous n'avons pas pu ajoutée le livre.`;
+			pageStore.alert.message = `${t('client.createItem.errorMessage')}`;
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;

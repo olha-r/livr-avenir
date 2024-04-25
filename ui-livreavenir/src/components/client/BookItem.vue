@@ -53,7 +53,9 @@ const owner = `${props?.item?.seller?.firstName} ${props?.item?.seller?.lastName
 			</button>
 		</div>
 		<div class="col-12 col-md-2" v-else>
-			<p class="text-center">C'est votre livre</p>
+			<p class="text-center">
+				{{ t('client.bookDetailPage.bookItemDetail.owner') }}
+			</p>
 		</div>
 	</div>
 </template>

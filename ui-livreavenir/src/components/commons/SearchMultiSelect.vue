@@ -11,9 +11,9 @@ const { author_list } = storeToRefs(authorStore);
 const options = ref([]);
 const emit = defineEmits(['updateAuthorList']);
 const authorIdList = ref([]);
-const authorsRo = toRef(props, 'authorList'); // react to prop
-watch(authorsRo, (value) => {
-	authorIdList.value = authorsRo.value; // OK, textEnvoye is yours
+const authorList = toRef(props, 'authorList');
+watch(authorList, (value) => {
+	authorIdList.value = authorList.value;
 });
 const getOptions = () => {
 	const author_options = author_list.value;
@@ -29,7 +29,6 @@ onMounted(async () => {
 	getOptions();
 });
 const updateAuthorList = (value) => {
-	// Emit an event to update the authorList in the parent component
 	emit('updateAuthorList', value);
 };
 </script>

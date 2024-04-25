@@ -1,14 +1,19 @@
+<script setup>
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+</script>
+
 <template>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3 text-center">
-				<h1 class="m-5">403 Forbidden</h1>
+				<h1 class="m-5">{{ t('errorPages.e403.label') }}</h1>
 				<h2 class="m-5">
-					Désolé, vous n'avez pas le droit d'accéder aux ressources demandées.
+					{{ t('errorPages.e403.message') }}
 				</h2>
-				<router-link :to="{ name: 'home' }" class="btn btn-primary m-5"
-					>Retour à la page d'accueil</router-link
-				>
+				<router-link :to="{ name: 'home' }" class="btn btn-primary m-5">{{
+					t('errorPages.redirectToHomepage')
+				}}</router-link>
 			</div>
 		</div>
 	</div>

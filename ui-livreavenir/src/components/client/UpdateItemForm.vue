@@ -95,7 +95,8 @@ const update_item = async () => {
 		if (resp.status === 204) {
 			props.exitEditMode();
 			pageStore.alert.type = 'success';
-			pageStore.alert.message = `L'exemplaire a été mis à jour avec succès.`;
+			pageStore.alert.message = `${t('client.updateItem.successMessage')}`;
+
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;
@@ -103,7 +104,7 @@ const update_item = async () => {
 			await bookItemStore.get_items_by_user();
 		} else {
 			pageStore.alert.type = 'error';
-			pageStore.alert.message = `Nous n'avons pas pu mettre à jour l'exemplaire.`;
+			pageStore.alert.message = `${t('client.updateItem.errorMessage')}`;
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;

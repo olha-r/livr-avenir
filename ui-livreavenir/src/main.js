@@ -15,4 +15,7 @@ app.use(router);
 app.use(i18n);
 app.use(pinia);
 
+document.documentElement.lang = i18n.global.locale.value;
+document.title = i18n.global.t('appTitle');
+
 app.mount('#app');

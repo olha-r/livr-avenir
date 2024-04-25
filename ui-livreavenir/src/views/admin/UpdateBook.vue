@@ -152,10 +152,9 @@ onMounted(async () => {
 	image.value = bookDetails.book.coverImageUrl || null;
 	const idArray = bookDetails.listAuthor.map((author) => author.id);
 	inputs.authorList = idArray || [];
-	// Fetch other necessary data
-	languageStore.get_list_languages();
-	categoryStore.get_list_categories();
-	publisherStore.get_publisher_list();
+	await languageStore.get_list_languages();
+	await categoryStore.get_list_categories();
+	await publisherStore.get_publisher_list();
 });
 const authStore = useAuthStore();
 const { token } = authStore;
@@ -179,7 +178,9 @@ const update_book = async () => {
 
 		if (resp.status === 204) {
 			pageStore.alert.type = 'success';
-			pageStore.alert.message = `Livre a été mis à jour avec succès.`;
+			pageStore.alert.message = `${t(
+				'admin.dashboard.updateBook.successMessage'
+			)}`;
 			pageStore.alert.show = true;
 			router.push('/admin');
 			setTimeout(() => {
@@ -187,7 +188,9 @@ const update_book = async () => {
 			}, 5000);
 		} else {
 			pageStore.alert.type = 'error';
-			pageStore.alert.message = `Nous n'avons pas pu mettre à jour le livre.`;
+			pageStore.alert.message = `${t(
+				'admin.dashboard.updateBook.errorMessage'
+			)}`;
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;

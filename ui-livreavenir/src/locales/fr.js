@@ -1,4 +1,5 @@
 const frMessages = {
+	appTitle: "Livr'avenir",
 	homepage: {
 		mainTitle: "Livr'avenir",
 		title: 'Explorez nos livres'
@@ -67,7 +68,16 @@ const frMessages = {
 				language: 'Langue :',
 				category: 'Catégorie :',
 				summary: 'Description :',
-				image: 'Image :'
+				image: 'Image :',
+				closeModal: 'Fermer'
+			},
+			deleteBook: {
+				successMessage: 'Livre a été supprimé avec succès.',
+				errorMessage: "Nous n'avons pas pu supprimer le livre."
+			},
+			updateBook: {
+				successMessage: 'Livre a été mis à jour avec succès.',
+				errorMessage: "Nous n'avons pas pu mettre à jour le livre."
 			}
 		},
 		validationMessages: {
@@ -105,13 +115,18 @@ const frMessages = {
 				"Au moins une majuscule, une minuscule, un chiffre, et un caractère spécial parmi {'!@#%&*?'}"
 		},
 		confirmPassword: 'Confirmer le mot de passe',
-		button: "S'inscrire"
+		button: "S'inscrire",
+		confirmValidationMessage1: 'Merci cliquer sur le lien envoyé à',
+		confirmValidationMessage2: 'pour valider votre inscription.'
 	},
 	signIn: {
 		title: 'Se connecter',
 		email: 'Email',
 		password: 'Mot de passe',
-		button: 'Se connecter'
+		button: 'Se connecter',
+		success1: 'Utilisateur ',
+		success2: 'est connecté',
+		error: "Le nom d'utilisateur ou le mot de passe est incorrect"
 	},
 	client: {
 		profile: {
@@ -124,7 +139,9 @@ const frMessages = {
 				},
 				offeredBooks: {
 					label: 'Livres proposées',
-					title: 'Livres à echanger'
+					title: 'Livres à echanger',
+					successMessage: 'Votre exemplaire a été supprimé avec succès.',
+					errorMessage: "Nous n'avons pas pu supprimer votre exemplaire."
 				},
 				pointsNumber: {
 					label: 'Points number'
@@ -150,6 +167,14 @@ const frMessages = {
 			minLengthDescription: 'Veuillez saisir au moins 10 caractères.',
 			maxLengthDescription: 'Veuillez saisir moins de 150 caractères.'
 		},
+		updateItem: {
+			successMessage: "L'exemplaire a été mis à jour avec succès.",
+			errorMessage: "Nous n'avons pas pu mettre à jour l'exemplaire."
+		},
+		createItem: {
+			successMessage: 'Votre livre a été ajoutée avec succès.',
+			errorMessage: "Nous n'avons pas pu ajoutée le livre."
+		},
 
 		bookDetailPage: {
 			bookDetail: {
@@ -172,13 +197,35 @@ const frMessages = {
 				btnModify: 'Modifier',
 				btnDelete: 'Supprimer',
 				btnCancel: 'Annuler',
-				addToCartBtn: 'Ajouter au panier'
+				addToCartBtn: 'Ajouter au panier',
+				owner: "C'est votre livre"
 			}
 		}
 	},
 	activationAccountPage: {
-		activationSuccess: 'Félicitation, votre account est activer',
-		activationFailed: "Désolé, votre account n'était pas activer"
+		activationSuccess:
+			'Félicitation, votre account est activer. Vous pouvez vous connecter.',
+		activationFailed: "Désolé, votre account n'était pas activer. Réessayer."
+	},
+	mainLayout: {
+		copyright: " Copyright 2024 Livr'avenir"
+	},
+	errorPages: {
+		redirectToHomepage: "Retour à la page d'accueil",
+		e401: {
+			label: '401 Unauthorized',
+			message: 'Désolé, vous n’êtes pas autorisé à accéder à cette page !'
+		},
+		e403: {
+			label: '403 Forbidden',
+			message:
+				"Désolé, vous n'avez pas le droitnd'accéder aux ressources demandées."
+		},
+		e404: {
+			codeError: '404',
+			label: "Oups, voilà qui n'était pas prévu !",
+			message: 'Désolé mais cette page est introuvable!'
+		}
 	}
 };
 

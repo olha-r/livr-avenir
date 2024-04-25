@@ -17,7 +17,9 @@ const remove = async (id) => {
 	const resp = await bookItemStore.delete_item(id, token);
 	if (resp.status === 204) {
 		pageStore.alert.type = 'success';
-		pageStore.alert.message = `Votre exemplaire a été supprimé avec success.`;
+		pageStore.alert.message = `${t(
+			'client.profile.section.offeredBooks.successMessage'
+		)}`;
 		pageStore.alert.show = true;
 		await bookItemStore.get_items_by_user();
 		setTimeout(() => {
@@ -25,7 +27,9 @@ const remove = async (id) => {
 		}, 6000); // Redirect after 3 seconds
 	} else {
 		pageStore.alert.type = 'error';
-		pageStore.alert.message = `Nous n'avons pas pu supprimer votre exemplaire.`;
+		pageStore.alert.message = `${t(
+			'client.profile.section.offeredBooks.errorMessage'
+		)}`;
 		pageStore.alert.show = true;
 		setTimeout(() => {
 			pageStore.alert.show = false;

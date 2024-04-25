@@ -18,7 +18,7 @@ onMounted(async () => {
 	await authStore.verifyUserRegistration(activationToken.value);
 	if (isEnabled) {
 		pageStore.alert.type = 'success';
-		pageStore.alert.message = `Félicitations, votre account est activé. Vous pouvez vous connecter.`;
+		pageStore.alert.message = `${t('activationAccountPage.activationSuccess')}`;
 		pageStore.alert.show = true;
 		router.push('/auth/login');
 		setTimeout(() => {
@@ -26,7 +26,7 @@ onMounted(async () => {
 		}, 5000);
 	} else {
 		pageStore.alert.type = 'error';
-		pageStore.alert.message = `Désolé, votre account n'est pas activé. Réessayer.`;
+		pageStore.alert.message = `${t('activationAccountPage.activationFailed')}`;
 		pageStore.alert.show = true;
 	}
 });

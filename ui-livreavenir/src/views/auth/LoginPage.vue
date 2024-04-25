@@ -49,7 +49,9 @@ const onSubmit = async () => {
 			if (userRole.value == 'ADMIN') {
 				router.push('/admin');
 				pageStore.alert.type = 'success';
-				pageStore.alert.message = `Utilisateur ${user.email} est connecté`;
+				pageStore.alert.message = `${t('signIn.success1')} ${user.email} ${t(
+					'signIn.success2'
+				)}`;
 				pageStore.alert.show = true;
 				setTimeout(() => {
 					pageStore.alert.show = false;
@@ -57,7 +59,9 @@ const onSubmit = async () => {
 			} else {
 				router.push('/');
 				pageStore.alert.type = 'success';
-				pageStore.alert.message = `Utilisateur ${user.email} est connecté`;
+				pageStore.alert.message = `${t('signIn.success1')} ${user.email} ${t(
+					'signIn.success2'
+				)}`;
 				pageStore.alert.show = true;
 				setTimeout(() => {
 					pageStore.alert.show = false;
@@ -66,7 +70,7 @@ const onSubmit = async () => {
 		}
 		if (!resp) {
 			pageStore.alert.type = 'error';
-			pageStore.alert.message = `Le nom d'utilisateur ou le mot de passe est incorrect`;
+			pageStore.alert.message = `${t('signIn.error')}`;
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;
