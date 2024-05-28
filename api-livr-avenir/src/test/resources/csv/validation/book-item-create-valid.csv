@@ -1,0 +1,10 @@
+method§path§tokenName§Json§§§
+POST§/book_items§user§{"description": "AAAAaaaaaa", "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book_items§user§{"description": "aaaaaaaaaaAAAAAAAAAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book_items§user§{"description": "AAAAaaaaaafff", "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book_items§user§{"description": "AAAAaaaaaafff", "pointsPrice": 5,    "conditionId": 1,    "bookId": 1 }
+POST§/book_items§user§{"description": "AAAAaaaaaafff", "pointsPrice": 5,    "conditionId": 1,    "bookId": 1 }
+POST§/book_items§user§{"description": "AAAAaaaaaafff", "pointsPrice": 5,    "conditionId": 2000,    "bookId": 1 }
+POST§/book_items§user§{"description": "AAAAaaaaaafff", "pointsPrice": 5,    "conditionId": 2000,    "bookId": 500 }
+
+

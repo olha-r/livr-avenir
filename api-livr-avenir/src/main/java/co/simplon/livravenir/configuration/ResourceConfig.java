@@ -29,27 +29,53 @@ public class ResourceConfig {
 	http.cors(Customizer.withDefaults())
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests((authz) -> {
-		    authz.requestMatchers("/auth/sign-in",
-			    "/auth/sign-up",
-			    "/auth/verify/**").permitAll()
+		    authz.requestMatchers(HttpMethod.POST,
+			    "/auth/sign-in",
+			    "/auth/sign-up").anonymous()
 			    .requestMatchers(HttpMethod.GET,
-				    "/books/**",
-				    "/categories",
-				    "/formats",
-				    "/languages",
-				    "/authors",
-				    "/publishers",
-				    "/conditions")
+				    "/auth/verify/**")
+			    .anonymous()
+			    .requestMatchers(HttpMethod.GET,
+				    "/books",
+				    "/books/{id}/detail")
 			    .permitAll()
 			    .requestMatchers(
 				    HttpMethod.POST,
 				    "/books", "/publishers",
 				    "/authors")
 			    .hasAuthority("ADMIN")
+			    .requestMatchers(HttpMethod.PUT,
+				    "/books/{id}")
+			    .hasAuthority("ADMIN")
 			    .requestMatchers(
 				    HttpMethod.DELETE,
-				    "/books")
+				    "/books/{id}")
 			    .hasAuthority("ADMIN")
+			    .requestMatchers(HttpMethod.GET,
+				    "/categories",
+				    "/languages",
+				    "/authors",
+				    "/publishers",
+				    "/books/admin",
+				    "/books/{id}/for-update")
+			    .hasAuthority("ADMIN")
+			    .requestMatchers(HttpMethod.GET,
+				    "/conditions",
+				    "/book_items/user",
+				    "/users/profile")
+			    .hasAuthority("USER")
+			    .requestMatchers(
+				    HttpMethod.POST,
+				    "/book_items")
+			    .hasAuthority("USER")
+			    .requestMatchers(
+				    HttpMethod.PATCH,
+				    "/book_items/{id}")
+			    .hasAuthority("USER")
+			    .requestMatchers(
+				    HttpMethod.DELETE,
+				    "/book_items/{id}")
+			    .hasAuthority("USER")
 			    .anyRequest().authenticated();
 		}
 

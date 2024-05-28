@@ -1,0 +1,27 @@
+method§path§tokenName§Json§§§
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": " ", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": null, "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "a", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": null,    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": " ",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "b",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",    "email": "aaa.bbbb@ccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": null,    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": " ",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbbccc.dd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@cccdd",    "password": "Azerty123!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": null }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": " " }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "aaaaAAA1" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "aaaAAAA@" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "aaaaaa1!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "AAAAAA1!" }
+POST§/auth/sign-in§anonymous§{"firstName": "aaa", "lastName": "bbb",    "email": "aaa.bbbb@ccc.dd",    "password": "aaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAA1!@" }
+
+

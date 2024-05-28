@@ -2,6 +2,7 @@
 package co.simplon.livravenir.utils;
 
 import java.time.Instant;
+import java.util.Date;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -37,13 +38,20 @@ public class AuthHelper {
     public String createJWT(String role, String userId,
 	    String email) {
 	Instant now = Instant.now();
-	Instant expirationTime = now
-		.plusSeconds(expiration);
-	return JWT.create().withIssuer(issuer)
-		.withSubject(userId).withIssuedAt(now)
-		.withExpiresAt(expirationTime)
+	var jwtBuilder = JWT.create().withIssuer(issuer)
+		.withSubject(userId)
+		.withIssuedAt(Date.from(now))
 		.withClaim("role", role)
-		.withClaim("email", email).sign(algorithm);
+		.withClaim("email", email);
+	if (expiration != -1) {
+	    Instant expirationTime = now
+		    .plusSeconds(expiration);
+	    jwtBuilder.withExpiresAt(expirationTime);
+	}
+
+	String token = jwtBuilder.sign(algorithm);
+	return token;
+
     }
 
     public static class Builder {

@@ -20,7 +20,7 @@ public class Credentials {
     private String email;
 
     @NotBlank
-    @Pattern(regexp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%&*?]).{8,42}$/")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%&*?]).{8,42}$")
     private String password;
 
     public Credentials() {

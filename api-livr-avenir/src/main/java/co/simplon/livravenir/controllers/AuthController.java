@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.simplon.livravenir.dtos.Credentials;
 import co.simplon.livravenir.dtos.TokenInfo;
 import co.simplon.livravenir.services.AuthService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,14 +25,14 @@ public class AuthController {
     @PostMapping("/sign-up")
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void signUp(@RequestBody Credentials inputs) {
+    public void signUp(
+	    @Valid @RequestBody Credentials inputs) {
 	service.signUp(inputs);
     }
 
     @PostMapping("/sign-in")
     public TokenInfo signIn(
-
-	    @RequestBody Credentials inputs) {
+	    @Valid @RequestBody Credentials inputs) {
 	return service.signIn(inputs);
     }
 
