@@ -135,7 +135,7 @@ const frMessages = {
 					label: 'User info',
 					email: 'Email',
 					fullName: 'Nom complet',
-					registationDate: 'Inscrit depuis:'
+					registrationDate: 'Inscrit depuis:'
 				},
 				offeredBooks: {
 					label: 'Livres proposées',
