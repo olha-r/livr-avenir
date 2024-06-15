@@ -15,10 +15,9 @@ const http = axios.create({
 http.interceptors.request.use(
 	(config) => {
 		const authStore = useAuthStore();
-
 		const token = authStore.token;
 		if (token) {
-			console.log('Token from axios: ', token);
+			// console.log('Token from axios: ', token);
 			config.headers.Authorization = `Bearer ${token}`;
 			config.headers.Accept = 'application/json';
 		}
@@ -37,6 +36,10 @@ http.interceptors.response.use(
 		return { status: status, body: body };
 	},
 	(error) => {
+		if (error?.response?.status == '401') {
+			const authStore = useAuthStore();
+			authStore.clearLocalStorage();
+		}
 		const store = useGlobalStore();
 		console.log('error', error);
 		if (error?.response?.data) {
