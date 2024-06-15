@@ -1,11 +1,9 @@
 import { http } from './axios';
 
 export class BookHttp {
-	async add_new_book(payload, token) {
+	async add_new_book(payload) {
 		const url = `/books`;
-		const headers = {
-			//   Authorization: `Bearer ${token}`
-		};
+		const headers = {};
 		headers['Content-Type'] = 'multipart/form-data';
 		const response = await http.post(url, payload, { headers });
 		return response;
@@ -30,20 +28,15 @@ export class BookHttp {
 		const response = await http.get(url);
 		return response;
 	}
-	async delete_book(book_id, token) {
+	async delete_book(book_id) {
 		const url = `/books/${book_id}`;
-		const headers = {
-			Authorization: `Bearer ${token}`
-		};
-		const response = await http.delete(url, { headers });
+		const response = await http.delete(url);
 		return response;
 	}
-	async update_book(book_id, payload, token) {
+	async update_book(book_id, payload) {
 		const url = `/books/${book_id}`;
-		const headers = {
-			Authorization: `Bearer ${token}`
-		};
-		const response = await http.put(url, payload, { headers });
+
+		const response = await http.put(url, payload);
 		return response;
 	}
 }

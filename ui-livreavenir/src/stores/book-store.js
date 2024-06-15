@@ -9,9 +9,9 @@ export const useBookStore = defineStore('book-store', {
         book_for_update: {}
     }),
     actions: {
-        async add_new_book(payload, token){
+        async add_new_book(payload){
             const bookHttp = new BookHttp();
-            const promise = await bookHttp.add_new_book(payload, token);
+            const promise = await bookHttp.add_new_book(payload);
             return promise; 
         },
         async get_last_added_books(){
@@ -46,17 +46,17 @@ export const useBookStore = defineStore('book-store', {
             }
             return promise; 
         },
-        async delete_book(book_id, token){
+        async delete_book(book_id){
             const bookHttp = new BookHttp();
-            const promise = await bookHttp.delete_book(book_id, token);
+            const promise = await bookHttp.delete_book(book_id);
             if(promise.status== 204){
                 this.get_book_list_admin();
             }
             return promise; 
         },
-        async update_book(book_id, payload, token){
+        async update_book(book_id, payload){
             const bookHttp = new BookHttp();
-            const promise = await bookHttp.update_book(book_id, payload, token);
+            const promise = await bookHttp.update_book(book_id, payload);
             if(promise.status== 204){
                 this.get_book_list_admin();
             }
