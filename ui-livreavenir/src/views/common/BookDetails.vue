@@ -34,8 +34,8 @@ const { list_conditions } = storeToRefs(conditionStore);
 const { items_by_book } = storeToRefs(bookItemStore);
 onMounted(async () => {
 	await bookStore.get_book_details(book_id);
-	await conditionStore.get_list_conditions();
 	if (isLoggedIn.value) {
+		await conditionStore.get_list_conditions();
 		await bookItemStore.get_items_by_book_id(book_id);
 	}
 });
