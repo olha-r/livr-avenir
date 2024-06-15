@@ -19,7 +19,7 @@ public @interface ImageSize {
 
     long value() default ImageSize.ONE_MB;
 
-    String message() default "Image size is too large";
+    String message() default "{livravenir.validation.constraints.ImageSize.message}";
 
     Class<?>[] groups() default {};
 

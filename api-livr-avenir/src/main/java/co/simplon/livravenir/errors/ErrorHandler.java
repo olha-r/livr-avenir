@@ -1,14 +1,15 @@
 package co.simplon.livravenir.errors;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,23 +20,41 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ErrorHandler
 	extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    protected ResponseEntity<Object> handleResourceNotFoundException(
+	    ResourceNotFoundException ex,
+	    WebRequest request) {
+	// custom body
+	// request.getContextPath()
+	return handleExceptionInternal(ex, null,
+		new HttpHeaders(), HttpStatus.NOT_FOUND,
+		request);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<Object> handleDataIntegrityViolationException(
+	    DataIntegrityViolationException ex,
+	    WebRequest request) {
+	return handleExceptionInternal(ex, null,
+		new HttpHeaders(), HttpStatus.CONFLICT,
+		request);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
 	    MethodArgumentNotValidException ex,
 	    HttpHeaders headers, HttpStatusCode status,
 	    WebRequest request) {
-	List<FieldError> errors = ex.getFieldErrors();
-	List<CustomError> customErrors = new ArrayList<>();
-	for (FieldError error : errors) {
-	    String code = error.getCode();
-	    String fieldName = error.getField();
-	    String errMsg = error.getDefaultMessage();
-	    CustomError customError = new CustomError(code,
-		    fieldName, errMsg);
-	    customErrors.add(customError);
-	}
-	return handleExceptionInternal(ex, customErrors,
-		headers, status, request);
+	ValidationErrors errors = new ValidationErrors();
+	List<FieldError> fieldErrors = ex.getFieldErrors();
+	fieldErrors.forEach((e) -> errors
+		.addFieldError(e.getField(), e.getCode()));
+	List<ObjectError> globalErrors = ex
+		.getGlobalErrors();
+	globalErrors.forEach(
+		(e) -> errors.addGlobalError(e.getCode()));
+	return handleExceptionInternal(ex, errors, headers,
+		status, request);
     }
 
     @Override
@@ -50,10 +69,10 @@ public class ErrorHandler
     protected ResponseEntity<Object> handleBadCredentialException(
 	    BadCredentialsException ex) {
 	String body = ex.getMessage();
+
 	return handleExceptionInternal(ex, body,
 		new HttpHeaders(), HttpStatus.UNAUTHORIZED,
 		null);
-
     }
 
 }

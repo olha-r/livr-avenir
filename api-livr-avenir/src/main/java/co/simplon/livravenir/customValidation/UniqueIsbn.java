@@ -15,7 +15,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = UniqueIsbnValidator.class)
 public @interface UniqueIsbn {
 
-    String message() default "This ISBN already exists";
+    String message() default "{livravenir.validation.constraints.Unique.message}";
 
     Class<?>[] groups() default {};
 

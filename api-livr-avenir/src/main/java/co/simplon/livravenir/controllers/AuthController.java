@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/sign-in")
     public TokenInfo signIn(
-	    @Valid @RequestBody Credentials inputs) {
+	    @RequestBody Credentials inputs) {
 	return service.signIn(inputs);
     }
 

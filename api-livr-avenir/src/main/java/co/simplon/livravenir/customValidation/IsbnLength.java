@@ -15,7 +15,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = IsbnLengthValidator.class)
 public @interface IsbnLength {
 
-    String message() default "ISBN must have 10 or 13 characters";
+    String message() default "{livravenir.validation.constraints.IsbnLength.message}";
 
     Class<?>[] groups() default {};
 

@@ -19,7 +19,7 @@ public @interface ImageType {
 
     String[] value() default { MediaType.ALL_VALUE };
 
-    String message() default "Image type is not valid";
+    String message() default "{livravenir.validation.constraints.ImageType.message}";
 
     Class<?>[] groups() default {};
 
