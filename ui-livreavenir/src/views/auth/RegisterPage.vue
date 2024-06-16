@@ -99,7 +99,7 @@ const onSubmit = async () => {
 		const resp = await authStore.register(user);
 		if (resp.status === 204) {
 			v$.value.$reset();
-			router.push('/auth/login');
+			router.push({ name: 'login' });
 			pageStore.alert.type = 'success';
 			pageStore.alert.message = `${t('signUpForm.confirmValidationMessage1')} ${
 				user.email

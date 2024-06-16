@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref, reactive, computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useBookStore } from '@/stores/book-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { useBookItemStore } from '@/stores/book-item-store';
@@ -27,6 +27,7 @@ const { book_details } = storeToRefs(bookStore);
 const authStore = useAuthStore();
 const { token, isLoggedIn } = storeToRefs(authStore);
 const route = useRoute();
+const router = useRouter();
 const book_id = route.params.id;
 const imageUrl = ref('');
 const conditionStore = useConditionStore();
@@ -34,6 +35,10 @@ const { list_conditions } = storeToRefs(conditionStore);
 const { items_by_book } = storeToRefs(bookItemStore);
 onMounted(async () => {
 	await bookStore.get_book_details(book_id);
+	if (!book_details.value.book) {
+		router.push({ name: 'not-found' });
+		return;
+	}
 	if (isLoggedIn.value) {
 		await conditionStore.get_list_conditions();
 		await bookItemStore.get_items_by_book_id(book_id);
@@ -104,14 +109,14 @@ const openNewBookItemModal = () => {
 	modal.show();
 };
 const closeModal = () => {
-	showModal.value = false; // Hide the modal
+	showModal.value = false;
 	const modalElement = document.getElementById('newBookItem');
 	const modalBackdrop = document.querySelector('.modal-backdrop');
 	if (modalBackdrop) {
-		modalBackdrop.parentNode.removeChild(modalBackdrop); // Remove the modal backdrop from the DOM
+		modalBackdrop.parentNode.removeChild(modalBackdrop);
 	}
 	const modal = new bootstrap.Modal(modalElement);
-	modal.hide(); // Hide the Bootstrap modal
+	modal.hide();
 };
 watch(book_details, (newBookDetails) => {
 	if (newBookDetails && newBookDetails.book) {
@@ -129,12 +134,10 @@ const add_new_book_item = async () => {
 			pageStore.alert.message = `${t('client.createItem.successMessage')}`;
 			pageStore.alert.show = true;
 			closeModal();
-			// Reset form fields
 			inputs.description = null;
 			inputs.pointsPrice = null;
 			inputs.conditionId = null;
 			v$.value.$reset();
-			// Deactivate modal form
 			showModal.value = false;
 			await bookItemStore.get_items_by_book_id(book_id);
 			setTimeout(() => {

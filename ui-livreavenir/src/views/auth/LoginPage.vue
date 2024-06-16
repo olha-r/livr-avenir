@@ -47,7 +47,7 @@ const onSubmit = async () => {
 			const token = resp.body.token;
 			console.log('Token after login', token);
 			if (userRole.value == 'ADMIN') {
-				router.push('/admin');
+				router.push({ name: 'admin-dashboard' });
 				pageStore.alert.type = 'success';
 				pageStore.alert.message = `${t('signIn.success1')} ${user.email} ${t(
 					'signIn.success2'
@@ -57,7 +57,7 @@ const onSubmit = async () => {
 					pageStore.alert.show = false;
 				}, 7000);
 			} else {
-				router.push('/');
+				router.push({ name: 'home' });
 				pageStore.alert.type = 'success';
 				pageStore.alert.message = `${t('signIn.success1')} ${user.email} ${t(
 					'signIn.success2'

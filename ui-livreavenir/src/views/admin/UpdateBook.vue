@@ -182,7 +182,7 @@ const update_book = async () => {
 				'admin.dashboard.updateBook.successMessage'
 			)}`;
 			pageStore.alert.show = true;
-			router.push('/admin');
+			router.push({ name: 'admin-dashboard' });
 			setTimeout(() => {
 				pageStore.alert.show = false;
 			}, 5000);
