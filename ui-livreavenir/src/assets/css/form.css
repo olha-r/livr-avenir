@@ -1,65 +1,120 @@
 .form-control {
     background-color: var(--light-green-color);
-}
-
-.form-control:focus {
+  }
+  
+  .form-control:focus {
     border: 3px solid var(--light-green-color);
     border-color: var(--light-green-color);
     box-shadow: 0px 0px 4px 4px var(--light-green-color);
-}
-
-input[type=checkbox] {
+  }
+  
+  .input-group .form-control {
+    border-right: 0; /* Remove right border */
+  }
+  
+  .input-group .form-control:focus {
+    z-index: 3; /* Ensure the input stays above the appended button when focused */
+    border-right: 0; /* Remove right border when focused */
+  }
+  
+  .input-group-text.password-toggle {
+    background-color: var(--light-green-color);
+    border-left: 0; /* Remove left border */
     cursor: pointer;
-}
-
-.form-check-input:checked {
+    box-shadow: 0px 0px 4px 4px transparent; /* Initial shadow transparent */
+  }
+  
+  .input-group-text.password-toggle i {
+    color: var(--dark-orange-color);
+  }
+  
+  .input-group-text.password-toggle:hover {
+    background-color: var(--light-green-color);
+  }
+  
+  .input-group:focus-within .input-group-text.password-toggle {
+    box-shadow: 0px 0px 4px 4px var(--light-green-color); /* Shadow on focus */
+  }
+  
+  input[type=checkbox] {
+    cursor: pointer;
+  }
+  
+  .form-check-input:checked {
     background-color: var(--dark-orange-color) !important;
     border: 0;
-}
-
-.form-check-input:focus,
-.label::after,
-label.form-check-label:focus,
-.form-check-input::after,
-.form-check-input:not(:disabled):not(.disabled):active:focus {
+  }
+  
+  .form-check-input:focus,
+  .label::after,
+  label.form-check-label:focus,
+  .form-check-input::after,
+  .form-check-input:not(:disabled):not(.disabled):active:focus {
     color: black;
     outline: 0;
     border: 0;
     box-shadow: 0 0 0 0.1rem var(--dark-orange-color) !important;
-}
-
-.form-select {
+  }
+  
+  .form-select {
     background-color: var(--light-green-color);
-}
-
-.form-select:focus, .multiselect.is-active {
+  }
+  
+  .form-select:focus, .multiselect.is-active {
     border: 3px solid var(--light-green-color);
     border-color: var(--light-green-color);
     box-shadow: 0px 0px 4px 4px var(--light-green-color);
-}
-
-.input {
+  }
+  
+  .input {
     background-color: var(--light-orange-color);
-}
-
-.required:after {
+  }
+  
+  .required:after {
     content: " *";
     color: var(--dark-orange-color);
-}
-
-.multiselect-wrapper, .multiselect-tags-search {
+  }
+  
+  .multiselect-wrapper, .multiselect-tags-search {
     background-color: var(--light-green-color) !important;
-}
-
-/* .multiselect-caret {
-    
-} */
-
-.multiselect-tag {
+  }
+  
+  .multiselect-tag {
     background-color: var(--dark-orange-color);
-}
-
-.image-update {
+  }
+  
+  .image-update {
     max-width: 100%;
-    height: 200px
-}
+    height: 200px;
+  }
+  
+  .form-control:focus {
+    border: 3px solid var(--light-green-color);
+    border-right: 0; /* Remove right border when focused */
+    border-color: var(--light-green-color);
+    box-shadow: 0px 0px 4px 4px var(--light-green-color);
+  }
+  
+  .input-group .form-control:focus {
+    z-index: 3; /* Ensure the input stays above the appended button when focused */
+  }
+  
+  .input-group-text.password-toggle {
+    background-color: var(--light-green-color);
+    border-left: 0; /* Remove left border */
+    cursor: pointer;
+    box-shadow: 0px 0px 4px 4px transparent; /* Initial shadow transparent */
+  }
+  
+  .input-group-text.password-toggle i {
+    color: var(--dark-orange-color);
+  }
+  
+  .input-group-text.password-toggle:hover {
+    background-color: var(--light-green-color);
+  }
+  
+  .input-group:focus-within .input-group-text.password-toggle {
+    box-shadow: 0px 0px 4px 4px var(--light-green-color); /* Shadow on focus */
+  }
+  

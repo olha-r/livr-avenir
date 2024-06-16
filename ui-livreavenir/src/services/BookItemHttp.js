@@ -1,12 +1,9 @@
 import { http } from './axios';
 
 export class BookItemHttp {
-	async add_new_item(payload, token) {
+	async add_new_item(payload) {
 		const url = `/book_items`;
-		const headers = {
-			//   Authorization: `Bearer ${token}`
-		};
-		const response = await http.post(url, payload, { headers });
+		const response = await http.post(url, payload);
 		return response;
 	}
 
@@ -17,28 +14,19 @@ export class BookItemHttp {
 	}
 
 	async get_items_by_user() {
-		const headers = {
-			//  Authorization: `Bearer ${token}`
-		};
 		const url = `/book_items/user`;
-		const response = await http.get(url, { headers });
+		const response = await http.get(url);
 		return response;
 	}
 
-	async delete_item(item_id, token) {
+	async delete_item(item_id) {
 		const url = `/book_items/${item_id}`;
-		const headers = {
-			Authorization: `Bearer ${token}`
-		};
-		const response = await http.delete(url, { headers });
+		const response = await http.delete(url);
 		return response;
 	}
-	async update_item(item_id, payload, token) {
+	async update_item(item_id, payload) {
 		const url = `/book_items/${item_id}`;
-		const headers = {
-			Authorization: `Bearer ${token}`
-		};
-		const response = await http.patch(url, payload, { headers });
+		const response = await http.patch(url, payload);
 		return response;
 	}
 }

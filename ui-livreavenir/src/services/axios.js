@@ -3,7 +3,7 @@ import { useGlobalStore } from '../stores/global-errors-store';
 import { useAuthStore } from '../stores/auth-store';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const ACCEPTED_STATUS = [200, 201, 202, 204, 400];
+const ACCEPTED_STATUS = [200, 201, 202, 204];
 
 const http = axios.create({
 	baseURL: BASE_URL,
@@ -15,10 +15,9 @@ const http = axios.create({
 http.interceptors.request.use(
 	(config) => {
 		const authStore = useAuthStore();
-
 		const token = authStore.token;
 		if (token) {
-			console.log('Token from axios: ', token);
+			// console.log('Token from axios: ', token);
 			config.headers.Authorization = `Bearer ${token}`;
 			config.headers.Accept = 'application/json';
 		}
@@ -37,17 +36,26 @@ http.interceptors.response.use(
 		return { status: status, body: body };
 	},
 	(error) => {
-		const store = useGlobalStore();
-		console.log('error', error);
-		if (error?.response?.data) {
-			store.setError(error.response.data);
+		const globalStore = useGlobalStore();
+		const response = error.response;
+		if (response?.status === 401) {
+			const authStore = useAuthStore();
+			authStore.clearLocalStorage();
+		}
+		if (response?.status === 400) {
+			const fieldErrors = response.data.fieldErrors || {};
+			const globalErrors = response.data.globalErrors || [];
+
+			globalStore.setFieldErrors(fieldErrors);
+			globalStore.setGlobalErrors(globalErrors);
 			setTimeout(() => {
-				store.clearError();
+				globalStore.clearGlobalErrors();
 			}, 5000);
-		} else {
-			store.setError('An error occurred');
+		}
+		if (response?.status === 500) {
+			store.setError(response?.data);
 			setTimeout(() => {
-				store.clearError();
+				globalStore.clearError();
 			}, 5000);
 		}
 		return Promise.reject(error);

@@ -20,7 +20,7 @@ onMounted(async () => {
 		pageStore.alert.type = 'success';
 		pageStore.alert.message = `${t('activationAccountPage.activationSuccess')}`;
 		pageStore.alert.show = true;
-		router.push('/auth/login');
+		router.push({ name: 'login' });
 		setTimeout(() => {
 			pageStore.alert.show = false;
 		}, 5000);

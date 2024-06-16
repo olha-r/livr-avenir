@@ -50,6 +50,14 @@ export const useAuthStore = defineStore('auth-store', {
 			this.user = null;
 			this.userFullName = null;
 			// Ajoutez appele d'API de déconnexion
+		},
+		async clearLocalStorage() {
+			this.token = null;
+			this.userRole = null;
+			this.isLoggedIn = false;
+			this.user = null;
+			this.userFullName = null;
+			// Ajoutez appele d'API de déconnexion
 		}
 	}
 });

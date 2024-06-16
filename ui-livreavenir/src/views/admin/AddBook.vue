@@ -36,7 +36,7 @@ const inputs = reactive({
 	summary: null,
 	publisher: null,
 	categoryId: null,
-	languageId: [],
+	languageId: null,
 	authorList: [],
 	coverImageUrl: undefined
 });
@@ -128,7 +128,7 @@ const rules = computed(() => {
 		}
 	};
 });
-// const v$ = useVuelidate(rules, inputs);
+const v$ = useVuelidate(rules, inputs);
 const languageStore = useLanguageStore();
 const categoryStore = useCategoryStore();
 const publisherStore = usePublisherStore();
@@ -147,8 +147,8 @@ const router = useRouter();
 const pageStore = usePageStore();
 
 const add_new_book = async () => {
-	// await v$.value.$validate();
-	// if (!v$.value.$error) {
+	await v$.value.$validate();
+	if (!v$.value.$error) {
 	const formData = new FormData();
 	formData.append('isbn', inputs.isbn);
 	formData.append('title', inputs.title);
@@ -166,7 +166,7 @@ const add_new_book = async () => {
 		pageStore.alert.type = 'success';
 		pageStore.alert.message = `${t('admin.bookForm.successMessage')}`;
 		pageStore.alert.show = true;
-		router.push('/admin');
+		router.push({ name: 'admin-dashboard' });
 		setTimeout(() => {
 			pageStore.alert.show = false;
 		}, 5000);
@@ -180,7 +180,7 @@ const add_new_book = async () => {
 		}, 3000);
 	}
 };
-// };
+};
 const handleImageUpload = (event) => {
 	inputs.coverImageUrl = event.target.files[0];
 };
@@ -210,7 +210,7 @@ const updateAuthorList = (value) => {
 							type="text"
 							class="form-control"
 						/>
-						<!-- <ValidationMessage :model="v$.isbn" /> -->
+						<ValidationMessage :model="v$.isbn" />
 					</div>
 					<div class="col-md-12 mb-3">
 						<label for="title" class="form-label required">{{
@@ -223,7 +223,7 @@ const updateAuthorList = (value) => {
 							type="text"
 							class="form-control"
 						/>
-						<!-- <ValidationMessage :model="v$.title" /> -->
+						<ValidationMessage :model="v$.title" />
 					</div>
 
 					<div class="col-md-12 mb-3">
@@ -234,7 +234,7 @@ const updateAuthorList = (value) => {
 							:authorList="inputs.authorList"
 							@updateAuthorList="updateAuthorList"
 						/>
-						<!-- <ValidationMessage :model="v$.authorList" /> -->
+						<ValidationMessage :model="v$.authorList" />
 					</div>
 					<div class="col-md-12 mb-3">
 						<div class="col-md-12 mb-3">
@@ -251,7 +251,7 @@ const updateAuthorList = (value) => {
 								</option>
 								<LabelValues :items="publisher_list" />
 							</select>
-							<!-- <ValidationMessage :model="v$.publisher" /> -->
+							<ValidationMessage :model="v$.publisher" />
 						</div>
 					</div>
 					<div class="col-md-6 mb-3">
@@ -265,7 +265,7 @@ const updateAuthorList = (value) => {
 							type="text"
 							class="form-control"
 						/>
-						<!-- <ValidationMessage :model="v$.publicationYear" /> -->
+						<ValidationMessage :model="v$.publicationYear" />
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="pageCount" class="form-label required">{{
@@ -278,7 +278,7 @@ const updateAuthorList = (value) => {
 							type="text"
 							class="form-control"
 						/>
-						<!-- <ValidationMessage :model="v$.pageCount" /> -->
+						<ValidationMessage :model="v$.pageCount" />
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="languageId" class="form-label required">{{
@@ -294,7 +294,7 @@ const updateAuthorList = (value) => {
 							</option>
 							<LabelValues :items="list_languages" />
 						</select>
-						<!-- <ValidationMessage :model="v$.languageId" /> -->
+						<ValidationMessage :model="v$.languageId" />
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="categoryId" class="form-label required">{{
@@ -310,7 +310,7 @@ const updateAuthorList = (value) => {
 							</option>
 							<LabelValues :items="list_categories" />
 						</select>
-						<!-- <ValidationMessage :model="v$.categoryId" /> -->
+						<ValidationMessage :model="v$.categoryId" />
 					</div>
 					<div class="col-md-12 mb-3">
 						<label for="summary" class="form-label required">{{
@@ -323,7 +323,7 @@ const updateAuthorList = (value) => {
 							class="form-control"
 							rows="5"
 						></textarea>
-						<!-- <ValidationMessage :model="v$.summary" /> -->
+						<ValidationMessage :model="v$.summary" />
 					</div>
 					<div class="col-md-12 mb-3">
 						<label for="image" class="form-label required">{{
@@ -337,7 +337,7 @@ const updateAuthorList = (value) => {
 							class="form-control"
 							@change="handleImageUpload"
 						/>
-						<!-- <ValidationMessage :model="v$.coverImageUrl" /> -->
+						<ValidationMessage :model="v$.coverImageUrl" />
 					</div>
 				</div>
 				<div class="d-flex justify-content-center">
