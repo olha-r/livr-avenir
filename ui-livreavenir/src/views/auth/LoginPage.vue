@@ -44,8 +44,6 @@ const onSubmit = async () => {
 	if (!v$.value.$error) {
 		const resp = await authStore.login(user);
 		if (resp.status === 200) {
-			const token = resp.body.token;
-			console.log('Token after login', token);
 			if (userRole.value == 'ADMIN') {
 				router.push({ name: 'admin-dashboard' });
 				pageStore.alert.type = 'success';

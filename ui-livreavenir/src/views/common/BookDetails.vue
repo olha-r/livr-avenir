@@ -289,93 +289,92 @@ const add_new_book_item = async () => {
 				</div>
 			</span>
 		</div>
-	</main>
+		<!-- MODAL for add new item book -->
 
-	<!-- MODAL for add new item book -->
+		<div
+			class="modal modal-lg fade"
+			id="newBookItem"
+			tabindex="-1"
+			:class="{ show: showModal }"
+		>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="bookModalLabel">
+							{{ t('client.newItemForm.titleCreate') }}
+						</h5>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+						></button>
+					</div>
+					<div class="modal-body">
+						<!-- Add new book item form -->
+						<form novalidate @submit.prevent="add_new_book_item">
+							<div class="row">
+								<div class="col-md-12 mb-3">
+									<label for="description" class="form-label required"
+										>{{ t('client.newItemForm.description.label') }}
+									</label>
+									<textarea
+										v-model.trim="inputs.description"
+										name="description"
+										id="description"
+										class="form-control"
+										rows="5"
+									></textarea>
+									<ValidationMessage :model="v$.description" />
+								</div>
 
-	<div
-		class="modal modal-lg fade"
-		id="newBookItem"
-		tabindex="-1"
-		:class="{ show: showModal }"
-	>
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="bookModalLabel">
-						{{ t('client.newItemForm.titleCreate') }}
-					</h5>
-					<button
-						type="button"
-						class="btn-close"
-						data-bs-dismiss="modal"
-					></button>
-				</div>
-				<div class="modal-body">
-					<!-- Add new book item form -->
-					<form novalidate @submit.prevent="add_new_book_item">
-						<div class="row">
-							<div class="col-md-12 mb-3">
-								<label for="description" class="form-label required"
-									>{{ t('client.newItemForm.description.label') }}
-								</label>
-								<textarea
-									v-model.trim="inputs.description"
-									name="description"
-									id="description"
-									class="form-control"
-									rows="5"
-								></textarea>
-								<ValidationMessage :model="v$.description" />
+								<div class="col-md-6 mb-3">
+									<label for="conditionId" class="form-label required"
+										>{{ t('client.newItemForm.condition.label') }}
+									</label>
+									<select
+										v-model.number="inputs.conditionId"
+										id="conditionId"
+										class="form-select"
+									>
+										<option selected disabled value="0">
+											{{ t('client.newItemForm.condition.option') }}
+										</option>
+										<LabelValues :items="list_conditions" />
+									</select>
+									<ValidationMessage :model="v$.conditionId" />
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="pointsPrice" class="form-label required"
+										>{{ t('client.newItemForm.pointsPrice.label') }}
+									</label>
+									<select
+										v-model.number="inputs.pointsPrice"
+										id="pointsPrice"
+										class="form-select"
+									>
+										<option selected disabled value="0">
+											{{ t('client.newItemForm.pointsPrice.option') }}
+										</option>
+										<LabelValues :items="pointsPriceOptions" />
+									</select>
+									<ValidationMessage :model="v$.pointsPrice" />
+								</div>
 							</div>
-
-							<div class="col-md-6 mb-3">
-								<label for="conditionId" class="form-label required"
-									>{{ t('client.newItemForm.condition.label') }}
-								</label>
-								<select
-									v-model.number="inputs.conditionId"
-									id="conditionId"
-									class="form-select"
+							<div class="d-flex justify-content-center">
+								<button
+									type="submit"
+									class="btn btn-lg btn-primary col-md-4 col-12 my-3"
 								>
-									<option selected disabled value="0">
-										{{ t('client.newItemForm.condition.option') }}
-									</option>
-									<LabelValues :items="list_conditions" />
-								</select>
-								<ValidationMessage :model="v$.conditionId" />
+									{{ t('client.newItemForm.buttonCreate') }}
+								</button>
 							</div>
-							<div class="col-md-6 mb-3">
-								<label for="pointsPrice" class="form-label required"
-									>{{ t('client.newItemForm.pointsPrice.label') }}
-								</label>
-								<select
-									v-model.number="inputs.pointsPrice"
-									id="pointsPrice"
-									class="form-select"
-								>
-									<option selected disabled value="0">
-										{{ t('client.newItemForm.pointsPrice.option') }}
-									</option>
-									<LabelValues :items="pointsPriceOptions" />
-								</select>
-								<ValidationMessage :model="v$.pointsPrice" />
-							</div>
-						</div>
-						<div class="d-flex justify-content-center">
-							<button
-								type="submit"
-								class="btn btn-lg btn-primary col-md-4 col-12 my-3"
-							>
-								{{ t('client.newItemForm.buttonCreate') }}
-							</button>
-						</div>
-					</form>
+						</form>
 
-					<!-- End form -->
+						<!-- End form -->
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- END MODAL for add new item book -->
+		<!-- END MODAL for add new item book -->
+	</main>
 </template>

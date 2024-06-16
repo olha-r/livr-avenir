@@ -226,6 +226,102 @@ const frMessages = {
 			label: "Oups, voilà qui n'était pas prévu !",
 			message: 'Désolé mais cette page est introuvable!'
 		}
+	},
+	errors: {
+		fieldErrors: {
+			isbn: {
+				UniqueIsbn: 'Cet ISBN existe déjà.',
+				Length: "L'ISBN doit contenir 10 ou 13 caractères.",
+				NotBlank: 'Le champ ISBN ne doit pas être vide.',
+				typeMismatch: 'Le champ ISBN ne doit pas être vide.'
+			},
+			title: {
+				typeMismatch: 'Le champ titre ne doit pas être vide.',
+				NotBlank: 'Le champ titre ne doit pas être vide.',
+				Size: 'Le titre doit comporter entre 2 et 200 caractères.'
+			},
+			publicationYear: {
+				typeMismatch: 'Le champ année de publication ne doit pas être vide.',
+				NotBlank: 'Le champ année de publication ne doit pas être vide.'
+			},
+			pageCount: {
+				typeMismatch: 'Le champ nombre de pages ne doit pas être vide.',
+				NotBlank: 'Le champ nombre de pages ne doit pas être vide.',
+				Size: 'Le nombre de pages ne peut pas dépasser 5 caractères.'
+			},
+			summary: {
+				typeMismatch: 'Le champ description ne doit pas être vide.',
+				NotBlank: 'Le champ description ne doit pas être vide.',
+				Size: 'La description doit comporter entre 10 et 1000 caractères.'
+			},
+			coverImageUrl: {
+				typeMismatch: "L'image ne doit pas être vide.",
+				NotNull: "L'image ne doit pas être vide.",
+				ImageSize: "La taille de l'image est trop grande.",
+				ImageType: "Type de l'image incorrect."
+			},
+			publisher: {
+				typeMismatch: 'Le champ éditeur ne doit pas être vide.',
+				NotNull: 'Le champ éditeur ne doit pas être vide.',
+				Positive: "Veuillez saisir seulement des nombres pour l'éditeur."
+			},
+			categoryId: {
+				typeMismatch: 'Le champ catégorie ne doit pas être vide.',
+				NotNull: 'Le champ catégorie ne doit pas être vide.',
+				Positive: 'Veuillez saisir seulement des nombres pour la catégorie.'
+			},
+			languageId: {
+				typeMismatch: 'Le champ langue ne doit pas être vide.',
+				NotNull: 'Le champ langue ne doit pas être vide.',
+				Positive: 'Veuillez saisir seulement des nombres pour la langue.'
+			},
+			authorList: {
+				typeMismatch: 'Le champ auteur ne doit pas être vide.',
+				NotNull: 'Le champ auteur ne doit pas être vide.'
+			},
+			description: {
+				typeMismatch: 'Le champ description ne doit pas être vide.',
+				NotBlank: 'Le champ description ne doit pas être vide.',
+				Size: 'La description doit comporter entre 10 et 150 caractères.'
+			},
+			bookId: {
+				typeMismatch: "Livre n'est pas reconnu.",
+				NotNull: "Livre n'est pas reconnu.",
+				Positive: "Livre n'est pas reconnu."
+			},
+			pointsPrice: {
+				typeMismatch: 'Le champ nombre de points ne doit pas être vide.',
+				NotNull: 'Le champ nombre de points ne doit pas être vide.',
+				Min: 'Le champ nombre de points doit être au moins de 1.',
+				Max: 'Le champ nombre de points ne doit pas dépasser 5.'
+			},
+			conditionId: {
+				typeMismatch: 'Le champ état du livre ne doit pas être vide.',
+				NotNull: 'Le champ état du livre ne doit pas être vide.',
+				Positive: 'Veuillez saisir seulement des nombres pour état du livre.'
+			},
+			firstName: {
+				typeMismatch: 'Le champ prénom ne doit pas être vide.',
+				NotBlank: 'Le champ prénom ne doit pas être vide.',
+				Size: 'Le prénom doit comporter entre 2 et 30 caractères.'
+			},
+			lastName: {
+				typeMismatch: 'Le champ nom de famille ne doit pas être vide.',
+				NotBlank: 'Le champ nom de famille ne doit pas être vide.',
+				Size: 'Le nom de famille doit comporter entre 2 et 100 caractères.'
+			},
+			email: {
+				typeMismatch: 'Le champ email ne doit pas être vide.',
+				NotBlank: 'Le champ email ne doit pas être vide.',
+				Email: 'Veuillez saisir un email valide.'
+			},
+			password: {
+				typeMismatch: 'Le champ mot de passe ne doit pas être vide.',
+				NotBlank: 'Le champ mot de passe ne doit pas être vide.',
+				Pattern:
+					'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre, un caractère spécial et doit être compris entre 8 et 42 caractères.'
+			}
+		}
 	}
 };
 

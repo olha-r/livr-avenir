@@ -3,23 +3,14 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import HeaderComponent from '../components/commons/HeaderComponent.vue';
 import NotificationComponent from '../components/commons/NotificationComponent.vue';
-import { useGlobalStore } from '../stores/global-errors-store';
-const store = useGlobalStore();
-const { error } = storeToRefs(store);
+import ErrorComponent from '@/components/commons/ErrorComponent.vue';
 const { t } = useI18n();
 </script>
 
 <template>
 	<div>
 		<HeaderComponent />
-		<div>
-			<div
-				v-if="error"
-				class="text-center alert alert-danger container mt-3 p-3 mt-3"
-			>
-				{{ error }}
-			</div>
-		</div>
+		<ErrorComponent />
 		<NotificationComponent />
 		<RouterView />
 		<footer class="text-center text-lg-start text-muted">
