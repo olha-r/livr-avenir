@@ -1,10 +1,10 @@
 method§path§tokenName§expectedStatus
-POST§/auth/sign-up§user§401
-POST§/auth/sign-up§admin§401
-POST§/auth/sign-in§user§401
-POST§/auth/sign-in§admin§401
-GET§/auth/verify/0§user§401
-GET§/auth/verify/0§admin§401
+POST§/auth/sign-up§user§403
+POST§/auth/sign-up§admin§403
+POST§/auth/sign-in§user§403
+POST§/auth/sign-in§admin§403
+GET§/auth/verify/0§user§403
+GET§/auth/verify/0§admin§403
 GET§/authors§user§403
 GET§/authors§anonymous§401
 POST§/authors§user§403
