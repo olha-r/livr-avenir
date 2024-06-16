@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed } from 'vue';
+import { reactive, computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -76,6 +76,10 @@ const onSubmit = async () => {
 		}
 	}
 };
+const showPassword = ref(false);
+const togglePasswordVisibility = () => {
+	showPassword.value = !showPassword.value;
+};
 </script>
 
 <template>
@@ -100,23 +104,30 @@ const onSubmit = async () => {
 					/>
 					<ValidationMessage :model="v$.email" />
 				</div>
-				<div class="mb-3">
+
+				<div class="mb-3 position-relative">
 					<label for="password" class="form-label required">{{
 						t('signIn.password')
 					}}</label>
-					<input
-						v-model.trim="user.password"
-						name="password"
-						id="password"
-						type="password"
-						class="form-control"
-						:class="{
-							'is-invalid': v$.password.$error
-						}"
-					/>
+					<div class="input-group">
+						<input
+							v-model.trim="user.password"
+							name="password"
+							id="password"
+							:type="showPassword ? 'text' : 'password'"
+							class="form-control"
+							:class="{ 'is-invalid': v$.password.$error }"
+						/>
+						<span
+							class="input-group-text password-toggle"
+							@click="togglePasswordVisibility"
+						>
+							<i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+						</span>
+					</div>
 					<ValidationMessage :model="v$.password" />
 				</div>
-				<button nametype="submit" class="btn btn-primary col-12 mb-3">
+				<button type="submit" class="btn btn-primary col-12 mb-3">
 					{{ t('signIn.button') }}
 				</button>
 			</form>
