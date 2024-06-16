@@ -50,7 +50,8 @@ http.interceptors.response.use(
 			globalStore.setGlobalErrors(globalErrors);
 			setTimeout(() => {
 				globalStore.clearGlobalErrors();
-			}, 5000);
+				globalStore.clearFieldErrors();
+			}, 8000);
 		}
 		if (response?.status === 500) {
 			store.setError(response?.data);
