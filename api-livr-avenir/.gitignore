@@ -2,6 +2,8 @@
 target/
 bin/
 application*.properties
+secrets.properties
+properties.copy
 
 ### Eclipse ###
 .classpath
