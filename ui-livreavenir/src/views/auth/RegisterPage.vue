@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed } from 'vue';
+import { reactive, computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import useValidate from '@vuelidate/core';
@@ -115,6 +115,15 @@ const onSubmit = async () => {
 		}
 	}
 };
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
+
+const togglePasswordVisibility = () => {
+	showPassword.value = !showPassword.value;
+};
+const toggleConfirmPasswordVisibility = () => {
+	showConfirmPassword.value = !showConfirmPassword.value;
+};
 </script>
 
 <template>
@@ -178,37 +187,53 @@ const onSubmit = async () => {
 					</div>
 					<ValidationMessage :model="v$.email" />
 				</div>
-				<div class="mb-3">
+				<div class="mb-3 position-relative">
 					<label for="password" class="form-label required">{{
 						t('signUpForm.password.label')
 					}}</label>
-					<input
-						v-model.trim="user.password"
-						name="password"
-						id="password"
-						type="password"
-						class="form-control"
-						:class="{ 'is-invalid': v$.password.$error }"
-					/>
+					<div class="input-group">
+						<input
+							v-model.trim="user.password"
+							name="password"
+							id="password"
+							:type="showPassword ? 'text' : 'password'"
+							class="form-control"
+							:class="{ 'is-invalid': v$.password.$error }"
+						/>
+						<span
+							class="input-group-text password-toggle"
+							@click="togglePasswordVisibility"
+						>
+							<i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+						</span>
+					</div>
 					<div id="passwordHelp" class="form-text">
 						{{ t('signUpForm.password.helpText') }}
 					</div>
 					<ValidationMessage :model="v$.password" />
 				</div>
-				<div class="mb-3">
+				<div class="mb-3 position-relative">
 					<label for="confirmPassword" class="form-label required">{{
 						t('signUpForm.confirmPassword')
 					}}</label>
-					<input
-						v-model.trim="user.confirmPassword"
-						name="confirmPassword"
-						id="confirmPassword"
-						type="password"
-						class="form-control"
-						:class="{
-							'is-invalid': v$.confirmPassword.$error
-						}"
-					/>
+					<div class="input-group">
+						<input
+							v-model.trim="user.confirmPassword"
+							name="confirmPassword"
+							id="confirmPassword"
+							:type="showConfirmPassword ? 'text' : 'password'"
+							class="form-control"
+							:class="{ 'is-invalid': v$.confirmPassword.$error }"
+						/>
+						<span
+							class="input-group-text password-toggle"
+							@click="toggleConfirmPasswordVisibility"
+						>
+							<i
+								:class="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+							></i>
+						</span>
+					</div>
 					<ValidationMessage :model="v$.confirmPassword" />
 				</div>
 				<button type="submit" class="btn btn-primary col-12 mb-3">
