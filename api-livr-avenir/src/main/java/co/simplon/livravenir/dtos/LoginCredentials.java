@@ -3,17 +3,8 @@ package co.simplon.livravenir.dtos;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
-public class Credentials {
-
-    @NotBlank
-    @Size(min = 2, max = 30)
-    private String firstName;
-
-    @NotBlank
-    @Size(min = 2, max = 100)
-    private String lastName;
+public class LoginCredentials {
 
     @NotBlank
     @Email(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
@@ -23,23 +14,7 @@ public class Credentials {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%&*?]).{8,42}$")
     private String password;
 
-    public Credentials() {
-    }
-
-    public String getFirstName() {
-	return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-	this.firstName = firstName;
-    }
-
-    public String getLastName() {
-	return lastName;
-    }
-
-    public void setLastName(String lastName) {
-	this.lastName = lastName;
+    public LoginCredentials() {
     }
 
     public String getEmail() {
@@ -60,9 +35,8 @@ public class Credentials {
 
     @Override
     public String toString() {
-	return String.format(
-		"{firstName=%s, lastName=%s, email=%s, password=%s}",
-		firstName, lastName, email, "{protected}");
+	return String.format("{email=%s, password=%s}",
+		email, "{protected}");
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.livravenir.dtos.Credentials;
+import co.simplon.livravenir.dtos.LoginCredentials;
 import co.simplon.livravenir.dtos.TokenInfo;
 import co.simplon.livravenir.entities.Role;
 import co.simplon.livravenir.entities.User;
@@ -88,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public TokenInfo signIn(Credentials inputs) {
+    public TokenInfo signIn(LoginCredentials inputs) {
 	String identifier = inputs.getEmail();
 	String candidate = inputs.getPassword();
 	User user = authRepo.getByEmail(identifier);
