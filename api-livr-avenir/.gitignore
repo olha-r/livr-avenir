@@ -1,9 +1,11 @@
 .metadata
 target/
 bin/
-application*.properties
-secrets.properties
+application-dev.properties
+application-test.properties
+secrets*.properties
 properties.copy
+*.log*
 
 ### Eclipse ###
 .classpath

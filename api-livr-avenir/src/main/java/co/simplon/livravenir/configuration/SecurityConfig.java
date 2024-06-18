@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -26,6 +27,9 @@ import co.simplon.livravenir.utils.AuthHelper;
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig {
 
+    @Value("${livravenir.cors.enabled}")
+    private boolean corsEnabled;
+
     @Value("${livravenir.auth.rounds}")
     private int rounds;
 
@@ -41,7 +45,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(
 	    HttpSecurity http) throws Exception {
-	http.cors(Customizer.withDefaults())
+	http.cors(corsCustomizer())
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests((authz) -> {
 		    authz.requestMatchers(HttpMethod.POST,
@@ -98,6 +102,12 @@ public class SecurityConfig {
 			.jwt(Customizer.withDefaults()));
 	;
 	return http.build();
+    }
+
+    private Customizer<CorsConfigurer<HttpSecurity>> corsCustomizer() {
+	return corsEnabled ? Customizer.withDefaults()
+		: cors -> cors.disable();
+
     }
 
     @Bean
