@@ -30,10 +30,7 @@ const closeCartSidebar = () => {
 		<RouterLink
 			class="d-flex align-items-center col-md-3 mb-2 mb-md-0"
 			:to="{ name: 'home' }"
-			><img
-				src="../../assets/images/logo/logo.png"
-				alt="logo"
-				style="height: 35px"
+			><img src="/images/logo.png" alt="logo" style="height: 35px"
 		/></RouterLink>
 		<ul class="nav nav-pills">
 			<li class="nav-item">

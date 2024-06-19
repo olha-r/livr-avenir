@@ -3,7 +3,6 @@ import { onBeforeMount } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useBookStore } from '@/stores/book-store';
-import SearchComponent from '@/components/commons/SearchComponent.vue';
 
 const { t } = useI18n();
 const bookStore = useBookStore();
@@ -21,27 +20,8 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 				class="position-absolute top-50 start-50 translate-middle-x text-center"
 			>
 				<h1>{{ t('homepage.mainTitle') }}</h1>
-				<!-- <h6>
-                    Envie d'echanger tes livres? Decouvre comment ça marche.
-                </h6>
-                <button class="btn btn-lg btn-dark" type="button">
-                    A propos
-                </button> -->
 			</div>
 		</div>
-		<!-- <SearchComponent /> -->
-
-		<!-- <div class="d-flex flex-row justify-content-around mb-3">
-            <button type="button" class="btn btn-primary me-3">
-                57 livres disponible
-            </button>
-            <button type="button" class="btn btn-primary me-3">
-                21 livres emprentés
-            </button>
-            <button type="button" class="btn btn-primary">
-                6 livres ajoutés en favoris
-            </button>
-        </div> -->
 
 		<h3 class="text-center my-4">{{ t('homepage.title') }}</h3>
 
