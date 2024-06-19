@@ -3,7 +3,7 @@ TRUNCATE TABLE book_items, book_authors, books, conditions, categories, publishe
 INSERT INTO roles
 	(code_role, role_name)
 	VALUES
-    ('ROLE_ADMIN', 'ADMIN'),  ('ROLE_USER', 'USER'), ('FAKE_ROLE', 'FAKE');
+    ('ROLE_ADMIN', 'ADMIN'),  ('ROLE_USER', 'USER');
 
 INSERT INTO languages 
 	(language_name, iso_code, logical_order)
