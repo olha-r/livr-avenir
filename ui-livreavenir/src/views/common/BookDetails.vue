@@ -160,16 +160,6 @@ const add_new_book_item = async () => {
 		<div
 			class="justify-content-center align-items-center book-details-container"
 		>
-			<!-- <div class="input-group mb-3">
-                <input
-                    class="form-control"
-                    type="text"
-                    placeholder="Tapez pour rechercher"
-                />
-                <button class="btn btn-primary" type="button" id="bookSearch">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div> -->
 			<div class="row mt-3">
 				<h3>{{ book_details?.book?.title }}</h3>
 				<div class="row d-flex justify-content-center">
@@ -274,7 +264,7 @@ const add_new_book_item = async () => {
 			<span v-if="isLoggedIn">
 				<span v-if="items_by_book">
 					<div v-for="(item, index) in items_by_book" :key="index">
-						<BookItem :item="item" />
+						<BookItem :item="item" :book="book_details?.book" />
 					</div>
 				</span>
 

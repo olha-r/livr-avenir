@@ -1,17 +1,23 @@
 <script setup>
-import { defineProps } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useCartStore } from '@/stores/cart-store';
 import { useAuthStore } from '@/stores/auth-store';
-const props = defineProps(['item']);
+const props = defineProps(['item', 'book']);
 const { d } = useI18n();
 const { t } = useI18n();
-const addToCart = (item) => {
-	useCartStore().addItem(item);
+const addToCart = (item, book) => {
+	const book_item = {
+		item: item,
+		book: book
+	};
+	useCartStore().addItem(book_item);
+	const existingItem = useCartStore().cartItems.find(
+		(i) => i.item.id === book_item.item.id
+	);
 };
 const authStore = useAuthStore();
-const { isLoggedIn, userFullName } = storeToRefs(authStore);
+const { userFullName } = storeToRefs(authStore);
 const owner = `${props?.item?.seller?.firstName} ${props?.item?.seller?.lastName}`;
 </script>
 <template>
@@ -48,7 +54,7 @@ const owner = `${props?.item?.seller?.firstName} ${props?.item?.seller?.lastName
 			<p class="text-center m-0">
 				{{ t('client.bookDetailPage.bookItemDetail.addToCartBtn') }}
 			</p>
-			<button @click="addToCart(item)" class="btn">
+			<button @click="addToCart(item, book)" class="btn">
 				<i class="bi bi-handbag"></i>
 			</button>
 		</div>

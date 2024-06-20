@@ -6,10 +6,12 @@ export const useCartStore = defineStore('cart', {
 		cartItems: useSessionStorage('cart', [])
 	}),
 	actions: {
-		addItem(item) {
-			const existingItem = this.cartItems.find((i) => i.id === item.id);
+		addItem(book_item) {
+			const existingItem = this.cartItems.find(
+				(i) => i.item.id === book_item.item.id
+			);
 			if (!existingItem) {
-				this.cartItems.push({ ...item });
+				this.cartItems.push({ ...book_item });
 			}
 		},
 		removeItem(index) {

@@ -41,6 +41,10 @@ http.interceptors.response.use(
 		if (response?.status === 401) {
 			const authStore = useAuthStore();
 			authStore.clearLocalStorage();
+			globalStore.setError('Email ou mot de passe incorrect. Réessayez.');
+			setTimeout(() => {
+				globalStore.clearError();
+			}, 5000);
 		}
 		if (response?.status === 400) {
 			const fieldErrors = response.data.fieldErrors || {};
