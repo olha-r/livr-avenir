@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 import { useBookItemStore } from '@/stores/book-item-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { usePageStore } from '@/stores/page-store';
@@ -24,7 +24,7 @@ const remove = async (id) => {
 		await bookItemStore.get_items_by_user();
 		setTimeout(() => {
 			pageStore.alert.show = false;
-		}, 6000); // Redirect after 3 seconds
+		}, 6000);
 	} else {
 		pageStore.alert.type = 'error';
 		pageStore.alert.message = `${t(
@@ -33,7 +33,7 @@ const remove = async (id) => {
 		pageStore.alert.show = true;
 		setTimeout(() => {
 			pageStore.alert.show = false;
-		}, 6000); // Redirect after 3 seconds
+		}, 6000);
 	}
 };
 const editMode = ref(false);
@@ -108,7 +108,7 @@ const exitEditMode = () => {
 									: baseUrl + 'default-image.jpg'
 							"
 							alt="Book Cover"
-							class="img-fluid img-book-cover"
+							class="img-fluid img-book-cover offered-book"
 						/>
 					</div>
 				</div>
@@ -116,28 +116,3 @@ const exitEditMode = () => {
 		</div>
 	</div>
 </template>
-<style>
-/* Add custom styles here */
-.img-book-cover {
-	max-width: 100%;
-	max-height: 250px; /* Adjust the height as needed */
-	object-fit: cover;
-}
-
-.card-title {
-	font-size: 1.25rem;
-	margin-bottom: 0.5rem;
-}
-
-.card-text {
-	font-size: 0.875rem;
-}
-
-.card-text.mb-1 {
-	margin-bottom: 0.25rem;
-}
-
-.btn-sm {
-	padding: 0.25rem 0.5rem;
-}
-</style>

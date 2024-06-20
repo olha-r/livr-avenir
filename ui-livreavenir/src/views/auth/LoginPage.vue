@@ -20,10 +20,6 @@ const rules = computed(() => {
 			required: helpers.withMessage(
 				`${t('admin.validationMessages.required')}`,
 				required
-			),
-			email: helpers.withMessage(
-				`${t('admin.validationMessages.email')}`,
-				email
 			)
 		},
 		password: {

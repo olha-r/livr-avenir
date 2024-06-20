@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, reactive, onMounted, computed } from 'vue';
+import { reactive, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePageStore } from '@/stores/page-store';
 import { useAuthStore } from '@/stores/auth-store';
@@ -89,7 +89,6 @@ const update_item = async () => {
 	await v$.value.$validate();
 
 	if (!v$.value.$error) {
-		// inputs["bookId"] = props.item.bookId;
 		const resp = await bookItemStore.update_item(props.item.id, inputs, token);
 
 		if (resp.status === 204) {
