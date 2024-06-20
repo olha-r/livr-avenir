@@ -106,7 +106,6 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
 	const authStore = useAuthStore();
 	const { isLoggedIn, userRole } = storeToRefs(authStore);
-	console.log('Logged in: ', isLoggedIn.value, ' ROLE: ', userRole.value);
 	if (to.meta.requiresAuth && !isLoggedIn.value) {
 		return '/auth/connexion';
 	}

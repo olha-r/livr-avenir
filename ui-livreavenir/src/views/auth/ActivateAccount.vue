@@ -14,7 +14,6 @@ const router = useRouter();
 const route = useRoute();
 const activationToken = ref(route.params.token);
 onMounted(async () => {
-	console.log(activationToken.value);
 	await authStore.verifyUserRegistration(activationToken.value);
 	if (isEnabled) {
 		pageStore.alert.type = 'success';

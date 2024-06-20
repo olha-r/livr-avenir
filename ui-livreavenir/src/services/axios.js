@@ -17,7 +17,6 @@ http.interceptors.request.use(
 		const authStore = useAuthStore();
 		const token = authStore.token;
 		if (token) {
-			// console.log('Token from axios: ', token);
 			config.headers.Authorization = `Bearer ${token}`;
 			config.headers.Accept = 'application/json';
 		}
