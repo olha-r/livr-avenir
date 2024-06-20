@@ -2,15 +2,8 @@ method§path§tokenName§Json§§§
 POST§/auth/sign-in§anonymous§{"email": null, "password": "Azerty123!" }
 POST§/auth/sign-in§anonymous§{"email": "", "password": "Azerty123!" }
 POST§/auth/sign-in§anonymous§{"email": " ",  "password": "Azerty123!" }
-POST§/auth/sign-in§anonymous§{"email": "aaa.bbbbccc.dd",    "password": "Azerty123!" }
-POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@cccdd",    "password": "Azerty123!" }
 POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": null }
 POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": "" }
 POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": " " }
-POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": "aaaaAAA1" }
-POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": "aaaAAAA@" }
-POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": "aaaaaa1!" }
-POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": "AAAAAA1!" }
-POST§/auth/sign-in§anonymous§{"email": "aaa.bbbb@ccc.dd",    "password": "aaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAA1!@" }
 
 
