@@ -87,7 +87,7 @@ a {
 
 /********** Home page **********/
 .home-page-img {
-    background-image: url('images/books-home-page.jpg');
+    background-image: url('/images/books-home-page.jpg');
     height: 490px;
 }
 
