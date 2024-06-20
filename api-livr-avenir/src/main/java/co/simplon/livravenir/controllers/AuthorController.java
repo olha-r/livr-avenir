@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.simplon.livravenir.dtos.AuthorCreate;
 import co.simplon.livravenir.dtos.AuthorDetail;
 import co.simplon.livravenir.services.AuthorService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/authors")
@@ -33,7 +34,7 @@ public class AuthorController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping
     public void createAuthor(
-	    @RequestBody AuthorCreate inputs) {
+	    @Valid @RequestBody AuthorCreate inputs) {
 	authorService.createAuthor(inputs);
     }
 
