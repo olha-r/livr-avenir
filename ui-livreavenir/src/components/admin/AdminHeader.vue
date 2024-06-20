@@ -16,10 +16,7 @@ const logout = () => {
 		<nav class="navbar navbar-expand-lg bg-light navigation border-bottom">
 			<div class="container-fluid">
 				<RouterLink class="navbar-brand" :to="{ name: 'admin-dashboard' }"
-					><img
-						src="../../assets/images/logo/logo.png"
-						alt="logo"
-						style="height: 35px"
+					><img src="/images/logo.png" alt="logo" style="height: 35px"
 				/></RouterLink>
 
 				<div class="collapse navbar-collapse">
