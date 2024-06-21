@@ -1,4 +1,4 @@
-package co.simplon.livravenir.customValidation;
+package co.simplon.livravenir.customvalidation;
 
 import co.simplon.livravenir.services.BookService;
 import jakarta.validation.ConstraintValidator;
@@ -16,7 +16,6 @@ public class UniqueIsbnValidator
     @Override
     public boolean isValid(String isbn,
 	    ConstraintValidatorContext context) {
-	// TODO Auto-generated method stub
 	if (isbn != null) {
 	    return !this.service.isbnExist(isbn);
 	}

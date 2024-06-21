@@ -36,7 +36,6 @@ public class MailSenderHelper {
 			+ confirmationToken);
 	try {
 	    this.javaMailSender.send(email);
-	    System.out.println(email.toString());
 
 	} catch (MailException e) {
 	    System.out.println("Error Sending Email: "

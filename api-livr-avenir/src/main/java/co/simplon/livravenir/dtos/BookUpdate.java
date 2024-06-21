@@ -5,10 +5,10 @@ import java.util.Set;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.livravenir.customValidation.ImageSize;
-import co.simplon.livravenir.customValidation.ImageType;
-import co.simplon.livravenir.customValidation.IsbnLength;
-import co.simplon.livravenir.customValidation.UniqueIsbn;
+import co.simplon.livravenir.customvalidation.ImageSize;
+import co.simplon.livravenir.customvalidation.ImageType;
+import co.simplon.livravenir.customvalidation.IsbnLength;
+import co.simplon.livravenir.customvalidation.UniqueIsbn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

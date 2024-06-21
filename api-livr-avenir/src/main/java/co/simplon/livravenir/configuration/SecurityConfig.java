@@ -50,58 +50,51 @@ public class SecurityConfig {
 	    HttpSecurity http) throws Exception {
 	http.cors(corsCustomizer())
 		.csrf(csrf -> csrf.disable())
-		.authorizeHttpRequests((authz) -> {
-		    authz.requestMatchers(HttpMethod.POST,
-			    "/auth/sign-in",
-			    "/auth/sign-up").anonymous()
-			    .requestMatchers(HttpMethod.GET,
-				    "/auth/verify/**")
-			    .anonymous()
-			    .requestMatchers(HttpMethod.GET,
-				    "/books",
-				    "/books/{id}/detail")
-			    .permitAll()
-			    .requestMatchers(
-				    HttpMethod.POST,
-				    "/books", "/publishers",
-				    "/authors")
-			    .hasAuthority(ADMIN)
-			    .requestMatchers(HttpMethod.PUT,
-				    "/books/{id}")
-			    .hasAuthority(ADMIN)
-			    .requestMatchers(
-				    HttpMethod.DELETE,
-				    "/books/{id}")
-			    .hasAuthority(ADMIN)
-			    .requestMatchers(HttpMethod.GET,
-				    "/categories",
-				    "/languages",
-				    "/authors",
-				    "/publishers",
-				    "/books/admin",
-				    "/books/{id}/for-update")
-			    .hasAuthority(ADMIN)
-			    .requestMatchers(HttpMethod.GET,
-				    "/conditions",
-				    "/book_items/user",
-				    "/users/profile")
-			    .hasAuthority(USER)
-			    .requestMatchers(
-				    HttpMethod.POST,
-				    "/book_items")
-			    .hasAuthority(USER)
-			    .requestMatchers(
-				    HttpMethod.PATCH,
-				    "/book_items/{id}")
-			    .hasAuthority("USER")
-			    .requestMatchers(
-				    HttpMethod.DELETE,
-				    "/book_items/{id}")
-			    .hasAuthority(USER).anyRequest()
-			    .authenticated();
-		}
+		.authorizeHttpRequests(authz -> authz
+			.requestMatchers(HttpMethod.POST,
+				"/auth/sign-in",
+				"/auth/sign-up")
+			.anonymous()
+			.requestMatchers(HttpMethod.GET,
+				"/auth/verify/**")
+			.anonymous()
+			.requestMatchers(HttpMethod.GET,
+				"/books",
+				"/books/{id}/detail")
+			.permitAll()
+			.requestMatchers(HttpMethod.POST,
+				"/books", "/publishers",
+				"/authors")
+			.hasAuthority(ADMIN)
+			.requestMatchers(HttpMethod.PUT,
+				"/books/{id}")
+			.hasAuthority(ADMIN)
+			.requestMatchers(HttpMethod.DELETE,
+				"/books/{id}")
+			.hasAuthority(ADMIN)
+			.requestMatchers(HttpMethod.GET,
+				"/categories", "/languages",
+				"/authors", "/publishers",
+				"/books/admin",
+				"/books/{id}/for-update")
+			.hasAuthority(ADMIN)
+			.requestMatchers(HttpMethod.GET,
+				"/conditions",
+				"/book_items/user",
+				"/users/profile")
+			.hasAuthority(USER)
+			.requestMatchers(HttpMethod.POST,
+				"/book_items")
+			.hasAuthority(USER)
+			.requestMatchers(HttpMethod.PATCH,
+				"/book_items/{id}")
+			.hasAuthority("USER")
+			.requestMatchers(HttpMethod.DELETE,
+				"/book_items/{id}")
+			.hasAuthority(USER).anyRequest()
+			.authenticated()
 
-		).oauth2ResourceServer((oauth2) -> oauth2
+		).oauth2ResourceServer(oauth2 -> oauth2
 			.jwt(Customizer.withDefaults()));
 
 	return http.build();

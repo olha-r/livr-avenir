@@ -9,6 +9,7 @@ public class BookForUpdate {
     private Set<AuthorDetail> listAuthor;
 
     public BookForUpdate() {
+	//
     }
 
     public BookDetail getBook() {

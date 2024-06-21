@@ -1,4 +1,4 @@
-package co.simplon.livravenir.customValidation;
+package co.simplon.livravenir.customvalidation;
 
 import org.springframework.web.multipart.MultipartFile;
 

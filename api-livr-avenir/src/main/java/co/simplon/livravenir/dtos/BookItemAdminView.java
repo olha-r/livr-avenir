@@ -9,6 +9,7 @@ public class BookItemAdminView {
     private Set<AuthorDetail> listAuthor;
 
     public BookItemAdminView() {
+	//
     }
 
     public BookItemAdmin getBook() {

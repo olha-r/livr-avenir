@@ -6,8 +6,7 @@ final class CustomError {
 
     private final String fieldName;
 
-    public CustomError(String code, String fieldName,
-	    String errMsg) {
+    public CustomError(String code, String fieldName) {
 	this.code = code;
 	this.fieldName = fieldName;
     }

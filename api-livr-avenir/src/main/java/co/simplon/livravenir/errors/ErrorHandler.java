@@ -24,8 +24,6 @@ public class ErrorHandler
     protected ResponseEntity<Object> handleResourceNotFoundException(
 	    ResourceNotFoundException ex,
 	    WebRequest request) {
-	// custom body
-	// request.getContextPath()
 	return handleExceptionInternal(ex, null,
 		new HttpHeaders(), HttpStatus.NOT_FOUND,
 		request);
@@ -47,12 +45,12 @@ public class ErrorHandler
 	    WebRequest request) {
 	ValidationErrors errors = new ValidationErrors();
 	List<FieldError> fieldErrors = ex.getFieldErrors();
-	fieldErrors.forEach((e) -> errors
+	fieldErrors.forEach(e -> errors
 		.addFieldError(e.getField(), e.getCode()));
 	List<ObjectError> globalErrors = ex
 		.getGlobalErrors();
 	globalErrors.forEach(
-		(e) -> errors.addGlobalError(e.getCode()));
+		e -> errors.addGlobalError(e.getCode()));
 	return handleExceptionInternal(ex, errors, headers,
 		status, request);
     }

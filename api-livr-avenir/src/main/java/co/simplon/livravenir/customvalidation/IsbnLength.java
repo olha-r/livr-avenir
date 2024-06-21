@@ -1,4 +1,4 @@
-package co.simplon.livravenir.customValidation;
+package co.simplon.livravenir.customvalidation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,12 +12,13 @@ import jakarta.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Documented
-@Constraint(validatedBy = UniqueIsbnValidator.class)
-public @interface UniqueIsbn {
+@Constraint(validatedBy = IsbnLengthValidator.class)
+public @interface IsbnLength {
 
-    String message() default "{livravenir.validation.constraints.Unique.message}";
+    String message() default "{livravenir.validation.constraints.IsbnLength.message}";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }

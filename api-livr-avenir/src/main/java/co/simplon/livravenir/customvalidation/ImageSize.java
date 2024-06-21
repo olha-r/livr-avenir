@@ -1,4 +1,4 @@
-package co.simplon.livravenir.customValidation;
+package co.simplon.livravenir.customvalidation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

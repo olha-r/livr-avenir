@@ -49,8 +49,7 @@ public class AuthHelper {
 	    jwtBuilder.withExpiresAt(expirationTime);
 	}
 
-	String token = jwtBuilder.sign(algorithm);
-	return token;
+	return jwtBuilder.sign(algorithm);
 
     }
 
@@ -64,7 +63,7 @@ public class AuthHelper {
 	private PasswordEncoder passwordEncoder;
 
 	public Builder() {
-
+	    //
 	}
 
 	public Builder issuer(String issuer) {

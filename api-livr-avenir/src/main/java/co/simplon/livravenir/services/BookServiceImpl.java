@@ -272,7 +272,7 @@ public class BookServiceImpl implements BookService {
     public boolean isbnExist(String isbn)
 	    throws UnsupportedOperationException {
 
-	return this.books.existsByIsbn(isbn.toString());
+	return this.books.existsByIsbn(isbn);
     }
 
 }

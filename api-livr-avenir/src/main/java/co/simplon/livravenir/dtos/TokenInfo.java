@@ -11,6 +11,7 @@ public class TokenInfo {
     private String lastName;
 
     public TokenInfo() {
+	//
     }
 
     public String getToken() {

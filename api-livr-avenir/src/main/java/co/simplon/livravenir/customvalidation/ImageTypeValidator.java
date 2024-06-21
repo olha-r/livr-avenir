@@ -1,4 +1,4 @@
-package co.simplon.livravenir.customValidation;
+package co.simplon.livravenir.customvalidation;
 
 import java.util.Arrays;
 
@@ -26,7 +26,7 @@ public class ImageTypeValidator implements
 	}
 	String contentType = imageFile.getContentType();
 	return Arrays.stream(imageTypes).anyMatch(
-		(type) -> type.equals(MediaType.ALL_VALUE)
+		type -> type.equals(MediaType.ALL_VALUE)
 			|| type.equals(contentType));
     }
 
