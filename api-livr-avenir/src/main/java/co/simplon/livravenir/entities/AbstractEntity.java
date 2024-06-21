@@ -13,6 +13,7 @@ abstract class AbstractEntity {
     private Long id;
 
     AbstractEntity() {
+	//
     }
 
     public Long getId() {

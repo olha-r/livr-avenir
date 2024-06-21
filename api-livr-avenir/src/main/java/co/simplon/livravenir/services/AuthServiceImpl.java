@@ -57,13 +57,13 @@ public class AuthServiceImpl implements AuthService {
 
 	User user = new User();
 	user.setIsEnabled(false);
-	user.setFirstName(inputs.getFirstName());
-	user.setLastName(inputs.getLastName());
-	String userEmail = inputs.getEmail();
+	user.setFirstName(inputs.firstName());
+	user.setLastName(inputs.lastName());
+	String userEmail = inputs.email();
 	user.setEmail(userEmail);
 
 	String hashPassword = authHelper
-		.encode(inputs.getPassword());
+		.encode(inputs.password());
 	user.setPassword(hashPassword);
 
 	Role role = roleRepo
@@ -90,8 +90,8 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public TokenInfo signIn(LoginCredentials inputs) {
-	String identifier = inputs.getEmail();
-	String candidate = inputs.getPassword();
+	String identifier = inputs.email();
+	String candidate = inputs.password();
 	User user = authRepo.getByEmail(identifier);
 	if (user != null) {
 	    boolean match = authHelper.matches(candidate,

@@ -32,7 +32,7 @@ public class PublisherServiceImpl
     @Override
     public void createPublisher(PublisherCreate inputs) {
 	Publisher entity = new Publisher();
-	entity.setName(inputs.getName());
+	entity.setName(inputs.name());
 	String uuid = String.valueOf(UUID.randomUUID());
 	entity.setCode(uuid);
 	publishers.save(entity);

@@ -87,23 +87,22 @@ public class BookServiceImpl implements BookService {
     public void createBook(BookCreate inputs) {
 	// Create a new Book entity
 	Book entity = new Book();
-	entity.setIsbn(inputs.getIsbn());
-	entity.setTitle(inputs.getTitle());
-	entity.setPublicationYear(
-		inputs.getPublicationYear());
-	entity.setPageCount(inputs.getPageCount());
-	entity.setSummary(inputs.getSummary());
+	entity.setIsbn(inputs.isbn());
+	entity.setTitle(inputs.title());
+	entity.setPublicationYear(inputs.publicationYear());
+	entity.setPageCount(inputs.pageCount());
+	entity.setSummary(inputs.pageCount());
 
 	Category category = categories
-		.getReferenceById(inputs.getCategoryId());
+		.getReferenceById(inputs.categoryId());
 	entity.setCategory(category);
 
 	Language language = languages
-		.getReferenceById(inputs.getLanguageId());
+		.getReferenceById(inputs.languageId());
 	entity.setLanguage(language);
 
 	Publisher publisher = publishers
-		.getReferenceById(inputs.getPublisher());
+		.getReferenceById(inputs.publisher());
 	entity.setPublisher(publisher);
 	// Get authenticated user
 	User user = null;
@@ -114,14 +113,14 @@ public class BookServiceImpl implements BookService {
 		    .getReferenceById(authenticatedUserId);
 	}
 	entity.setAddedByUser(user);
-	MultipartFile file = inputs.getCoverImageUrl();
+	MultipartFile file = inputs.coverImageUrl();
 	String baseName = UUID.randomUUID().toString();
 	// Upload the book cover image
 	String fileName = storage.store(file, baseName);
 	entity.setCoverImageUrl(fileName);
 	// Save book entity
 	Book savedBook = books.save(entity);
-	addBookAuthors(inputs.getAuthorList(), savedBook);
+	addBookAuthors(inputs.authorList(), savedBook);
     }
 
     private void addBookAuthors(Set<Long> authorList,
@@ -161,27 +160,26 @@ public class BookServiceImpl implements BookService {
 	Optional<Book> entityOptional = books.findById(id);
 	if (entityOptional.isPresent()) {
 	    Book entity = entityOptional.get();
-	    entity.setIsbn(inputs.getIsbn());
-	    entity.setTitle(inputs.getTitle());
+	    entity.setIsbn(inputs.isbn());
+	    entity.setTitle(inputs.title());
 	    entity.setPublicationYear(
-		    inputs.getPublicationYear());
-	    entity.setPageCount(inputs.getPageCount());
-	    entity.setSummary(inputs.getSummary());
+		    inputs.publicationYear());
+	    entity.setPageCount(inputs.pageCount());
+	    entity.setSummary(inputs.summary());
 
-	    Category category = categories.getReferenceById(
-		    inputs.getCategoryId());
+	    Category category = categories
+		    .getReferenceById(inputs.categoryId());
 	    entity.setCategory(category);
 
-	    Language language = languages.getReferenceById(
-		    inputs.getLanguageId());
+	    Language language = languages
+		    .getReferenceById(inputs.languageId());
 	    entity.setLanguage(language);
 
 	    Publisher publisher = publishers
-		    .getReferenceById(
-			    inputs.getPublisher());
+		    .getReferenceById(inputs.publisher());
 	    entity.setPublisher(publisher);
 
-	    MultipartFile file = inputs.getCoverImageUrl();
+	    MultipartFile file = inputs.coverImageUrl();
 	    if (file != null) {
 		String original = entity.getCoverImageUrl();
 		String baseName = UUID.randomUUID()
@@ -193,8 +191,7 @@ public class BookServiceImpl implements BookService {
 
 	    Set<Long> existingAuthorIdList = authors
 		    .retrieveBookAuthorsId(entity.getId());
-	    Set<Long> authorIdInputs = inputs
-		    .getAuthorList();
+	    Set<Long> authorIdInputs = inputs.authorList();
 	    for (Long existingAuthorId : existingAuthorIdList) {
 		if (!authorIdInputs
 			.contains(existingAuthorId)) {

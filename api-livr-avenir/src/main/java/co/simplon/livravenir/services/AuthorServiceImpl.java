@@ -30,8 +30,8 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void createAuthor(AuthorCreate inputs) {
 	Author entity = new Author();
-	entity.setFirstName(inputs.getFirstName());
-	entity.setLastName(inputs.getLastName());
+	entity.setFirstName(inputs.firstName());
+	entity.setLastName(inputs.lastName());
 	String uuid = String.valueOf(UUID.randomUUID());
 	entity.setAuthorCode(uuid);
 

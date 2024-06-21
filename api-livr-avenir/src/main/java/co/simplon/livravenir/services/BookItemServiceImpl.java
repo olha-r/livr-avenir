@@ -111,12 +111,11 @@ public class BookItemServiceImpl
 		.findById(id);
 	if (entityOptional.isPresent()) {
 	    BookItem entity = entityOptional.get();
-	    entity.setDescription(inputs.getDescription());
+	    entity.setDescription(inputs.description());
 	    Condition condition = conditions
-		    .getReferenceById(
-			    inputs.getConditionId());
+		    .getReferenceById(inputs.conditionId());
 	    entity.setCondition(condition);
-	    entity.setPointsPrice(inputs.getPointsPrice());
+	    entity.setPointsPrice(inputs.pointsPrice());
 	}
     }
 
