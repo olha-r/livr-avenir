@@ -42,6 +42,9 @@ public class SecurityConfig {
     @Value("${livravenir.auth.tokenExpiration}")
     private long tokenExpiration;
 
+    private static final String ADMIN = "ADMIN";
+    private static final String USER = "USER";
+
     @Bean
     SecurityFilterChain securityFilterChain(
 	    HttpSecurity http) throws Exception {
@@ -62,14 +65,14 @@ public class SecurityConfig {
 				    HttpMethod.POST,
 				    "/books", "/publishers",
 				    "/authors")
-			    .hasAuthority("ADMIN")
+			    .hasAuthority(ADMIN)
 			    .requestMatchers(HttpMethod.PUT,
 				    "/books/{id}")
-			    .hasAuthority("ADMIN")
+			    .hasAuthority(ADMIN)
 			    .requestMatchers(
 				    HttpMethod.DELETE,
 				    "/books/{id}")
-			    .hasAuthority("ADMIN")
+			    .hasAuthority(ADMIN)
 			    .requestMatchers(HttpMethod.GET,
 				    "/categories",
 				    "/languages",
@@ -77,16 +80,16 @@ public class SecurityConfig {
 				    "/publishers",
 				    "/books/admin",
 				    "/books/{id}/for-update")
-			    .hasAuthority("ADMIN")
+			    .hasAuthority(ADMIN)
 			    .requestMatchers(HttpMethod.GET,
 				    "/conditions",
 				    "/book_items/user",
 				    "/users/profile")
-			    .hasAuthority("USER")
+			    .hasAuthority(USER)
 			    .requestMatchers(
 				    HttpMethod.POST,
 				    "/book_items")
-			    .hasAuthority("USER")
+			    .hasAuthority(USER)
 			    .requestMatchers(
 				    HttpMethod.PATCH,
 				    "/book_items/{id}")
@@ -94,13 +97,13 @@ public class SecurityConfig {
 			    .requestMatchers(
 				    HttpMethod.DELETE,
 				    "/book_items/{id}")
-			    .hasAuthority("USER")
-			    .anyRequest().authenticated();
+			    .hasAuthority(USER).anyRequest()
+			    .authenticated();
 		}
 
 		).oauth2ResourceServer((oauth2) -> oauth2
 			.jwt(Customizer.withDefaults()));
-	;
+
 	return http.build();
     }
 
