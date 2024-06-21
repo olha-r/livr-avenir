@@ -6,8 +6,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import jakarta.mail.MessagingException;
-
 @Component
 public class MailSenderHelper {
 
@@ -23,8 +21,7 @@ public class MailSenderHelper {
     }
 
     public void sendMail(String userEmail,
-	    String confirmationToken)
-	    throws MessagingException {
+	    String confirmationToken) {
 	SimpleMailMessage email = new SimpleMailMessage();
 	email.setTo(userEmail);
 	email.setFrom(fromEmail);

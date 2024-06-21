@@ -77,11 +77,9 @@ public class BookItemServiceImpl
     @Override
     public Set<ItemListForBook> getAllItemsByBook(
 	    Long bookId) {
-	Set<ItemListForBook> itemList = bookItems
+	return bookItems
 		.findItemsByBookIdOrderByAddedAtDesc(
 			bookId);
-
-	return itemList;
     }
 
     @Override
