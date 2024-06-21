@@ -1,21 +1,21 @@
 method§path§tokenName§Json§§§
-POST§/book_items§user§{"description": "", "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": " ",    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": null,    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaa",    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz",    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": null,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": "",    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": " ",    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 0,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": null,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": "",    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": " ",    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 0,    "bookId": 1 }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": null }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": "" }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": " " }
-POST§/book_items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": 0 }
+POST§/book-items§user§{"description": "", "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": " ",    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": null,    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaa",    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz",    "pointsPrice": 1,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": null,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": "",    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": " ",    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 0,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": null,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": "",    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": " ",    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 0,    "bookId": 1 }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": null }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": "" }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": " " }
+POST§/book-items§user§{"description": "aaaaaaaaaa",    "pointsPrice": 6,    "conditionId": 1,    "bookId": 0 }
 
 
