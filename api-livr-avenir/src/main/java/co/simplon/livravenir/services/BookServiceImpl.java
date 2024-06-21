@@ -1,6 +1,7 @@
 package co.simplon.livravenir.services;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -157,67 +158,77 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void updateBook(Long id, BookUpdate inputs) {
-	Book entity = books.findById(id).get();
-	entity.setIsbn(inputs.getIsbn());
-	entity.setTitle(inputs.getTitle());
-	entity.setPublicationYear(
-		inputs.getPublicationYear());
-	entity.setPageCount(inputs.getPageCount());
-	entity.setSummary(inputs.getSummary());
+	Optional<Book> entityOptional = books.findById(id);
+	if (entityOptional.isPresent()) {
+	    Book entity = entityOptional.get();
+	    entity.setIsbn(inputs.getIsbn());
+	    entity.setTitle(inputs.getTitle());
+	    entity.setPublicationYear(
+		    inputs.getPublicationYear());
+	    entity.setPageCount(inputs.getPageCount());
+	    entity.setSummary(inputs.getSummary());
 
-	Category category = categories
-		.getReferenceById(inputs.getCategoryId());
-	entity.setCategory(category);
+	    Category category = categories.getReferenceById(
+		    inputs.getCategoryId());
+	    entity.setCategory(category);
 
-	Language language = languages
-		.getReferenceById(inputs.getLanguageId());
-	entity.setLanguage(language);
+	    Language language = languages.getReferenceById(
+		    inputs.getLanguageId());
+	    entity.setLanguage(language);
 
-	Publisher publisher = publishers
-		.getReferenceById(inputs.getPublisher());
-	entity.setPublisher(publisher);
+	    Publisher publisher = publishers
+		    .getReferenceById(
+			    inputs.getPublisher());
+	    entity.setPublisher(publisher);
 
-	MultipartFile file = inputs.getCoverImageUrl();
-	if (file != null) {
-	    String original = entity.getCoverImageUrl();
-	    String baseName = UUID.randomUUID().toString();
-	    String newFullName = storage.replace(file,
-		    baseName, original);
-	    entity.setCoverImageUrl(newFullName);
-	}
+	    MultipartFile file = inputs.getCoverImageUrl();
+	    if (file != null) {
+		String original = entity.getCoverImageUrl();
+		String baseName = UUID.randomUUID()
+			.toString();
+		String newFullName = storage.replace(file,
+			baseName, original);
+		entity.setCoverImageUrl(newFullName);
+	    }
 
-	Set<Long> existingAuthorIdList = authors
-		.retrieveBookAuthorsId(entity.getId());
-	Set<Long> authorIdInputs = inputs.getAuthorList();
-	for (Long existingAuthorId : existingAuthorIdList) {
-	    if (!authorIdInputs
-		    .contains(existingAuthorId)) {
-		bookAuthorsRepo.deleteBookAuthorsByAuthorId(
-			existingAuthorId);
+	    Set<Long> existingAuthorIdList = authors
+		    .retrieveBookAuthorsId(entity.getId());
+	    Set<Long> authorIdInputs = inputs
+		    .getAuthorList();
+	    for (Long existingAuthorId : existingAuthorIdList) {
+		if (!authorIdInputs
+			.contains(existingAuthorId)) {
+		    bookAuthorsRepo
+			    .deleteBookAuthorsByAuthorId(
+				    existingAuthorId);
+		}
+	    }
+	    for (Long authorId : authorIdInputs) {
+		if (!existingAuthorIdList
+			.contains(authorId)) {
+		    Author author = authors
+			    .getReferenceById(authorId);
+		    BookAuthor bookAuthorsEntity = new BookAuthor();
+		    bookAuthorsEntity.setAuthor(author);
+		    bookAuthorsEntity.setBook(entity);
+		    bookAuthorsRepo.save(bookAuthorsEntity);
+		}
 	    }
 	}
-	for (Long authorId : authorIdInputs) {
-	    if (!existingAuthorIdList.contains(authorId)) {
-		Author author = authors
-			.getReferenceById(authorId);
-		BookAuthor bookAuthorsEntity = new BookAuthor();
-		bookAuthorsEntity.setAuthor(author);
-		bookAuthorsEntity.setBook(entity);
-		bookAuthorsRepo.save(bookAuthorsEntity);
-	    }
-	}
-
     }
 
     @Transactional
     @Override
     public void deleteBook(Long id) {
-	Book entity = books.findById(id).get();
-	String imageFullName = entity.getCoverImageUrl();
-	bookAuthorsRepo.deleteBookAuthorsByBookId(id);
-	books.deleteById(id);
-	storage.delete(imageFullName);
-
+	Optional<Book> entityOptional = books.findById(id);
+	if (entityOptional.isPresent()) {
+	    Book entity = entityOptional.get();
+	    String imageFullName = entity
+		    .getCoverImageUrl();
+	    bookAuthorsRepo.deleteBookAuthorsByBookId(id);
+	    books.deleteById(id);
+	    storage.delete(imageFullName);
+	}
     }
 
     @Override

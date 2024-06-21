@@ -1,6 +1,7 @@
 package co.simplon.livravenir.services;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -95,22 +96,28 @@ public class BookItemServiceImpl
     @Transactional
     @Override
     public void deleteBookItem(Long id) {
-	BookItem entity = bookItems.findById(id).get();
-	bookItems.deleteById(id);
+	Optional<BookItem> entityOptional = bookItems
+		.findById(id);
+	if (entityOptional.isPresent()) {
+	    bookItems.deleteById(id);
+	}
     }
 
     @Transactional
     @Override
     public void updateBookItem(Long id,
 	    @Valid BookItemUpdate inputs) {
-
-	BookItem entity = bookItems.findById(id).get();
-	entity.setDescription(inputs.getDescription());
-	Condition condition = conditions
-		.getReferenceById(inputs.getConditionId());
-	entity.setCondition(condition);
-	entity.setPointsPrice(inputs.getPointsPrice());
-
+	Optional<BookItem> entityOptional = bookItems
+		.findById(id);
+	if (entityOptional.isPresent()) {
+	    BookItem entity = entityOptional.get();
+	    entity.setDescription(inputs.getDescription());
+	    Condition condition = conditions
+		    .getReferenceById(
+			    inputs.getConditionId());
+	    entity.setCondition(condition);
+	    entity.setPointsPrice(inputs.getPointsPrice());
+	}
     }
 
 }

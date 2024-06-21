@@ -21,7 +21,7 @@ import co.simplon.livravenir.services.BookItemService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/book_items")
+@RequestMapping("/book-items")
 public class BookItemController {
 
     private final BookItemService bookItemService;
