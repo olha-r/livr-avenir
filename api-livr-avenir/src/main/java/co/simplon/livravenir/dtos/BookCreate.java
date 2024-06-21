@@ -146,7 +146,7 @@ public class BookCreate {
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, publisher=%s, categoryId=%s, userId=%s, languageId=%s, authorList=%s}",
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, publisher=%s, categoryId=%s, languageId=%s, authorList=%s}",
 		isbn, title, publicationYear, pageCount,
 		summary, coverImageUrl, publisher,
 		categoryId, languageId, authorList);
