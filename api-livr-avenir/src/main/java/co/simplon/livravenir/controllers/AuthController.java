@@ -1,6 +1,5 @@
 package co.simplon.livravenir.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,27 +19,30 @@ import jakarta.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthService service;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+	this.authService = authService;
+    }
 
     @PostMapping("/sign-up")
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void signUp(
 	    @Valid @RequestBody Credentials inputs) {
-	service.signUp(inputs);
+	authService.signUp(inputs);
     }
 
     @PostMapping("/sign-in")
     public TokenInfo signIn(
 	    @Valid @RequestBody LoginCredentials inputs) {
-	return service.signIn(inputs);
+	return authService.signIn(inputs);
     }
 
     @GetMapping("/verify")
     public void verifyUserRegistration(
 	    @RequestParam("code") String confirmationToken) {
-	service.verifyUserRegistration(confirmationToken);
+	authService
+		.verifyUserRegistration(confirmationToken);
     }
 
 }
