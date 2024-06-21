@@ -28,11 +28,8 @@ final class ValidationErrors {
 
     private void handleFieldError(String fieldName,
 	    String errorCode) {
-	Set<String> codes = fieldErrors.get(fieldName);
-	if (codes == null) {
-	    codes = new HashSet<String>();
-	    fieldErrors.put(fieldName, codes);
-	}
+	Set<String> codes = fieldErrors.computeIfAbsent(
+		fieldName, k -> new HashSet<>());
 	codes.add(errorCode);
     }
 

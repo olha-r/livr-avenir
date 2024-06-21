@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-public class AuthorizationsTests extends BaseMvcTests {
+class AuthorizationsTests extends BaseMvcTests {
 
     @DisplayName("Should be authorized")
     @ParameterizedTest

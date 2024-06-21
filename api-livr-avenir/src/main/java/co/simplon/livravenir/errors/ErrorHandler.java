@@ -55,14 +55,6 @@ public class ErrorHandler
 		status, request);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(
-	    Exception ex, Object body, HttpHeaders headers,
-	    HttpStatusCode status, WebRequest request) {
-	return super.handleExceptionInternal(ex, body,
-		headers, status, request);
-    }
-
     @ExceptionHandler(value = BadCredentialsException.class)
     protected ResponseEntity<Object> handleBadCredentialException(
 	    BadCredentialsException ex) {
