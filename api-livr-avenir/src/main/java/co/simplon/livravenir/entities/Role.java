@@ -17,7 +17,7 @@ public class Role extends AbstractEntity {
     private String code;
 
     public Role() {
-	// TODO Auto-generated constructor stub
+	//
     }
 
     public String getName() {

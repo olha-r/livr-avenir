@@ -17,7 +17,7 @@ public class Category extends AbstractEntity {
     private String code;
 
     public Category() {
-	// TODO Auto-generated constructor stub
+	//
     }
 
     public String getName() {

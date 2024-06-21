@@ -17,7 +17,7 @@ public class Publisher extends AbstractEntity {
     private String code;
 
     public Publisher() {
-	// TODO Auto-generated constructor stub
+	//
     }
 
     public String getName() {

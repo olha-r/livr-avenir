@@ -40,7 +40,7 @@ public class User extends AbstractEntity {
     private boolean isEnabled;
 
     public User() {
-
+	//
     }
 
     public String getEmail() {

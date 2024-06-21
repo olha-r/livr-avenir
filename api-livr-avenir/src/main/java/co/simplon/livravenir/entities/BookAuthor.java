@@ -20,6 +20,7 @@ public class BookAuthor extends AbstractEntity {
     private Book book;
 
     public BookAuthor() {
+	//
     }
 
     public Book getBook() {

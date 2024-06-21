@@ -20,7 +20,7 @@ public class Author extends AbstractEntity {
     private String authorCode;
 
     public Author() {
-	// TODO Auto-generated constructor stub
+	//
     }
 
     public String getFirstName() {
