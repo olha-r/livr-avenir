@@ -19,7 +19,6 @@ import co.simplon.livravenir.repositories.UserRepository;
 import co.simplon.livravenir.repositories.VerificationTokenRepository;
 import co.simplon.livravenir.services.helpers.MailSenderHelper;
 import co.simplon.livravenir.utils.AuthHelper;
-import jakarta.mail.MessagingException;
 
 @Transactional(readOnly = true)
 @Service
@@ -79,11 +78,7 @@ public class AuthServiceImpl implements AuthService {
 	verificationToken.setUser(user);
 	tokenRepo.save(verificationToken);
 
-	try {
-	    mailSenderHelper.sendMail(userEmail, token);
-	} catch (MessagingException e) {
-	    e.printStackTrace();
-	}
+	mailSenderHelper.sendMail(userEmail, token);
 
     }
 
