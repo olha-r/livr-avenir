@@ -16,7 +16,7 @@ class InputsValidationTests extends BaseMvcTests {
 	    "/csv/validation/book-item-create-not-valid.csv",
 	    "/csv/validation/sign-up-not-valid.csv",
 	    "/csv/validation/sign-in-not-valid.csv",
-	    "/csv/validation/author-create-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
+	    "/csv/validation/author-create-not-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
     void shouldBeNotValid(String method, String path,
 	    String tokenName, String json)
 	    throws Exception {
@@ -30,7 +30,7 @@ class InputsValidationTests extends BaseMvcTests {
 	    "/csv/validation/book-item-create-valid.csv",
 	    "/csv/validation/sign-up-valid.csv",
 	    "/csv/validation/sign-in-valid.csv",
-	    "/csv/validation/author-create-not-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
+	    "/csv/validation/author-create-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
     void shouldBeValid(String method, String path,
 	    String tokenName, String json)
 	    throws Exception {
