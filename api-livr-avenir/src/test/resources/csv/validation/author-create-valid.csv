@@ -1,0 +1,6 @@
+method§path§tokenName§Json§§§
+POST§/authors§admin§{"firstName": "a", "lastName": "bbbbb"}
+POST§/authors§admin§{"firstName": "aaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaa", "lastName": "aaaaa"}
+POST§/authors§admin§{"firstName": "aaaaa", "lastName": "b"}
+POST§/authors§admin§{"firstName": "aaaaa", "lastName": "bbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbb"}
+

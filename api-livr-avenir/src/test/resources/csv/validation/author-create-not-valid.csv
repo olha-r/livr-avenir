@@ -1,0 +1,9 @@
+method§path§tokenName§Json§§§
+POST§/authors§admin§{"firstName": "", "lastName": "bbbbbb"}
+POST§/authors§admin§{"firstName": " ", "lastName": "bbbbbb"}
+POST§/authors§admin§{"firstName": null, "lastName": "bbbbbb"}
+POST§/authors§admin§{"firstName": "aaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAaaaaaaaaaaA", "lastName": "bbbbbb"}
+POST§/authors§admin§{"firstName": "aaa", "lastName": ""}
+POST§/authors§admin§{"firstName": "aaa", "lastName": " "}
+POST§/authors§admin§{"firstName": "aaa", "lastName": null}
+POST§/authors§admin§{"firstName": "aaa", "lastName": "bbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbBBBBBBBBBBbbbbbbbbbbB"}
