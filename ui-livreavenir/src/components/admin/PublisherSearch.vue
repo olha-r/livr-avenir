@@ -13,7 +13,6 @@ onBeforeMount(() => {
 });
 const publishers = ref([]);
 const selectedPublishers = ref([]);
-// Function to filter publishers based on the searchpublisherQuery
 const filteredPublishers = computed(() => {
 	publishers.value = publisher_list.value;
 	return publishers.value.filter((publisher) => {
@@ -24,7 +23,6 @@ const filteredPublishers = computed(() => {
 		);
 	});
 });
-// Function to add the selected publisher to the list
 const addPublisherToSelectedList = (publisher) => {
 	selectedPublishers.value.push(publisher);
 	searchPublisherQuery.value = '';
@@ -34,7 +32,6 @@ const addPublisherToSelectedList = (publisher) => {
 <template>
 	<div class="col-md-12 mb-3">
 		{{ publisher_list }}
-		<!-- Display selected publishers -->
 		<div v-if="selectedPublishers.length">
 			<span
 				class="p-2"

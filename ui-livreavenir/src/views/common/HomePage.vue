@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, onMounted, ref, nextTick } from 'vue';
+import { onBeforeMount } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useBookStore } from '@/stores/book-store';

@@ -255,14 +255,16 @@ const addAuthorToList = async (status) => {
 									:refresh="refreshOptions"
 								/>
 							</div>
-							<button
-								class="btn btn-primary rounded-circle ms-2"
-								type="button"
-								id="addNewAuthor"
-								@click="openModal"
-							>
-								<i class="bi bi-plus"></i>
-							</button>
+							<div class="ms-2">
+								<button
+									class="btn btn-primary rounded-circle"
+									type="button"
+									id="addNewAuthor"
+									@click="openModal"
+								>
+									<i class="bi bi-plus"></i>
+								</button>
+							</div>
 						</div>
 						<ValidationMessage :model="v$.authorList" />
 					</div>

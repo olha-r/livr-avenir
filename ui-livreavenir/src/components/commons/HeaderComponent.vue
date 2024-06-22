@@ -43,7 +43,7 @@ const closeCartSidebar = () => {
 					userFullName
 				}}</RouterLink>
 			</li>
-			<li class="nav-item" v-if="!isLoggedIn">
+			<li class="nav-item mx-1" v-if="!isLoggedIn">
 				<RouterLink
 					class="btn btn-outline-primary"
 					:to="{ name: 'register' }"

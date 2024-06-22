@@ -61,7 +61,7 @@ const openBookModal = (book, listAuthor) => {
 				</button></RouterLink
 			>
 		</div>
-		<div class="row row-cols-2 row-cols-md-4 g-5 table-responsive-lg">
+		<div class="table-responsive">
 			<table class="table table-hover align-middle">
 				<thead>
 					<tr>

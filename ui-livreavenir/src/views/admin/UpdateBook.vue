@@ -136,9 +136,7 @@ const { list_categories } = storeToRefs(categoryStore);
 const { publisher_list } = storeToRefs(publisherStore);
 const { book_for_update } = storeToRefs(bookStore);
 onMounted(async () => {
-	// Fetch book details based on the bookId
 	await bookStore.get_book_for_update(bookId.value);
-	// Set the form inputs with the fetched data
 	const bookDetails = bookStore.book_for_update;
 	inputs.isbn = bookDetails.book.isbn || null;
 	inputs.title = bookDetails.book.title || null;
@@ -148,7 +146,6 @@ onMounted(async () => {
 	inputs.publisher = bookDetails.book.publisher.id || null;
 	inputs.categoryId = bookDetails.book.category.id || null;
 	inputs.languageId = bookDetails.book.language.id || null;
-	//inputs.coverImageUrl = bookDetails.book.coverImageUrl || null;
 	image.value = bookDetails.book.coverImageUrl || null;
 	const idArray = bookDetails.listAuthor.map((author) => author.id);
 	inputs.authorList = idArray || [];
@@ -259,7 +256,6 @@ const updateAuthorList = (value) => {
 						<ValidationMessage :model="v$.authorList" />
 					</div>
 					<div class="col-md-12 mb-3">
-						<!-- <PublisherSearch></PublisherSearch> -->
 						<div class="col-md-12 mb-3">
 							<label for="edition" class="form-label required">{{
 								t('admin.bookForm.publisher.label')
