@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import jakarta.annotation.Nullable;
-
 @RestControllerAdvice
 public class ErrorHandler
 	extends ResponseEntityExceptionHandler {
@@ -55,15 +53,6 @@ public class ErrorHandler
 		e -> errors.addGlobalError(e.getCode()));
 	return handleExceptionInternal(ex, errors, headers,
 		status, request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(
-	    Exception ex, Object body, HttpHeaders headers,
-	    HttpStatusCode status,
-	    @Nullable WebRequest request) {
-	return super.handleExceptionInternal(ex, body,
-		headers, status, request);
     }
 
     @ExceptionHandler(value = BadCredentialsException.class)
