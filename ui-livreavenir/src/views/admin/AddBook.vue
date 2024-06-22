@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, computed } from 'vue';
+import { onMounted, reactive, computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
@@ -21,6 +21,7 @@ import { useCategoryStore } from '@/stores/category-store';
 import LabelValues from '@/components/commons/LabelValues.vue';
 import SearchMultiSelect from '@/components/commons/SearchMultiSelect.vue';
 import ValidationMessage from '@/components/commons/ValidationMessage.vue';
+import AddAuthorModal from '@/components/admin/AddAuthorModal.vue';
 
 const { t } = useI18n();
 const requiredMessage = `${t('admin.validationMessages.required')}`;
@@ -28,6 +29,7 @@ const isIsbnValid = (value) => {
 	const len = value.length;
 	return len === 10 || len === 13;
 };
+
 const inputs = reactive({
 	isbn: null,
 	title: null,
@@ -40,6 +42,7 @@ const inputs = reactive({
 	authorList: [],
 	coverImageUrl: undefined
 });
+
 const rules = computed(() => {
 	return {
 		isbn: {
@@ -128,6 +131,7 @@ const rules = computed(() => {
 		}
 	};
 });
+
 const v$ = useVuelidate(rules, inputs);
 const languageStore = useLanguageStore();
 const categoryStore = useCategoryStore();
@@ -149,43 +153,56 @@ const pageStore = usePageStore();
 const add_new_book = async () => {
 	await v$.value.$validate();
 	if (!v$.value.$error) {
-	const formData = new FormData();
-	formData.append('isbn', inputs.isbn);
-	formData.append('title', inputs.title);
-	formData.append('publicationYear', inputs.publicationYear);
-	formData.append('pageCount', inputs.pageCount);
-	formData.append('summary', inputs.summary);
-	formData.append('publisher', inputs.publisher);
-	formData.append('categoryId', inputs.categoryId);
-	formData.append('languageId', inputs.languageId);
-	formData.append('authorList', inputs.authorList);
-	formData.append('coverImageUrl', inputs.coverImageUrl);
-	const resp = await bookStore.add_new_book(formData, token);
+		const formData = new FormData();
+		formData.append('isbn', inputs.isbn);
+		formData.append('title', inputs.title);
+		formData.append('publicationYear', inputs.publicationYear);
+		formData.append('pageCount', inputs.pageCount);
+		formData.append('summary', inputs.summary);
+		formData.append('publisher', inputs.publisher);
+		formData.append('categoryId', inputs.categoryId);
+		formData.append('languageId', inputs.languageId);
+		formData.append('authorList', inputs.authorList);
+		formData.append('coverImageUrl', inputs.coverImageUrl);
+		const resp = await bookStore.add_new_book(formData, token);
 
-	if (resp.status === 204) {
-		pageStore.alert.type = 'success';
-		pageStore.alert.message = `${t('admin.bookForm.successMessage')}`;
-		pageStore.alert.show = true;
-		router.push({ name: 'admin-dashboard' });
-		setTimeout(() => {
-			pageStore.alert.show = false;
-		}, 5000);
-	} else {
-		pageStore.alert.type = 'error';
-		pageStore.alert.message = `${t('admin.bookForm.errorMessage')}`;
-		pageStore.alert.show = true;
-		console.error(`Nous n'avons pas pu créer le livre.`);
-		setTimeout(() => {
-			pageStore.alert.show = false;
-		}, 3000);
+		if (resp.status === 204) {
+			pageStore.alert.type = 'success';
+			pageStore.alert.message = `${t('admin.bookForm.successMessage')}`;
+			pageStore.alert.show = true;
+			router.push({ name: 'admin-dashboard' });
+			setTimeout(() => {
+				pageStore.alert.show = false;
+			}, 5000);
+		} else {
+			pageStore.alert.type = 'error';
+			pageStore.alert.message = `${t('admin.bookForm.errorMessage')}`;
+			pageStore.alert.show = true;
+			console.error(`Nous n'avons pas pu créer le livre.`);
+			setTimeout(() => {
+				pageStore.alert.show = false;
+			}, 3000);
+		}
 	}
-};
 };
 const handleImageUpload = (event) => {
 	inputs.coverImageUrl = event.target.files[0];
 };
 const updateAuthorList = (value) => {
 	inputs.authorList = value;
+};
+const showModal = ref(false);
+const openModal = () => {
+	showModal.value = true;
+};
+const closeModal = () => {
+	showModal.value = false;
+};
+const refreshOptions = ref(false);
+const addAuthorToList = async (status) => {
+	if (status) {
+		refreshOptions.value = !refreshOptions.value;
+	}
 };
 </script>
 
@@ -230,10 +247,23 @@ const updateAuthorList = (value) => {
 						<label for="authorId" class="form-label required">{{
 							t('admin.bookForm.author.label')
 						}}</label>
-						<SearchMultiSelect
-							:authorList="inputs.authorList"
-							@updateAuthorList="updateAuthorList"
-						/>
+						<div class="d-flex align-items-center">
+							<div class="flex-grow-1">
+								<SearchMultiSelect
+									:authorList="inputs.authorList"
+									@updateAuthorList="updateAuthorList"
+									:refresh="refreshOptions"
+								/>
+							</div>
+							<button
+								class="btn btn-primary rounded-circle ms-2"
+								type="button"
+								id="addNewAuthor"
+								@click="openModal"
+							>
+								<i class="bi bi-plus"></i>
+							</button>
+						</div>
 						<ValidationMessage :model="v$.authorList" />
 					</div>
 					<div class="col-md-12 mb-3">
@@ -350,5 +380,10 @@ const updateAuthorList = (value) => {
 				</div>
 			</form>
 		</div>
+		<AddAuthorModal
+			:show="showModal"
+			@onAdd="addAuthorToList"
+			@onClose="closeModal"
+		/>
 	</main>
 </template>

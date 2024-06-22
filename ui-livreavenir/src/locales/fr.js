@@ -47,6 +47,14 @@ const frMessages = {
 			successMessage: 'Livre a été créé avec succès.',
 			errorMessage: "Nous n'avons pas pu créer le livre."
 		},
+		addAuthorForm: {
+			titleCreate: 'Ajouter un nouveau auteur',
+			firstName: 'Prénom',
+			lastName: 'Nom',
+			buttonCreate: 'Ajouter',
+			successMessage: 'Auteur a été ajouté avec succès.',
+			errorMessage: "Nous n'avons pas pu ajouté cet auteur."
+		},
 		dashboard: {
 			title: 'Livres disponibles',
 			addBookBtn: 'Ajouter un livre',

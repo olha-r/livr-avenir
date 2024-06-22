@@ -4,7 +4,7 @@ import Multiselect from '@vueform/multiselect';
 import { storeToRefs } from 'pinia';
 import { useAuthorStore } from '@/stores/author-store';
 
-const props = defineProps(['authorList']);
+const props = defineProps(['authorList', 'refresh']);
 
 const authorStore = useAuthorStore();
 const { author_list } = storeToRefs(authorStore);
@@ -25,12 +25,23 @@ const getOptions = () => {
 	}
 };
 onMounted(async () => {
-	await authorStore.get_author_list();
-	getOptions();
+	refreshAuthorOptions();
 });
 const updateAuthorList = (value) => {
 	emit('updateAuthorList', value);
 };
+const refreshAuthorOptions = async () => {
+	await authorStore.get_author_list();
+	getOptions();
+};
+watch(
+	() => props.refresh,
+	(newVal, oldVal) => {
+		if (newVal !== oldVal) {
+			refreshAuthorOptions();
+		}
+	}
+);
 </script>
 
 <template>

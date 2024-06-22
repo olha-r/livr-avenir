@@ -13,6 +13,11 @@ export const useAuthorStore = defineStore('author-store', {
 				this.author_list = promise.body;
 			}
 			return promise;
+		},
+		async add_new_author(payload) {
+			const authorHttp = new AuthorHttp();
+			const promise = await authorHttp.add_new_author(payload);
+			return promise;
 		}
 	}
 });
