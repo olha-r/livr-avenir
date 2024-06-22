@@ -25,7 +25,7 @@ const closeCartSidebar = () => {
 
 <template>
 	<header
-		class="d-flex flex-wrap justify-content-around py-3 mb-4 border-bottom navigation"
+		class="d-flex flex-wrap justify-content-around py-2 mb-2 border-bottom navigation"
 	>
 		<RouterLink
 			class="d-flex align-items-center col-md-3 mb-2 mb-md-0"

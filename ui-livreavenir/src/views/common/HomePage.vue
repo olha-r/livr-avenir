@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, onMounted, ref, nextTick } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useBookStore } from '@/stores/book-store';
@@ -26,28 +26,29 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 		<h3 class="text-center my-4">{{ t('homepage.title') }}</h3>
 
 		<div
-			class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center align-items-start"
+			class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center align-items-center"
 		>
 			<div
-				class="col d-flex align-items-stretch"
+				class="col d-flex justify-content-center"
 				v-for="(item, index) in lastAddedBooks"
 				:key="index"
 			>
 				<router-link
 					:to="{ name: 'book-details', params: { id: item.book.id } }"
+					class="d-flex"
 				>
-					<div class="card mx-3 d-flex flex-column">
-						<img
-							:src="
-								item.book.coverImageUrl
-									? baseUrl + item.book.coverImageUrl
-									: baseUrl + 'default-image.jpg'
-							"
-							class="card-img-bottom"
-							style="object-fit: cover"
-							alt="Cover Image"
-						/>
-
+					<div class="card mx-4 d-flex flex-column">
+						<div class="card-img-container">
+							<img
+								:src="
+									item.book.coverImageUrl
+										? baseUrl + item.book.coverImageUrl
+										: baseUrl + 'default-image.jpg'
+								"
+								class="card-img-bottom"
+								alt="Cover Image"
+							/>
+						</div>
 						<div class="card-body d-flex flex-column justify-content-between">
 							<h6 class="card-title text-center">
 								{{ item.book.title }}
@@ -71,11 +72,3 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 		</div>
 	</main>
 </template>
-<style scoped>
-.card-img-bottom {
-	height: 350px;
-	object-fit: cover;
-	/* background-size: cover;
-    background-position: center; */
-}
-</style>

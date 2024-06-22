@@ -15,7 +15,7 @@ const convertedErrors = computed(getConvertedErrors);
 </script>
 
 <template>
-	<div class="justify-content-center align-items-center book-details-container">
+	<div class="justify-content-center align-items-center">
 		<div v-if="error" class="text-center alert alert-danger container mt-3 p-3">
 			{{ error }}
 		</div>
