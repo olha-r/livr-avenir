@@ -255,7 +255,7 @@ const addAuthorToList = async (status) => {
 									:refresh="refreshOptions"
 								/>
 							</div>
-							<div class="ms-2">
+							<div class="ms-3">
 								<button
 									class="btn btn-primary rounded-circle"
 									type="button"
