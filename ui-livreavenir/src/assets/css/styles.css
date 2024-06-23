@@ -381,3 +381,157 @@ h3 {
 	padding: 0.75rem;
 	border-top: 1px solid #dee2e6;
 }
+
+
+.book-owner {
+	background-color: var(--light-orange-color);
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	padding: 20px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.3s;
+	margin-bottom: 20px;
+	position: relative;
+	overflow: hidden;
+}
+
+.book-owner:hover {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.book-owner p {
+	margin: 0px 0;
+	color: var(--main-text-color);
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.book-owner .btn {
+	color: var(--dark-green-color);
+	border: 2px solid var(--dark-green-color);
+	padding: 10px 20px;
+	border-radius: 50px;
+	cursor: pointer;
+	transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+	font-size: 1rem;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.book-owner .btn:hover {
+	background-color: var(--dark-green-color);
+	color: var(--light-orange-color);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-owner .bi-handbag {
+	font-size: 2rem;
+	margin-right: 8px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.book-owner .book-item-description {
+	font-size: 1.1rem;
+	font-weight: 400;
+	line-height: 1.6;
+	color: var(--main-text-color);
+	margin-bottom: 10px;
+}
+
+.book-owner .book-item-label {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--dark-green-color);
+	display: block;
+	margin-bottom: 15px;
+}
+
+.book-owner .book-item-value {
+	font-size: 1rem;
+	font-weight: 400;
+	color: var(--main-text-color);
+}
+
+.book-owner .seller-name-label {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--dark-green-color);
+	display: block;
+	margin-bottom: 15px;
+}
+
+.book-owner .seller-name {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: var(--dark-green-color);
+}
+.book-owner .seller-date {
+	font-size: 0.9rem;
+	color: var(--dark-green-color);
+}
+
+.book-owner .points {
+	font-size: 2rem;
+	font-weight: 700;
+	color: var(--dark-green-color);
+	margin-top: 5px;
+}
+
+.book-owner .points-label {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--dark-green-color);
+	display: block;
+	margin-bottom: 5px;
+}
+
+.book-owner .book-item-date {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--dark-green-color);
+	margin-bottom: 5px;
+}
+
+.book-owner .book-item-date-value {
+	font-size: 1rem;
+	font-weight: 400;
+	color: var(--main-text-color);
+}
+
+.badge-condition {
+	font-size: 1rem;
+	padding: 1em 0.75em;
+	margin-bottom: 10px;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+
+@media (max-width: 768px) {
+	.book-owner {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.book-owner > div {
+		margin-bottom: 15px;
+	}
+}
+
+
+.owner-message {
+	color: var(--dark-green-color);
+	border: 2px solid var(--dark-green-color);
+	padding: 10px 20px;
+	border-radius: 50px;
+	font-size: 1rem;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}

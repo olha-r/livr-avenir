@@ -198,8 +198,8 @@ const frMessages = {
 			},
 			bookItemDetail: {
 				noItems: 'Aucun exemplaire disponible pour cet échange pour le moment.',
-				date: 'Ajouté le ',
-				pointsPrice: 'Points: ',
+				date: 'Ajouté par ',
+				pointsPrice: 'points',
 				condition: 'État: ',
 				description: 'Mon commentaire: ',
 				btnModify: 'Modifier',
