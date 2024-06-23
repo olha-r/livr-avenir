@@ -1,5 +1,6 @@
 package co.simplon.livravenir.entities;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -46,6 +47,9 @@ public class Book extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id")
     private Language language;
+
+    @Column(name = "added_at")
+    private LocalDateTime addedAt;
 
     public Book() {
 	//
@@ -131,13 +135,21 @@ public class Book extends AbstractEntity {
 	this.language = language;
     }
 
+    public LocalDateTime getAddedAt() {
+	return addedAt;
+    }
+
+    public void setAddedAt(LocalDateTime addedAt) {
+	this.addedAt = addedAt;
+    }
+
     @Override
     public String toString() {
 	return String.format(
-		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, category=%s, publisher=%s, addedByUser=%s, language=%s}",
+		"{isbn=%s, title=%s, publicationYear=%s, pageCount=%s, summary=%s, coverImageUrl=%s, category=%s, publisher=%s, addedByUser=%s, language=%s, addedAt=%s}",
 		isbn, title, publicationYear, pageCount,
 		summary, coverImageUrl, category, publisher,
-		addedByUser, language);
+		addedByUser, language, addedAt);
     }
 
     @Override

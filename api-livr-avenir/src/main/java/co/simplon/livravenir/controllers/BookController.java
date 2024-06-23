@@ -1,6 +1,6 @@
 package co.simplon.livravenir.controllers;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,12 +40,12 @@ public class BookController {
     }
 
     @GetMapping
-    public Set<BookItemView> getAllBooks() {
+    public List<BookItemView> getAllBooks() {
 	return bookService.getAllBooks();
     }
 
     @GetMapping("/admin")
-    public Set<BookItemAdminView> getAllBooksForAdmin() {
+    public List<BookItemAdminView> getAllBooksForAdmin() {
 	return bookService.getAllBooksForAdmin();
     }
 

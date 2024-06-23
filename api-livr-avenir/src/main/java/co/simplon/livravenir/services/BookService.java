@@ -1,6 +1,6 @@
 package co.simplon.livravenir.services;
 
-import java.util.Set;
+import java.util.List;
 
 import co.simplon.livravenir.dtos.BookCreate;
 import co.simplon.livravenir.dtos.BookForUpdate;
@@ -14,9 +14,9 @@ public interface BookService {
 
     void createBook(@Valid BookCreate inputs);
 
-    Set<BookItemView> getAllBooks();
+    List<BookItemView> getAllBooks();
 
-    Set<BookItemAdminView> getAllBooksForAdmin();
+    List<BookItemAdminView> getAllBooksForAdmin();
 
     void deleteBook(Long id);
 

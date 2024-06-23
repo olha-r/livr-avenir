@@ -1,5 +1,6 @@
 package co.simplon.livravenir.repositories;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,11 +16,11 @@ import co.simplon.livravenir.entities.Book;
 public interface BookRepository
 	extends JpaRepository<Book, Long> {
 
-    Set<BookItem> findAllBooksProjectedBy();
+    List<BookItem> findAllBooksByOrderByAddedAtDesc();
 
     BookForUpdate findProjectedById(Long id);
 
-    Set<BookItemAdmin> findAllProjectedBy();
+    List<BookItemAdmin> findAllByOrderByAddedAtDesc();
 
     BookDetail findProjectedDetailById(Long id);
 

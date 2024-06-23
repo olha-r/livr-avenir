@@ -1,5 +1,7 @@
 package co.simplon.livravenir.dtos;
 
+import java.time.LocalDateTime;
+
 public interface BookItemAdmin {
 
     Long getId();
@@ -21,5 +23,7 @@ public interface BookItemAdmin {
     LabelValue getPublisher();
 
     LabelValue getLanguage();
+
+    LocalDateTime getAddedAt();
 
 }

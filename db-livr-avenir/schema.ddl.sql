@@ -134,6 +134,7 @@ CREATE TABLE books (
     category_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     language_id INTEGER NOT NULL,
+    added_at TIMESTAMP NOT NULL,
     CONSTRAINT pk_book_id primary key(id),
 	CONSTRAINT fk_publisher_id FOREIGN KEY (publisher_id) REFERENCES publishers(id),
 	CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES categories(id),

@@ -1,6 +1,8 @@
 package co.simplon.livravenir.services;
 
-import java.util.HashSet;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -104,6 +106,8 @@ public class BookServiceImpl implements BookService {
 	Publisher publisher = publishers
 		.getReferenceById(inputs.publisher());
 	entity.setPublisher(publisher);
+	LocalDateTime now = LocalDateTime.now();
+	entity.setAddedAt(now);
 	// Get authenticated user
 	User user = null;
 	Long authenticatedUserId = SecurityHelper
@@ -136,10 +140,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Set<BookItemView> getAllBooks() {
-	Set<BookItem> bookList = books
-		.findAllBooksProjectedBy();
-	Set<BookItemView> bookItemList = new HashSet<>();
+    public List<BookItemView> getAllBooks() {
+	List<BookItem> bookList = books
+		.findAllBooksByOrderByAddedAtDesc();
+	bookList.forEach(book -> System.out
+		.println(book.getAddedAt()));
+	List<BookItemView> bookItemList = new ArrayList<>();
 	for (BookItem book : bookList) {
 	    Set<AuthorDetail> authorList = authors
 		    .retrieveBookAuthors(book.getId());
@@ -240,10 +246,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Set<BookItemAdminView> getAllBooksForAdmin() {
-	Set<BookItemAdmin> bookList = books
-		.findAllProjectedBy();
-	Set<BookItemAdminView> bookItemList = new HashSet<>();
+    public List<BookItemAdminView> getAllBooksForAdmin() {
+	List<BookItemAdmin> bookList = books
+		.findAllByOrderByAddedAtDesc();
+	List<BookItemAdminView> bookItemList = new ArrayList<>();
 	for (BookItemAdmin book : bookList) {
 	    Set<AuthorDetail> authorList = authors
 		    .retrieveBookAuthors(book.getId());

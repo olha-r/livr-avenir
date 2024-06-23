@@ -1,5 +1,7 @@
 package co.simplon.livravenir.dtos;
 
+import java.time.LocalDateTime;
+
 public interface BookItem {
 
     Long getId();
@@ -7,5 +9,7 @@ public interface BookItem {
     String getTitle();
 
     String getCoverImageUrl();
+
+    LocalDateTime getAddedAt();
 
 }
