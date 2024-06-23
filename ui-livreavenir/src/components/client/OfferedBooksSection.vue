@@ -83,7 +83,7 @@ const exitEditMode = () => {
 								</p>
 								<div class="text-center">
 									<button
-										class="btn btn-sm btn-outline-primary m-2"
+										class="btn btn-sm btn-outline-primary me-2"
 										@click="setEditMode(item?.id)"
 									>
 										<i class="bi bi-pencil-fill me-1"></i>

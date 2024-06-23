@@ -37,7 +37,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 					:to="{ name: 'book-details', params: { id: item.book.id } }"
 					class="d-flex"
 				>
-					<div class="card mx-4 d-flex flex-column">
+					<div class="card custom-card mx-4 d-flex flex-column">
 						<div class="card-img-container">
 							<img
 								:src="

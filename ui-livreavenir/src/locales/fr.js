@@ -152,7 +152,8 @@ const frMessages = {
 					errorMessage: "Nous n'avons pas pu supprimer votre exemplaire."
 				},
 				pointsNumber: {
-					label: 'Points number'
+					label: 'Nombre de points',
+					title: 'Votre solde actuel : '
 				}
 			}
 		},

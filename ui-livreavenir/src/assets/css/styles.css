@@ -92,7 +92,7 @@ a {
 }
 
 
-.card {
+.custom-card {
     color: var(--dark-green-color);
     background-color: var(--main-bg-color);
     width: 100%;
@@ -104,13 +104,13 @@ a {
 }
 
 @media (max-width: 768px) {
-    .card {
+    .custom-card {
         max-width: 100%;
         margin: 5px; 
     }
 }
 
-.card-body {
+.custom-card.card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -137,12 +137,6 @@ a {
     .author {
         font-size: 20px !important;
     }
-}
-
-.card-img-bottom {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
 }
 
 /******* Book details page *******/
@@ -534,4 +528,11 @@ h3 {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+}
+
+
+.card {
+    color: var(--dark-green-color);
+    background-color: var(--main-bg-color);
+   
 }

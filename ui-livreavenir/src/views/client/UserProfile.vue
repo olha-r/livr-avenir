@@ -70,19 +70,22 @@ onMounted(async () => {
 				{{ t('client.profile.section.pointsNumber.label') }}</a
 			>
 		</div>
-		<div v-if="showStates.userInfo">
-			<h6>{{ t('client.profile.section.userInfo.email') }}</h6>
-			<p>{{ user_profile?.email }}</p>
-			<h6>{{ t('client.profile.section.userInfo.fullName') }}</h6>
-			<p>{{ user_profile?.firstName }} {{ user_profile?.lastName }}</p>
-			<h6>{{ t('client.profile.section.userInfo.registrationDate') }}</h6>
-			<p>{{ d(user_profile?.registrationDate, 'short', 'fr-FR') }}</p>
+		<div
+			v-if="showStates.userInfo"
+			class="d-flex justify-content-center text-center"
+		>
+			<div class="card p-4">
+				<h6>{{ t('client.profile.section.userInfo.email') }}</h6>
+				<p>{{ user_profile?.email }}</p>
+				<h6>{{ t('client.profile.section.userInfo.fullName') }}</h6>
+				<p>{{ user_profile?.firstName }} {{ user_profile?.lastName }}</p>
+				<h6>{{ t('client.profile.section.userInfo.registrationDate') }}</h6>
+				<p>{{ d(user_profile?.registrationDate, 'short', 'fr-FR') }}</p>
+			</div>
 		</div>
 
 		<div v-if="showStates.offeredBooks">
-			<h6>{{ t('client.profile.section.offeredBooks.title') }}</h6>
 			<OfferedBooksSection :offeredBookList="items_by_user" />
-			<!-- <pre>{{ items_by_user }}</pre> -->
 		</div>
 
 		<!-- <div v-if="showStates.orderedBooks">
@@ -95,9 +98,27 @@ onMounted(async () => {
             <p>Pas d'info</p>
         </div> -->
 
-		<div v-if="showStates.pointsNumber">
-			<h6>{{ t('client.profile.section.pointsNumber.label') }}</h6>
-			<p>{{ user_profile?.pointsNumber }}</p>
+		<div
+			v-if="showStates.pointsNumber"
+			class="d-flex justify-content-center text-center"
+		>
+			<div class="card p-4">
+				<h6 class="mb-3">
+					{{ t('client.profile.section.pointsNumber.title') }}
+				</h6>
+				<p class="points-number">{{ user_profile?.pointsNumber }}</p>
+			</div>
 		</div>
 	</main>
 </template>
+<style scoped>
+.card {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	width: 400px;
+}
+
+.text-success {
+	color: green;
+}
+</style>
