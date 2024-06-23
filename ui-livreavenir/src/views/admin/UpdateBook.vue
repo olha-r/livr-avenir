@@ -17,9 +17,10 @@ import { usePublisherStore } from '@/stores/publisher-store';
 import { useLanguageStore } from '@/stores/language-store';
 import { useCategoryStore } from '@/stores/category-store';
 import { useAuthStore } from '@/stores/auth-store';
-import LabelValues from '../../components/commons/LabelValues.vue';
-import ValidationMessage from '../../components/commons/ValidationMessage.vue';
-import SearchMultiSelect from '../../components/commons/SearchMultiSelect.vue';
+import LabelValues from '@/components/commons/LabelValues.vue';
+import ValidationMessage from '@/components/commons/ValidationMessage.vue';
+import SearchMultiSelect from '@/components/commons/SearchMultiSelect.vue';
+import AddAuthorModal from '@/components/admin/AddAuthorModal.vue';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -125,7 +126,7 @@ const rules = computed(() => {
 	};
 });
 const image = ref('');
-const v$ = useVuelidate(rules, inputs);
+const v$ = useVuelidate(rules, inputs, { $scope: false });
 const languageStore = useLanguageStore();
 const categoryStore = useCategoryStore();
 const publisherStore = usePublisherStore();
@@ -201,8 +202,22 @@ const handleImageUpload = (event) => {
 	inputs.coverImageUrl = event.target.files[0];
 };
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
+
 const updateAuthorList = (value) => {
 	inputs.authorList = value;
+};
+const showModal = ref(false);
+const openModal = () => {
+	showModal.value = true;
+};
+const closeModal = () => {
+	showModal.value = false;
+};
+const refreshOptions = ref(false);
+const addAuthorToList = async (status) => {
+	if (status) {
+		refreshOptions.value = !refreshOptions.value;
+	}
 };
 </script>
 
@@ -249,10 +264,25 @@ const updateAuthorList = (value) => {
 						<label for="authorId" class="form-label required">{{
 							t('admin.bookForm.author.label')
 						}}</label>
-						<SearchMultiSelect
-							:authorList="inputs.authorList"
-							@updateAuthorList="updateAuthorList"
-						/>
+						<div class="d-flex align-items-center">
+							<div class="flex-grow-1">
+								<SearchMultiSelect
+									:authorList="inputs.authorList"
+									@updateAuthorList="updateAuthorList"
+									:refresh="refreshOptions"
+								/>
+							</div>
+							<div class="ms-3">
+								<button
+									class="btn btn-primary rounded-circle"
+									type="button"
+									id="addNewAuthor"
+									@click="openModal"
+								>
+									<i class="bi bi-plus"></i>
+								</button>
+							</div>
+						</div>
 						<ValidationMessage :model="v$.authorList" />
 					</div>
 					<div class="col-md-12 mb-3">
@@ -378,5 +408,10 @@ const updateAuthorList = (value) => {
 				</div>
 			</form>
 		</div>
+		<AddAuthorModal
+			:show="showModal"
+			@onAdd="addAuthorToList"
+			@onClose="closeModal"
+		/>
 	</main>
 </template>

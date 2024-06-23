@@ -8,14 +8,12 @@ import org.springframework.web.multipart.MultipartFile;
 import co.simplon.livravenir.customvalidation.ImageSize;
 import co.simplon.livravenir.customvalidation.ImageType;
 import co.simplon.livravenir.customvalidation.IsbnLength;
-import co.simplon.livravenir.customvalidation.UniqueIsbn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public record BookUpdate(
-	@NotBlank @IsbnLength @UniqueIsbn String isbn,
+public record BookUpdate(@NotBlank @IsbnLength String isbn,
 	@NotBlank @Size(min = 2, max = 200) String title,
 	@NotBlank @Size(min = 4, max = 4) String publicationYear,
 	@NotBlank @Size(max = 5) String pageCount,
