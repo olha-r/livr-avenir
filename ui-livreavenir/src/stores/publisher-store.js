@@ -13,6 +13,11 @@ export const usePublisherStore = defineStore('publisher-store', {
 				this.publisher_list = promise.body;
 			}
 			return promise;
+		},
+		async add_new_publisher(payload) {
+			const publisherHttp = new PublisherHttp();
+			const promise = await publisherHttp.add_new_publisher(payload);
+			return promise;
 		}
 	}
 });

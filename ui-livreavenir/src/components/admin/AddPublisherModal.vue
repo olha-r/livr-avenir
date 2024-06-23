@@ -3,7 +3,7 @@ import { reactive, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, maxLength, helpers } from '@vuelidate/validators';
-import { useAuthorStore } from '@/stores/author-store';
+import { usePublisherStore } from '@/stores/publisher-store';
 import { usePageStore } from '@/stores/page-store';
 import ValidationMessage from '@/components/commons/ValidationMessage.vue';
 
@@ -16,31 +16,18 @@ const props = defineProps({
 
 const emit = defineEmits(['onAdd', 'onClose']);
 
-const authorInputs = reactive({
-	firstName: '',
-	lastName: ''
+const publisherInputs = reactive({
+	name: ''
 });
 
-const authorStore = useAuthorStore();
+const publisherStore = usePublisherStore();
 const pageStore = usePageStore();
 
 const { t } = useI18n();
 const requiredMessage = `${t('admin.validationMessages.required')}`;
-const authorRules = computed(() => {
+const publisherRules = computed(() => {
 	return {
-		firstName: {
-			required: helpers.withMessage(requiredMessage, required),
-			minLength: helpers.withMessage(
-				`${t('client.validationMessages.minLengthDescription')}`,
-
-				minLength(1)
-			),
-			maxLength: helpers.withMessage(
-				`${t('client.validationMessages.maxLengthDescription')}`,
-				maxLength(150)
-			)
-		},
-		lastName: {
+		name: {
 			required: helpers.withMessage(requiredMessage, required),
 			minLength: helpers.withMessage(
 				`${t('client.validationMessages.minLengthDescription')}`,
@@ -55,11 +42,11 @@ const authorRules = computed(() => {
 	};
 });
 
-const authorValidation = useVuelidate(authorRules, authorInputs);
-const addAuthor = async () => {
-	await authorValidation.value.$validate();
-	if (!authorValidation.value.$error) {
-		const resp = await authorStore.add_new_author(authorInputs);
+const publisherValidation = useVuelidate(publisherRules, publisherInputs);
+const addPublisher = async () => {
+	await publisherValidation.value.$validate();
+	if (!publisherValidation.value.$error) {
+		const resp = await publisherStore.add_new_publisher(publisherInputs);
 		if (resp.status === 204) {
 			emit('onAdd', true);
 			pageStore.alert.type = 'success';
@@ -81,9 +68,8 @@ const addAuthor = async () => {
 };
 
 const closeModal = () => {
-	authorInputs.firstName = '';
-	authorInputs.lastName = '';
-	authorValidation.value.$reset();
+	publisherInputs.name = '';
+	publisherValidation.value.$reset();
 	emit('onClose');
 };
 </script>
@@ -103,33 +89,20 @@ const closeModal = () => {
 					</h5>
 					<button type="button" class="btn-close" @click="closeModal"></button>
 				</div>
-				<form novalidate @submit.prevent="addAuthor">
+				<form novalidate @submit.prevent="addPublisher">
 					<div class="modal-body">
 						<div class="mb-3">
-							<label for="firstName" class="form-label required">{{
+							<label for="name" class="form-label required">{{
 								t('admin.addAuthorForm.firstName')
 							}}</label>
 							<input
-								v-model="authorInputs.firstName"
-								name="firstName"
-								id="firstName"
+								v-model="publisherInputs.name"
+								name="name"
+								id="name"
 								type="text"
 								class="form-control"
 							/>
-							<ValidationMessage :model="authorValidation.firstName" />
-						</div>
-						<div class="mb-3">
-							<label for="lastName" class="form-label required">{{
-								t('admin.addAuthorForm.lastName')
-							}}</label>
-							<input
-								v-model="authorInputs.lastName"
-								name="lastName"
-								id="lastName"
-								type="text"
-								class="form-control"
-							/>
-							<ValidationMessage :model="authorValidation.lastName" />
+							<ValidationMessage :model="publisherValidation.name" />
 						</div>
 					</div>
 					<div class="modal-footer">

@@ -22,6 +22,7 @@ import LabelValues from '@/components/commons/LabelValues.vue';
 import SearchMultiSelect from '@/components/commons/SearchMultiSelect.vue';
 import ValidationMessage from '@/components/commons/ValidationMessage.vue';
 import AddAuthorModal from '@/components/admin/AddAuthorModal.vue';
+import AddPublisherModal from '@/components/admin/AddPublisherModal.vue';
 
 const { t } = useI18n();
 const requiredMessage = `${t('admin.validationMessages.required')}`;
@@ -191,17 +192,31 @@ const handleImageUpload = (event) => {
 const updateAuthorList = (value) => {
 	inputs.authorList = value;
 };
-const showModal = ref(false);
-const openModal = () => {
-	showModal.value = true;
+const showAuthorModal = ref(false);
+const openAuthorModal = () => {
+	showAuthorModal.value = true;
 };
-const closeModal = () => {
-	showModal.value = false;
+const closeAuthorModal = () => {
+	showAuthorModal.value = false;
 };
-const refreshOptions = ref(false);
+const refreshAuthorOptions = ref(false);
 const addAuthorToList = async (status) => {
 	if (status) {
-		refreshOptions.value = !refreshOptions.value;
+		refreshAuthorOptions.value = !refreshAuthorOptions.value;
+	}
+};
+const showPublisherModal = ref(false);
+const openPublisherModal = () => {
+	showPublisherModal.value = true;
+};
+const closePublisherModal = () => {
+	showPublisherModal.value = false;
+};
+const refreshPublisherOptions = ref(false);
+const addPublisherToList = async (status) => {
+	if (status) {
+		refreshPublisherOptions.value = !refreshPublisherOptions.value;
+		await publisherStore.get_publisher_list();
 	}
 };
 </script>
@@ -252,7 +267,7 @@ const addAuthorToList = async (status) => {
 								<SearchMultiSelect
 									:authorList="inputs.authorList"
 									@updateAuthorList="updateAuthorList"
-									:refresh="refreshOptions"
+									:refresh="refreshAuthorOptions"
 								/>
 							</div>
 							<div class="ms-3">
@@ -260,7 +275,7 @@ const addAuthorToList = async (status) => {
 									class="btn btn-primary rounded-circle"
 									type="button"
 									id="addNewAuthor"
-									@click="openModal"
+									@click="openAuthorModal"
 								>
 									<i class="bi bi-plus"></i>
 								</button>
@@ -273,16 +288,30 @@ const addAuthorToList = async (status) => {
 							<label for="edition" class="form-label required">{{
 								t('admin.bookForm.publisher.label')
 							}}</label>
-							<select
-								v-model.number="inputs.publisher"
-								id="publisher"
-								class="form-select"
-							>
-								<option selected disabled value="0">
-									{{ t('admin.bookForm.publisher.option') }}
-								</option>
-								<LabelValues :items="publisher_list" />
-							</select>
+							<div class="d-flex align-items-center">
+								<div class="flex-grow-1">
+									<select
+										v-model.number="inputs.publisher"
+										id="publisher"
+										class="form-select"
+									>
+										<option selected disabled value="0">
+											{{ t('admin.bookForm.publisher.option') }}
+										</option>
+										<LabelValues :items="publisher_list" />
+									</select>
+								</div>
+								<div class="ms-3">
+									<button
+										class="btn btn-primary rounded-circle"
+										type="button"
+										id="addNewAuthor"
+										@click="openPublisherModal"
+									>
+										<i class="bi bi-plus"></i>
+									</button>
+								</div>
+							</div>
 							<ValidationMessage :model="v$.publisher" />
 						</div>
 					</div>
@@ -383,9 +412,14 @@ const addAuthorToList = async (status) => {
 			</form>
 		</div>
 		<AddAuthorModal
-			:show="showModal"
+			:show="showAuthorModal"
 			@onAdd="addAuthorToList"
-			@onClose="closeModal"
+			@onClose="closeAuthorModal"
+		/>
+		<AddPublisherModal
+			:show="showPublisherModal"
+			@onAdd="addPublisherToList"
+			@onClose="closePublisherModal"
 		/>
 	</main>
 </template>

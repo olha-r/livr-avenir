@@ -5,4 +5,9 @@ export class PublisherHttp {
 		const response = await http.get(url);
 		return response;
 	}
+	async add_new_publisher(payload) {
+		const url = `/publishers`;
+		const response = await http.post(url, payload);
+		return response;
+	}
 }

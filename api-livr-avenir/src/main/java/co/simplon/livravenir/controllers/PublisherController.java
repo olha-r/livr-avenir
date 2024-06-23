@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.simplon.livravenir.dtos.LabelValue;
 import co.simplon.livravenir.dtos.PublisherCreate;
 import co.simplon.livravenir.services.PublisherService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/publishers")
@@ -33,7 +34,7 @@ public class PublisherController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping
     public void createPublisher(
-	    @RequestBody PublisherCreate inputs) {
+	    @Valid @RequestBody PublisherCreate inputs) {
 	publisherService.createPublisher(inputs);
     }
 
