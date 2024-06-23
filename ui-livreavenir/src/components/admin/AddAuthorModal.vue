@@ -16,9 +16,9 @@ const props = defineProps({
 
 const emit = defineEmits(['onAdd', 'onClose']);
 
-const inputs = reactive({
-	firstName: null,
-	lastName: null
+const authorInputs = reactive({
+	firstName: '',
+	lastName: ''
 });
 
 const authorStore = useAuthorStore();
@@ -26,7 +26,7 @@ const pageStore = usePageStore();
 
 const { t } = useI18n();
 const requiredMessage = `${t('admin.validationMessages.required')}`;
-const rules = computed(() => {
+const authorRules = computed(() => {
 	return {
 		firstName: {
 			required: helpers.withMessage(requiredMessage, required),
@@ -55,12 +55,11 @@ const rules = computed(() => {
 	};
 });
 
-const v$ = useVuelidate(rules, inputs);
-
+const authorValidation = useVuelidate(authorRules, authorInputs);
 const addAuthor = async () => {
-	await v$.value.$validate();
-	if (!v$.value.$error) {
-		const resp = await authorStore.add_new_author(inputs);
+	await authorValidation.value.$validate();
+	if (!authorValidation.value.$error) {
+		const resp = await authorStore.add_new_author(authorInputs);
 		if (resp.status === 204) {
 			emit('onAdd', true);
 			pageStore.alert.type = 'success';
@@ -82,9 +81,9 @@ const addAuthor = async () => {
 };
 
 const closeModal = () => {
-	inputs.firstName = '';
-	inputs.lastName = '';
-	v$.value.$reset();
+	authorInputs.firstName = '';
+	authorInputs.lastName = '';
+	authorValidation.value.$reset();
 	emit('onClose');
 };
 </script>
@@ -111,26 +110,26 @@ const closeModal = () => {
 								t('admin.addAuthorForm.firstName')
 							}}</label>
 							<input
-								v-model="inputs.firstName"
+								v-model="authorInputs.firstName"
 								name="firstName"
 								id="firstName"
 								type="text"
 								class="form-control"
 							/>
-							<ValidationMessage :model="v$.firstName" />
+							<ValidationMessage :model="authorValidation.firstName" />
 						</div>
 						<div class="mb-3">
 							<label for="lastName" class="form-label required">{{
 								t('admin.addAuthorForm.lastName')
 							}}</label>
 							<input
-								v-model="inputs.lastName"
+								v-model="authorInputs.lastName"
 								name="lastName"
 								id="lastName"
 								type="text"
 								class="form-control"
 							/>
-							<ValidationMessage :model="v$.lastName" />
+							<ValidationMessage :model="authorValidation.lastName" />
 						</div>
 					</div>
 					<div class="modal-footer">

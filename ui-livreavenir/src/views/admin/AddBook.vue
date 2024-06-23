@@ -132,7 +132,7 @@ const rules = computed(() => {
 	};
 });
 
-const v$ = useVuelidate(rules, inputs);
+const v$ = useVuelidate(rules, inputs, { $scope: false });
 const languageStore = useLanguageStore();
 const categoryStore = useCategoryStore();
 const publisherStore = usePublisherStore();
