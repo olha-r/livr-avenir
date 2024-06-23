@@ -40,39 +40,51 @@ const getConditionBadgeClass = (condition) => {
 	<div
 		class="row book-owner pt-3 mt-5 d-flex align-items-center justify-content-center"
 	>
-		<div class="col-12 col-md-2">
-			<span class="seller-name-label text-center">{{
+		<div class="col-12 col-md-2 text-center">
+			<span class="seller-name-label">{{
 				t('client.bookDetailPage.bookItemDetail.date')
 			}}</span>
-			<p class="seller-name text-center">
-				{{ item?.seller?.firstName }} {{ item?.seller?.lastName }}
-			</p>
-			<p class="seller-date text-center">
-				{{ d(item?.addedAt, 'short', 'fr-FR') }}
-			</p>
+
+			<div class="ms-md-2">
+				<p class="seller-name">
+					{{ item?.seller?.firstName }} {{ item?.seller?.lastName }}
+				</p>
+				<p class="seller-date">{{ d(item?.addedAt, 'short', 'fr-FR') }}</p>
+			</div>
 		</div>
-		<div class="col-12 col-md-2">
-			<span class="book-item-label text-center">{{
-				t('client.bookDetailPage.bookItemDetail.condition')
-			}}</span>
-			<p class="book-item-value text-center">
-				<span
-					:class="getConditionBadgeClass(item?.condition?.name)"
-					class="badge badge-condition"
-					>{{ item?.condition?.name }}</span
-				>
-			</p>
+		<div class="col-12 col-md-4">
+			<div class="row">
+				<div class="col">
+					<span class="book-item-label text-center">{{
+						t('client.bookDetailPage.bookItemDetail.condition')
+					}}</span>
+					<p class="book-item-value text-center">
+						<span
+							:class="getConditionBadgeClass(item?.condition?.name)"
+							class="badge badge-condition"
+							>{{ item?.condition?.name }}</span
+						>
+					</p>
+				</div>
+				<div class="col">
+					<div class="points-container text-center">
+						<span class="points">{{ item?.pointsPrice }}</span>
+						<span class="points-label">{{
+							t('client.bookDetailPage.bookItemDetail.pointsPrice')
+						}}</span>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<div class="col-12 col-md-2">
+		<!-- <div class="col-12 col-md-2">
 			<div class="points-container text-center">
 				<span class="points">{{ item?.pointsPrice }}</span>
 				<span class="points-label">{{
 					t('client.bookDetailPage.bookItemDetail.pointsPrice')
 				}}</span>
 			</div>
-		</div>
-
+		</div> -->
 		<div class="col-12 col-md-4">
 			<p class="book-item-description text-center">{{ item?.description }}</p>
 		</div>
