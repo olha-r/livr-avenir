@@ -63,63 +63,76 @@ const openBookModal = (book, listAuthor) => {
 				</caption>
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>
-							{{ t('admin.dashboard.table.isbn') }}
-						</th>
-						<th>
+						<th id="header-index">#</th>
+						<th id="header-isbn">{{ t('admin.dashboard.table.isbn') }}</th>
+						<th id="header-title">
 							{{ t('admin.dashboard.table.bookTitle') }}
 						</th>
-						<th>
-							{{ t('admin.dashboard.table.author') }}
-						</th>
-						<th>
+						<th id="header-author">{{ t('admin.dashboard.table.author') }}</th>
+						<th id="header-publisher">
 							{{ t('admin.dashboard.table.publisher') }}
 						</th>
-						<th>
+						<th id="header-category">
 							{{ t('admin.dashboard.table.category') }}
 						</th>
-						<th>
-							{{ t('admin.dashboard.table.image') }}
-						</th>
-						<th colspan="2">
+						<th id="header-image">{{ t('admin.dashboard.table.image') }}</th>
+						<th id="header-actions" colspan="2">
 							{{ t('admin.dashboard.table.actions') }}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="(item, index) in bookListForAdmin" :key="index">
-						<th @click="openBookModal(item.book, item.listAuthor)">
+						<td
+							headers="header-index"
+							@click="openBookModal(item.book, item.listAuthor)"
+						>
 							{{ index + 1 }}
-						</th>
-						<td @click="openBookModal(item.book, item.listAuthor)">
+						</td>
+						<td
+							headers="header-isbn"
+							@click="openBookModal(item.book, item.listAuthor)"
+						>
 							{{ item.book.isbn }}
 						</td>
-						<td @click="openBookModal(item.book, item.listAuthor)">
+						<td
+							headers="header-title"
+							@click="openBookModal(item.book, item.listAuthor)"
+						>
 							{{ item.book.title }}
 						</td>
-						<td @click="openBookModal(item.book, item.listAuthor)">
+						<td
+							headers="header-author"
+							@click="openBookModal(item.book, item.listAuthor)"
+						>
 							<span
 								v-for="(author, authorIndex) in item.listAuthor"
 								:key="authorIndex"
 							>
-								{{ author.firstName }}
-								{{ author.lastName }}
+								{{ author.firstName }} {{ author.lastName }}
 								<span v-if="authorIndex < item.listAuthor.length - 1"
-									>,
-									<br />
-								</span>
+									>,<br
+								/></span>
 							</span>
 						</td>
-						<td @click="openBookModal(item.book, item.listAuthor)">
+						<td
+							headers="header-publisher"
+							@click="openBookModal(item.book, item.listAuthor)"
+						>
 							{{ item.book.publisher.name }}
 						</td>
-						<td @click="openBookModal(item.book, item.listAuthor)">
+						<td
+							headers="header-category"
+							@click="openBookModal(item.book, item.listAuthor)"
+						>
 							<span class="badge text-bg-warning px-3 category-badge">{{
 								item.book.category.name
 							}}</span>
 						</td>
-						<td @click="openBookModal(item.book, item.listAuthor)">
+						<td
+							headers="header-image"
+							@click="openBookModal(item.book, item.listAuthor)"
+						>
 							<img
 								:src="
 									item.book.coverImageUrl
@@ -130,21 +143,18 @@ const openBookModal = (book, listAuthor) => {
 								class="book-image-admin-dashboard"
 							/>
 						</td>
-						<td>
+						<td headers="header-actions">
 							<RouterLink
-								:to="{
-									name: 'update-book',
-									params: { id: item.book.id }
-								}"
+								:to="{ name: 'update-book', params: { id: item.book.id } }"
 								title="Update book"
 							>
 								<i class="bi bi-pencil-square fs-4 me-2"></i>
 							</RouterLink>
 						</td>
-						<td>
+						<td headers="header-actions">
 							<a href="#" @click="remove(item.book.id)" class="mx-3">
-								<i class="bi bi-trash3 text-danger fs-4"></i
-							></a>
+								<i class="bi bi-trash3 text-danger fs-4"></i>
+							</a>
 						</td>
 					</tr>
 				</tbody>

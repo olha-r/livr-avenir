@@ -21,28 +21,34 @@ onMounted(async () => {
 				</caption>
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>{{ t('admin.manageUsers.firstName') }}</th>
-						<th>{{ t('admin.manageUsers.lastName') }}</th>
-						<th>{{ t('admin.manageUsers.email') }}</th>
-						<th>{{ t('admin.manageUsers.pointsNumber') }}</th>
-						<th>{{ t('admin.manageUsers.registrationDate') }}</th>
-						<th class="text-center">
+						<th id="header-index">#</th>
+						<th id="header-first-name">
+							{{ t('admin.manageUsers.firstName') }}
+						</th>
+						<th id="header-last-name">{{ t('admin.manageUsers.lastName') }}</th>
+						<th id="header-email">{{ t('admin.manageUsers.email') }}</th>
+						<th id="header-points-number">
+							{{ t('admin.manageUsers.pointsNumber') }}
+						</th>
+						<th id="header-registration-date">
+							{{ t('admin.manageUsers.registrationDate') }}
+						</th>
+						<th id="header-is-enabled" class="text-center">
 							{{ t('admin.manageUsers.isEnabled') }}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="(user, index) in user_list" :key="index">
-						<td>{{ index + 1 }}</td>
-						<td>{{ user.firstName }}</td>
-						<td>{{ user.lastName }}</td>
-						<td>{{ user.email }}</td>
-						<td>{{ user.pointsNumber }}</td>
-						<td>
+						<td headers="header-index">{{ index + 1 }}</td>
+						<td headers="header-first-name">{{ user.firstName }}</td>
+						<td headers="header-last-name">{{ user.lastName }}</td>
+						<td headers="header-email">{{ user.email }}</td>
+						<td headers="header-points-number">{{ user.pointsNumber }}</td>
+						<td headers="header-registration-date">
 							{{ d(user?.registrationDate, 'short', 'fr-FR') }}
 						</td>
-						<td class="text-center">
+						<td headers="header-is-enabled" class="text-center">
 							<i
 								:class="
 									user.isEnabled

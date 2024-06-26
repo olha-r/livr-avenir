@@ -104,10 +104,15 @@ a {
 .author,
 .custom-card,
 .card,
-.category-badge,
 .logout,
 .owner-message {
     color: var(--highlight-green-color);
+}
+
+.category-badge {
+    /* color: var(--light-green-color) !important; */
+    color: var(--main-bg-color) !important;
+    background-color: var(--highlight-orange-color) !important;
 }
 
 .custom-card {
@@ -208,9 +213,6 @@ h3 {
     color: var(--highlight-green-color) !important;
 }
 
-.category-badge {
-    background-color: var(--highlight-orange-color) !important;
-}
 
 .bg-danger {
     background-color: #CD5C5C !important;
@@ -520,4 +522,8 @@ h3 {
     border: 1px solid #ccc;
     border-radius: 8px;
     width: 400px;
+}
+
+caption {
+    display: none;
 }
