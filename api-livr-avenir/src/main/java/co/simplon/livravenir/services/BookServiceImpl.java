@@ -26,9 +26,6 @@ import co.simplon.livravenir.dtos.BookView;
 import co.simplon.livravenir.entities.Author;
 import co.simplon.livravenir.entities.Book;
 import co.simplon.livravenir.entities.BookAuthor;
-import co.simplon.livravenir.entities.Category;
-import co.simplon.livravenir.entities.Language;
-import co.simplon.livravenir.entities.Publisher;
 import co.simplon.livravenir.entities.User;
 import co.simplon.livravenir.repositories.AuthorRepository;
 import co.simplon.livravenir.repositories.BookAuthorsRepository;
@@ -88,26 +85,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void createBook(BookCreate inputs) {
 	// Create a new Book entity
-	Book entity = new Book();
-	entity.setIsbn(inputs.isbn());
-	entity.setTitle(inputs.title());
-	entity.setPublicationYear(inputs.publicationYear());
-	entity.setPageCount(inputs.pageCount());
-	entity.setSummary(inputs.summary());
-
-	Category category = categories
-		.getReferenceById(inputs.categoryId());
-	entity.setCategory(category);
-
-	Language language = languages
-		.getReferenceById(inputs.languageId());
-	entity.setLanguage(language);
-
-	Publisher publisher = publishers
-		.getReferenceById(inputs.publisher());
-	entity.setPublisher(publisher);
-	LocalDateTime now = LocalDateTime.now();
-	entity.setAddedAt(now);
+	Book entity = createBookEntity(inputs);
 	// Get authenticated user
 	User user = null;
 	Long authenticatedUserId = SecurityHelper
@@ -125,6 +103,24 @@ public class BookServiceImpl implements BookService {
 	// Save book entity
 	Book savedBook = books.save(entity);
 	addBookAuthors(inputs.authorList(), savedBook);
+    }
+
+    private Book createBookEntity(BookCreate inputs) {
+	Book entity = new Book();
+	entity.setIsbn(inputs.isbn());
+	entity.setTitle(inputs.title());
+	entity.setPublicationYear(inputs.publicationYear());
+	entity.setPageCount(inputs.pageCount());
+	entity.setSummary(inputs.summary());
+	entity.setCategory(categories
+		.getReferenceById(inputs.categoryId()));
+	entity.setLanguage(languages
+		.getReferenceById(inputs.languageId()));
+	entity.setPublisher(publishers
+		.getReferenceById(inputs.publisher()));
+	LocalDateTime now = LocalDateTime.now();
+	entity.setAddedAt(now);
+	return entity;
     }
 
     private void addBookAuthors(Set<Long> authorList,
@@ -147,14 +143,11 @@ public class BookServiceImpl implements BookService {
 	for (BookItem book : bookList) {
 	    Set<AuthorDetail> authorList = authors
 		    .retrieveBookAuthors(book.getId());
-
 	    BookItemView view = new BookItemView();
-
 	    view.setListAuthor(authorList);
 	    view.setBook(book);
 	    bookItemList.add(view);
 	}
-
 	return bookItemList;
     }
 
@@ -164,58 +157,53 @@ public class BookServiceImpl implements BookService {
 	Optional<Book> entityOptional = books.findById(id);
 	if (entityOptional.isPresent()) {
 	    Book entity = entityOptional.get();
-	    entity.setIsbn(inputs.isbn());
-	    entity.setTitle(inputs.title());
-	    entity.setPublicationYear(
-		    inputs.publicationYear());
-	    entity.setPageCount(inputs.pageCount());
-	    entity.setSummary(inputs.summary());
-
-	    Category category = categories
-		    .getReferenceById(inputs.categoryId());
-	    entity.setCategory(category);
-
-	    Language language = languages
-		    .getReferenceById(inputs.languageId());
-	    entity.setLanguage(language);
-
-	    Publisher publisher = publishers
-		    .getReferenceById(inputs.publisher());
-	    entity.setPublisher(publisher);
-
-	    MultipartFile file = inputs.coverImageUrl();
-	    if (file != null) {
-		String original = entity.getCoverImageUrl();
-		String baseName = UUID.randomUUID()
-			.toString();
-		String newFullName = storage.replace(file,
-			baseName, original);
-		entity.setCoverImageUrl(newFullName);
-	    }
-
-	    Set<Long> existingAuthorIdList = authors
-		    .retrieveBookAuthorsId(entity.getId());
-	    Set<Long> authorIdInputs = inputs.authorList();
-	    for (Long existingAuthorId : existingAuthorIdList) {
-		if (!authorIdInputs
-			.contains(existingAuthorId)) {
-		    bookAuthorsRepo
-			    .deleteBookAuthorsByAuthorId(
-				    existingAuthorId);
-		}
-	    }
-	    for (Long authorId : authorIdInputs) {
-		if (!existingAuthorIdList
-			.contains(authorId)) {
-		    Author author = authors
-			    .getReferenceById(authorId);
-		    BookAuthor bookAuthorsEntity = new BookAuthor();
-		    bookAuthorsEntity.setAuthor(author);
-		    bookAuthorsEntity.setBook(entity);
-		    bookAuthorsRepo.save(bookAuthorsEntity);
-		}
-	    }
+	    updateBookEntity(entity, inputs);
+	    updateBookAuthors(entity, inputs.authorList());
 	}
+    }
+
+    private void updateBookEntity(Book entity,
+	    BookUpdate inputs) {
+	entity.setIsbn(inputs.isbn());
+	entity.setTitle(inputs.title());
+	entity.setPublicationYear(inputs.publicationYear());
+	entity.setPageCount(inputs.pageCount());
+	entity.setSummary(inputs.summary());
+	entity.setCategory(categories
+		.getReferenceById(inputs.categoryId()));
+	entity.setLanguage(languages
+		.getReferenceById(inputs.languageId()));
+	entity.setPublisher(publishers
+		.getReferenceById(inputs.publisher()));
+	if (inputs.coverImageUrl() != null) {
+	    entity.setCoverImageUrl(
+		    storage.replace(inputs.coverImageUrl(),
+			    UUID.randomUUID().toString(),
+			    entity.getCoverImageUrl()));
+	}
+    }
+
+    private void updateBookAuthors(Book entity,
+	    Set<Long> authorIdInputs) {
+	Set<Long> existingAuthorIdList = authors
+		.retrieveBookAuthorsId(entity.getId());
+	existingAuthorIdList.forEach(existingAuthorId -> {
+	    if (!authorIdInputs
+		    .contains(existingAuthorId)) {
+		bookAuthorsRepo.deleteBookAuthorsByAuthorId(
+			existingAuthorId);
+	    }
+	});
+	authorIdInputs.forEach(authorId -> {
+	    if (!existingAuthorIdList.contains(authorId)) {
+		Author author = authors
+			.getReferenceById(authorId);
+		BookAuthor bookAuthorsEntity = new BookAuthor();
+		bookAuthorsEntity.setAuthor(author);
+		bookAuthorsEntity.setBook(entity);
+		bookAuthorsRepo.save(bookAuthorsEntity);
+	    }
+	});
     }
 
     @Transactional
