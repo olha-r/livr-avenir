@@ -76,7 +76,8 @@ public class SecurityConfig {
 				"/categories", "/languages",
 				"/authors", "/publishers",
 				"/books/admin",
-				"/books/{id}/for-update")
+				"/books/{id}/for-update",
+				"/users")
 			.hasAuthority(ADMIN)
 			.requestMatchers(HttpMethod.GET,
 				"/conditions",

@@ -50,18 +50,6 @@ onMounted(async () => {
 			>
 				{{ t('client.profile.section.offeredBooks.label') }}
 			</a>
-			<!-- <a
-                class="btn btn-outline-primary m-1 p-4"
-                :class="activeClass('orderedBooks')"
-                @click="toggleSection('orderedBooks')"
-                >Livres commandées</a
-            >
-            <a
-                class="btn btn-outline-primary m-1 p-4"
-                :class="activeClass('sentBooks')"
-                @click="toggleSection('sentBooks')"
-                >Livres envoyées</a
-            > -->
 			<a
 				class="btn btn-outline-primary m-1 p-4"
 				:class="activeClass('pointsNumber')"
@@ -87,17 +75,6 @@ onMounted(async () => {
 		<div v-if="showStates.offeredBooks">
 			<OfferedBooksSection :offeredBookList="items_by_user" />
 		</div>
-
-		<!-- <div v-if="showStates.orderedBooks">
-            <h6>Livres commandées</h6>
-            <p>Pas d'info</p>
-        </div>
-
-        <div v-if="showStates.sentBooks">
-            <h6>Livres envoyées</h6>
-            <p>Pas d'info</p>
-        </div> -->
-
 		<div
 			v-if="showStates.pointsNumber"
 			class="d-flex justify-content-center text-center"

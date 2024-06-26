@@ -1,9 +1,12 @@
 package co.simplon.livravenir.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.livravenir.configuration.SecurityHelper;
+import co.simplon.livravenir.dtos.UserDetails;
 import co.simplon.livravenir.dtos.UserProfile;
 import co.simplon.livravenir.repositories.UserRepository;
 
@@ -26,6 +29,13 @@ public class UserServiceImpl implements UserService {
 	    user = users.getUserById(authenticatedUserId);
 	}
 	return user;
+    }
+
+    @Override
+    public List<UserDetails> getAllUsers() {
+	return users
+		.findAllUsersByRoleNameOrderByRegistrationDate(
+			"USER");
     }
 
 }

@@ -31,7 +31,6 @@ const publisherRules = computed(() => {
 			required: helpers.withMessage(requiredMessage, required),
 			minLength: helpers.withMessage(
 				`${t('client.validationMessages.minLengthDescription')}`,
-
 				minLength(1)
 			),
 			maxLength: helpers.withMessage(
@@ -50,7 +49,7 @@ const addPublisher = async () => {
 		if (resp.status === 204) {
 			emit('onAdd', true);
 			pageStore.alert.type = 'success';
-			pageStore.alert.message = t('admin.addAuthorForm.successMessage');
+			pageStore.alert.message = t('admin.addPublisherForm.successMessage');
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;
@@ -58,7 +57,7 @@ const addPublisher = async () => {
 			closeModal();
 		} else {
 			pageStore.alert.type = 'error';
-			pageStore.alert.message = t('client.addAuthorForm.errorMessage');
+			pageStore.alert.message = t('client.addPublisherForm.errorMessage');
 			pageStore.alert.show = true;
 			setTimeout(() => {
 				pageStore.alert.show = false;
@@ -85,7 +84,7 @@ const closeModal = () => {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						{{ t('admin.addAuthorForm.titleCreate') }}
+						{{ t('admin.addPublisherForm.titleCreate') }}
 					</h5>
 					<button type="button" class="btn-close" @click="closeModal"></button>
 				</div>
@@ -93,7 +92,7 @@ const closeModal = () => {
 					<div class="modal-body">
 						<div class="mb-3">
 							<label for="name" class="form-label required">{{
-								t('admin.addAuthorForm.firstName')
+								t('admin.addPublisherForm.name')
 							}}</label>
 							<input
 								v-model="publisherInputs.name"
@@ -107,7 +106,7 @@ const closeModal = () => {
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">
-							{{ t('admin.addAuthorForm.buttonCreate') }}
+							{{ t('admin.addPublisherForm.buttonCreate') }}
 						</button>
 						<button type="button" class="btn btn-secondary" @click="closeModal">
 							{{ t('admin.dashboard.bookInfo.closeModal') }}

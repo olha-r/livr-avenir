@@ -55,6 +55,21 @@ const frMessages = {
 			successMessage: 'Auteur a été ajouté avec succès.',
 			errorMessage: "Nous n'avons pas pu ajouté cet auteur."
 		},
+		addPublisherForm: {
+			titleCreate: 'Ajouter un nouvel éditeur',
+			name: 'Nom',
+			buttonCreate: 'Ajouter',
+			successMessage: "L'éditeur a été ajouté avec succès.",
+			errorMessage: "Nous n'avons pas pu ajouter cet éditeur."
+		},
+		manageUsers: {
+			firstName: 'Prénom',
+			lastName: 'Nom',
+			email: 'Email',
+			pointsNumber: 'Nombre de points',
+			registrationDate: "Date d'inscription",
+			isEnabled: 'Email confirmé'
+		},
 		dashboard: {
 			title: 'Livres disponibles',
 			addBookBtn: 'Ajouter un livre',

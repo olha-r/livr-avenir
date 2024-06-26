@@ -143,8 +143,6 @@ public class BookServiceImpl implements BookService {
     public List<BookItemView> getAllBooks() {
 	List<BookItem> bookList = books
 		.findAllBooksByOrderByAddedAtDesc();
-	bookList.forEach(book -> System.out
-		.println(book.getAddedAt()));
 	List<BookItemView> bookItemList = new ArrayList<>();
 	for (BookItem book : bookList) {
 	    Set<AuthorDetail> authorList = authors

@@ -93,7 +93,7 @@ const rules = computed(() => {
 const v$ = useValidate(rules, user);
 const pageStore = usePageStore();
 const onSubmit = async () => {
-	const resp = await v$.value.$validate();
+	await v$.value.$validate();
 	if (!v$.value.$error) {
 		delete user.confirmPassword;
 		const resp = await authStore.register(user);

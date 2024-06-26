@@ -3,9 +3,7 @@ import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useBookStore } from '@/stores/book-store';
-import { useAuthStore } from '@/stores/auth-store';
 import { usePageStore } from '@/stores/page-store';
-import SearchComponent from '@/components/commons/SearchComponent.vue';
 
 const { t } = useI18n();
 const bookStore = useBookStore();
@@ -13,30 +11,27 @@ const { bookListForAdmin } = storeToRefs(bookStore);
 onMounted(() => {
 	bookStore.get_book_list_admin();
 });
-const authStore = useAuthStore();
-const { token } = authStore;
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 const pageStore = usePageStore();
 const remove = async (id) => {
-	const resp = await bookStore.delete_book(id, token);
+	const resp = await bookStore.delete_book(id);
 	if (resp.status === 204) {
-		bookStore.get_book_list_admin();
 		pageStore.alert.type = 'success';
 		pageStore.alert.message = `${t(
 			'admin.dashboard.deleteBook.successMessage'
 		)}`;
 		pageStore.alert.show = true;
+		await bookStore.get_book_list_admin();
 		setTimeout(() => {
 			pageStore.alert.show = false;
-		}, 6000); // Redirect after 3 seconds
+		}, 6000);
 	} else {
 		pageStore.alert.type = 'error';
 		pageStore.alert.message = `${t('admin.dashboard.deleteBook.errorMessage')}`;
 		pageStore.alert.show = true;
-		console.error(`Nous n'avons pas pu supprimer le livre.`);
 		setTimeout(() => {
 			pageStore.alert.show = false;
-		}, 6000); // Redirect after 3 seconds
+		}, 6000);
 	}
 };
 let selectedBook = ref(null);

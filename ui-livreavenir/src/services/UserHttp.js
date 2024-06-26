@@ -6,4 +6,9 @@ export class UserHttp {
 		const response = await http.get(url);
 		return response;
 	}
+	async get_all_users() {
+		const url = `/users`;
+		const response = await http.get(url);
+		return response;
+	}
 }

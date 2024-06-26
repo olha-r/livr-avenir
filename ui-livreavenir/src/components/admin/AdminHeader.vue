@@ -26,13 +26,11 @@ const logout = () => {
 								t('navbarAdmin.bookItem')
 							}}</RouterLink>
 						</li>
-						<!-- <li class="nav-item">
-                                <RouterLink
-                                class="nav-link"
-                                :to="{ name: 'manage-users' }"
-                                >{{ t("navbarAdmin.userItem") }}</RouterLink
-                                >
-                            </li> -->
+						<li class="nav-item">
+							<RouterLink class="nav-link" :to="{ name: 'manage-users' }">{{
+								t('navbarAdmin.userItem')
+							}}</RouterLink>
+						</li>
 					</ul>
 				</div>
 				<div class="navbar-text me-5 navbar-hello" v-if="isLoggedIn">

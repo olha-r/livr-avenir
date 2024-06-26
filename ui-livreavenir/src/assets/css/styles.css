@@ -162,10 +162,7 @@ h3 {
     border-radius: 10px;
 }
 
-.book-owner {
-    background-color: var(--light-orange-color);
-    border-radius: 10px;
-}
+
 
 .avatar {
     height: auto;
@@ -376,7 +373,6 @@ h3 {
 	border-top: 1px solid #dee2e6;
 }
 
-
 .book-owner {
 	background-color: var(--light-orange-color);
 	border-radius: 10px;
@@ -535,4 +531,8 @@ h3 {
     color: var(--dark-green-color);
     background-color: var(--main-bg-color);
    
+}
+
+.table-responsive {
+	overflow-x: auto;
 }
