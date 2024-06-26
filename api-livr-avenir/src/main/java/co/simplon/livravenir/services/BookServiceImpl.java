@@ -93,7 +93,7 @@ public class BookServiceImpl implements BookService {
 	entity.setTitle(inputs.title());
 	entity.setPublicationYear(inputs.publicationYear());
 	entity.setPageCount(inputs.pageCount());
-	entity.setSummary(inputs.pageCount());
+	entity.setSummary(inputs.summary());
 
 	Category category = categories
 		.getReferenceById(inputs.categoryId());
