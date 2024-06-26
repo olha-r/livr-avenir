@@ -15,7 +15,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['onAdd', 'onClose']);
-
 const authorInputs = reactive({
 	firstName: '',
 	lastName: ''
@@ -23,59 +22,44 @@ const authorInputs = reactive({
 
 const authorStore = useAuthorStore();
 const pageStore = usePageStore();
-
 const { t } = useI18n();
-const requiredMessage = `${t('admin.validationMessages.required')}`;
-const authorRules = computed(() => {
-	return {
-		firstName: {
-			required: helpers.withMessage(requiredMessage, required),
-			minLength: helpers.withMessage(
-				`${t('client.validationMessages.minLengthDescription')}`,
 
-				minLength(1)
-			),
-			maxLength: helpers.withMessage(
-				`${t('client.validationMessages.maxLengthDescription')}`,
-				maxLength(150)
-			)
-		},
-		lastName: {
-			required: helpers.withMessage(requiredMessage, required),
-			minLength: helpers.withMessage(
-				`${t('client.validationMessages.minLengthDescription')}`,
+const requiredMessage = t('admin.validationMessages.required');
+const minLengthMessage = t('client.validationMessages.minLengthDescription');
+const maxLengthMessage = t('client.validationMessages.maxLengthDescription');
 
-				minLength(1)
-			),
-			maxLength: helpers.withMessage(
-				`${t('client.validationMessages.maxLengthDescription')}`,
-				maxLength(150)
-			)
-		}
-	};
+const createValidationRules = (field) => ({
+	required: helpers.withMessage(requiredMessage, required),
+	minLength: helpers.withMessage(minLengthMessage, minLength(1)),
+	maxLength: helpers.withMessage(maxLengthMessage, maxLength(150))
 });
 
+const authorRules = computed(() => ({
+	firstName: createValidationRules('firstName'),
+	lastName: createValidationRules('lastName')
+}));
+
 const authorValidation = useVuelidate(authorRules, authorInputs);
+
+const showAlert = (type, message) => {
+	pageStore.alert.type = type;
+	pageStore.alert.message = message;
+	pageStore.alert.show = true;
+	setTimeout(() => {
+		pageStore.alert.show = false;
+	}, 5000);
+};
+
 const addAuthor = async () => {
 	await authorValidation.value.$validate();
 	if (!authorValidation.value.$error) {
 		const resp = await authorStore.add_new_author(authorInputs);
 		if (resp.status === 204) {
 			emit('onAdd', true);
-			pageStore.alert.type = 'success';
-			pageStore.alert.message = t('admin.addAuthorForm.successMessage');
-			pageStore.alert.show = true;
-			setTimeout(() => {
-				pageStore.alert.show = false;
-			}, 5000);
+			showAlert('success', t('admin.addAuthorForm.successMessage'));
 			closeModal();
 		} else {
-			pageStore.alert.type = 'error';
-			pageStore.alert.message = t('client.addAuthorForm.errorMessage');
-			pageStore.alert.show = true;
-			setTimeout(() => {
-				pageStore.alert.show = false;
-			}, 3000);
+			showAlert('error', t('client.addAuthorForm.errorMessage'));
 		}
 	}
 };
