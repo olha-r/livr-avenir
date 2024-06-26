@@ -1,5 +1,4 @@
 <script setup>
-import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import HeaderComponent from '../components/commons/HeaderComponent.vue';
 import NotificationComponent from '../components/commons/NotificationComponent.vue';

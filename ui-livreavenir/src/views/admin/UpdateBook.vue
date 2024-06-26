@@ -421,7 +421,7 @@ const addPublisherToList = async (status) => {
 							<img
 								v-if="image && !newImage"
 								:src="baseUrl + image"
-								alt="Selected Image"
+								:alt="`Couverture de  ${inputs?.title}`"
 								class="image-update"
 							/>
 						</div>
