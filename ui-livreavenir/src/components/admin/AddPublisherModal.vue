@@ -32,7 +32,7 @@ const maxLengthMessage = `${t(
 
 const createValidationRules = (field) => ({
 	required: helpers.withMessage(requiredMessage, required),
-	minLength: helpers.withMessage(minLengthMessage, minLength(1)),
+	minLength: helpers.withMessage(minLengthMessage, minLength(2)),
 	maxLength: helpers.withMessage(maxLengthMessage, maxLength(150))
 });
 

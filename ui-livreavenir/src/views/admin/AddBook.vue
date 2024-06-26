@@ -13,7 +13,6 @@ import {
 	helpers
 } from '@vuelidate/validators';
 import { useBookStore } from '@/stores/book-store';
-import { useAuthStore } from '@/stores/auth-store';
 import { usePageStore } from '@/stores/page-store';
 import { usePublisherStore } from '@/stores/publisher-store';
 import { useLanguageStore } from '@/stores/language-store';
@@ -145,8 +144,6 @@ onMounted(async () => {
 	await categoryStore.get_list_categories();
 	await publisherStore.get_publisher_list();
 });
-const authStore = useAuthStore();
-const { token } = authStore;
 const bookStore = useBookStore();
 const router = useRouter();
 const pageStore = usePageStore();
@@ -165,7 +162,7 @@ const add_new_book = async () => {
 		formData.append('languageId', inputs.languageId);
 		formData.append('authorList', inputs.authorList);
 		formData.append('coverImageUrl', inputs.coverImageUrl);
-		const resp = await bookStore.add_new_book(formData, token);
+		const resp = await bookStore.add_new_book(formData);
 
 		if (resp.status === 204) {
 			pageStore.alert.type = 'success';

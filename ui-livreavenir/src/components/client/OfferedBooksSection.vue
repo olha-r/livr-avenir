@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 import { useBookItemStore } from '@/stores/book-item-store';
-import { useAuthStore } from '@/stores/auth-store';
 import { usePageStore } from '@/stores/page-store';
 import UpdateItemForm from '@/components/client/UpdateItemForm.vue';
 import { useI18n } from 'vue-i18n';
@@ -9,12 +8,10 @@ const { d } = useI18n();
 const { t } = useI18n();
 const props = defineProps(['offeredBookList']);
 const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
-const authStore = useAuthStore();
 const pageStore = usePageStore();
-const { token } = authStore;
 const bookItemStore = useBookItemStore();
 const remove = async (id) => {
-	const resp = await bookItemStore.delete_item(id, token);
+	const resp = await bookItemStore.delete_item(id);
 	if (resp.status === 204) {
 		pageStore.alert.type = 'success';
 		pageStore.alert.message = `${t(

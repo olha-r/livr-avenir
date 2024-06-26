@@ -2,7 +2,6 @@
 import { reactive, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePageStore } from '@/stores/page-store';
-import { useAuthStore } from '@/stores/auth-store';
 import { useBookItemStore } from '@/stores/book-item-store';
 import { useConditionStore } from '@/stores/condition-store';
 import LabelValues from '../../components/commons/LabelValues.vue';
@@ -18,11 +17,9 @@ import {
 } from '@vuelidate/validators';
 
 const pageStore = usePageStore();
-const authStore = useAuthStore();
 const conditionStore = useConditionStore();
 const bookItemStore = useBookItemStore();
 
-const { token } = storeToRefs(authStore);
 const { list_conditions } = storeToRefs(conditionStore);
 
 const props = defineProps(['item', 'exitEditMode']);
@@ -85,11 +82,7 @@ const showAlert = (type, message) => {
 const update_item = async () => {
 	await v$.value.$validate();
 	if (!v$.value.$error) {
-		const resp = await bookItemStore.update_item(
-			props.item.id,
-			inputs,
-			token.value
-		);
+		const resp = await bookItemStore.update_item(props.item.id, inputs);
 		if (resp.status === 204) {
 			props.exitEditMode();
 			showAlert('success', `${t('client.updateItem.successMessage')}`);

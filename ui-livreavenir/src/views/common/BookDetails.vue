@@ -25,7 +25,7 @@ const bookStore = useBookStore();
 const bookItemStore = useBookItemStore();
 const { book_details } = storeToRefs(bookStore);
 const authStore = useAuthStore();
-const { token, isLoggedIn } = storeToRefs(authStore);
+const { isLoggedIn } = storeToRefs(authStore);
 const route = useRoute();
 const router = useRouter();
 const book_id = route.params.id;
@@ -128,7 +128,7 @@ const pageStore = usePageStore();
 const add_new_book_item = async () => {
 	await v$.value.$validate();
 	if (!v$.value.$error) {
-		const resp = await bookItemStore.add_new_book_item(inputs, token);
+		const resp = await bookItemStore.add_new_book_item(inputs);
 		if (resp.status === 204) {
 			pageStore.alert.type = 'success';
 			pageStore.alert.message = `${t('client.createItem.successMessage')}`;

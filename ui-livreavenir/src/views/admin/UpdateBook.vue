@@ -16,7 +16,6 @@ import { usePageStore } from '@/stores/page-store';
 import { usePublisherStore } from '@/stores/publisher-store';
 import { useLanguageStore } from '@/stores/language-store';
 import { useCategoryStore } from '@/stores/category-store';
-import { useAuthStore } from '@/stores/auth-store';
 import LabelValues from '@/components/commons/LabelValues.vue';
 import ValidationMessage from '@/components/commons/ValidationMessage.vue';
 import SearchMultiSelect from '@/components/commons/SearchMultiSelect.vue';
@@ -155,8 +154,6 @@ onMounted(async () => {
 	await categoryStore.get_list_categories();
 	await publisherStore.get_publisher_list();
 });
-const authStore = useAuthStore();
-const { token } = authStore;
 const update_book = async () => {
 	await v$.value.$validate();
 	if (!v$.value.$error) {
@@ -173,7 +170,7 @@ const update_book = async () => {
 		if (inputs.coverImageUrl != null) {
 			formData.append('coverImageUrl', inputs.coverImageUrl);
 		}
-		const resp = await bookStore.update_book(bookId.value, formData, token);
+		const resp = await bookStore.update_book(bookId.value, formData);
 
 		if (resp.status === 204) {
 			pageStore.alert.type = 'success';
