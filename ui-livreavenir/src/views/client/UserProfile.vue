@@ -62,7 +62,7 @@ onMounted(async () => {
 			v-if="showStates.userInfo"
 			class="d-flex justify-content-center text-center"
 		>
-			<div class="card p-4">
+			<div class="card p-4 card-profile">
 				<h6>{{ t('client.profile.section.userInfo.email') }}</h6>
 				<p>{{ user_profile?.email }}</p>
 				<h6>{{ t('client.profile.section.userInfo.fullName') }}</h6>
@@ -88,14 +88,3 @@ onMounted(async () => {
 		</div>
 	</main>
 </template>
-<style scoped>
-.card {
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	width: 400px;
-}
-
-.text-success {
-	color: green;
-}
-</style>

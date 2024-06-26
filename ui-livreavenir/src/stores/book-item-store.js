@@ -32,9 +32,6 @@ export const useBookItemStore = defineStore('book-item-store', {
 		async delete_item(item_id) {
 			const bookItemHttp = new BookItemHttp();
 			const promise = await bookItemHttp.delete_item(item_id);
-			// if(promise.status== 204){
-			//     this.get_book_list_admin();
-			// }
 			return promise;
 		},
 		async update_item(item_id, payload) {

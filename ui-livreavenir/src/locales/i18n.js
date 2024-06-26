@@ -10,7 +10,6 @@ const i18n = createI18n({
 		fr: frMessages
 	},
 	datetimeFormats
-	// numberFormats
 });
 
 export default i18n;

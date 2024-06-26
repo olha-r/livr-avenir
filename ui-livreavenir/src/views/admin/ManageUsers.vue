@@ -16,30 +16,33 @@ onMounted(async () => {
 		<h3 class="text-center my-4">Gestion des utilisateurs</h3>
 		<div class="table-responsive">
 			<table class="table table-striped table-hover align-middle">
+				<caption>
+					Manage users
+				</caption>
 				<thead>
 					<tr>
-						<th scope="col">#</th>
-						<th scope="col">{{ t('admin.manageUsers.firstName') }}</th>
-						<th scope="col">{{ t('admin.manageUsers.lastName') }}</th>
-						<th scope="col">{{ t('admin.manageUsers.email') }}</th>
-						<th scope="col">{{ t('admin.manageUsers.pointsNumber') }}</th>
-						<th scope="col">{{ t('admin.manageUsers.registrationDate') }}</th>
-						<th scope="col" class="text-center">
+						<th>#</th>
+						<th>{{ t('admin.manageUsers.firstName') }}</th>
+						<th>{{ t('admin.manageUsers.lastName') }}</th>
+						<th>{{ t('admin.manageUsers.email') }}</th>
+						<th>{{ t('admin.manageUsers.pointsNumber') }}</th>
+						<th>{{ t('admin.manageUsers.registrationDate') }}</th>
+						<th class="text-center">
 							{{ t('admin.manageUsers.isEnabled') }}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="(user, index) in user_list" :key="index">
-						<td scope="row">{{ index + 1 }}</td>
-						<td scope="row">{{ user.firstName }}</td>
-						<td scope="row">{{ user.lastName }}</td>
-						<td scope="row">{{ user.email }}</td>
-						<td scope="row">{{ user.pointsNumber }}</td>
-						<td scope="row">
+						<td>{{ index + 1 }}</td>
+						<td>{{ user.firstName }}</td>
+						<td>{{ user.lastName }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.pointsNumber }}</td>
+						<td>
 							{{ d(user?.registrationDate, 'short', 'fr-FR') }}
 						</td>
-						<td scope="row" class="text-center">
+						<td class="text-center">
 							<i
 								:class="
 									user.isEnabled
@@ -54,9 +57,3 @@ onMounted(async () => {
 		</div>
 	</div>
 </template>
-
-<style scoped>
-.table-responsive {
-	overflow-x: auto;
-}
-</style>

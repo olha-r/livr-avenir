@@ -76,15 +76,6 @@ const getConditionBadgeClass = (condition) => {
 				</div>
 			</div>
 		</div>
-
-		<!-- <div class="col-12 col-md-2">
-			<div class="points-container text-center">
-				<span class="points">{{ item?.pointsPrice }}</span>
-				<span class="points-label">{{
-					t('client.bookDetailPage.bookItemDetail.pointsPrice')
-				}}</span>
-			</div>
-		</div> -->
 		<div class="col-12 col-md-4">
 			<p class="book-item-description text-center">{{ item?.description }}</p>
 		</div>

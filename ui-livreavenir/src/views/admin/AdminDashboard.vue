@@ -58,35 +58,38 @@ const openBookModal = (book, listAuthor) => {
 		</div>
 		<div class="table-responsive">
 			<table class="table table-hover align-middle">
+				<caption>
+					Manage books
+				</caption>
 				<thead>
 					<tr>
-						<th scope="col">#</th>
-						<th scope="col">
+						<th>#</th>
+						<th>
 							{{ t('admin.dashboard.table.isbn') }}
 						</th>
-						<th scope="col">
+						<th>
 							{{ t('admin.dashboard.table.bookTitle') }}
 						</th>
-						<th scope="col">
+						<th>
 							{{ t('admin.dashboard.table.author') }}
 						</th>
-						<th scope="col">
+						<th>
 							{{ t('admin.dashboard.table.publisher') }}
 						</th>
-						<th scope="col">
+						<th>
 							{{ t('admin.dashboard.table.category') }}
 						</th>
-						<th scope="col">
+						<th>
 							{{ t('admin.dashboard.table.image') }}
 						</th>
-						<th scope="col" colspan="2">
+						<th colspan="2">
 							{{ t('admin.dashboard.table.actions') }}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="(item, index) in bookListForAdmin" :key="index">
-						<th scope="row" @click="openBookModal(item.book, item.listAuthor)">
+						<th @click="openBookModal(item.book, item.listAuthor)">
 							{{ index + 1 }}
 						</th>
 						<td @click="openBookModal(item.book, item.listAuthor)">
@@ -124,7 +127,7 @@ const openBookModal = (book, listAuthor) => {
 										: baseUrl + 'default-image.jpg'
 								"
 								alt="Cover Image"
-								style="width: auto; height: 120px"
+								class="book-image-admin-dashboard"
 							/>
 						</td>
 						<td>

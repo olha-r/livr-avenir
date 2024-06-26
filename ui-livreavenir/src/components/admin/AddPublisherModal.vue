@@ -74,12 +74,7 @@ const closeModal = () => {
 </script>
 
 <template>
-	<div
-		v-if="show"
-		class="modal author-modal"
-		tabindex="-1"
-		style="display: block"
-	>
+	<div v-if="show" class="modal author-modal" tabindex="-1">
 		<div class="modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
