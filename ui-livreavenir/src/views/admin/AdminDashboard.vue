@@ -139,7 +139,7 @@ const openBookModal = (book, listAuthor) => {
 										? baseUrl + item.book.coverImageUrl
 										: baseUrl + 'default-image.jpg'
 								"
-								alt="Cover Image"
+								:alt="`Couverture de  ${item?.book?.title}`"
 								class="book-image-admin-dashboard"
 							/>
 						</td>

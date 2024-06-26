@@ -107,7 +107,7 @@ const exitEditMode = () => {
 									? baseUrl + item?.book?.coverImageUrl
 									: baseUrl + 'default-image.jpg'
 							"
-							alt="Book Cover"
+							:alt="`Couverture de  ${item?.book?.title}`"
 							class="img-fluid img-book-cover offered-book"
 						/>
 					</div>

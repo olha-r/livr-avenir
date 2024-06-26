@@ -186,7 +186,7 @@ const add_new_book_item = async () => {
 								? baseUrl + book_details?.book?.coverImageUrl
 								: baseUrl + 'default-image.jpg'
 						"
-						alt="Cover Image"
+						:alt="`Couverture de  ${book_details?.book?.title}`"
 						class="img-fluid"
 					/>
 				</div>

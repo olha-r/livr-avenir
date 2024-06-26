@@ -25,7 +25,11 @@ const removeItem = () => {
 	<div class="cart-item d-flex flex-column p-2">
 		<div class="d-flex align-items-center mb-2">
 			<div class="book-image-cart">
-				<img :src="imageUrl" alt="Cover Image" class="img-fluid" />
+				<img
+					:src="imageUrl"
+					:alt="`Couverture de  ${item?.book?.title}`"
+					class="img-fluid"
+				/>
 			</div>
 			<div class="item-details ms-3 flex-grow-1">
 				<p class="mb-1">{{ item.book.title }}</p>

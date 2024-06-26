@@ -46,7 +46,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 										: baseUrl + 'default-image.jpg'
 								"
 								class="card-img-bottom"
-								alt="Cover Image"
+								:alt="`Couverture de  ${item?.book?.title}`"
 							/>
 						</div>
 						<div class="card-body d-flex flex-column justify-content-between">
