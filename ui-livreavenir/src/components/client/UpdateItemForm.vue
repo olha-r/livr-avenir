@@ -4,8 +4,9 @@ import { storeToRefs } from 'pinia';
 import { usePageStore } from '@/stores/page-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { useBookItemStore } from '@/stores/book-item-store';
-import LabelValues from '../../components/commons/LabelValues.vue';
 import { useConditionStore } from '@/stores/condition-store';
+import LabelValues from '../../components/commons/LabelValues.vue';
+import ValidationMessage from '@/components/commons/ValidationMessage.vue';
 import { useVuelidate } from '@vuelidate/core';
 import { useI18n } from 'vue-i18n';
 import {
@@ -15,102 +16,90 @@ import {
 	numeric,
 	helpers
 } from '@vuelidate/validators';
-import ValidationMessage from '@/components/commons/ValidationMessage.vue';
+
 const pageStore = usePageStore();
 const authStore = useAuthStore();
+const conditionStore = useConditionStore();
+const bookItemStore = useBookItemStore();
+
 const { token } = storeToRefs(authStore);
+const { list_conditions } = storeToRefs(conditionStore);
+
 const props = defineProps(['item', 'exitEditMode']);
+
 const inputs = reactive({
 	description: null,
 	conditionId: null,
 	pointsPrice: null
 });
+
 const { t } = useI18n();
 const requiredMessage = `${t('admin.validationMessages.required')}`;
-const rules = computed(() => {
-	return {
-		pointsPrice: {
-			required: helpers.withMessage(requiredMessage, required),
-			numeric: helpers.withMessage(
-				`${t('admin.validationMessages.numeric')}`,
-				numeric
-			)
-		},
-		description: {
-			required: helpers.withMessage(requiredMessage, required),
-			minLength: helpers.withMessage(
-				`${t('client.validationMessages.minLengthDescription')}`,
 
-				minLength(10)
-			),
-			maxLength: helpers.withMessage(
-				`${t('client.validationMessages.maxLengthDescription')}`,
-				maxLength(150)
-			)
-		},
-		conditionId: {
-			required: helpers.withMessage(requiredMessage, required)
-		}
-	};
-});
+const rules = computed(() => ({
+	pointsPrice: {
+		required: helpers.withMessage(requiredMessage, required),
+		numeric: helpers.withMessage(
+			`${t('admin.validationMessages.numeric')}`,
+			numeric
+		)
+	},
+	description: {
+		required: helpers.withMessage(requiredMessage, required),
+		minLength: helpers.withMessage(
+			`${t('client.validationMessages.minLengthDescription')}`,
+			minLength(10)
+		),
+		maxLength: helpers.withMessage(
+			`${t('client.validationMessages.maxLengthDescription')}`,
+			maxLength(150)
+		)
+	},
+	conditionId: {
+		required: helpers.withMessage(requiredMessage, required)
+	}
+}));
+
 const v$ = useVuelidate(rules, inputs);
-const conditionStore = useConditionStore();
-const { list_conditions } = storeToRefs(conditionStore);
+
 onMounted(async () => {
-	inputs.description = props.item.description || null;
-	inputs.conditionId = props.item.condition.id || null;
-	inputs.pointsPrice = props.item.pointsPrice || null;
+	Object.assign(inputs, {
+		description: props.item.description || null,
+		conditionId: props.item.condition.id || null,
+		pointsPrice: props.item.pointsPrice || null
+	});
 	await conditionStore.get_list_conditions();
 });
-const pointsPriceOptions = [
-	{
-		id: 1,
-		name: 1
-	},
-	{
-		id: 2,
-		name: 2
-	},
-	{
-		id: 3,
-		name: 3
-	},
-	{
-		id: 4,
-		name: 4
-	},
-	{
-		id: 5,
-		name: 5
-	}
-];
-const bookItemStore = useBookItemStore();
+
+const pointsPriceOptions = [1, 2, 3, 4, 5].map((id) => ({ id, name: id }));
+
+const showAlert = (type, message) => {
+	pageStore.alert.type = type;
+	pageStore.alert.message = message;
+	pageStore.alert.show = true;
+	setTimeout(() => {
+		pageStore.alert.show = false;
+	}, 5000);
+};
+
 const update_item = async () => {
 	await v$.value.$validate();
-
 	if (!v$.value.$error) {
-		const resp = await bookItemStore.update_item(props.item.id, inputs, token);
-
+		const resp = await bookItemStore.update_item(
+			props.item.id,
+			inputs,
+			token.value
+		);
 		if (resp.status === 204) {
 			props.exitEditMode();
-			pageStore.alert.type = 'success';
-			pageStore.alert.message = `${t('client.updateItem.successMessage')}`;
-
-			pageStore.alert.show = true;
-			setTimeout(() => {
-				pageStore.alert.show = false;
-			}, 5000);
+			showAlert('success', `${t('client.updateItem.successMessage')}`);
 			await bookItemStore.get_items_by_user();
 		} else {
-			pageStore.alert.type = 'error';
-			pageStore.alert.message = `${t('client.updateItem.errorMessage')}`;
-			pageStore.alert.show = true;
-			setTimeout(() => {
-				pageStore.alert.show = false;
-			}, 5000);
+			showAlert('error', `${t('client.updateItem.errorMessage')}`);
 		}
 	}
 };
+
 const cancelEdit = () => {
 	props.exitEditMode();
 };
@@ -119,9 +108,9 @@ const cancelEdit = () => {
 <template>
 	<form novalidate @submit.prevent="update_item">
 		<div class="mb-3">
-			<label for="description" class="form-label required">
-				{{ t('client.bookDetailPage.bookItemDetail.description') }}
-			</label>
+			<label for="description" class="form-label required">{{
+				t('client.bookDetailPage.bookItemDetail.description')
+			}}</label>
 			<textarea
 				v-model.trim="inputs.description"
 				name="description"
@@ -131,11 +120,10 @@ const cancelEdit = () => {
 			></textarea>
 			<ValidationMessage :model="v$.description" />
 		</div>
-
 		<div class="mb-3">
-			<label for="conditionId" class="form-label required"
-				>{{ t('client.newItemForm.condition.label') }}
-			</label>
+			<label for="conditionId" class="form-label required">{{
+				t('client.newItemForm.condition.label')
+			}}</label>
 			<select
 				v-model.number="inputs.conditionId"
 				id="conditionId"
@@ -148,11 +136,10 @@ const cancelEdit = () => {
 			</select>
 			<ValidationMessage :model="v$.conditionId" />
 		</div>
-
 		<div class="mb-3">
-			<label for="pointsPrice" class="form-label required">
-				{{ t('client.newItemForm.pointsPrice.label') }}</label
-			>
+			<label for="pointsPrice" class="form-label required">{{
+				t('client.newItemForm.pointsPrice.label')
+			}}</label>
 			<select
 				v-model.number="inputs.pointsPrice"
 				id="pointsPrice"
@@ -165,7 +152,6 @@ const cancelEdit = () => {
 			</select>
 			<ValidationMessage :model="v$.pointsPrice" />
 		</div>
-
 		<div class="text-center">
 			<button
 				type="button"
