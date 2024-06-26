@@ -8,8 +8,8 @@ const { publisher_list } = storeToRefs(publisherStoreObj);
 
 const searchPublisherQuery = ref('');
 const newPublisher = ref({ firstName: '', lastName: '' });
-onBeforeMount(() => {
-	publisherStoreObj.get_publisher_list();
+onBeforeMount(async () => {
+	await publisherStoreObj.get_publisher_list();
 });
 const publishers = ref([]);
 const selectedPublishers = ref([]);

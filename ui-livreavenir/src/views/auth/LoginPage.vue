@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import useValidate from '@vuelidate/core';
-import { email, helpers, required } from '@vuelidate/validators';
+import { helpers, required } from '@vuelidate/validators';
 import { useAuthStore } from '@/stores/auth-store';
 import { usePageStore } from '@/stores/page-store';
 import ValidationMessage from '@/components/commons/ValidationMessage.vue';
