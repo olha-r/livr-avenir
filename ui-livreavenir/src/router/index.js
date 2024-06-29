@@ -108,14 +108,16 @@ const router = createRouter({
 	]
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, from, next) => {
 	const authStore = useAuthStore();
 	const { isLoggedIn, userRole } = storeToRefs(authStore);
 	if (to.meta.requiresAuth && !isLoggedIn.value) {
-		return '/auth/connexion';
+		next({ name: 'login' });
 	}
 	if (to.meta.permission == 'admin' && userRole.value == 'USER') {
-		return '/erreur/401';
+		next({ name: 'unauthorized' });
+	} else {
+		next();
 	}
 });
 

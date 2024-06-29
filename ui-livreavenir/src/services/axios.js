@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '@/router/index.js';
 import { useGlobalStore } from '../stores/global-errors-store';
 import { useAuthStore } from '../stores/auth-store';
 
@@ -38,15 +39,15 @@ http.interceptors.response.use(
 		const globalStore = useGlobalStore();
 		const response = error.response;
 		if (response?.status === 401) {
-			console.log(response.data);
+			router.push({ name: 'login' });
 			const errorMessage = response.data || 'Non autorisé';
 			const authStore = useAuthStore();
+			authStore.clearLocalStorage();
 			if (errorMessage === 'User email was not confirmed') {
 				globalStore.setError(
 					"L'email de l'utilisateur n'a pas été confirmé. Veuillez vérifier votre email."
 				);
 			} else if (errorMessage === 'Wrong credentials') {
-				authStore.clearLocalStorage();
 				globalStore.setError(
 					'Email ou mot de passe incorrect. Veuillez réessayer.'
 				);
