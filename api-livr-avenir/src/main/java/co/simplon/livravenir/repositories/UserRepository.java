@@ -20,4 +20,6 @@ public interface UserRepository
     List<UserDetails> findAllUsersByRoleNameOrderByRegistrationDate(
 	    String roleName);
 
+    boolean existsByEmail(String email);
+
 }

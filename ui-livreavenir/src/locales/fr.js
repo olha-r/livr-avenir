@@ -339,7 +339,8 @@ const frMessages = {
 			email: {
 				typeMismatch: 'Le champ email ne doit pas être vide.',
 				NotBlank: 'Le champ email ne doit pas être vide.',
-				Email: 'Veuillez saisir un email valide.'
+				Email: 'Veuillez saisir un email valide.',
+				UniqueEmail: "L'utilisateur avec cet email déjà enregistré."
 			},
 			password: {
 				typeMismatch: 'Le champ mot de passe ne doit pas être vide.',

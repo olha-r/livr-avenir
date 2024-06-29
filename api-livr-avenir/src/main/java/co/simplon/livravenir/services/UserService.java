@@ -11,4 +11,6 @@ public interface UserService {
 
     List<UserDetails> getAllUsers();
 
+    boolean emailExist(String email);
+
 }

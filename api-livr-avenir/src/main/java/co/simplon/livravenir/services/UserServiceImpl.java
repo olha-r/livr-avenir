@@ -38,4 +38,11 @@ public class UserServiceImpl implements UserService {
 			"USER");
     }
 
+    @Override
+    public boolean emailExist(String email)
+	    throws UnsupportedOperationException {
+
+	return this.users.existsByEmail(email);
+    }
+
 }
