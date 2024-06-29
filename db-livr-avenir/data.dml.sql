@@ -46,7 +46,14 @@ INSERT INTO languages
 INSERT INTO categories 
 	(category_code, category_name)
 	VALUES 
-	('literature', 'Littérature'), ('children-teens', 'Jeunesse'), ('comics', 'Bandes dessinées'), ('leisure-nature-travel','Loisir - Nature - Voyage'), ('art-music-cinema','Art - Musique - Cinéma'),('self-help', 'Développement personnel'), ('it','Informatique'),('other','Autre');
+	('literature', 'Littérature'), 
+    ('children-teens', 'Jeunesse'),
+    ('comics', 'Bandes dessinées'),
+    ('leisure-nature-travel','Loisir - Nature - Voyage'),
+    ('art-music-cinema','Art - Musique - Cinéma'),
+    ('self-help', 'Développement personnel'), 
+    ('it','Informatique'),
+    ('other','Autre');
 
 INSERT INTO publishers 
 	(publisher_code, publisher_name)

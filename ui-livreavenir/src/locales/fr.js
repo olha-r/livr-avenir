@@ -140,7 +140,9 @@ const frMessages = {
 		confirmPassword: 'Confirmer le mot de passe',
 		button: "S'inscrire",
 		confirmValidationMessage1: 'Merci cliquer sur le lien envoyé à',
-		confirmValidationMessage2: 'pour valider votre inscription.'
+		confirmValidationMessage2: 'pour valider votre inscription.',
+		errorPart1: "Nous n'avons pas pu créer utilisateur",
+		errorPart2: '. Réessayer plus tard.'
 	},
 	signIn: {
 		title: 'Se connecter',

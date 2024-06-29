@@ -95,10 +95,16 @@ const pageStore = usePageStore();
 const onSubmit = async () => {
 	await v$.value.$validate();
 	if (!v$.value.$error) {
-		delete user.confirmPassword;
-		const resp = await authStore.register(user);
+		const userToRegister = { ...user };
+		delete userToRegister.confirmPassword;
+		const resp = await authStore.register(userToRegister);
+		user.firstName = '';
+		user.lastName = '';
+		user.email = '';
+		user.password = '';
+		user.confirmPassword = '';
+		v$.value.$reset();
 		if (resp.status === 204) {
-			v$.value.$reset();
 			router.push({ name: 'login' });
 			pageStore.alert.type = 'success';
 			pageStore.alert.message = `${t('signUpForm.confirmValidationMessage1')} ${
@@ -109,9 +115,14 @@ const onSubmit = async () => {
 				pageStore.alert.show = false;
 			}, 5000);
 		} else {
-			alert(
-				`Nous n'avons pas pu créer utilisateur ${user.email}. Réessayer plus tard.`
-			);
+			pageStore.alert.type = 'error';
+			pageStore.alert.message = `${t('signUpForm.errorPart1')} ${user.email}${t(
+				'signUpForm.errorPart2'
+			)}`;
+			pageStore.alert.show = true;
+			setTimeout(() => {
+				pageStore.alert.show = false;
+			}, 6000);
 		}
 	}
 };

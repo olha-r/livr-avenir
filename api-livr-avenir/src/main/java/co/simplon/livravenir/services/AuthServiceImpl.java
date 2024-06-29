@@ -84,38 +84,37 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public TokenInfo signIn(LoginCredentials inputs) {
+    public TokenInfo signIn(LoginCredentials inputs)
+	    throws BadCredentialsException {
 	String identifier = inputs.email();
 	String candidate = inputs.password();
 	User user = authRepo.getByEmail(identifier);
-	if (user != null) {
-	    boolean match = authHelper.matches(candidate,
-		    user.getPassword());
-	    if (match) {
-		String userId = Long.toString(user.getId());
-		String email = user.getEmail();
-		String role = user.getRole().getName();
-		String token = authHelper.createJWT(role,
-			userId, email);
-
-		TokenInfo tokenInfo = new TokenInfo();
-		tokenInfo.setToken(token);
-		tokenInfo.setRole(role);
-		String firstName = user.getFirstName();
-		String lastName = user.getLastName();
-		tokenInfo.setFirstName(firstName);
-		tokenInfo.setLastName(lastName);
-
-		return tokenInfo;
-	    } else {
-		throw new BadCredentialsException(
-			"Wrong credentials");
-	    }
-	} else {
+	if (user == null) {
+	    throw new BadCredentialsException(
+		    "No user found");
+	}
+	if (!user.getIsEnabled()) {
+	    throw new BadCredentialsException(
+		    "User email was not confirmed");
+	}
+	if (!authHelper.matches(candidate,
+		user.getPassword())) {
 	    throw new BadCredentialsException(
 		    "Wrong credentials");
 	}
-
+	String userId = Long.toString(user.getId());
+	String email = user.getEmail();
+	String role = user.getRole().getName();
+	String token = authHelper.createJWT(role, userId,
+		email);
+	TokenInfo tokenInfo = new TokenInfo();
+	tokenInfo.setToken(token);
+	tokenInfo.setRole(role);
+	String firstName = user.getFirstName();
+	String lastName = user.getLastName();
+	tokenInfo.setFirstName(firstName);
+	tokenInfo.setLastName(lastName);
+	return tokenInfo;
     }
 
     @Transactional
