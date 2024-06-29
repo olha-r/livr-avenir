@@ -38,14 +38,25 @@ http.interceptors.response.use(
 		const globalStore = useGlobalStore();
 		const response = error.response;
 		if (response?.status === 401) {
+			console.log(response.data);
+			const errorMessage = response.data || 'Non autorisé';
 			const authStore = useAuthStore();
-			authStore.clearLocalStorage();
-			globalStore.setError('Email ou mot de passe incorrect. Réessayez.');
+			if (errorMessage === 'User email was not confirmed') {
+				globalStore.setError(
+					"L'email de l'utilisateur n'a pas été confirmé. Veuillez vérifier votre email."
+				);
+			} else if (errorMessage === 'Wrong credentials') {
+				authStore.clearLocalStorage();
+				globalStore.setError(
+					'Email ou mot de passe incorrect. Veuillez réessayer.'
+				);
+			} else {
+				globalStore.setError('Accès non autorisé. Veuillez réessayer.');
+			}
 			setTimeout(() => {
 				globalStore.clearError();
 			}, 5000);
-		}
-		if (response?.status === 400) {
+		} else if (response?.status === 400) {
 			const fieldErrors = response.data.fieldErrors || {};
 			const globalErrors = response.data.globalErrors || [];
 
@@ -55,13 +66,22 @@ http.interceptors.response.use(
 				globalStore.clearGlobalErrors();
 				globalStore.clearFieldErrors();
 			}, 8000);
-		}
-		if (response?.status === 500) {
-			store.setError(response?.data);
+		} else if (response?.status === 500) {
+			store.setError(
+				'Erreur interne du serveur. Veuillez réessayer plus tard.'
+			);
+			setTimeout(() => {
+				globalStore.clearError();
+			}, 5000);
+		} else {
+			globalStore.setError(
+				"Une erreur inattendue s'est produite. Veuillez réessayer."
+			);
 			setTimeout(() => {
 				globalStore.clearError();
 			}, 5000);
 		}
+
 		return Promise.reject(error);
 	}
 );
