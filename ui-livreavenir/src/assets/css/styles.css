@@ -117,11 +117,14 @@ a {
 .custom-card {
     background-color: var(--main-bg-color);
     width: 100%;
-    max-width: 300px;
+    max-width: 220px;
     display: flex;
     flex-direction: column;
+
     height: auto;
-    margin: 0 auto;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 .custom-card.card-body {
@@ -133,21 +136,22 @@ a {
 
 .card-img-container {
     width: 100%;
-    height: 200px;
+    height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 @media (max-width: 768px) {
     .custom-card {
         max-width: 100%;
-        margin: 5px;
     }
 
     .card-img-container {
-        height: 150px;
+        height: 180px;
     }
 
     h3 {
@@ -157,6 +161,8 @@ a {
     .author {
         font-size: 20px !important;
     }
+
+
 }
 
 /******* Book details page *******/

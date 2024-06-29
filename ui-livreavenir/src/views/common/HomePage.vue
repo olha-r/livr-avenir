@@ -26,7 +26,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 		<h3 class="text-center my-4">{{ t('homepage.title') }}</h3>
 
 		<div
-			class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-1 justify-content-center align-items-center"
+			class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 justify-content-center align-items-center"
 		>
 			<div
 				class="col d-flex justify-content-center"
@@ -37,7 +37,7 @@ const baseUrl = import.meta.env.VITE_IMG_BASE_URL;
 					:to="{ name: 'book-details', params: { id: item.book.id } }"
 					class="d-flex"
 				>
-					<div class="card custom-card mx-4 d-flex flex-column">
+					<div class="card custom-card d-flex flex-column">
 						<div class="card-img-container">
 							<img
 								:src="
