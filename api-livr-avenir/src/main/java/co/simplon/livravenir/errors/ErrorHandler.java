@@ -31,10 +31,11 @@ public class ErrorHandler
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<Object> handleDataIntegrityViolationException(
-	    DataIntegrityViolationException ex) {
+	    DataIntegrityViolationException ex,
+	    WebRequest request) {
 	return handleExceptionInternal(ex, null,
 		new HttpHeaders(), HttpStatus.CONFLICT,
-		null);
+		request);
     }
 
     @Override
