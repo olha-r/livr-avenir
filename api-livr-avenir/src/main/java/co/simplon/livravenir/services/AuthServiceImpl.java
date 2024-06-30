@@ -97,8 +97,9 @@ public class AuthServiceImpl implements AuthService {
 	    throw new BadCredentialsException(
 		    "User email was not confirmed");
 	}
-	if (!authHelper.matches(candidate,
-		user.getPassword())) {
+	boolean match = authHelper.matches(candidate,
+		user.getPassword());
+	if (!match) {
 	    throw new BadCredentialsException(
 		    "Wrong credentials");
 	}

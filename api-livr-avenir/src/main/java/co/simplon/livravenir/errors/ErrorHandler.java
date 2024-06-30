@@ -31,11 +31,10 @@ public class ErrorHandler
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<Object> handleDataIntegrityViolationException(
-	    DataIntegrityViolationException ex,
-	    WebRequest request) {
+	    DataIntegrityViolationException ex) {
 	return handleExceptionInternal(ex, null,
 		new HttpHeaders(), HttpStatus.CONFLICT,
-		request);
+		null);
     }
 
     @Override
@@ -57,12 +56,13 @@ public class ErrorHandler
 
     @ExceptionHandler(value = BadCredentialsException.class)
     protected ResponseEntity<Object> handleBadCredentialException(
-	    BadCredentialsException ex) {
+	    BadCredentialsException ex,
+	    WebRequest request) {
 	String body = ex.getMessage();
 
 	return handleExceptionInternal(ex, body,
 		new HttpHeaders(), HttpStatus.UNAUTHORIZED,
-		null);
+		request);
     }
 
 }
