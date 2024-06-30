@@ -23,7 +23,7 @@ import org.springframework.util.MultiValueMap;
 @ActiveProfiles(value = "test")
 
 @Import(ControllerMocks.class)
-public class FormDataValidationTests {
+class FormDataValidationTests {
 
     protected static final char DELIMITER = '§';
 
@@ -36,7 +36,8 @@ public class FormDataValidationTests {
     @DisplayName("Should form data inputs be not valid")
     @ParameterizedTest
     @CsvFileSource(resources = {
-	    "/csv/validation/book-create-not-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
+	    "/csv/validation/book-create-not-valid.csv",
+	    "/csv/validation/book-update-not-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
     void shouldFormDataBeNotValid(String method,
 	    String path, String tokenName, String formData)
 	    throws Exception {
@@ -47,7 +48,8 @@ public class FormDataValidationTests {
     @DisplayName("Should form data inputs be valid")
     @ParameterizedTest
     @CsvFileSource(resources = {
-	    "/csv/validation/book-create-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
+	    "/csv/validation/book-create-valid.csv",
+	    "/csv/validation/book-update-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER)
     void shouldFormDataBeValid(String method, String path,
 	    String tokenName, String formData)
 	    throws Exception {
