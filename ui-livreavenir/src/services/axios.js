@@ -51,8 +51,6 @@ http.interceptors.response.use(
 				globalStore.setError(
 					'Email ou mot de passe incorrect. Veuillez réessayer.'
 				);
-			} else {
-				globalStore.setError('Accès non autorisé. Veuillez réessayer.');
 			}
 			setTimeout(() => {
 				globalStore.clearError();
