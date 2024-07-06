@@ -52,6 +52,11 @@ a {
     font-family: var(--title-font);
 }
 
+.fs-5 {
+    font-size: 25px !important;
+    padding: 0 10px;
+}
+
 .btn.router-link-active,
 .btn.router-link-exact-active {
     color: white !important;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import router from '@/router/index.js';
-import { useGlobalStore } from '../stores/global-errors-store';
-import { useAuthStore } from '../stores/auth-store';
+import { useGlobalStore } from '@/stores/global-errors-store';
+import { useAuthStore } from '@/stores/auth-store';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const ACCEPTED_STATUS = [200, 201, 202, 204];

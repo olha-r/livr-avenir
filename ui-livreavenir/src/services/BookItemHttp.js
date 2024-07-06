@@ -8,16 +8,16 @@ export class BookItemHttp {
 	}
 
 	async get_items_by_book_id(book_id) {
-		const url = `/book-items/${book_id}`;
+        const url = `/book-items/${book_id}`;
 		const response = await http.get(url);
 		return response;
 	}
-
-	async get_items_by_user() {
-		const url = `/book-items/user`;
-		const response = await http.get(url);
-		return response;
-	}
+    
+    async get_items_by_user() {
+        const url = `/book-items/user`;
+        const response = await http.get(url);
+        return response;
+    }
 
 	async delete_item(item_id) {
 		const url = `/book-items/${item_id}`;
