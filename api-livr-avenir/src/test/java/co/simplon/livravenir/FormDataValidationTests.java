@@ -22,7 +22,6 @@ import org.springframework.util.MultiValueMap;
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
 @Import(ControllerMocks.class)
-@DisplayName("Tests form data inputs against validation")
 class FormDataValidationTests {
 
     protected static final char DELIMITER = '§';

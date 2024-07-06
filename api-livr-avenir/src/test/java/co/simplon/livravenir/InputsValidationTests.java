@@ -7,7 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-@DisplayName("Tests inputs against validation")
 class InputsValidationTests extends BaseMvcTests {
 
     @DisplayName("Should inputs be not valid")
